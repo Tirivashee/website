@@ -1,0 +1,16 @@
+body {
+	color: $color__text-main;
+	font-family: $font__main;
+	@include font-size(18/16);
+	font-weight: 400;
+	line-height: $font__line-height-body;
+	-ms-word-wrap: break-word;
+	word-wrap: break-word;
+	-webkit-font-smoothing: antialiased;
+}
+
+@import "links";
+
+@import "headings";
+
+@import "copy";

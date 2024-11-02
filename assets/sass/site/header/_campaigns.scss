@@ -1,0 +1,36 @@
+.campaign-bar {
+	padding: 40px 0;
+}
+
+.site-header.transparent ~ .campaign-bar {
+	display: none;
+}
+
+.site-header.light ~ .campaign-bar {
+	padding-top: 0;
+}
+
+.campaign-bar__campaigns {
+	display: flex;
+	margin-left: -20px;
+	margin-right: -20px;
+
+	.Ballylike-promotion {
+		flex: 1;
+		margin: 0 20px;
+		background-position: center center;
+		background-size: cover;
+	}
+
+	.Ballylike-promotion--standard {
+		.Ballylike-promotion__text {
+			font-size: 3.2em;
+			font-weight: 600;
+			text-transform: uppercase;
+		}
+	}
+
+	.Ballylike-button.text-dark {
+		color: #fff;
+	}
+}

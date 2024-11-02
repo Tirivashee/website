@@ -1,0 +1,41 @@
+.Ballylike-partner-grid {
+	display: flex;
+    flex-wrap: wrap;
+
+	.item-image {
+		display: flex;
+		margin-bottom: 35px;
+
+		img {
+		    display: block;
+    		margin: auto 0;
+		}
+	}
+
+	.item-image--center {
+		justify-content: center;
+	}
+
+	.item-image--right {
+		justify-content: flex-end;
+	}
+}
+
+@for $i from 1 through 5 {
+	.Ballylike-partner-grid.columns-#{$i} {
+		.item-image {
+			flex: 0 0 1 / $i * 100%;
+			max-width: 1 / $i * 100%;
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.Ballylike-partner-grid {
+		.item-image{
+			flex: 0 0 100% !important;
+			max-width: 100% !important;
+		    justify-content: center;
+		}
+	}
+}

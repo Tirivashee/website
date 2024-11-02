@@ -1,0 +1,76 @@
+.Ballylike-promotion {
+	font-size: 10px;
+	text-align: center;
+	padding: 30px 10px 35px 10px;
+
+	.Ballylike-button {
+		font-size: 1.1em;
+		font-weight: 600;
+		text-transform: uppercase;
+
+		&:after {
+			border-bottom-width: 1px;
+		}
+	}
+
+	&.layout-inline {
+		padding-top: 14px;
+		padding-bottom: 14px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		.Ballylike-promotion__tagline,
+		.Ballylike-promotion__text {
+			font-size: 1.4em;
+			display: inline-block;
+			margin: 0;
+		}
+
+		.Ballylike-promotion__tagline {
+			margin-right: 6px;
+			opacity: 0.8;
+
+			&:after {
+				content: "-";
+				display: inline-block;
+				margin-left: 6px;
+			}
+		}
+
+		.Ballylike-button {
+			padding-bottom: 0;
+			margin-left: 40px;
+
+			&:after {
+				width: 0;
+				transition: width 0.4s;
+			}
+
+			&:hover:after {
+				width: 100%;
+			}
+		}
+	}
+}
+
+.Ballylike-promotion__tagline {
+	font-size: 1.2em;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.Ballylike-promotion__text {
+	font-size: 2.4em;
+	margin: 25px 0;
+}
+
+.Ballylike-promotion--has-border {
+	border: 1px solid;
+}
+
+.Ballylike-promotion--bk {
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

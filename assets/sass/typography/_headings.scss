@@ -1,0 +1,27 @@
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 500;
+}
+
+h1 {
+	@include font-size(60/16);
+}
+
+h2 {
+	@include font-size(40/16);
+}
+
+h3 {
+	@include font-size(30/16);
+}
+
+h4 {
+	@include font-size(24/16);
+}
+
+h5 {
+	@include font-size(18/16);
+}
+
+h6 {
+	@include font-size(16/16);
+}

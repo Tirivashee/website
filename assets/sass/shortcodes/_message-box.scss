@@ -1,0 +1,63 @@
+.Ballylike-message-box {
+	color: #fff;
+	position: relative;
+	padding: 30px 40px 30px 120px;
+	margin-bottom: 40px;
+
+	.box-content {
+		@include font-size(1.4);
+		font-weight: 500;
+
+		p:first-child {
+			margin-top: 0;
+		}
+
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&.success {
+		background-color: #8ed3af;
+	}
+
+	&.info {
+		background-color: #81cfe5;
+	}
+
+	&.danger {
+		background-color: #f49090;
+	}
+
+	&.warning {
+		background-color: #ffd07d;
+	}
+
+	&.closeable {
+		padding-right: 65px;
+	}
+}
+
+.Ballylike-message-box__icon {
+	position: absolute;
+	left: 40px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 40px;
+	height: 40px;
+	font-size: 40px;
+}
+
+.Ballylike-message-box__content {
+	@include font-size(20/16);
+}
+
+.Ballylike-message-box__close {
+	color: #fff;
+	line-height: 1;
+	position: absolute;
+	right: 40px;
+	top: 50%;
+	opacity: 1;
+	transform: translateY(-50%);
+}

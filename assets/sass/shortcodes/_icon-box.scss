@@ -1,0 +1,38 @@
+.Ballylike-icon-box {
+	&.box-align-center {
+		text-align: center;
+	}
+
+	&.box-align-right {
+		text-align: right;
+	}
+
+	&.equal-height-icon-box{
+		height: 315px;
+    	border-bottom: 2px solid #b8a08d;
+	}
+}
+
+.Ballylike-icon-box__icon {
+	@include font-size(56/16);
+	line-height: 1;
+	display: inline-block;
+	margin-bottom: 22px;
+}
+
+.Ballylike-icon-box__title {
+	@include font-size(24/16);
+	color: inherit;
+	font-weight: 500;
+	margin: 0 0 22px 0;
+}
+
+.Ballylike-icon-box__content {
+	> :first-child {
+		margin-top: 0;
+	}
+
+	> :last-child {
+		margin-bottom: 0;
+	}
+}

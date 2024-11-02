@@ -1,0 +1,59 @@
+.dark {
+	background-color: $color__dark;
+}
+
+.light {
+	background-color: #fff;
+}
+
+.text-dark {
+	&,
+	a {
+		color: $color__darker;
+	}
+}
+
+.text-light {
+	&,
+	a {
+		color: #fff;
+	}
+}
+
+$colors: (
+	'6abcea' : #6abcea,
+	'ff9454' : #ff9454,
+	'fa9198' : #fa9198,
+	'f9d157' : #f9d157,
+	'23b0ea' : #23b0ea,
+	'db9d63' : #db9d63,
+	'1f80c0' : #1f80c0,
+	'614940' : #614940,
+	'161619' : #161619,
+	'17171a' : #17171a,
+	'838889' : #838889,
+);
+
+@each $color, $colorCode in $colors {
+	.color__#{$color} {
+		color: $colorCode;
+	}
+}
+
+$bgColors: (
+	'daeaf2' : #daeaf2,
+	'f5efeb' : #f5efeb,
+	'f5edeb' : #f5edeb,
+	'161619' : #161619,
+	'ffeec5' : #ffeec5,
+	'd8f2e7' : #d8f2e7,
+	'ffd1c5' : #ffd1c5,
+	'ecf7fd' : #ecf7fd,
+	'f1f2f4' : #f1f2f4,
+);
+
+@each $bgcolor, $bgColorCode in $bgColors {
+	.bg-color__#{$bgcolor} {
+		background-color: $bgColorCode;
+	}
+}

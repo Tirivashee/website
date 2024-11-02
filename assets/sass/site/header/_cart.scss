@@ -1,0 +1,42 @@
+.header-cart,
+.header-wishlist {
+	> a {
+		display: block;
+		line-height: 1;
+		white-space: nowrap;
+	}
+
+	.counter {
+		vertical-align: 0.3em;
+	}
+}
+
+.header-left-items .header-cart {
+	margin-left: -4px;
+}
+
+.header-right-items .header-cart {
+	margin-left: 26px;
+}
+
+.shopping-cart-icon--image {
+	display: inline-block;
+	position: relative;
+
+	.icon-light {
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0;
+	}
+
+	.text-light & {
+		.icon-light {
+			opacity: 1;
+		}
+
+		.icon-dark {
+			opacity: 0;
+		}
+	}
+}

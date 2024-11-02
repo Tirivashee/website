@@ -1,0 +1,145 @@
+p.has-drop-cap:not(:focus)::first-letter {
+	font-size: 6em;
+}
+
+p.wp-block-subhead {
+	color: $color__gray;
+	opacity: 1;
+}
+
+.has-small-font-size {
+	@include font-size(12/16);
+}
+
+.has-medium-font-size {
+	@include font-size(24/16);
+}
+
+.has-large-font-size {
+	@include font-size(40/16);
+	line-height: (80/64);
+}
+
+.has-huge-font-size {
+	@include font-size(64/16);
+	line-height: (80/64);
+}
+
+.wp-block-quote {
+	&:not(.is-large):not(.is-style-large) {
+		border-left: 0;
+		padding-left: 100px;
+	}
+
+	&.is-style-large,
+	&.is-large {
+		@include font-size(28/16);
+		padding: 0 100px;
+		border-left: 4px solid;
+
+		&:before {
+			display: none;
+		}
+
+		p {
+			font-size: inherit;
+		}
+	}
+}
+
+.wp-block-cover {
+	.wp-block-cover-text {
+		font-size: 2em;
+		line-height: 1.25;
+		margin: 0;
+	}
+}
+
+.wp-block-code {
+	font-family: $font__pre;
+	@include font-size(0.9375);
+	background: $color__light;
+	border: 0;
+	padding: 1.6em;
+
+	code {
+		font-size: inherit;
+		font-family: inherit;
+		background: transparent;
+	}
+}
+
+.wp-block-pullquote {
+	blockquote:before {
+		display: none;
+	}
+
+	&.alignleft,
+	&.alignright {
+		blockquote {
+			padding-left: 30px;
+			padding-right: 30px;
+		}
+	}
+}
+
+.wp-block-separator {
+	margin: 1.5em auto;
+	border-bottom: 0;
+	clear: both;
+}
+
+.wp-block-gallery {
+	margin-bottom: 0;
+
+	.blocks-gallery-image,
+	.blocks-gallery-item {
+		width: calc( (100% - 20px) / 2 );
+		margin-right: 20px;
+		margin-bottom: 20px;
+	}
+}
+
+.wp-block-image {
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+	img {
+		display: block;
+	}
+}
+
+.wp-block-gallery + .wp-block-image {
+	margin-top: 0;
+}
+
+.wp-block-image + .wp-block-image {
+	margin-top: 20px;
+}
+
+@media (min-width: 600px) {
+	.wp-block-gallery {
+		.blocks-gallery-image,
+		.blocks-gallery-item {
+			width: calc( (100% - 40px) / 2 );
+			margin-right: 40px;
+			margin-bottom: 40px;
+		}
+	}
+
+	@for $i from 2 through 8 {
+		$space: ($i - 1);
+
+		.wp-block-gallery.columns-#{$i} {
+			.blocks-gallery-image,
+			.blocks-gallery-item {
+				width: calc( (100% - 40px * #{$space}) / #{$i} );
+			}
+		}
+	}
+
+	.wp-block-image {
+		margin-top: 34px;
+		margin-bottom: 34px;
+	}
+}
