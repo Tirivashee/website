@@ -2,21 +2,25 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Ballylike Products Classic</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Ballylike is a unique and modern e-commerce template">
 	<meta name="keywords" content="ecommerce, ecommerce store, fashion store, shopping, modern">
 	<!-- Font Awesome -->
-	<link rel="preload" href="../assets/css/font-awesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-	<noscript>
-		<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
-	</noscript>
+	<link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css">
+	<!-- Bootstrap 3 -->
 	<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
+	<!-- Animation -->
+	<link rel="stylesheet" type="text/css" href="../assets/css/animate.css">
+	<!-- Style CSS -->
 	<link type="text/css" media="all" href="../assets/css/style.css" rel="stylesheet">
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,600&display=swap" rel="stylesheet" media="all">
+	<title>Ballylike Single Blog</title>
 </head>
-<body class="page">
+<body class="no-sidebar single single-post post-shareable">
 	<div id="page" class="site">
-		<header id="masthead" class="site-header light text-dark header-v1 transparent-hover">
+		<!-- HEADER -->
+		<header id="masthead" class="site-header dark text-light header-v1 transparent-hover">
 			<div class="header-main header-contents has-center logo-center menu-center">
 				<div class="Ballylike-container-fluid">
 					<div class="header-left-items header-items ">
@@ -30,10 +34,10 @@
 							<form method="get" action="#">
 								<label>
 									<span class="svg-icon icon-search size-normal search-icon">
-										<svg  width="24px" height="24px" viewBox="0 0 24 24">
+										<svg width="24px" height="24px" viewBox="0 0 24 24">
 											<g>
 												<rect fill="none" width="24" height="24"/>
-												<path d="M20,18.586l-3.402-3.402C17.474,14.015,18,12.57,18,11c0-3.86-3.141-7-7-7c-3.86,0-7,3.14-7,7c0,3.859,3.14,7,7,7 c1.57,0,3.015-0.526,4.184-1.402L18.586,20L20,18.586z M6,11c0-2.757,2.243-5,5-5s5,2.243,5,5s-2.243,5-5,5S6,13.757,6,11z"/>
+												<path d="M20,18.586l-3.402-3.402C17.474,14.015,18,12.57,18,11c0-3.86-3.141-7-7-7c-3.86,0-7,3.14-7,7c0,3.859,3.14,7,7,7c1.57,0,3.015-0.526,4.184-1.402L18.586,20L20,18.586z M6,11c0-2.757,2.243-5,5-5s5,2.243,5,5s-2.243,5-5,5S6,13.757,6,11z"/>
 											</g>
 										</svg>
 									</span>
@@ -84,7 +88,7 @@
 													<a href="../shop/standard.html">New Arrivals</a><div class="menu-item-content"><a href="../shop/standard.html" class="menu-banner"><img src="https://ipsumimage.appspot.com/195x254,ccc?s=0" alt="Ballylike WordPress theme - new arrivals"><span class="banner-text">New Arrivals</span></a></div>
 												</li>
 												<li class="menu-item mega-sub-menu col-1_4 hide-link">
-													<a href="../shop/standard.html">Summer 2018</a><div class="menu-item-content"><a href="../shop/standard.html" class="menu-banner"><img src="https://ipsumimage.appspot.com/195x254,ccc?s=0" alt="Ballylike WordPress theme - Summer Collection 2019"><span class="banner-text">Summer 2019</span></a></div>
+													<a href="../shop/standard.html">Summer 2018</a><div class="menu-item-content"><a href="../shop/standard.html" class="menu-banner"><img src="https://ipsumimage.appspot.com/195x254,ccc?s=0" alt="Ballylike WordPress theme - Summer Collection 2019"><span class="banner-text">Summer 2019</span> </a></div>
 												</li>
 											</ul>
 										</li>
@@ -212,11 +216,11 @@
 						</nav>
 						<div class="site-branding">
 							<a href="../index.html" class="logo">
-								<img src="../assets/images/logo.png" alt="Ballylike" class="logo-dark">
-								<img src="../assets/images/logo-light.png" alt="Ballylike" class="logo-light">
+								<img src="../assets/images/logo.svg" alt="Ballylike" class="logo-dark">
+								<img src="../assets/images/logo-light.svg" alt="Ballylike" class="logo-light">
 							</a>
 							<p class="site-title"><a href="../index.html" rel="home">Ballylike</a></p>
-							<p class="site-description">Premium WordPress theme</p>
+							<p class="site-description">Tote bag and art shop</p>
 						</div>
 						<nav id="secondary-menu" class="main-navigation secondary-navigation">
 							<ul class="menu nav-menu">
@@ -280,11 +284,11 @@
 						<div class="header-cart">
 							<a href="#" data-toggle="off-canvas" data-target="cart-panel">
 								<span class="svg-icon icon-cart size-normal shopping-cart-icon">
-									<svg width="24px" height="24px" viewBox="0 0 24 24">
+									<svg width="24px" height="24px">
 										<g>
 											<rect fill="none" width="24" height="24"/>
 											<path d="M19,10h-3V7c0-2.206-1.794-4-4-4S8,4.794,8,7v3H5c-0.55,0-0.908,0.441-0.797,0.979l1.879,9.042
-											C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7 c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
+												C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
 										</g>
 									</svg>
 								</span>
@@ -305,21 +309,21 @@
 					</div>
 					<div class="site-branding">
 						<a href="../index.html" class="logo">
-							<img src="../assets/images/logo.png" alt="Ballylike" class="logo-dark">
-							<img src="../assets/images/logo-light.png" alt="Ballylike" class="logo-light">
+							<img src="../assets/images/logo.svg" alt="Ballylike" class="logo-dark">
+							<img src="../assets/images/logo-light.svg" alt="Ballylike" class="logo-light">
 						</a>
 						<p class="site-title"><a href="../index.html" rel="home">Ballylike</a></p>
-						<p class="site-description">Premium WordPress theme</p>
+						<p class="site-description">Tote bag and art shop</p>
 					</div>
 					<div class="mobile-header-icons">
 						<div class="header-cart">
 							<a href="#" data-toggle="off-canvas" data-target="cart-panel">
 								<span class="svg-icon icon-cart size-normal shopping-cart-icon">
-									<svg width="24px" height="24px" viewBox="0 0 24 24">
+									<svg width="24px" height="24px">
 										<g>
 											<rect fill="none" width="24" height="24"/>
 											<path d="M19,10h-3V7c0-2.206-1.794-4-4-4S8,4.794,8,7v3H5c-0.55,0-0.908,0.441-0.797,0.979l1.879,9.042
-											C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7 c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
+												C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
 										</g>
 									</svg>
 								</span>
@@ -330,277 +334,272 @@
 				</div>
 			</div>
 		</header>
+		<!-- CONTENT -->
 		<div id="content" class="site-content">
-			<div class="site-content-container container">
-				<div id="primary" class="content-area">
-					<div class="page hentry">
-						<header class="entry-header">
-							<h1 class="entry-title">Product Hover Style</h1>
-							<h4 class="entry-subtitle">Ballylike supports 5 different styles for displaying products on the shop page.</h4>
-						</header>
-						<div class="entry-content">
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="Ballylike-product-grid Ballylike-products">
-										<div class="columns-4">
-											<ul class="products columns-4">
-												<li class="product instock">
-													<div class="product-inner">
-														<div class="product-thumbnail">
-															<a href="#"><img src="../assets/images/product/bag-1.jpg" alt="Duck Bag"></a>
-														</div>
-														<div class="product-summary">
-															<h2 class="loop-product__title">
-																<a href="#">Duck Bag</a>
-															</h2>
-															<span class="price">$220</span>
-															<div class="buttons clearfix">
-																<a href="#" class="ajax_add_to_cart button">Add to cart</a>
-																<a href="#" class="button" data-toggle="modal" data-target="quick-view-modal" rel="nofollow">
-																	<span class="svg-icon icon-eye size-normal ">
-																		<svg width="24px" height="24px" viewBox="0 0 24 24">
-																			<g>
-																				<g>
-																					<circle cx="12" cy="12" r="2"/>
-																					<path d="M16.466,6.748C15.238,5.583,13.619,5,12,5S8.762,5.583,7.534,6.748L2,12l5.534,5.252C8.762,18.417,10.381,19,12,19 s3.238-0.583,4.466-1.748L22,12L16.466,6.748z M15.089,15.801C14.274,16.574,13.177,17,12,17s-2.274-0.426-3.089-1.199L4.905,12 l4.005-3.801C9.726,7.426,10.823,7,12,7s2.274,0.426,3.089,1.199L19.095,12L15.089,15.801z"/>
-																				</g>
-																				<rect fill="none" width="24" height="24"/>
-																			</g>
-																		</svg>
-																	</span>
-																</a>
-																<a href="#" class="button add-to-wishlist-button" rel="nofollow">
-																	<span class="add-to-wishlist add">
-																		<span class="svg-icon icon-heart-o size-normal ">
-																			<svg width="24px" height="24px" viewBox="0 0 24 24">
-																				<g>
-																					<path d="M16.243,5.843c0.801,0,1.555,0.312,2.121,0.879c1.17,1.17,1.17,3.073,0,4.243l-2.121,2.121l-2.121,2.121L12,17.328 l-2.121-2.121l-2.121-2.121l-2.121-2.121c-0.567-0.567-0.879-1.32-0.879-2.121c0-0.801,0.312-1.555,0.879-2.121 c0.567-0.567,1.32-0.879,2.121-0.879c0.801,0,1.555,0.312,2.121,0.879l0.707,0.707L12,8.843l1.414-1.414l0.707-0.707 C14.688,6.155,15.441,5.843,16.243,5.843 M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707 c-0.976-0.976-2.256-1.464-3.536-1.464S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121 L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843 L16.243,3.843z"/>
-																					<rect fill="none" width="24" height="24"/>
-																				</g>
-																			</svg>
-
-																		</span>
-																		<span class="screen-reader-text button-text">Add to wishlist</span>
-																	</span>
-																	<span class="adding-to-wishlist adding">
-																		<span class="spinner"></span>
-																		<span class="screen-reader-text button-text">Adding to wishlist</span>
-																	</span>
-																	<span class="brow-wishlist added">
-																		<span class="svg-icon icon-heart size-normal ">
-																			<svg width="24px" height="24px" viewBox="0 0 24 24">
-																				<g>
-																					<path d="M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707c-0.976-0.976-2.256-1.464-3.536-1.464 S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121 c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843L16.243,3.843z"/>
-																					<rect fill="none" width="24" height="24"/>
-																				</g>
-																			</svg>
-																		</span>
-																		<span class="screen-reader-text button-text">Added to wishlist</span>
-																	</span>
-																</a>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li class="product instock">
-													<div class="product-inner">
-														<div class="product-thumbnail">
-															<a href="#"><img src="../assets/images/product/pants-2.jpg" alt="The Slouch Dress"></a>
-														</div>
-														<div class="product-summary">
-															<h2 class="loop-product__title">
-																<a href="#">The Slouch Dress</a>
-															</h2>
-															<span class="price">$180</span>
-															<div class="buttons clearfix">
-																<a href="#" class="ajax_add_to_cart button">Add to cart</a>
-																<a href="#" class="button" data-toggle="modal" data-target="quick-view-modal" rel="nofollow">
-																	<span class="svg-icon icon-eye size-normal ">
-																		<svg width="24px" height="24px" viewBox="0 0 24 24">
-																			<g>
-																				<g>
-																					<circle cx="12" cy="12" r="2"/>
-																					<path d="M16.466,6.748C15.238,5.583,13.619,5,12,5S8.762,5.583,7.534,6.748L2,12l5.534,5.252C8.762,18.417,10.381,19,12,19 s3.238-0.583,4.466-1.748L22,12L16.466,6.748z M15.089,15.801C14.274,16.574,13.177,17,12,17s-2.274-0.426-3.089-1.199L4.905,12 l4.005-3.801C9.726,7.426,10.823,7,12,7s2.274,0.426,3.089,1.199L19.095,12L15.089,15.801z"/>
-																				</g>
-																				<rect fill="none" width="24" height="24"/>
-																			</g>
-																		</svg>
-																	</span>
-																</a>
-																<a href="#" class="button add-to-wishlist-button" rel="nofollow">
-																	<span class="add-to-wishlist add">
-																		<span class="svg-icon icon-heart-o size-normal ">
-																			<svg width="24px" height="24px" viewBox="0 0 24 24">
-																				<g>
-																					<path d="M16.243,5.843c0.801,0,1.555,0.312,2.121,0.879c1.17,1.17,1.17,3.073,0,4.243l-2.121,2.121l-2.121,2.121L12,17.328 l-2.121-2.121l-2.121-2.121l-2.121-2.121c-0.567-0.567-0.879-1.32-0.879-2.121c0-0.801,0.312-1.555,0.879-2.121 c0.567-0.567,1.32-0.879,2.121-0.879c0.801,0,1.555,0.312,2.121,0.879l0.707,0.707L12,8.843l1.414-1.414l0.707-0.707 C14.688,6.155,15.441,5.843,16.243,5.843 M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707 c-0.976-0.976-2.256-1.464-3.536-1.464S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121 L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843 L16.243,3.843z"/>
-																					<rect fill="none" width="24" height="24"/>
-																				</g>
-																			</svg>
-
-																		</span>
-																		<span class="screen-reader-text button-text">Add to wishlist</span>
-																	</span>
-																	<span class="adding-to-wishlist adding">
-																		<span class="spinner"></span>
-																		<span class="screen-reader-text button-text">Adding to wishlist</span>
-																	</span>
-																	<span class="brow-wishlist added">
-																		<span class="svg-icon icon-heart size-normal ">
-																			<svg width="24px" height="24px" viewBox="0 0 24 24">
-																				<g>
-																					<path d="M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707c-0.976-0.976-2.256-1.464-3.536-1.464 S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121 c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843L16.243,3.843z"/>
-																					<rect fill="none" width="24" height="24"/>
-																				</g>
-																			</svg>
-																		</span>
-																		<span class="screen-reader-text button-text">Added to wishlist</span>
-																	</span>
-																</a>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li class="product instock">
-													<div class="product-inner">
-														<span class="products-badges products-badges--round"> <span class="onsale products-badge"><span>25%</span></span> </span>
-														<div class="product-thumbnail">
-															<a href="#"><img src="../assets/images/product/shirt-3.jpg" alt="Wyoming Backpack"></a>
-														</div>
-														<div class="product-summary">
-															<h2 class="loop-product__title">
-																<a href="#">Wyoming Backpack</a>
-															</h2>
-															<span class="price">$90</span>
-															<div class="buttons clearfix">
-																<a href="#" class="ajax_add_to_cart button">Add to cart</a>
-																<a href="#" class="button" data-toggle="modal" data-target="quick-view-modal" rel="nofollow">
-																	<span class="svg-icon icon-eye size-normal ">
-																		<svg width="24px" height="24px" viewBox="0 0 24 24">
-																			<g>
-																				<g>
-																					<circle cx="12" cy="12" r="2"/>
-																					<path d="M16.466,6.748C15.238,5.583,13.619,5,12,5S8.762,5.583,7.534,6.748L2,12l5.534,5.252C8.762,18.417,10.381,19,12,19 s3.238-0.583,4.466-1.748L22,12L16.466,6.748z M15.089,15.801C14.274,16.574,13.177,17,12,17s-2.274-0.426-3.089-1.199L4.905,12 l4.005-3.801C9.726,7.426,10.823,7,12,7s2.274,0.426,3.089,1.199L19.095,12L15.089,15.801z"/>
-																				</g>
-																				<rect fill="none" width="24" height="24"/>
-																			</g>
-																		</svg>
-																	</span>
-																</a>
-																<a href="#" class="button add-to-wishlist-button" rel="nofollow">
-																	<span class="add-to-wishlist add">
-																		<span class="svg-icon icon-heart-o size-normal ">
-																			<svg width="24px" height="24px" viewBox="0 0 24 24">
-																				<g>
-																					<path d="M16.243,5.843c0.801,0,1.555,0.312,2.121,0.879c1.17,1.17,1.17,3.073,0,4.243l-2.121,2.121l-2.121,2.121L12,17.328 l-2.121-2.121l-2.121-2.121l-2.121-2.121c-0.567-0.567-0.879-1.32-0.879-2.121c0-0.801,0.312-1.555,0.879-2.121 c0.567-0.567,1.32-0.879,2.121-0.879c0.801,0,1.555,0.312,2.121,0.879l0.707,0.707L12,8.843l1.414-1.414l0.707-0.707 C14.688,6.155,15.441,5.843,16.243,5.843 M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707 c-0.976-0.976-2.256-1.464-3.536-1.464S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121 L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843 L16.243,3.843z"/>
-																					<rect fill="none" width="24" height="24"/>
-																				</g>
-																			</svg>
-
-																		</span>
-																		<span class="screen-reader-text button-text">Add to wishlist</span>
-																	</span>
-																	<span class="adding-to-wishlist adding">
-																		<span class="spinner"></span>
-																		<span class="screen-reader-text button-text">Adding to wishlist</span>
-																	</span>
-																	<span class="brow-wishlist added">
-																		<span class="svg-icon icon-heart size-normal ">
-																			<svg width="24px" height="24px" viewBox="0 0 24 24">
-																				<g>
-																					<path d="M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707c-0.976-0.976-2.256-1.464-3.536-1.464 S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121 c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843L16.243,3.843z"/>
-																					<rect fill="none" width="24" height="24"/>
-																				</g>
-																			</svg>
-																		</span>
-																		<span class="screen-reader-text button-text">Added to wishlist</span>
-																	</span>
-																</a>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li class="product instock">
-													<div class="product-inner">
-														<div class="product-thumbnail">
-															<a href="#"><img src="../assets/images/product/shoe-4.jpg" alt="Text Printed T-Shirt"></a>
-														</div>
-														<div class="product-summary">
-															<h2 class="loop-product__title">
-																<a href="#">Text Printed T-Shirt</a>
-															</h2>
-															<span class="price">$45</span>
-															<div class="buttons clearfix">
-																<a href="#" class="ajax_add_to_cart button">Add to cart</a>
-																<a href="#" class="button" data-toggle="modal" data-target="quick-view-modal" rel="nofollow">
-																	<span class="svg-icon icon-eye size-normal ">
-																		<svg width="24px" height="24px" viewBox="0 0 24 24">
-																			<g>
-																				<g>
-																					<circle cx="12" cy="12" r="2"/>
-																					<path d="M16.466,6.748C15.238,5.583,13.619,5,12,5S8.762,5.583,7.534,6.748L2,12l5.534,5.252C8.762,18.417,10.381,19,12,19 s3.238-0.583,4.466-1.748L22,12L16.466,6.748z M15.089,15.801C14.274,16.574,13.177,17,12,17s-2.274-0.426-3.089-1.199L4.905,12 l4.005-3.801C9.726,7.426,10.823,7,12,7s2.274,0.426,3.089,1.199L19.095,12L15.089,15.801z"/>
-																				</g>
-																				<rect fill="none" width="24" height="24"/>
-																			</g>
-																		</svg>
-																	</span>
-																</a>
-																<a href="#" class="button add-to-wishlist-button" rel="nofollow">
-																	<span class="add-to-wishlist add">
-																		<span class="svg-icon icon-heart-o size-normal ">
-																			<svg width="24px" height="24px" viewBox="0 0 24 24">
-																				<g>
-																					<path d="M16.243,5.843c0.801,0,1.555,0.312,2.121,0.879c1.17,1.17,1.17,3.073,0,4.243l-2.121,2.121l-2.121,2.121L12,17.328 l-2.121-2.121l-2.121-2.121l-2.121-2.121c-0.567-0.567-0.879-1.32-0.879-2.121c0-0.801,0.312-1.555,0.879-2.121 c0.567-0.567,1.32-0.879,2.121-0.879c0.801,0,1.555,0.312,2.121,0.879l0.707,0.707L12,8.843l1.414-1.414l0.707-0.707 C14.688,6.155,15.441,5.843,16.243,5.843 M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707 c-0.976-0.976-2.256-1.464-3.536-1.464S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121 L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843 L16.243,3.843z"/>
-																					<rect fill="none" width="24" height="24"/>
-																				</g>
-																			</svg>
-
-																		</span>
-																		<span class="screen-reader-text button-text">Add to wishlist</span>
-																	</span>
-																	<span class="adding-to-wishlist adding">
-																		<span class="spinner"></span>
-																		<span class="screen-reader-text button-text">Adding to wishlist</span>
-																	</span>
-																	<span class="brow-wishlist added">
-																		<span class="svg-icon icon-heart size-normal ">
-																			<svg width="24px" height="24px" viewBox="0 0 24 24">
-																				<g>
-																					<path d="M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707c-0.976-0.976-2.256-1.464-3.536-1.464 S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121 c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843L16.243,3.843z"/>
-																					<rect fill="none" width="24" height="24"/>
-																				</g>
-																			</svg>
-																		</span>
-																		<span class="screen-reader-text button-text">Added to wishlist</span>
-																	</span>
-																</a>
-															</div>
-														</div>
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
+			<!-- POST HEADER -->
+			<div id="blog-header" class="blog-header page-header">
+				<div class="blog-header-content">
+					<div class="container">
+						<div class="blog-search-form">
+							<form class="search-form" method="get" action="#">
+								<label>
+									<span class="svg-icon icon-search size-normal search-icon">
+										<svg width="24px" height="24px" viewBox="0 0 24 24">
+											<g>
+												<rect fill="none" width="24" height="24"/>
+												<path d="M20,18.586l-3.402-3.402C17.474,14.015,18,12.57,18,11c0-3.86-3.141-7-7-7c-3.86,0-7,3.14-7,7c0,3.859,3.14,7,7,7c1.57,0,3.015-0.526,4.184-1.402L18.586,20L20,18.586z M6,11c0-2.757,2.243-5,5-5s5,2.243,5,5s-2.243,5-5,5S6,13.757,6,11z"/>
+											</g>
+										</svg>
+									</span>
+									<input type="text" class="search-field" value="" placeholder="Search the blog">
+								</label>
+							</form>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<footer class="site-footer light text-dark">
-			<div class="footer-main site-info items-vertical">
-				<div class="footer-container Ballylike-container"><hr class="divider"></div>
-				<div class="footer-container Ballylike-container">
-					<div class="footer-items footer-left">
-						<div class="socials-menu ">
-							<ul id="footer-socials" class="menu">
+						<h2 class="header-title">
+							<span>Ballylike Blog</span>
+						</h2>
+						<div class="social-icons socials-menu">
+							<ul class="menu">
 								<li class="menu-item"><a href="https://twitter.com/"><span>Twitter</span></a></li>
 								<li class="menu-item"><a href="https://facebook.com"><span>Facebook</span></a></li>
 								<li class="menu-item"><a href="https://instagram.com"><span>Instagram</span></a></li>
 								<li class="menu-item"><a href="https://pinterest.com"><span>Pinterest</span></a></li>
 							</ul>
 						</div>
-						<div class="copyright">©2025 Ballylike. All rights reserved</div>
+					</div>
+				</div>
+				<div class="blog-header-menu">
+					<div class="container">
+						<nav class="blog-menu">
+							<ul class="menu">
+								<li class="menu-item"><a href="../blog/blog-category.html">Fashion</a></li>
+								<li class="menu-item"><a href="../blog/blog-category.html">Inspiration</a></li>
+								<li class="menu-item"><a href="../blog/blog-category.html">Lifestyle</a></li>
+								<li class="menu-item"><a href="../blog/blog-category.html">Culture</a></li>
+								<li class="menu-item"><a href="../blog/blog-category.html">Beauty</a></li>
+								<li class="menu-item"><a href="../blog/blog-category.html">Shopping</a></li>
+								<li class="menu-item"><a href="../blog/blog-category.html">Photography</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+			<header class="entry-header">
+				<div class="entry-thumbnail Ballylike-container">
+					<img src="https://ipsumimage.appspot.com/1400x788,955F31?s=20" alt="Banner">
+				</div>
+				<div class="post-info container">
+					<div class="cat-links"><a href="../blog/blog-category.html" rel="category tag">Fashion</a></div>
+					<p class="entry-title">5 Effortlessly Cool Outfit Ideas to Wear to a Contert</p>
+					<div class="entry-meta">
+						<span class="posted-on">
+							<time class="entry-date published updated" datetime="2018-08-23T17:58:20+00:00">August 23, 2018</time>
+						</span>
+						<span class="total-shares">
+							<span class="svg-icon icon-share size-small ">
+								<svg width="16px" height="16px" viewBox="0 0 16 16">
+									<g>
+										<g>
+											<polygon points="7,2.957 7,10 8,10 8,2.957 9.646,4.604 10.354,3.896 7.5,1.043 4.646,3.896 5.354,4.604"/>
+											<polygon points="10,6 10,7 11,7 11,13 4,13 4,7 5,7 5,6 3,6 3,14 12,14 12,6"/>
+										</g>
+										<rect fill="none" width="16" height="16"/>
+									</g>
+								</svg>
+							</span>
+							<span class="count">0 Share</span>
+						</span>
+						<span class="comments-link">
+							<span class="svg-icon icon-comment size-small">
+								<svg width="16px" height="16px" viewBox="0 0 16 16">
+									<g>
+										<rect fill="none" width="16" height="16"/>
+										<path d="M13,3v8.826l-1.849-1.585L10.87,10H10.5H3V3H13 M14,2H2v9h8.5l3.5,3V2L14,2z"/>
+									</g>
+								</svg>
+							</span>
+							<a href="#">No Comments<span class="screen-reader-text"> on 5 Effortlessly Cool Outfit Ideas to Wear to a Contert</span></a>
+						</span>
+					</div>
+				</div>
+			</header>
+			<!-- POST CONTENT -->
+			<div class="site-content-container container">
+				<div id="primary" class="content-area">
+					<main id="main" class="site-main">
+						<article class="post format-standard has-post-thumbnail hentry">
+							<!-- Adding heading to all sections for SEO -->
+							<h2 class="hidden">5 Effortlessly Cool Outfit Ideas to Wear to a Contert</h2>
+							<div class="entry-content">
+								<p class="fs-24 lh-32">Suspendisse potenti. Quisque risus sem, volutpat a sapien et, mattis condimentum est. Suspendisse feugiat cursus turpis, et porta lectus euismod accumsan. Nam felis ipsum, eleifend sit amet sodales pellentesque, commodo sit amet elit. Etiam convallis urna id justo faucibus tempor. Nunc volutpat sem nunc, at faucibus magna rutrum eget. Nullam bibendum convallis est, quis facilisis nibh ullamcorper in. Nunc elementum nisl mauris, sed molestie turpis convallis vel. Nam ut mi id justo efficitur finibus.</p>
+								<p>Curabitur varius tortor ac turpis semper eleifend vestibulum at justo. Phasellus elit ante, molestie ut pretium eu, imperdiet eu magna. Nullam interdum imperdiet elit, ac maximus neque pellentesque in. Nulla viverra maximus tempor. Ut sodales nisi pretium, auctor ligula ut, sagittis felis. Maecenas at diam nec lorem lobortis aliquam. Duis dolor dolor, volutpat et nisi fringilla, feugiat vestibulum orci. Duis posuere mauris id odio efficitur, lobortis ultrices nisl viverra. Integer lectus ligula, imperdiet non purus non, consectetur dictum est. Donec sed orci eu magna tristique bibendum.</p>
+								<p>Nulla eu metus purus. Phasellus fringilla urna vel turpis pulvinar sodales. Suspendisse varius accumsan nunc sit amet porttitor. Donec faucibus odio purus, vel convallis tellus eleifend ac. Duis pellentesque dapibus turpis sagittis consectetur. Aenean mollis, enim id faucibus volutpat, arcu metus pharetra elit, sed fermentum augue lectus et mi. Sed orci diam, molestie vitae nisl et, luctus tempor dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel tempus odio. Nam molestie ipsum sit amet enim sodales, ac fermentum ex pretium. Etiam auctor fermentum lacus, quis commodo massa. Vestibulum sit amet rutrum odio, finibus condimentum justo nam sollicitudin malesuada sem, non euismod mi maximus sit amet. Praesent vestibulum, lectus in viverra ullamcorper, purus lacus tempor massa, nec fermentum ligula urna id purus.</p>
+								<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+								<p><img class="alignwide aligncenter size-full" src="https://ipsumimage.appspot.com/1400x788,E5A74A?s=20" alt="Single post"></p>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+							</div>
+
+							<footer class="entry-footer">
+								<span class="tags-links">
+									<a href="../blog/blog-category.html" rel="tag">Fashion</a>
+									<a href="../blog/blog-category.html" rel="tag">Featured</a>
+									<a href="../blog/blog-category.html" rel="tag">Shopping</a>
+								</span>
+								<div class="post-sharing social-share">
+									<a href="#" target="_blank" class="social-share-link facebook">
+										<i class="fa fa-facebook"></i>
+										<span>Share on Facebook</span>
+									</a>
+									<a href="#" target="_blank" class="social-share-link twitter">
+										<i class="fa fa-twitter"></i>
+										<span>Share on Twitter</span>
+									</a>
+									<a href="#" target="_blank" class="social-share-link googleplus">
+										<i class="fa fa-google-plus"></i>
+										<span>Share on Google+</span>
+									</a>
+									<span class="toggle-socials">
+										<span class="svg-icon icon-plus size-small ">
+											<svg width="16px" height="16px" viewBox="0 0 16 16">
+												<g>
+													<rect fill="none" width="16" height="16"/>
+													<polygon points="13,7 9,7 9,3 7,3 7,7 3,7 3,9 7,9 7,13 9,13 9,9 13,9"/>
+												</g>
+											</svg>
+										</span>
+										<span class="social-list">
+											<a href="#" target="_blank" class="social-share-link pinterest">
+												<i class="fa fa-pinterest-p"></i>
+												<span>Share on Pinterest</span>
+											</a>
+											<a href="#" target="_blank" class="social-share-link tumblr">
+												<i class="fa fa-tumblr"></i>
+												<span>Share on Tumblr</span>
+											</a>
+											<a href="#" target="_blank" class="social-share-link reddit">
+												<i class="fa fa-reddit"></i>
+												<span>Share on Reddit</span>
+											</a>
+											<a href="#" target="_blank" class="social-share-link telegram">
+												<i class="fa fa-telegram"></i>
+												<span>Share on Telegram</span>
+											</a>
+											<a href="#" target="_blank" class="social-share-link email">
+												<i class="fa fa-envelope"></i>
+												<span>Share Via Email</span>
+											</a>
+										</span>
+									</span>
+								</div>
+							</footer>
+						</article>
+
+						<div class="author-info clearfix">
+							<div class="author-vcard">
+								<a href="#">
+									<img src="https://ipsumimage.appspot.com/80x80,43A1C7?s=15" class="avatar photo" alt="Olivia Clara">
+									<span class="author-name">Olivia Clara</span>
+								</a>
+							</div>
+							<div class="author-description">
+								Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis.
+							</div>
+							<div class="author-socials">
+								<a href="https://www.facebook.com/" target="_blank" rel="nofollow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+								<a href="https://www.twitter.com/" target="_blank" rel="nofollow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+								<a href="https://instagram.com" target="_blank" rel="nofollow"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+								<a href="https://pinsterest.com" target="_blank" rel="nofollow"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
+							</div>
+						</div>
+
+						<nav class="navigation post-navigation">
+							<div class="nav-titles">
+								<div class="nav-previous">Previous Post</div>
+								<div class="nav-next">Next Post</div>
+							</div>
+							<div class="nav-links">
+								<div class="nav-previous">
+									<a href="#"> <img src="https://ipsumimage.appspot.com/100x68,EC5E2C?s=20" alt="Single Post">These 7 New-in Pieces Make Monday So Much Better </a>
+								</div>
+								<div class="nav-next">
+									<a href="#"> Fashion Month-Ready In Ballylike Studio  FW2017 <img src="https://ipsumimage.appspot.com/100x68,A5ADB8?s=20" alt="Single Post"></a>
+								</div>
+							</div>
+						</nav>
+
+						<div class="related-posts">
+							<h2>You might also like</h2>
+							<div class="posts row">
+								<div class="post col-sm-4 col-md-4">
+									<a class="post-thumbnail" href="#" aria-hidden="true">
+										<img src="https://ipsumimage.appspot.com/720x420,f8f8f8?s=30" class="attachment-post-thumbnail" alt="Go Behind the Scenes at London Fashion  Week Spring">
+									</a>
+									<h3>
+										<a href="#">Go Behind the Scenes at London Fashion  Week Spring</a>
+									</h3>
+								</div>
+								<div class="post col-sm-4 col-md-4">
+									<a class="post-thumbnail" href="#" aria-hidden="true">
+										<img src="https://ipsumimage.appspot.com/720x420,f8f8f8?s=30" class="attachment-post-thumbnail" alt="Go Behind the Scenes at London Fashion  Week Spring">
+									</a>
+									<h3>
+										<a href="#">Try These Takes on a Classic Button-Up</a>
+									</h3>
+								</div>
+								<div class="post col-sm-4 col-md-4">
+									<a class="post-thumbnail" href="#" aria-hidden="true">
+										<img src="https://ipsumimage.appspot.com/720x420,f8f8f8?s=30" class="attachment-post-thumbnail" alt="Go Behind the Scenes at London Fashion  Week Spring">
+									</a>
+									<h3>
+										<a href="#">15 Reasons the Amish Were Right About Summers</a>
+									</h3>
+								</div>
+							</div>
+						</div>
+
+						<div id="comments" class="comments-area">
+							<div id="respond" class="comment-respond">
+								<h3 class="comment-reply-title">Leave a Reply </h3>
+								<form action="#" method="post" id="commentform" class="comment-form" novalidate="">
+									<p class="comment-notes">
+										<span id="email-notes">Your email address will not be published.</span>
+										Required fields are marked
+										<span class="required">*</span>
+									</p>
+									<p class="comment-form-comment">
+										<textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required" placeholder="Comment"></textarea>
+									</p>
+									<p class="comment-form-author">
+										<input id="author" name="author" type="text" value="" size="30" maxlength="245" placeholder="Name *" required="required">
+									</p>
+									<p class="comment-form-email">
+										<input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" placeholder="Email *" required="required">
+									</p>
+									<p class="form-submit">
+										<input name="submit" type="submit" id="submit" class="submit" value="Post Comment">
+									</p>
+								</form>
+							</div>
+						</div>
+					</main>
+				</div>
+			</div>
+		</div>
+		<!-- FOOTER -->
+		<footer class="site-footer dark text-light">
+			<div class="footer-main site-info items-vertical">
+				<div class="footer-container Ballylike-container"><hr class="divider"></div>
+				<div class="footer-container Ballylike-container">
+					<div class="footer-items footer-left">
+						<div class="socials-menu">
+							<ul class="menu">
+								<li class="menu-item"><a href="https://twitter.com/"><span>Twitter</span></a></li>
+								<li class="menu-item"><a href="https://facebook.com"><span>Facebook</span></a></li>
+								<li class="menu-item"><a href="https://instagram.com"><span>Instagram</span></a></li>
+								<li class="menu-item"><a href="https://pinterest.com"><span>Pinterest</span></a></li>
+							</ul>
+						</div>
+						<div class="copyright">©2020 Ballylike.  All rights reserved</div>
 					</div>
 					<div class="footer-items footer-right">
 						<div class="switchers">
@@ -642,16 +641,17 @@
 										<li class="en"><a href="#">English</a></li>
 										<li class="fr"><a href="#">Français</a></li>
 										<li class="it"><a href="#">Italiano</a></li>
-									</ul></div>
+									</ul>
+								</div>
 							</div>
 						</div>
-						<div class="custom-text"><img src="../assets/images/payments.png" alt="Payments"></div>
+						<div class="custom-text"><img src="../assets/images/payments.png" alt="payment"></div>
 					</div>
 				</div>
 			</div>
 		</footer>
 	</div>
-
+	<!-- MENU FULL SCREEN -->
 	<div id="hamburger-fullscreen" class="hamburger-fullscreen content-menu content-animation-none">
 		<div class="hamburger-menu button-close">
 			<div class="hamburger-box">
@@ -662,11 +662,11 @@
 		<div class="hamburger-screen-inner">
 			<div class="site-branding">
 				<a href="../index.html" class="logo">
-					<img src="../assets/images/logo-light.png" alt="Ballylike" class="logo-light">
-					<img src="../assets/images/logo.png" alt="Ballylike" class="logo-dark">
+					<img src="../assets/images/logo-light.svg" alt="Ballylike" class="logo-light">
+					<img src="../assets/images/logo.svg" alt="Ballylike" class="logo-dark">
 				</a>
 				<p class="site-title"><a href="../index.html" rel="home">Ballylike</a></p>
-				<p class="site-description">Premium WordPress theme</p>
+				<p class="site-description">Tote bag and art shop</p>
 			</div>
 			<div class="hamburger-screen-content ps">
 				<nav id="fullscreen-menu" class="fullscreen-menu hamburger-navigation click-open">
@@ -863,7 +863,7 @@
 			<div class="hamburger-screen-background"></div>
 		</div>
 	</div>
-
+	<!-- CART PANEL -->
 	<div id="cart-panel" class="cart-panel offscreen-panel">
 		<div class="backdrop"></div>
 		<div class="panel">
@@ -972,7 +972,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- LOGIN PANEL -->
 	<div id="login-panel" class="login-panel offscreen-panel">
 		<div class="backdrop"></div>
 		<div class="panel">
@@ -1032,7 +1032,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- MOBILE MENU -->
 	<div id="mobile-menu" class="mobile-menu-panel offscreen-panel">
 		<div class="backdrop"></div>
 		<div class="panel">
@@ -1049,21 +1049,21 @@
 					</div>
 					<div class="site-branding">
 						<a href="../index.html" class="logo">
-							<img src="../assets/images/logo.png" alt="Ballylike" class="logo-dark">
-							<img src="../assets/images/logo-light.png" alt="Ballylike" class="logo-light">
+							<img src="../assets/images/logo.svg" alt="Ballylike" class="logo-dark">
+							<img src="../assets/images/logo-light.svg" alt="Ballylike" class="logo-light">
 						</a>
 						<p class="site-title"><a href="../index.html" rel="home">Ballylike</a></p>
-						<p class="site-description">Premium WordPress theme</p>
+						<p class="site-description">Tote bag and art shop</p>
 					</div>
 					<div class="mobile-header-icons">
 						<div class="header-cart">
 							<a href="../other-shop-pages/cart.html" data-toggle="off-canvas" data-target="cart-panel">
 								<span class="svg-icon icon-cart size-normal shopping-cart-icon">
-									<svg width="24px" height="24px" viewBox="0 0 24 24">
+									<svg width="24px" height="24px">
 										<g>
 											<rect fill="none" width="24" height="24"/>
 											<path d="M19,10h-3V7c0-2.206-1.794-4-4-4S8,4.794,8,7v3H5c-0.55,0-0.908,0.441-0.797,0.979l1.879,9.042
-											C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7 c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
+												C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
 										</g>
 									</svg>
 								</span>
@@ -1077,7 +1077,7 @@
 				<form method="get" action="#">
 					<label>
 						<span class="svg-icon icon-search size-normal search-icon">
-							<svg  width="24px" height="24px" viewBox="0 0 24 24">
+							<svg width="24px" height="24px" viewBox="0 0 24 24">
 								<g>
 									<rect fill="none" width="24" height="24"/>
 									<path d="M20,18.586l-3.402-3.402C17.474,14.015,18,12.57,18,11c0-3.86-3.141-7-7-7c-3.86,0-7,3.14-7,7c0,3.859,3.14,7,7,7 c1.57,0,3.015-0.526,4.184-1.402L18.586,20L20,18.586z M6,11c0-2.757,2.243-5,5-5s5,2.243,5,5s-2.243,5-5,5S6,13.757,6,11z"/>
@@ -1231,11 +1231,11 @@
 					<span class="mobile-menu__cart-text">Shopping Cart</span>
 					<span class="mobile-menu__cart-icon">
 						<span class="svg-icon icon-cart size-normal shopping-cart-icon">
-							<svg width="24px" height="24px" viewBox="0 0 24 24">
+							<svg width="24px" height="24px">
 								<g>
 									<rect fill="none" width="24" height="24"/>
 									<path d="M19,10h-3V7c0-2.206-1.794-4-4-4S8,4.794,8,7v3H5c-0.55,0-0.908,0.441-0.797,0.979l1.879,9.042
-									C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7 c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
+										C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
 								</g>
 							</svg>
 						</span>
@@ -1317,293 +1317,13 @@
 		</div>
 	</div>
 
-	<div id="quick-view-modal" class="quick-view-modal modal">
-		<div class="backdrop"></div>
-		<div class="modal-content container products">
-			<div class="hamburger-menu button-close active">
-				<span class="menu-text">Close</span>
-				<div class="hamburger-box">
-					<div class="hamburger-inner"></div>
-				</div>
-			</div>
-
-			<div class="product-quickview clearfix background-set product has-post-thumbnail first instock product-type-simple bg-color__f5edeb">
-				<div class="product-gallery product-gallery--with-images product-gallery--columns-4 images lightbox-support" data-columns="4">
-					<figure class="product-gallery__wrapper">
-						<div class="product-gallery__image">
-							<a href="../assets/images/product/pants-3.jpg"><img src="../assets/images/product/pants-3.jpg" alt="Product"></a>
-						</div>
-						<div class="product-gallery__image">
-							<a href="../assets/images/product/pants-2.jpg"><img src="../assets/images/product/pants-2.jpg" alt="Product"></a>
-						</div>
-					</figure>
-				</div>
-
-				<div class="summary entry-summary ps">
-					<h1 class="product_title entry-title">Wyoming Backpack</h1>
-					<div class="product-details__short-description">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-					</div>
-					<div class="product-rating">
-						<div class="star-rating" role="img" aria-label="Rated 4.50 out of 5">
-							<span class="max-rating rating-stars">
-								<span class="svg-icon star-icon">
-									<svg width="12px" height="12px" viewBox="0 0 12 12">
-										<g>
-											<rect fill="none" width="12" height="12"/>
-											<polygon points="6,1 7.18,4.82 11,5 7.91,7.18 9.09,11 6,8.639 2.91,11 4.09,7.18 1,5 4.82,4.82"/>
-										</g>
-									</svg>
-								</span>
-								<span class="svg-icon star-icon">
-									<svg width="12px" height="12px" viewBox="0 0 12 12">
-										<g>
-											<rect fill="none" width="12" height="12"/>
-											<polygon points="6,1 7.18,4.82 11,5 7.91,7.18 9.09,11 6,8.639 2.91,11 4.09,7.18 1,5 4.82,4.82"/>
-										</g>
-									</svg>
-								</span>
-								<span class="svg-icon star-icon">
-									<svg width="12px" height="12px" viewBox="0 0 12 12">
-										<g>
-											<rect fill="none" width="12" height="12"/>
-											<polygon points="6,1 7.18,4.82 11,5 7.91,7.18 9.09,11 6,8.639 2.91,11 4.09,7.18 1,5 4.82,4.82"/>
-										</g>
-									</svg>
-								</span>
-								<span class="svg-icon star-icon">
-									<svg width="12px" height="12px" viewBox="0 0 12 12">
-										<g>
-											<rect fill="none" width="12" height="12"/>
-											<polygon points="6,1 7.18,4.82 11,5 7.91,7.18 9.09,11 6,8.639 2.91,11 4.09,7.18 1,5 4.82,4.82"/>
-										</g>
-									</svg>
-								</span>
-								<span class="svg-icon star-icon">
-									<svg width="12px" height="12px" viewBox="0 0 12 12">
-										<g>
-											<rect fill="none" width="12" height="12"/>
-											<polygon points="6,1 7.18,4.82 11,5 7.91,7.18 9.09,11 6,8.639 2.91,11 4.09,7.18 1,5 4.82,4.82"/>
-										</g>
-									</svg>
-								</span>
-							</span>
-							<span class="user-rating rating-stars w-p-90">
-								<span class="svg-icon star-icon">
-									<svg width="12px" height="12px" viewBox="0 0 12 12">
-										<g>
-											<rect fill="none" width="12" height="12"/>
-											<polygon points="6,1 7.18,4.82 11,5 7.91,7.18 9.09,11 6,8.639 2.91,11 4.09,7.18 1,5 4.82,4.82"/>
-										</g>
-									</svg>
-								</span>
-								<span class="svg-icon star-icon">
-									<svg width="12px" height="12px" viewBox="0 0 12 12">
-										<g>
-											<rect fill="none" width="12" height="12"/>
-											<polygon points="6,1 7.18,4.82 11,5 7.91,7.18 9.09,11 6,8.639 2.91,11 4.09,7.18 1,5 4.82,4.82"/>
-										</g>
-									</svg>
-								</span>
-								<span class="svg-icon star-icon">
-									<svg width="12px" height="12px" viewBox="0 0 12 12">
-										<g>
-											<rect fill="none" width="12" height="12"/>
-											<polygon points="6,1 7.18,4.82 11,5 7.91,7.18 9.09,11 6,8.639 2.91,11 4.09,7.18 1,5 4.82,4.82"/>
-										</g>
-									</svg>
-								</span>
-								<span class="svg-icon star-icon">
-									<svg width="12px" height="12px" viewBox="0 0 12 12">
-										<g>
-											<rect fill="none" width="12" height="12"/>
-											<polygon points="6,1 7.18,4.82 11,5 7.91,7.18 9.09,11 6,8.639 2.91,11 4.09,7.18 1,5 4.82,4.82"/>
-										</g>
-									</svg>
-								</span>
-								<span class="svg-icon star-icon">
-									<svg width="12px" height="12px" viewBox="0 0 12 12">
-										<g>
-											<rect fill="none" width="12" height="12"/>
-											<polygon points="6,1 7.18,4.82 11,5 7.91,7.18 9.09,11 6,8.639 2.91,11 4.09,7.18 1,5 4.82,4.82"/>
-										</g>
-									</svg>
-								</span>
-							</span>
-							<span class="screen-reader-text">Rated
-								<strong class="rating">4.50</strong> out of 5 based on
-								<span class="rating">1</span> customer ratings
-							</span>
-						</div>
-						<a href="#reviews" class="products-review-link" rel="nofollow">
-							<span class="count">2</span> customer reviews
-						</a>
-					</div>
-					<p class="price">
-						<span class="amount">
-							<span class="currencySymbol">$</span>90
-						</span>
-					</p>
-
-					<form class="variations_form cart swatches-support" action="#" method="post" >
-						<div class="single_variation_wrap">
-							<div class="product-variation-add-to-cart variations_button product-variation-add-to-cart-enabled">
-								<div class="quantity">
-									<label class="screen-reader-text">Quantity</label>
-									<span class="svg-icon icon-minus size-normal qty-button decrease">
-										<svg width="16px" height="16px" viewBox="0 0 16 16">
-											<g>
-												<rect fill="none" width="16" height="16"/>
-												<g>
-													<rect x="3" y="7" width="10" height="2"/>
-												</g>
-											</g>
-										</svg>
-									</span>
-									<input type="number" class="input-text qty text" step="1" min="1" max="50" name="quantity" value="1" title="Qty">
-									<span class="svg-icon icon-plus size-normal qty-button increase">
-										<svg width="16px" height="16px" viewBox="0 0 16 16">
-											<g>
-												<rect fill="none" width="16" height="16"/>
-												<polygon points="13,7 9,7 9,3 7,3 7,7 3,7 3,9 7,9 7,13 9,13 9,9 13,9"/>
-											</g>
-										</svg>
-									</span>
-								</div>
-								<button type="submit" class="single_add_to_cart_button button alt"> Add to cart </button>
-								<a href="#" class="button add-to-wishlist-button" rel="nofollow">
-									<span class="add-to-wishlist add">
-										<span class="svg-icon icon-heart-o size-normal ">
-											<svg width="24px" height="24px" viewBox="0 0 24 24">
-												<g>
-													<path d="M16.243,5.843c0.801,0,1.555,0.312,2.121,0.879c1.17,1.17,1.17,3.073,0,4.243l-2.121,2.121l-2.121,2.121L12,17.328 l-2.121-2.121l-2.121-2.121l-2.121-2.121c-0.567-0.567-0.879-1.32-0.879-2.121c0-0.801,0.312-1.555,0.879-2.121 c0.567-0.567,1.32-0.879,2.121-0.879c0.801,0,1.555,0.312,2.121,0.879l0.707,0.707L12,8.843l1.414-1.414l0.707-0.707 C14.688,6.155,15.441,5.843,16.243,5.843 M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707 c-0.976-0.976-2.256-1.464-3.536-1.464S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121 L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843 L16.243,3.843z"/>
-													<rect fill="none" width="24" height="24"/>
-												</g>
-											</svg>
-										</span>
-										<span class="screen-reader-text button-text">Add to wishlist</span>
-									</span>
-									<span class="adding-to-wishlist adding">
-										<span class="spinner"></span>
-										<span class="screen-reader-text button-text">Adding to wishlist</span>
-									</span>
-									<span class="brow-wishlist added">
-										<span class="svg-icon icon-heart size-normal ">
-											<svg width="24px" height="24px" viewBox="0 0 24 24">
-												<g>
-													<path d="M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707c-0.976-0.976-2.256-1.464-3.536-1.464 S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121 c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843L16.243,3.843z"/>
-													<rect fill="none" width="24" height="24"/>
-												</g>
-											</svg>
-										</span>
-										<span class="screen-reader-text button-text">Added to wishlist</span>
-									</span>
-								</a>
-								<div class="product-share share">
-									<span class="svg-icon icon-socials sharing-icon">
-										<svg width="24px" height="24px" viewBox="0 0 24 24">
-											<g>
-												<path d="M17,13c-1.2,0-2.266,0.542-3,1.382l-3.091-1.546C10.967,12.566,11,12.287,11,12c0-0.287-0.033-0.566-0.091-0.836L14,9.618 C14.734,10.458,15.8,11,17,11c2.206,0,4-1.794,4-4s-1.794-4-4-4s-4,1.794-4,4c0,0.287,0.033,0.566,0.091,0.836L10,9.382 C9.266,8.542,8.2,8,7,8c-2.206,0-4,1.794-4,4c0,2.206,1.794,4,4,4c1.2,0,2.266-0.542,3-1.382l3.091,1.546 C13.033,16.434,13,16.713,13,17c0,2.206,1.794,4,4,4s4-1.794,4-4S19.206,13,17,13z M17,5c1.103,0,2,0.897,2,2s-0.897,2-2,2 s-2-0.897-2-2S15.897,5,17,5z M7,14c-1.103,0-2-0.897-2-2c0-1.103,0.897-2,2-2s2,0.897,2,2C9,13.103,8.103,14,7,14z M17,19 c-1.103,0-2-0.897-2-2s0.897-2,2-2s2,0.897,2,2S18.103,19,17,19z"/>
-												<rect fill="none" width="24" height="24"/>
-											</g>
-										</svg>
-										<span>Share</span>
-									</span>
-									<span class="socials">
-										<a href="https://www.facebook.com" target="_blank" class="social-share-link facebook">
-											<i class="fa fa-facebook"></i>
-											<span>Share on Facebook</span>
-										</a>
-										<a href="https://twitter.com" target="_blank" class="social-share-link twitter">
-											<i class="fa fa-twitter"></i>
-											<span>Share on Twitter</span>
-										</a>
-										<a href="https://www.pinterest.com" target="_blank" class="social-share-link pinterest">
-											<i class="fa fa-pinterest-p"></i>
-											<span>Share on Pinterest</span>
-										</a>
-									</span>
-								</div>
-							</div>
-						</div>
-					</form>
-
-					<div class="product_meta">
-						<span class="sku_wrapper">
-							<span class="label">SKU</span>
-							<span class="sku">024</span>
-						</span>
-						<span class="posted_in">
-							<span class="label">Category</span>
-							<a href="../shop/standard.html" rel="tag">Accessories</a>
-						</span>
-						<span class="tagged_as">
-							<span class="label">Tags</span>
-							<a href="../shop/standard.html" rel="tag">Accessories</a>,
-							<a href="../shop/standard.html" rel="tag">Bags</a>
-						</span>
-					</div>
-
-				</div>
-				<a href="#" data-product_type="simple" class="button add-to-wishlist-button" rel="nofollow">
-					<span class="add-to-wishlist add">
-						<span class="svg-icon icon-heart-o size-normal ">
-							<svg width="24px" height="24px" viewBox="0 0 24 24">
-								<g>
-									<path d="M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707c-0.976-0.976-2.256-1.464-3.536-1.464 S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121 c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843L16.243,3.843z"/>
-									<rect fill="none" width="24" height="24"/>
-								</g>
-							</svg>
-						</span>
-						<span class="screen-reader-text button-text">Add to wishlist</span>
-					</span>
-					<span class="adding-to-wishlist adding">
-						<span class="spinner"></span>
-						<span class="screen-reader-text button-text">Adding to wishlist</span>
-					</span>
-					<span class="brow-wishlist added">
-						<span class="svg-icon icon-heart size-normal ">
-							<svg width="24px" height="24px" viewBox="0 0 24 24">
-								<g>
-									<path d="M16.243,5.843c0.801,0,1.555,0.312,2.121,0.879c1.17,1.17,1.17,3.073,0,4.243l-2.121,2.121l-2.121,2.121L12,17.328 l-2.121-2.121l-2.121-2.121l-2.121-2.121c-0.567-0.567-0.879-1.32-0.879-2.121c0-0.801,0.312-1.555,0.879-2.121 c0.567-0.567,1.32-0.879,2.121-0.879c0.801,0,1.555,0.312,2.121,0.879l0.707,0.707L12,8.843l1.414-1.414l0.707-0.707 C14.688,6.155,15.441,5.843,16.243,5.843 M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707 c-0.976-0.976-2.256-1.464-3.536-1.464S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121 L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843 L16.243,3.843z"/>
-									<rect fill="none" width="24" height="24"/>
-								</g>
-							</svg>
-						</span>
-						<span class="screen-reader-text button-text">Added to wishlist</span>
-					</span>
-				</a>
-				<div class="product-share share">
-					<span class="svg-icon icon-socials sharing-icon">
-						<svg width="24px" height="24px" viewBox="0 0 24 24">
-							<g>
-								<path d="M17,13c-1.2,0-2.266,0.542-3,1.382l-3.091-1.546C10.967,12.566,11,12.287,11,12c0-0.287-0.033-0.566-0.091-0.836L14,9.618 C14.734,10.458,15.8,11,17,11c2.206,0,4-1.794,4-4s-1.794-4-4-4s-4,1.794-4,4c0,0.287,0.033,0.566,0.091,0.836L10,9.382 C9.266,8.542,8.2,8,7,8c-2.206,0-4,1.794-4,4c0,2.206,1.794,4,4,4c1.2,0,2.266-0.542,3-1.382l3.091,1.546 C13.033,16.434,13,16.713,13,17c0,2.206,1.794,4,4,4s4-1.794,4-4S19.206,13,17,13z M17,5c1.103,0,2,0.897,2,2s-0.897,2-2,2 s-2-0.897-2-2S15.897,5,17,5z M7,14c-1.103,0-2-0.897-2-2c0-1.103,0.897-2,2-2s2,0.897,2,2C9,13.103,8.103,14,7,14z M17,19 c-1.103,0-2-0.897-2-2s0.897-2,2-2s2,0.897,2,2S18.103,19,17,19z"/>
-								<rect fill="none" width="24" height="24"/>
-							</g>
-						</svg>
-						<span>Share</span>
-					</span>
-					<span class="socials">
-						<a href="https://www.facebook.com" target="_blank" class="social-share-link facebook">
-							<i class="fa fa-facebook"></i>
-							<span>Share on Facebook</span>
-						</a>
-						<a href="https://twitter.com" target="_blank" class="social-share-link twitter">
-							<i class="fa fa-twitter"></i>
-							<span>Share on Twitter</span>
-						</a>
-						<a href="https://www.pinterest.com" target="_blank" class="social-share-link pinterest">
-							<i class="fa fa-pinterest-p"></i>
-							<span>Share on Pinterest</span>
-						</a>
-					</span>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	<!-- jQuery -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Slick -->
+	<script src="../assets/js/slick.min.js"></script>
+	<!-- Quantity jQuery -->
 	<script src="../assets/js/quantity-dropdown.js"></script>
+	<!-- Main script -->
 	<script src="../assets/js/scripts.min.js"></script>
 </body>
 </html>
