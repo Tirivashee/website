@@ -19,17 +19,18 @@
 		<header id="masthead" class="site-header light text-dark header-v1 transparent-hover">
 			<div class="header-main header-contents has-center logo-center menu-center">
 				<div class="Ballylike-container-fluid">
-					<div class="header-left-items header-items">
+					<div class="header-left-items header-items ">
 						<div class="header-hamburger hamburger-menu" data-target="hamburger-fullscreen">
 							<div class="hamburger-box">
-								<div class="hamburger-inner"></div>
+								<div class="hamburger-inner">
+								</div>
 							</div>
 						</div>
 						<div class="header-search icon">
 							<form method="get" action="#">
 								<label>
 									<span class="svg-icon icon-search size-normal search-icon">
-										<svg width="24px" height="24px" viewBox="0 0 24 24">
+										<svg  width="24px" height="24px" viewBox="0 0 24 24">
 											<g>
 												<rect fill="none" width="24" height="24"/>
 												<path d="M20,18.586l-3.402-3.402C17.474,14.015,18,12.57,18,11c0-3.86-3.141-7-7-7c-3.86,0-7,3.14-7,7c0,3.859,3.14,7,7,7 c1.57,0,3.015-0.526,4.184-1.402L18.586,20L20,18.586z M6,11c0-2.757,2.243-5,5-5s5,2.243,5,5s-2.243,5-5,5S6,13.757,6,11z"/>
@@ -39,40 +40,81 @@
 									<input type="text" name="s" class="search-field" value="" placeholder="Search" autocomplete="off">
 								</label>
 							</form>
-							
+							<div class="quick-links">
+								<p class="label">Quick Links</p>
+								<ul class="links">
+									<li><a href="../elements/product-grid.html" class="underline-hover">SS2018</a></li>
+									<li><a href="../elements/product-grid.html" class="underline-hover">Dresses</a></li>
+									<li><a href="../elements/product-grid.html" class="underline-hover">Accessories</a></li>
+									<li><a href="../elements/product-grid.html" class="underline-hover">Footwear</a></li>
+									<li><a href="../elements/product-grid.html" class="underline-hover">Sweatshirt</a></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 					<div class="header-center-items header-items has-menu">
 						<nav id="primary-menu" class="main-navigation primary-navigation">
 							<ul class="menu nav-menu">
 								<li class="menu-item menu-item-has-children menu-item-mega">
-									<a href="/index.html">Home</a>
+									<a href="../index.html">Home</a>
 								</li>
 								<li class="menu-item menu-item-has-children menu-item-mega">
-									<a href="elements/product-grid.html">Shop</a>
+									<a href="../elements/product-grid.html">Shop</a>
+								</li>
+								<li class="menu-item menu-item-has-children menu-item-mega">
+									<a href="https://instagram.com/ballylike_shop">Instagram</a>
 								</li>
 							</ul>
 						</nav>
 						<div class="site-branding">
-							<a href="/index.html" class="logo">
-								<img src="assets/images/logo.png" alt="Ballylike" class="logo-dark">
-								<img src="assets/images/logo-light.png" alt="Ballylike" class="logo-light">
+							<a href="../index.html" class="logo">
+								<img src="../assets/images/logo.png" alt="Ballylike" class="logo-dark">
+								<img src="../assets/images/logo-light.png" alt="Ballylike" class="logo-light">
 							</a>
+							<p class="site-title"><a href="../index.html" rel="home">Ballylike</a></p>
+							<p class="site-description">Ballylike Where Art Meets Authenticity. Discover unique, faith-inspired designs that embody creativity, courage, and growth.</p>
 						</div>
 						<nav id="secondary-menu" class="main-navigation secondary-navigation">
 							<ul class="menu nav-menu">
-								<li class="menu-item current-menu-ancestor menu-item-has-children menu-item-mega">
-									<a href="elements/tabs.html">Values</a>
+								<li class="menu-item menu-item-has-children">
+									<a href="#">Pages</a>
+									<ul class="sub-menu">
+										<li class="menu-item menu-item-has-children">
+											<a href="../page/about-us.html">About Us</a>
+										</li>
+										<li class="menu-item menu-item-has-children">
+											<a href="../page/contact-us.html">Contact Us</a>
+										</li>
+										<li class="menu-item"><a href="../page/our-team.html">Our Team</a></li>
+										<li class="menu-item"><a href="../page/faq.html">FAQ</a></li>
+									</ul>
 								</li>
 								<li class="menu-item menu-item-has-children">
-									<a href="https://www.instagram.com/ballylike/">Instagram</a>
+									<a href="../page/coming-soon-v1.html">Projects</a>
+								</li>
+								<li class="menu-item menu-item-has-children">
+									<a href="../blog/single-blog.html">Blogs</a>
 								</li>
 							</ul>
 						</nav>
 					</div>
 					<div class="header-right-items header-items ">
 						<div class="header-account">
-							<a href="elements/product-grid.html" data-toggle="off-canvas" data-target="login-panel"></a>
+							<a href="#" >Updates</a>
+						</div>
+						<div class="header-cart">
+							<a href="../elements/product-grid.html" data-target="cart-panel">
+								<span class="svg-icon icon-cart size-normal shopping-cart-icon">
+									<svg width="24px" height="24px" viewBox="0 0 24 24">
+										<g>
+											<rect fill="none" width="24" height="24"/>
+											<path d="M19,10h-3V7c0-2.206-1.794-4-4-4S8,4.794,8,7v3H5c-0.55,0-0.908,0.441-0.797,0.979l1.879,9.042
+											C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7 c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
+										</g>
+									</svg>
+								</span>
+								<span class="counter cart-counter">0</span>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -88,15 +130,25 @@
 					</div>
 					<div class="site-branding">
 						<a href="../index.html" class="logo">
-							<img src="assets/images/logo.png" alt="Ballylike" class="logo-dark">
-							<img src="assets/images/logo-light.png" alt="Ballylike" class="logo-light">
+							<img src="../assets/images/logo.png" alt="Ballylike" class="logo-dark">
+							<img src="../assets/images/logo-light.png" alt="Ballylike" class="logo-light">
 						</a>
-						
+						<p class="site-title"><a href="../index.html" rel="home">Ballylike</a></p>
+						<p class="site-description">Ballylike Where Art Meets Authenticity. Discover unique, faith-inspired designs that embody creativity, courage, and growth.</p>
 					</div>
 					<div class="mobile-header-icons">
 						<div class="header-cart">
-							<a href="#" data-toggle="off-canvas" data-target="cart-panel">
-								<span class="counter cart-counter"></span>
+							<a href="../elements/product-grid.html" data-toggle="off-canvas" data-target="cart-panel">
+								<span class="svg-icon icon-cart size-normal shopping-cart-icon">
+									<svg width="24px" height="24px" viewBox="0 0 24 24">
+										<g>
+											<rect fill="none" width="24" height="24"/>
+											<path d="M19,10h-3V7c0-2.206-1.794-4-4-4S8,4.794,8,7v3H5c-0.55,0-0.908,0.441-0.797,0.979l1.879,9.042
+											C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7 c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
+										</g>
+									</svg>
+								</span>
+								<span class="counter cart-counter">0</span>
 							</a>
 						</div>
 					</div>
@@ -555,7 +607,7 @@
 							<ul id="footer-socials" class="menu">
 								<li class="menu-item"><a href="https://twitter.com/"><span>Twitter</span></a></li>
 								<li class="menu-item"><a href="https://facebook.com"><span>Facebook</span></a></li>
-								<li class="menu-item"><a href="https://instagram.com"><span>Instagram</span></a></li>
+								<li class="menu-item"><a href="https://instagram.com/ballylike_shop"><span>Instagram</span></a></li>
 								<li class="menu-item"><a href="https://pinterest.com"><span>Pinterest</span></a></li>
 							</ul>
 						</div>
@@ -624,7 +676,7 @@
 					<img src="../assets/images/logo.png" alt="Ballylike" class="logo-dark">
 				</a>
 				<p class="site-title"><a href="../index.html" rel="home">Ballylike</a></p>
-				<p class="site-description">Premium WordPress theme</p>
+				<p class="site-description">Creative Bag and Art Shop</p>
 			</div>
 			<div class="hamburger-screen-content ps">
 				<nav id="fullscreen-menu" class="fullscreen-menu hamburger-navigation click-open">
@@ -650,7 +702,7 @@
 								<li class="menu-item menu-item-has-children">
 									<a href="#">Shop Pages</a>
 									<ul class="sub-menu">
-										<li class="menu-item"><a href="../shop/standard.html">Standard Shop Page</a></li>
+										<li class="menu-item"><a href="../elements/product-grid.html">Standard Shop Page</a></li>
 										<li class="menu-item"><a href="../shop/small-products.html">Small Products</a></li>
 										<li class="menu-item"><a href="../shop/large-products.html">Large Products</a></li>
 										<li class="menu-item"><a href="../shop/shop-masonry.html">Masonry</a></li>
@@ -798,7 +850,7 @@
 						<ul class="menu">
 							<li class="menu-item"><a href="https://twitter.com/"><span>Twitter</span></a></li>
 							<li class="menu-item"><a href="https://facebook.com"><span>Facebook</span></a></li>
-							<li class="menu-item"><a href="https://instagram.com"><span>Instagram</span></a></li>
+							<li class="menu-item"><a href="https://instagram.com/ballylike_shop"><span>Instagram</span></a></li>
 							<li class="menu-item"><a href="https://pinterest.com"><span>Pinterest</span></a></li>
 						</ul>
 					</div>
@@ -1055,7 +1107,7 @@
 							<li class="menu-item menu-item-has-children">
 								<a href="#">Shop Pages</a>
 								<ul class="sub-menu">
-									<li class="menu-item"><a href="../shop/standard.html">Standard Shop Page</a></li>
+									<li class="menu-item"><a href="../elements/product-grid.html">Standard Shop Page</a></li>
 									<li class="menu-item"><a href="../shop/small-products.html">Small Products</a></li>
 									<li class="menu-item"><a href="../shop/large-products.html">Large Products</a></li>
 									<li class="menu-item"><a href="../shop/shop-masonry.html">Masonry</a></li>
@@ -1220,7 +1272,6 @@
 					</span>
 					<ul>
 						<li><a href="#">USD</a></li>
-						<li><a href="#">EUR</a></li>
 					</ul>
 				</div>
 			</div>
@@ -1240,8 +1291,6 @@
 					</span>
 					<ul>
 						<li class="en"><a href="#">English</a></li>
-						<li class="fr"><a href="#">Français</a></li>
-						<li class="it"><a href="#">Italiano</a></li>
 					</ul>
 				</div>
 			</div>
@@ -1254,7 +1303,7 @@
 				<ul class="menu">
 					<li class="menu-item"><a href="https://twitter.com/"><span>Twitter</span></a></li>
 					<li class="menu-item"><a href="https://facebook.com"><span>Facebook</span></a></li>
-					<li class="menu-item"><a href="https://instagram.com"><span>Instagram</span></a></li>
+					<li class="menu-item"><a href="https://instagram.com/ballylike_shop"><span>Instagram</span></a></li>
 					<li class="menu-item"><a href="https://pinterest.com"><span>Pinterest</span></a></li>
 				</ul>
 			</div>
@@ -1479,12 +1528,12 @@
 						</span>
 						<span class="posted_in">
 							<span class="label">Category</span>
-							<a href="../shop/standard.html" rel="tag">Accessories</a>
+							<a href="../elements/product-grid.html" rel="tag">Accessories</a>
 						</span>
 						<span class="tagged_as">
 							<span class="label">Tags</span>
-							<a href="../shop/standard.html" rel="tag">Accessories</a>,
-							<a href="../shop/standard.html" rel="tag">Bags</a>
+							<a href="../elements/product-grid.html" rel="tag">Accessories</a>,
+							<a href="../elements/product-grid.html" rel="tag">Bags</a>
 						</span>
 					</div>
 
