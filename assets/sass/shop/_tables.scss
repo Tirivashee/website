@@ -1,0 +1,68 @@
+/**
+ * Shop tables
+ */
+table.shop_table {
+	th,
+	td {
+		border-color: $color__lighter;
+	}
+}
+
+table.shop_attributes {
+	@include font-size(14/16);
+
+	p:first-child {
+		margin-top: 0;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+
+	th,
+	td {
+		border-bottom: 0;
+	}
+
+	th {
+		color: $color__dark;
+		font-weight: 600;
+		text-transform: uppercase;
+	}
+}
+
+table.products-table--order-downloads,
+table.my_account_orders {
+	thead {
+		th {
+			@include font-size(11/16);
+			color: $color__dark;
+			text-transform: uppercase;
+			padding-top: 0;
+		}
+
+		.products-orders-table__header-order-actions span {
+			display: none;
+		}
+	}
+
+	tbody {
+		td {
+			padding: 17px 0;
+		}
+
+		.products-orders-table__cell-order-actions {
+			text-align: right;
+		}
+	}
+}
+
+table.products-table--order-downloads thead .download-file span,
+table.my_account_orders thead .products-orders-table__header-order-actions span {
+	display: none;
+}
+
+table.products-table--order-downloads tbody .download-file,
+table.my_account_orders tbody .products-orders-table__cell-order-actions {
+	text-align: right;
+}

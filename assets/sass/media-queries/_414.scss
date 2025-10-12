@@ -1,0 +1,31 @@
+@media (max-width: 414px) {
+	.site-branding .logo img {
+		max-width: none;
+	}
+
+	.Ballylike-product-carousel2 ul.products li.product {
+		max-width: 280px;
+	}
+
+	.mobile-menu-panel {
+		.header-mobile {
+			display: block;
+			opacity: 0;
+			transition: opacity 0.2s linear 0.4s;
+		}
+
+		&.open .header-mobile {
+			opacity: 1;
+		}
+
+		.panel {
+			width: 100%;
+		}
+	}
+
+	.maintenance-layout-fullscreen .text-light .mc4wp-form input[type=text],
+	.maintenance-layout-fullscreen .text-light .mc4wp-form input[type=email],
+	.maintenance-layout-fullscreen .text-light .mc4wp-form select{
+		min-width: auto;
+	}
+}

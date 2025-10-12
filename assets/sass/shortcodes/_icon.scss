@@ -1,0 +1,36 @@
+.wpb-js-composer .vc_icon_element {
+	font-size: 10px;
+	display: inline-block;
+}
+
+.vc_icon_element.vc_icon_element-outer .vc_icon_element-inner.vc_icon_element-outline {
+	border-width: 1px;
+}
+
+.wpb-js-composer .vc_icon_element.vc_icon_element-outer .vc_icon_element-inner.vc_icon_element-size-md.vc_icon_element-have-style-inner {
+	width: 5em !important;
+	height: 5em !important;
+}
+
+.wpb-js-composer .vc_icon_element.vc_icon_element-outer .vc_icon_element-inner.vc_icon_element-color-grey .vc_icon_element-icon {
+	color: #a2a5a6;
+	transition: 0.4s;
+}
+
+.wpb-js-composer .vc_icon_element.vc_icon_element-outer .vc_icon_element-inner.vc_icon_element-color-grey:hover .vc_icon_element-icon {
+	color: $color__dark;
+}
+
+.wpb-js-composer .vc_icon_element.vc_icon_element-outer .vc_icon_element-inner.vc_icon_element-background-color-grey.vc_icon_element-outline {
+	border-color: $color__lighter;
+	transition: 0.4s;
+
+	&:hover {
+		border-color: $color__dark;
+		background-color: $color__dark;
+
+		.vc_icon_element-icon {
+			color: #fff;
+		}
+	}
+}

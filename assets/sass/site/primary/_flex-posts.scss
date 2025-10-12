@@ -1,0 +1,314 @@
+.flex-posts {
+	margin: -15px;
+
+	.flex-post--custom.right-item {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.flex_post {
+		margin-bottom: 140px;
+	}
+
+	.flex-posts-page-title {
+		margin-bottom: 150px;
+
+		h1{
+		    font-weight: 400;
+		    line-height: 1.3333;
+		    margin: 0;
+		}
+	}
+
+	+ .next-posts-navigation {
+		margin-top: -50px;
+		margin-bottom: 120px;
+		padding-top: 0;
+	}
+}
+
+.flex_post {
+	width: 50%;
+	padding: 15px;
+	float: left;
+	position: relative;
+	visibility: hidden;
+
+	.mc4wp-form input[type=text],
+	.mc4wp-form input[type=email],
+	.mc4wp-form select {
+		min-width: 340px;
+	}
+
+	.mc4wp-form {
+		padding-bottom: 90px;
+	}
+
+	&.BallylikeFadeInUp {
+		visibility: visible;
+	}
+}
+
+.flex-post-background img {
+	max-width: 200%;
+}
+
+.flex-post-background + .flex-post-content {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.flex-tags {
+	transform: translateX(-100%) rotate(-90deg) ;
+	transform-origin: top right;
+	display: inline-block;
+	position: absolute;
+	left: -33px;
+	text-transform: uppercase;
+	font-weight: 600;
+	@include font-size(12/16);
+}
+
+.flex-post-title {
+	@include font-size(34/16);
+	font-weight: 400;
+	margin: 9px 0 7px 0;
+}
+
+.flex-post-content {
+	position: relative;
+
+	.read-more {
+		font-weight: 500;
+		display: inline-block;
+		position: relative;
+		padding-bottom: 2px;
+
+		&:after {
+			content: "";
+			display: block;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 20px;
+			border-bottom: 2px solid;
+			transition: width 0.4s;
+		}
+
+		&:hover:after {
+			width: 100%;
+		}
+	}
+}
+
+.flex-post--standard {
+	.flex-post-content {
+		>:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.flex-tags + * {
+		margin-top: 0;
+	}
+}
+
+.flex-post--custom {
+	&.thumbnail-portrait {
+		&.right-item {
+			padding-left: 17.8832%;
+		}
+
+		&.left-item {
+			padding-right: 17.8832%;
+		}
+	}
+
+	&.thumbnail-landscape {
+		&.right-item {
+			padding-left: 7.6642%;
+		}
+
+		&.left-item {
+			padding-right: 7.6642%;
+		}
+	}
+
+	&.thumbnail-square {
+		&.right-item {
+			padding-left: 14.9635%;
+		}
+
+		&.left-item {
+			padding-right: 14.9635%;
+		}
+	}
+}
+
+.flex-post--instagram {
+	display: flex;
+	justify-content: center;
+
+	.flex-post-content {
+		max-width: 400px;
+
+		img {
+			display: block;
+			border: 10px solid #ead9bf;
+			margin-bottom: 20px;
+		}
+	}
+
+	.instagram-caption {
+		@include font-size(20/16);
+		margin-bottom: 5px;
+	}
+
+	.instagram-username {
+		@include font-size(14/16);
+
+		i {
+			@include font-size(20/16);
+			vertical-align: -0.1em;
+			margin-right: 6px;
+		}
+	}
+}
+
+.flex-post--post {
+	.flex-post-content {
+		max-width: 580px;
+	}
+
+	.post-thumbnail img {
+		display: block;
+		margin-bottom: 17px;
+	}
+
+	.cat-links a {
+		@include font-size(11/16);
+		font-weight: 600;
+		color: inherit;
+		text-transform: uppercase;
+	}
+
+	.post-title {
+		@include font-size(24/16);
+		font-weight: 400;
+		margin: 10px 0;
+	}
+
+	.post-summary {
+		@include font-size(1);
+		line-height: (22/16);
+		margin-bottom: 15px;
+	}
+
+	&.right-item {
+		display: flex;
+		justify-content: flex-end;
+	}
+}
+
+.flex-post--newsletter {
+	h2 {
+		font-weight: 400;
+		margin: 0 0 10px;
+	}
+
+	p {
+		font-size: 16px;
+		margin-bottom: 32px;
+	}
+}
+
+.sticky-socials {
+	position: fixed;
+	left: 60px;
+	bottom: 60px;
+
+	li {
+		display: block;
+		padding: 0;
+		margin-top: 10px;
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	a {
+		color: #a2a5a6;
+		font-size: 12px;
+		text-align: center;
+		line-height: 28px;
+		display: block;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		border: 1px solid $color__lighter;
+
+		&:hover {
+			color: #fff;
+			border-color: $color__dark;
+			background-color: $color__dark;
+		}
+	}
+}
+
+.sticky-socials--style2 {
+	left: inherit;
+	right: 60px;
+	bottom: 0;
+	top: 0;
+
+	.menu{
+	    height: 100%;
+	    text-align: center;
+	    display: flex;
+	    flex-direction: column;
+		justify-content: center;
+
+		li {
+			margin-top: 0;
+			margin-bottom: 2px;
+		}
+
+	    a {
+	    	border: none;
+    	    font-size: 16px;
+		    color: #161619;
+		    display: block;
+		    width: auto;
+
+	    	&:hover{
+	    		background-color: transparent;
+	    		border-color: transparent;
+	    	}
+	    }
+	}
+}
+
+.sticky-scrolldown {
+	text-transform: uppercase;
+	font-weight: 600;
+	@include font-size(12/16);
+	color: #a2a5a6;
+	position: fixed;
+	right: 60px;
+	bottom: 60px;
+	transform: rotate(-90deg) translate(100%, 0);
+	transform-origin: right bottom;
+	cursor: pointer;
+	transition: color 0.4s;
+
+	&:hover {
+		color: $color__dark;
+	}
+
+	.svg-icon {
+		font-size: 32px;
+		vertical-align: middle;
+	}
+}

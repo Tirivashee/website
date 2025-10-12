@@ -1,0 +1,139 @@
+.Ballylike-tabs{
+	ul{
+		padding: 0;
+		margin: 0;
+	}
+}
+
+.Ballylike-tabs__nav li{
+	list-style: none;
+	@include font-size(20/16);
+	font-weight: 500;
+	transition: ease 0.4s;
+	cursor: pointer;
+	word-break: break-word;
+
+	&.active{
+		cursor: text;
+	}
+}
+
+.Ballylike-tabs__panels{
+	position: relative;
+}
+
+.Ballylike-tabs__panel{
+	position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: opacity ease 0.5s, transform ease .5s;
+
+	p:first-child{
+		margin-top: 0
+	}
+
+    &.active{
+	    position: relative;
+	    transform: translateY(0);
+	    opacity: 1;
+	    z-index: 1;
+    }
+}
+
+.Ballylike-tabs-separator{
+	display: inline-block;
+	height: 1px;
+	width: 100%;
+	background-color: #ebebeb;
+	margin: 60px 0 60px;
+}
+
+.Ballylike-tabs__panel--center{
+	text-align: center;
+}
+
+.Ballylike-tabs--horizontal{
+	.Ballylike-tabs__nav{
+		text-align: center;
+	}
+
+	.Ballylike-tabs__nav li{
+		display: inline-block;
+    	margin: 0 45px;
+		border-bottom: 2px solid transparent;
+		background-color: transparent;
+
+    	&:first-child{
+			margin-left: 0;
+		}
+
+		&:last-child{
+			margin-right: 0;
+		}
+
+		&:hover {
+			color: $color__dark;
+		}
+
+		&.active{
+			color: $color__dark;
+			border-bottom-color: $color__dark;
+		}
+	}
+
+	.Ballylike-tabs__panels{
+		padding: 36px 0;
+		position: relative;
+	}
+}
+
+.Ballylike-tabs--vertical{
+	display: flex;
+
+	.Ballylike-tabs__nav{
+	    flex: 0 0 auto;
+	    padding-right: 100px;
+
+	    li{
+	    	position: relative;
+			margin: 28px 0;
+
+			&:first-child{
+				margin-top: 0;
+			}
+
+			span{
+				transition: transform .4s;
+	    		display: inline-block;
+			}
+
+			&:before{
+			    content: "";
+			    display: block;
+			    width: 0;
+			    position: absolute;
+			    left: 0;
+			    top: 50%;
+			    border-bottom: 2px solid #161619;
+			    -webkit-transition: width .4s;
+			    transition: width .4s;
+			}
+
+			&.active{
+				&:before{
+					width: 20px;
+				}
+
+				span{
+				    transform: translateX(30px);
+				    color: #161619;
+				}
+			}
+	    }
+	}
+}
+

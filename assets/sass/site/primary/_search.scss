@@ -1,0 +1,66 @@
+.search {
+	.site-content {
+		padding-top: 0;
+	}
+
+	&.products .site-content {
+		padding-top: 60px;
+	}
+
+	.page-header {
+		padding: 30px 0;
+
+		.page-title {
+			@include font-size(30/16);
+		}
+	}
+
+	.site-main {
+		article.product {
+			margin-bottom: 40px;
+
+			.post-thumbnail {
+				float: left;
+				width: 360px;
+				max-width: 50%;
+
+				img {
+					display: block;
+				}
+
+				+ .entry {
+					margin-left: 400px;
+				}
+			}
+
+			.entry {
+				min-height: 210px;
+				padding-bottom: 18px;
+				border-bottom: 1px solid $color__lighter;
+			}
+
+			.entry-title {
+				@include font-size(30/16);
+				font-weight: 400;
+				line-height: (40/30);
+				margin-bottom: 15px;
+
+				a:hover {
+					box-shadow: inset 0 0 0 transparent, inset 0 -1px 0 $color__dark;
+				}
+			}
+
+			.entry-summary {
+				@include font-size(1);
+				color: $color__gray;
+				line-height: (22/16);
+				max-height: (22/16*2em);
+				overflow: hidden;
+
+				p {
+					margin: 0;
+				}
+			}
+		}
+	}
+}

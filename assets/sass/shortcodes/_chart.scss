@@ -1,0 +1,39 @@
+.Ballylike-row-flex--center{
+	display: flex;
+    flex-wrap: wrap;
+}
+.Ballylike-row-flex__item{
+	display: flex;
+    align-items: center;
+}
+
+.Ballylike-row-flex__item--center{
+	justify-content: center;
+}
+
+.Ballylike-row-flex__item--right{
+	justify-content: flex-end;
+}
+
+
+.Ballylike-chart {
+	text-align: center;
+	position: relative;
+	display: inline-block;
+
+	canvas {
+		max-width: 100%;
+	}
+}
+
+.Ballylike-chart__text {
+	@include font-size(20/16);
+	font-weight: 500;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -5px;
+	transform: translate(-50%, -50%);
+	line-height: 32px;
+	vertical-align: top;
+}

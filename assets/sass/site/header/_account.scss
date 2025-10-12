@@ -1,0 +1,63 @@
+.header-account {
+	@include font-size(14/16);
+	position: relative;
+
+	> a {
+		display: block;
+		white-space: nowrap;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+	.account-links {
+		white-space: nowrap;
+		position: absolute;
+		top: 100%;
+		left: -40px;
+		min-width: 180px;
+		opacity: 0;
+		padding: 51px 0 0 0;
+		z-index: 100;
+		pointer-events: none;
+		transform: translate(0, 20px);
+		transition: transform 0.5s, opacity 0.4s;
+
+		ul {
+			text-align: left;
+			list-style: none;
+			margin: 0;
+			padding: 30px 40px;
+			background: #fff;
+			box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);
+		}
+
+		li {
+			padding: 5px 0;
+			position: relative;
+
+			.counter {
+				position: absolute;
+				right: -20px;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+		}
+
+		a {
+			color: $color__dark;
+		}
+
+		.counter {
+			color: #fff;
+			background: $color__dark;
+		}
+	}
+
+	&:hover .account-links {
+		opacity: 1;
+		transform: translate(0, 0);
+		pointer-events: initial;
+	}
+}

@@ -1,0 +1,48 @@
+.Ballylike-progress-bars {
+	overflow: hidden;
+}
+
+.Ballylike-progress-bar {
+	height: 8px;
+	box-shadow: none;
+	border-radius: 0;
+	background-color: $color__lighter;
+	margin-bottom: 40px;
+	margin-top: 30px;
+	position: relative;
+}
+
+.Ballylike-progress-bars__label {
+    display: block;
+    position: relative;
+    z-index: 1;
+	@include font-size(1);
+	color: $color__dark !important;
+	font-weight: 600;
+	padding: 0;
+	text-shadow: none !important;
+	top: -35px;
+}
+
+.Ballylike-progress-bars__units {
+	@include font-size(14/16);
+	font-weight: 500;
+	text-align: right;
+	position: absolute;
+	top: -35px;
+	right: 0;
+}
+
+.Ballylike-progress-bars__bar {
+	box-shadow: none;
+	border-radius: 0;
+	background-color: $color__dark;
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    top: 0;
+    left: 0;
+    border-radius: 3px;
+    transition: width 1s linear;
+}

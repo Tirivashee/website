@@ -1,0 +1,347 @@
+// Fix ovelay
+.site-only-header .site,
+.site-only-header{
+	overflow-x:initial;
+}
+
+@import "topbar";
+
+.site-header {
+	.Ballylike-container-fluid {
+		display: flex;
+		align-items: center;
+		height: 100%;
+    }
+
+    &.transparent {
+        position: absolute;
+        width: 100%;
+		z-index: 999;
+
+		&.transparent-hover {
+			transition: 0.25s;
+		}
+
+		&.transparent-hover.text-dark:hover {
+			background: #fff;
+		}
+
+		&.transparent-hover.text-light:hover {
+			background: $color__dark;
+		}
+    }
+}
+
+.header-main {
+	height: 120px;
+}
+
+.header-contents {
+	position: relative;
+}
+
+.header-items {
+	display: flex;
+	align-items: center;
+	height: 100%;
+
+	> * {
+		position: relative;
+		z-index: 100;
+	}
+}
+
+.header-left-items {
+	flex: 1;
+	text-align: left;
+	justify-content: flex-start;
+
+	> * {
+		margin-right: 30px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	.main-navigation {
+		margin-left: 20px;
+
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+
+	.hamburger-menu:first-child {
+		margin-right: 34px;
+	}
+}
+
+.header-center-items {
+	text-align: center;
+	justify-content: center;
+
+	> * {
+		margin: 0 17px;
+	}
+}
+
+.header-right-items {
+	flex: 1;
+	text-align: right;
+	justify-content: flex-end;
+
+	> * {
+		margin-left: 30px;
+
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+
+	.main-navigation {
+		margin-right: 20px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}
+
+.logo-center {
+	.header-center-items {
+		text-align: right;
+
+		> * {
+			flex: 1;
+		}
+
+		.site-branding {
+			flex: initial;
+			text-align: center;
+		}
+
+		.site-branding + * {
+			text-align: left;
+		}
+	}
+
+	&.menu-center .header-center-items {
+		flex: 3;
+	}
+}
+
+.no-center {
+	.has-menu {
+		flex: 3;
+	}
+}
+
+.has-menu > * {
+	position: static;
+}
+
+.no-sides .header-center-items {
+	flex: 1;
+}
+
+.header-v8,
+.header-v9 {
+	.header-main {
+		padding-top: 25px;
+	}
+
+	.header-main,
+	.header-bottom {
+    	height: 90px;
+	}
+}
+
+.header-v10 {
+	.site-branding{
+		height: 120px;
+	}
+	
+	.header-main .header-left-items {
+		position: fixed;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 360px;
+		padding-left: 60px;
+		z-index: 1000;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+	}
+
+	&.light {
+		.header-main .header-left-items {
+			background-color: #fff;
+		}
+	}
+
+	&.dark {
+		.header-main .header-left-items {
+			background-color: $color__dark;
+		}
+	}
+
+	&.dark .header-main .header-right-items {
+		&,
+		a {
+			color: $color__dark;
+		}
+
+		.counter {
+			color: #fff;
+			background-color: $color__dark;
+		}
+	}
+
+	&.transparent {
+		position: fixed;
+		right: 0;
+		width: auto;
+
+		&.transparent-hover:hover {
+			background: transparent !important;
+		}
+
+		.header-main .header-left-items {
+			color: $color__dark;
+
+			a {
+				color: $color__dark;
+			}
+		}
+
+		.logo-dark {
+			opacity: 1;
+		}
+
+		.logo-light {
+			opacity: 0;
+		}
+	}
+
+	.header-main {
+		.site-branding {
+			position: absolute;
+			top: 0;
+			left: 0;
+			margin: 0 0 0 60px;
+			display: flex;
+			align-items: center;
+		}
+
+		.logo {
+			vertical-align: middle;
+			display: inline-block;
+		}
+
+		.main-navigation {
+			margin-left: 0;
+		}
+	}
+}
+
+.admin-bar .header-v10 .header-main .header-left-items {
+	top: 32px;
+}
+
+@media screen and (max-width: 992px) {
+	.header-v10 .header-main .header-left-items {
+		display: none;
+		width: 0;
+	}
+}
+
+.header-sticky--normal,
+.header-sticky--smart {
+	position: absolute;
+	width: 100%;
+}
+
+.header-sticky--normal {
+	&.sticky {
+		position: fixed;
+		top: 0;
+		z-index: 1500;
+		width: 100%;
+
+		&.transparent.text-dark {
+			background-color: rgba(255,255,255,0.8);
+		}
+
+		&.transparent.text-light {
+			background-color: rgba(0,0,0,0.7);
+		}
+	}
+}
+
+.header-sticky--smart {
+	position: fixed;
+	z-index: 1500;
+
+	.topbar + & {
+		position: absolute;
+	}
+
+	&.headroom--not-top {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 1500;
+
+		&.transparent.text-dark {
+			background-color: rgba(255,255,255,0.8);
+		}
+
+		&.transparent.text-light {
+			background-color: rgba(0,0,0,0.7);
+		}
+	}
+}
+
+.admin-bar {
+	.header-sticky--normal.sticky,
+	.header-sticky--smart.headroom--not-top {
+		top: 32px;
+	}
+}
+
+.headroom {
+	will-change: transform;
+	transition: transform 250ms linear;
+}
+
+.headroom--pinned {
+	transform: translateY(0%);
+}
+
+.headroom--unpinned {
+	transform: translateY(-100%);
+}
+
+.site-header.transparent + .site-header-space {
+	display: none;
+
+	.page-template-flex-posts & {
+		display: block;
+	}
+}
+
+@import "mobile";
+
+@import "logo";
+
+@import "search";
+
+@import "account";
+
+@import "cart";
+
+@import "hamburger";
+
+@import "campaigns";

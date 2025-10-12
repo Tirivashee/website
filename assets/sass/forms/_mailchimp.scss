@@ -1,0 +1,117 @@
+.mc4wp-form {
+	input,
+	select,
+	textarea {
+		@include font-size(1);
+		padding: 17px 20px;
+		border: 1px solid;
+	}
+
+	input[type=text],
+	input[type=email],
+	select {
+		height: 60px;
+		min-width: 280px;
+		margin-right: 20px;
+
+		&:focus,
+		&:active {
+			border-width: 2px;
+		}
+	}
+
+	input[type=checkbox],
+	input[type=radio] {
+		padding: 0;
+		margin-right: 5px;
+		border: 0;
+	}
+
+
+	input[type=submit],
+	input[type=reset],
+	button {
+		padding: 0 50px;
+		border: 0;
+		vertical-align: top;
+	}
+}
+
+.text-light .mc4wp-form {
+	input,
+	select,
+	textarea {
+		color: $color__dark;
+		border-color: #fff;
+		background: #fff;
+	}
+}
+
+.mc4wp-checkbox label {
+	color: $color__gray;
+	position: relative;
+	padding-left: 30px;
+	display: inline-block;
+	cursor: pointer;
+
+	input {
+		display: none;
+	}
+
+	span {
+		&:before,
+		&:after {
+			content: "";
+			width: 20px;
+			height: 20px;
+			margin-right: 10px;
+			background: $color__lighter;
+			position: absolute;
+			left: 0;
+			top: 0.1em;
+			transition: 0.4s;
+		}
+
+		&:before {
+			border: 1px solid $color__lighter;
+			background: $color__lighter;
+		}
+
+		&:after {
+			opacity: 0;
+			background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjEycHgiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgMTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxnPjxwb2x5Z29uIHBvaW50cz0iNC4xNzcsMTAuNTQzIDAuNDM0LDYuOCAxLjU2Niw1LjY2OCA0LjE3Nyw4LjI3OSAxMC40MzUsMi4wMjMgMTEuNTY1LDMuMTU1ICIvPjwvZz48L2c+PC9zdmc+) no-repeat center center;
+		}
+	}
+
+	:checked + span {
+		color: $color__dark;
+
+		&:before {
+			border-color: $color__dark;
+			background: transparent;
+		}
+
+		&:after {
+			opacity: 1;
+		}
+	}
+}
+
+.mailchimp-newsletter {
+	input[type="checkbox"] {
+		display: none;
+	}
+
+	:checked + label > span {
+		color: $color__dark;
+
+		&:before {
+			border-color: $color__dark;
+			background: transparent;
+		}
+
+		&:after {
+			opacity: 1;
+		}
+	}
+}

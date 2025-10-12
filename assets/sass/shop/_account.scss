@@ -1,0 +1,445 @@
+.products-account {
+	.site-content {
+		padding-bottom: 90px;
+	}
+
+	.entry-header .entry-title {
+		font-weight: 400;
+		margin-bottom: 60px;
+	}
+}
+
+.MyAccount-navigation {
+	width: 25%;
+	float: left;
+	padding-right: 30px;
+	margin-top: 10px;
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		margin-bottom: 28px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	a {
+		@include font-size(20/16);
+		font-weight: 500;
+		color: $color__gray;
+
+		&:before {
+			content: "";
+			display: inline-block;
+			width: 0;
+			border-bottom: 2px solid;
+			vertical-align: 0.25em;
+		}
+
+		&:hover {
+			color: $color__dark;
+		}
+	}
+
+	.counter {
+		vertical-align: 0.25em;
+		margin-left: 6px;
+		background-color: $color__gray;
+	}
+
+	.is-active a {
+		color: $color__dark;
+
+		&:before {
+			width: 20px;
+			margin-right: 10px;
+		}
+
+		.counter {
+			background-color: $color__dark;
+		}
+	}
+}
+
+.MyAccount-content {
+	color: $color__gray;
+	width: 75%;
+	float: left;
+
+	h3 {
+		@include font-size(40/16);
+		color: $color__dark;
+	}
+
+	> h3,
+	h3:first-child {
+		margin-top: 0;
+	}
+
+	> p:first-child {
+		margin-top: 12px;
+	}
+
+	h3.greeting {
+		color: $color__gray;
+		margin-bottom: 53px;
+
+		span {
+			@include font-size(18/16);
+			font-weight: 400;
+		}
+
+		strong {
+			font-weight: 500;
+			color: $color__dark;
+		}
+	}
+
+	h3.no-order,
+	h3.no-downloads {
+		margin-bottom: 20px;
+	}
+
+	.button.large {
+		min-width: 220px;
+	}
+
+	.products-message--no-order {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+}
+
+.products-Address-title h3 {
+	margin: 0 0 15px;
+}
+
+.products-Address-footer {
+	margin-top: 32px;
+}
+
+form.edit-account {
+	h3 {
+		margin-bottom: 15px;
+
+		&:first-child {
+			margin-top: -(10/40)*1em;
+		}
+	}
+
+	.form-row {
+		display: flex;
+		flex-wrap: wrap;
+		margin: 10px 0;
+
+		> span {
+			@include font-size(14/16);
+			margin-left: 195px;
+			margin-top: 5px;
+		}
+
+		> span.password-input {
+			margin-top: 0;
+			margin-left: 0;
+			flex: 1;
+
+			.input-text {
+				width: 100%;
+			}
+		}
+	}
+
+	.form-row-first {
+		width: calc(50% + 195px/2);
+	}
+
+	.form-row-last {
+		width: calc(50% - 195px/2);
+	}
+
+	.form-row-submit {
+		padding-left: 195px;
+		margin-top: 30px;
+
+		.button {
+			display: block;
+			width: 100%;
+			line-height: 60px;
+			padding: 0 80px;
+		}
+	}
+
+	label {
+		color: $color__dark;
+		font-weight: 500;
+		margin-top: 10px;
+		flex-basis: 195px;
+	}
+
+	.input-text {
+		flex: 1;
+	}
+
+	fieldset {
+		margin: 80px 0 0 0;
+		padding: 0;
+		border: 0;
+
+		legend {
+			@include font-size(40/16);
+			color: $color__dark;
+			font-weight: 500;
+			display: block;
+			width: 100%;
+			padding-top: 20px;
+			margin-bottom: 15px;
+			border-top: 1px solid $color__lighter;
+		}
+	}
+}
+
+.products-Address {
+	margin-bottom: 23px;
+	padding-bottom: 40px;
+	border-bottom: 1px solid $color__lighter;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	address {
+		@include font-size(20/16);
+		font-style: normal;
+		line-height: 2;
+	}
+}
+
+.products-Address-fields {
+	.form-row {
+		display: flex;
+		flex-wrap: wrap;
+
+		label.screen-reader-text {
+			clip-path: none;
+			position: static !important;
+			width: auto;
+			height: auto;
+			display: block;
+			text-indent: -9999em;
+		}
+	}
+
+	.form-row-first {
+		width: calc(50% + 195px/2);
+	}
+
+	.form-row-last {
+		width: calc(50% - 195px/2);
+
+		label {
+			display: none;
+		}
+	}
+
+	.products-input-wrapper,
+	.input-text,
+	.select2-container {
+		flex: 1;
+	}
+
+	.products-input-wrapper {
+		.input-text,
+		.select2-container {
+			width: 100%;
+		}
+	}
+
+	label {
+		color: $color__dark;
+		font-weight: 500;
+		margin-top: 10px;
+		flex-basis: 195px;
+	}
+
+	.button {
+		line-height: 60px;
+		display: block;
+		margin-top: 40px;
+		margin-left: 195px;
+		width: calc(100% - 195px);
+	}
+}
+
+.products-account-login {
+	.content-area .entry-content {
+		width: (420/1140)*100%;
+		margin: 0 auto;
+		padding: 0 15px;
+		overflow: hidden;
+
+		h2 {
+			@include font-size(24/16);
+			text-align: center;
+			margin: 0 0 35px 0;
+		}
+
+		.products-message,
+		.products-info,
+		.products-error {
+			padding-left: 80px;
+			padding-right: 60px;
+		}
+	}
+
+	form.register,
+	form.login,
+	form.lost_reset_password {
+		.form-row {
+			margin: 0;
+
+			&:first-child {
+				margin-bottom: -4px;
+			}
+		}
+
+		.input-text {
+			width: 100%;
+		}
+
+		label {
+			@include font-size(1);
+			color: $color__gray;
+			transform: translateY(35px);
+			transition: 0.4s;
+			display: inline-block;
+
+			&.products-form__label {
+				transform: none;
+			}
+		}
+
+		.focused label {
+			@include font-size(14/16);
+			color: $color__dark;
+			transform: translateY(10px);
+		}
+
+		.button {
+			width: 100%;
+		}
+	}
+
+	form.login {
+		.rememberme {
+			margin: 35px 0;
+		}
+
+		.lost_password {
+			@include font-size(14/16);
+			font-weight: 600;
+			text-transform: uppercase;
+			text-align: center;
+			margin: 40px 0 0 0;
+
+			a {
+				padding-bottom: 6px;
+				border-bottom: 2px solid;
+			}
+		}
+	}
+
+	form.register {
+		.button {
+			margin-top: 40px;
+		}
+
+		.privacy-policy-text {
+			@include font-size(1);
+		}
+	}
+
+	form.lost_reset_password {
+		.form-row {
+			width: 100%;
+		}
+
+		.button {
+			line-height: 60px;
+			margin-top: 40px;
+		}
+	}
+
+	.login-tabs-nav {
+		@include font-size(24/16);
+		text-align: center;
+		font-weight: 500;
+		margin: 0 0 35px 0;
+
+		.tab-nav {
+			color: $color__gray;
+			cursor: pointer;
+			margin-right: 100px;
+
+			&:last-child {
+				margin-right: 0;
+			}
+
+			&:after {
+				border-bottom-width: 2px;
+			}
+
+			&.active {
+				color: $color__dark;
+			}
+		}
+	}
+
+	.u-columns {
+		position: relative;
+		width: 200%;
+		overflow: hidden;
+
+		.u-column1,
+		.u-column2 {
+			width: 50%;
+			float: left;
+			padding: 0 15px;
+			opacity: 0;
+			transition: 0.4s;
+
+			&.active {
+				opacity: 1;
+				transform: translateX(-100%);
+			}
+
+			h2 {
+				display: none;
+			}
+		}
+
+		.u-column1 {
+			transform: translateX(-100%);
+
+			&.active {
+				transform: none;
+			}
+		}
+	}
+}
+
+.soo-wishlist-share ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.soo-wishlist-share ul li {
+    display: inline-block;
+    margin-right: 30px;
+}
