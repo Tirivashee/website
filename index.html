@@ -1,608 +1,1078 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Ballylike is a unique and modern clothing brand">
-	<meta name="keywords" content="ecommerce, ecommerce store, fashion store, shopping, modern, tote bags">
-	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="icon" href="https://ballylike.store/favicon.ico" type="image/x-icon">
-	
-	<!-- Font Awesome -->
-	<link rel="preload" href="assets/css/font-awesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-	<noscript>
-		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-	</noscript>
-	<!-- Bootstrap -->
-	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-	<!-- Animation -->
-	<link rel="preload" href="assets/css/animate.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-	<noscript>
-		<link rel="stylesheet" href="assets/css/animate.css">
-	</noscript>
-	<!-- Style CSS -->
-	<link type="text/css" media="all" href="assets/css/style.css" rel="stylesheet">
-	<title>Ballylike Home</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title>Ballylike – Trendy Fashion Store | Zimbabwe Clothing & Style</title>
+
+  <!-- Primary Meta Tags -->
+  <meta name="author" content="Ballylike Team">
+  <meta name="keywords" content="Ballylike, fashion, clothing, Zimbabwe, online store, trendy wear, ecommerce, boutique, style, tote bags, hoodies, t-shirts, streetwear">
+  <meta name="description" content="Discover Ballylike — Zimbabwe's modern fashion destination. Shop trendy clothing, tote bags, and style essentials online, designed for bold, stylish living.">
+  <link rel="canonical" href="https://ballylike.co.zw/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ballylike – Trendy Fashion Store | Zimbabwe Clothing & Style">
+  <meta property="og:description" content="Shop modern fashion from Ballylike — tote bags, hoodies, and accessories made for creative, confident people in Zimbabwe.">
+  <meta property="og:url" content="https://ballylike.co.zw/">
+  <meta property="og:site_name" content="Ballylike">
+  <meta property="og:image" content="https://ballylike.co.zw/assets/img/preview.jpg"> <!-- Replace with your real image path -->
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ballylike – Trendy Fashion Store | Zimbabwe Clothing & Style">
+  <meta name="twitter:description" content="Shop modern fashion from Ballylike — tote bags, hoodies, and accessories for bold and creative living.">
+  <meta name="twitter:image" content="https://ballylike.co.zw/assets/img/preview.jpg"> <!-- Replace with your real image path -->
+
+  <!-- Schema.org JSON-LD (SEO Boost) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Ballylike",
+    "url": "https://ballylike.co.zw/",
+    "logo": "https://ballylike.co.zw/images/logo.png",
+    "description": "Zimbabwe's modern fashion destination — tote bags, hoodies, and style essentials for bold, creative living.",
+    "sameAs": [
+      "https://www.instagram.com/ballylike_shop",
+      "https://www.facebook.com/share/p/18xWnWoahD/",
+      "https://twitter.com",
+      "https://pinterest.com"
+    ]
+  }
+  </script>
+
+  <!-- Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" 
+    crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="css/vendor.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&family=Marcellus&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://ballylike.co.zw/images/favicon.ico">
 </head>
-<body class="home-page-1 page-template-flex-posts no-sidebar no-bottom-spacing">
-	<div id="page" class="site">
-		<!-- HEADER -->
-		<header id="masthead" class="site-header light text-dark header-v1 transparent-hover">
-			<div class="header-main header-contents has-center logo-center menu-center">
-				<div class="Ballylike-container-fluid">
-					<div class="header-left-items header-items">
-						<div class="header-hamburger hamburger-menu" data-target="hamburger-fullscreen">
-							<div class="hamburger-box">
-								<div class="hamburger-inner"></div>
-							</div>
-						</div>
-						<div class="header-search icon">
-							<form method="get" action="#">
-								<label>
-									<span class="svg-icon icon-search size-normal search-icon">
-										<svg width="24px" height="24px" viewBox="0 0 24 24">
-											<g>
-												<rect fill="none" width="24" height="24"/>
-												<path d="M20,18.586l-3.402-3.402C17.474,14.015,18,12.57,18,11c0-3.86-3.141-7-7-7c-3.86,0-7,3.14-7,7c0,3.859,3.14,7,7,7 c1.57,0,3.015-0.526,4.184-1.402L18.586,20L20,18.586z M6,11c0-2.757,2.243-5,5-5s5,2.243,5,5s-2.243,5-5,5S6,13.757,6,11z"/>
-											</g>
-										</svg>
-									</span>
-									<input type="text" name="s" class="search-field" value="" placeholder="Search" autocomplete="off">
-								</label>
-							</form>
-							
-						</div>
-					</div>
-					<div class="header-center-items header-items has-menu">
-						<nav id="primary-menu" class="main-navigation primary-navigation">
-							<ul class="menu nav-menu">
-								<li class="menu-item menu-item-has-children menu-item-mega">
-									<a href="index.html">Home</a>
-								</li>
-								<li class="menu-item menu-item-has-children menu-item-mega">
-									<a href="elements/product-grid.html">Shop</a>
-								</li>
-								<li class="menu-item menu-item-has-children menu-item-mega">
-									<a href="https://instagram.com/ballylike_shop">Instagram</a>
-								</li>
-							</ul>
-						</nav>
-						<div class="site-branding">
-							<a href="index.html" class="logo">
-								<img src="assets/images/logo.png" alt="Ballylike" class="logo-dark">
-								<img src="assets/images/logo-light.svg" alt="Ballylike" class="logo-light">
-							</a>
-							<p class="site-title"><a href="#" rel="home">Ballylike</a></p>
-							<p class="site-description">Ballylike Where Art Meets Authenticity. </p>
-						</div>
-						<nav id="secondary-menu" class="main-navigation secondary-navigation">
-							<ul class="menu nav-menu">
-								<li class="menu-item menu-item-has-children">
-									<a href="#">Pages</a>
-									<ul class="sub-menu">
-										<li class="menu-item menu-item-has-children">
-											<a href="page/about-us.html">About Us</a>
-										</li>
-										
-										<li class="menu-item menu-item-has-children">
-											<a href="/page/contact-us.html">Contact Us</a>
-										</li>
-										<li class="menu-item"><a href="../page/faq.html">FAQ</a></li>
-									</ul>
-								</li>
-								<li class="menu-item menu-item-has-children">
-									<a href="../page/coming-soon-v1.html">Projects</a>
-								</li>
-								<li class="menu-item menu-item-has-children">
-									<a href="/page/coming-soon-v1.html">Blogs</a>
-								</li>
-							</ul>
-						</nav>
-					</div>
-					<div class="header-right-items header-items ">
-						<div class="header-account">
-							<a href="page/coming-soon-v1.html" >Updates</a>
-						</div>
-						<div class="header-cart">
-							<a href="#" data-toggle="off-canvas" data-target="cart-panel">
-								<span class="svg-icon icon-cart size-normal shopping-cart-icon">
-									<svg width="24px" height="24px" viewBox="0 0 24 24">
-										<g>
-											<rect fill="none" width="24" height="24"/>
-											<path d="M19,10h-3V7c0-2.206-1.794-4-4-4S8,4.794,8,7v3H5c-0.55,0-0.908,0.441-0.797,0.979l1.879,9.042
-											C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7 c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
-										</g>
-									</svg>
-								</span>
-								<span class="counter cart-counter">0</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="header-mobile custom logo-center">
-				<div class="Ballylike-container-fluid">
-					<div class="mobile-menu-hamburger">
-						<button class="mobile-menu-toggle hamburger-menu" data-toggle="off-canvas" data-target="mobile-menu">
-							<span class="hamburger-box">
-								<span class="hamburger-inner"></span>
-							</span>
-						</button>
-					</div>
-					<div class="site-branding">
-						<a href="../index.html" class="logo">
-							<img src="assets/images/logo.png" alt="Ballylike" class="logo-dark">
-							<img src="assets/images/logo-light.svg" alt="Ballylike" class="logo-light">
-						</a>
-						
-					</div>
-					<div class="mobile-header-icons">
-						<div class="header-cart">
-							<a href="#" data-toggle="off-canvas" data-target="cart-panel">
-								<span class="counter cart-counter">0</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</header>
-		<!-- CONTENT -->
-		<div id="content" class="site-content">
-			<div class="site-content-container Ballylike-container">
-				<!-- FLEX POSTS -->
-				<div id="flex-posts" class="flex-posts masonry">
-					<div class="flex_post flex-posts-page-title left-item">
-						<h1>Discover<br> And Dress Up<br> Your Style</h1>
-					</div>
 
-					<div class="thumbnail-square flex-post--custom flex_post has-post-thumbnail right-item mb-xs-40 mb-sm-0">
-						<div class="flex-post-content">
-							<span class="flex-tags color__6abcea">New Arrival</span>
-							<a href="elements/product-grid.html">
-								<img width="680" height="680" src="../assets/images/ballylike_canvas_shoulder_bag.png" alt="New Arrival">
-								<h2 class="flex-post-title">Discover Our SS17 Collection</h2>
-								<span class="read-more">Explore the Lookbook</span>
-							</a>
-						</div>
-					</div>
-					<div class="thumbnail-portrait flex-post--custom flex_post has-post-thumbnail right-item mb-sm-140 mb-xs-40">
-						<div class="flex-post-content">
-							<span class="flex-tags color__ff9454">Woman Collection</span>
-							<a href="elements/product-grid.html">
-								<img width="640" height="884" src="../assets/images/ballylike_canvas_shoulder_bag_two.jpeg" alt="Woman Collection">
-								<h2 class="flex-post-title">Spring in the City</h2>
-								<span class="read-more">Shop Collection</span>
-							</a>
-						</div>
-					</div>
-					<div class="flex-post--standard flex-post--newsletter flex_post right-item mb-sm-20 mb-xs-40">
-						<div class="flex-post-background">
-							<img src="assets/images/bg-newsletter.svg" alt="Subscribe Form">
-						</div>
-						<div class="flex-post-content">
-							<h2>Join our list</h2>
-							<p>Sign up to be the first to hear about exclusive updates,<br> special offers and upcoming collections</p>
-							<form class="mc4wp-form" method="post" data-name="Subscribe Form" >
-								<div class="mc4wp-form-fields">
-									<input type="email" name="EMAIL" placeholder="Your email address" required>
-									<input type="submit" value="Subscribe">
-								</div>
-							</form>
-						</div>
-					</div>
 
-					<div class="thumbnail-landscape flex-post--custom flex_post has-post-thumbnail right-item mt-sm-100 mt-xs-0">
-						<div class="flex-post-content">
-							<span class="flex-tags color__fa9198">SS18 Editorial</span>
-							<a href="elements/product-grid.html">
-								<img width="870" height="600" src="../assets/images/ballylike_canvas_shoulder_bag_wood_portrait.jpg" alt="SS18 Editorial">
-								<h2 class="flex-post-title">Everything You Want in A Bag</h2>
-								<span class="read-more">Shop Now</span>
-							</a>
-						</div>
-					</div>
 
-					<div class="thumbnail-portrait flex-post--custom flex_post has-post-thumbnail right-item">
-						<div class="flex-post-content">
-							<span class="flex-tags color__f9d157">Men Collection</span>
-							<a href="elements/product-grid.html">
-								<img width="640" height="884" src="../assets/images/IMG_4374.jpeg" alt="Men Collection">
-								<h2 class="flex-post-title">Resort Mens Collection</h2>
-								<span class="read-more">Shop Collection</span>
-							</a>
-						</div>
-					</div>
+<body class="homepage">
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <defs>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="instagram" viewBox="0 0 15 15">
+        <path fill="none" stroke="currentColor"
+          d="M11 3.5h1M4.5.5h6a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4h-6a4 4 0 0 1-4-4v-6a4 4 0 0 1 4-4Zm3 10a3 3 0 1 1 0-6a3 3 0 0 1 0 6Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="facebook" viewBox="0 0 15 15">
+        <path fill="none" stroke="currentColor"
+          d="M7.5 14.5a7 7 0 1 1 0-14a7 7 0 0 1 0 14Zm0 0v-8a2 2 0 0 1 2-2h.5m-5 4h5" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="twitter" viewBox="0 0 15 15">
+        <path fill="currentColor"
+          d="m14.478 1.5l.5-.033a.5.5 0 0 0-.871-.301l.371.334Zm-.498 2.959a.5.5 0 1 0-1 0h1Zm-6.49.082h-.5h.5Zm0 .959h.5h-.5Zm-6.99 7V12a.5.5 0 0 0-.278.916L.5 12.5Zm.998-11l.469-.175a.5.5 0 0 0-.916-.048l.447.223Zm3.994 9l.354.353a.5.5 0 0 0-.195-.827l-.159.474Zm7.224-8.027l-.37.336l.18.199l.265-.04l-.075-.495Zm1.264-.94c.051.778.003 1.25-.123 1.606c-.122.345-.336.629-.723 1l.692.722c.438-.42.776-.832.974-1.388c.193-.546.232-1.178.177-2.006l-.998.066Zm0 3.654V4.46h-1v.728h1Zm-6.99-.646V5.5h1v-.959h-1Zm0 .959V6h1v-.5h-1ZM10.525 1a3.539 3.539 0 0 0-3.537 3.541h1A2.539 2.539 0 0 1 10.526 2V1Zm2.454 4.187C12.98 9.503 9.487 13 5.18 13v1c4.86 0 8.8-3.946 8.8-8.813h-1ZM1.03 1.675C1.574 3.127 3.614 6 7.49 6V5C4.174 5 2.421 2.54 1.966 1.325l-.937.35Zm.021-.398C.004 3.373-.157 5.407.604 7.139c.759 1.727 2.392 3.055 4.73 3.835l.317-.948c-2.155-.72-3.518-1.892-4.132-3.29c-.612-1.393-.523-3.11.427-5.013l-.895-.446Zm4.087 8.87C4.536 10.75 2.726 12 .5 12v1c2.566 0 4.617-1.416 5.346-2.147l-.708-.706Zm7.949-8.009A3.445 3.445 0 0 0 10.526 1v1c.721 0 1.37.311 1.82.809l.74-.671Zm-.296.83a3.513 3.513 0 0 0 2.06-1.134l-.744-.668a2.514 2.514 0 0 1-1.466.813l.15.989ZM.222 12.916C1.863 14.01 3.583 14 5.18 14v-1c-1.63 0-3.048-.011-4.402-.916l-.556.832Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="pinterest" viewBox="0 0 15 15">
+        <path fill="none" stroke="currentColor"
+          d="m4.5 13.5l3-7m-3.236 3a2.989 2.989 0 0 1-.764-2V7A3.5 3.5 0 0 1 7 3.5h1A3.5 3.5 0 0 1 11.5 7v.5a3 3 0 0 1-3 3a2.081 2.081 0 0 1-1.974-1.423L6.5 9m1 5.5a7 7 0 1 1 0-14a7 7 0 0 1 0 14Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="youtube" viewBox="0 0 15 15">
+        <path fill="currentColor"
+          d="m1.61 12.738l-.104.489l.105-.489Zm11.78 0l.104.489l-.105-.489Zm0-10.476l.104-.489l-.105.489Zm-11.78 0l.106.489l-.105-.489ZM6.5 5.5l.277-.416A.5.5 0 0 0 6 5.5h.5Zm0 4H6a.5.5 0 0 0 .777.416L6.5 9.5Zm3-2l.277.416a.5.5 0 0 0 0-.832L9.5 7.5ZM0 3.636v7.728h1V3.636H0Zm15 7.728V3.636h-1v7.728h1ZM1.506 13.227c3.951.847 8.037.847 11.988 0l-.21-.978a27.605 27.605 0 0 1-11.568 0l-.21.978ZM13.494 1.773a28.606 28.606 0 0 0-11.988 0l.21.978a27.607 27.607 0 0 1 11.568 0l.21-.978ZM15 3.636c0-.898-.628-1.675-1.506-1.863l-.21.978c.418.09.716.458.716.885h1Zm-1 7.728a.905.905 0 0 1-.716.885l.21.978A1.905 1.905 0 0 0 15 11.364h-1Zm-14 0c0 .898.628 1.675 1.506 1.863l.21-.978A.905.905 0 0 1 1 11.364H0Zm1-7.728c0-.427.298-.796.716-.885l-.21-.978A1.905 1.905 0 0 0 0 3.636h1ZM6 5.5v4h1v-4H6Zm.777 4.416l3-2l-.554-.832l-3 2l.554.832Zm3-2.832l-3-2l-.554.832l3 2l.554-.832Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="dribble" viewBox="0 0 15 15">
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+          d="M4.839 1.024c3.346 4.041 5.096 7.922 5.704 12.782M.533 6.82c5.985-.138 9.402-1.083 11.97-4.216M2.7 12.594c3.221-4.902 7.171-5.65 11.755-4.293M14.5 7.5a7 7 0 1 0-14 0a7 7 0 0 0 14 0Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="calendar" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <rect width="20" height="18" x="2" y="4" rx="4" />
+          <path d="M8 2v4m8-4v4M2 10h20" />
+        </g>
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="shopping-bag" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <path
+            d="M3.977 9.84A2 2 0 0 1 5.971 8h12.058a2 2 0 0 1 1.994 1.84l.803 10A2 2 0 0 1 18.833 22H5.167a2 2 0 0 1-1.993-2.16l.803-10Z" />
+          <path d="M16 11V6a4 4 0 0 0-4-4v0a4 4 0 0 0-4 4v5" />
+        </g>
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="gift" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <rect width="18" height="14" x="3" y="8" rx="2" />
+          <path d="M12 5a3 3 0 1 0-3 3m6 0a3 3 0 1 0-3-3m0 0v17m9-7H3" />
+        </g>
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="arrow-cycle" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <path
+            d="M22 12c0 6-4.39 10-9.806 10C7.792 22 4.24 19.665 3 16m-1-4C2 6 6.39 2 11.806 2C16.209 2 19.76 4.335 21 8" />
+          <path d="m7 17l-4-1l-1 4M17 7l4 1l1-4" />
+        </g>
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="link" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M12 19a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm5 0a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm0-4a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm-5 0a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm7-12h-1V2a1 1 0 0 0-2 0v1H8V2a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3Zm1 17a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9h16Zm0-11H4V6a1 1 0 0 1 1-1h1v1a1 1 0 0 0 2 0V5h8v1a1 1 0 0 0 2 0V5h1a1 1 0 0 1 1 1ZM7 15a1 1 0 1 0-1-1a1 1 0 0 0 1 1Zm0 4a1 1 0 1 0-1-1a1 1 0 0 0 1 1Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="arrow-left" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M17 11H9.41l3.3-3.29a1 1 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33a1 1 0 0 0 0 .76a1 1 0 0 0 .21.33l5 5a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42L9.41 13H17a1 1 0 0 0 0-2Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="arrow-right" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M17.92 11.62a1 1 0 0 0-.21-.33l-5-5a1 1 0 0 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0l5-5a1 1 0 0 0 .21-.33a1 1 0 0 0 0-.76Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="play" viewBox="0 0 24 24">
+        <g fill="none" fill-rule="evenodd">
+          <path
+            d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z" />
+          <path fill="currentColor"
+            d="M5.669 4.76a1.469 1.469 0 0 1 2.04-1.177c1.062.454 3.442 1.533 6.462 3.276c3.021 1.744 5.146 3.267 6.069 3.958c.788.591.79 1.763.001 2.356c-.914.687-3.013 2.19-6.07 3.956c-3.06 1.766-5.412 2.832-6.464 3.28c-.906.387-1.92-.2-2.038-1.177c-.138-1.142-.396-3.735-.396-7.237c0-3.5.257-6.092.396-7.235Z" />
+        </g>
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="category" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M19 5.5h-6.28l-.32-1a3 3 0 0 0-2.84-2H5a3 3 0 0 0-3 3v13a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-10a3 3 0 0 0-3-3Zm1 13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1h4.56a1 1 0 0 1 .95.68l.54 1.64a1 1 0 0 0 .95.68h7a1 1 0 0 1 1 1Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="calendar" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M19 4h-2V3a1 1 0 0 0-2 0v1H9V3a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7h16Zm0-9H4V7a1 1 0 0 1 1-1h2v1a1 1 0 0 0 2 0V6h6v1a1 1 0 0 0 2 0V6h2a1 1 0 0 1 1 1Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="heart" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M20.16 4.61A6.27 6.27 0 0 0 12 4a6.27 6.27 0 0 0-8.16 9.48l7.45 7.45a1 1 0 0 0 1.42 0l7.45-7.45a6.27 6.27 0 0 0 0-8.87Zm-1.41 7.46L12 18.81l-6.75-6.74a4.28 4.28 0 0 1 3-7.3a4.25 4.25 0 0 1 3 1.25a1 1 0 0 0 1.42 0a4.27 4.27 0 0 1 6 6.05Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="plus" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="minus" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M19 11H5a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="cart" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M8.5 19a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 8.5 19ZM19 16H7a1 1 0 0 1 0-2h8.491a3.013 3.013 0 0 0 2.885-2.176l1.585-5.55A1 1 0 0 0 19 5H6.74a3.007 3.007 0 0 0-2.82-2H3a1 1 0 0 0 0 2h.921a1.005 1.005 0 0 1 .962.725l.155.545v.005l1.641 5.742A3 3 0 0 0 7 18h12a1 1 0 0 0 0-2Zm-1.326-9l-1.22 4.274a1.005 1.005 0 0 1-.963.726H8.754l-.255-.892L7.326 7ZM16.5 19a1.5 1.5 0 1 0 1.5 1.5a1.5 1.5 0 0 0-1.5-1.5Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="check" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M18.71 7.21a1 1 0 0 0-1.42 0l-7.45 7.46l-3.13-3.14A1 1 0 1 0 5.29 13l3.84 3.84a1 1 0 0 0 1.42 0l8.16-8.16a1 1 0 0 0 0-1.47Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="trash" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M10 18a1 1 0 0 0 1-1v-6a1 1 0 0 0-2 0v6a1 1 0 0 0 1 1ZM20 6h-4V5a3 3 0 0 0-3-3h-2a3 3 0 0 0-3 3v1H4a1 1 0 0 0 0 2h1v11a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8h1a1 1 0 0 0 0-2ZM10 5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1h-4Zm7 14a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V8h10Zm-3-1a1 1 0 0 0 1-1v-6a1 1 0 0 0-2 0v6a1 1 0 0 0 1 1Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="star-outline" viewBox="0 0 15 15">
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+          d="M7.5 9.804L5.337 11l.413-2.533L4 6.674l2.418-.37L7.5 4l1.082 2.304l2.418.37l-1.75 1.793L9.663 11L7.5 9.804Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="star-solid" viewBox="0 0 15 15">
+        <path fill="currentColor"
+          d="M7.953 3.788a.5.5 0 0 0-.906 0L6.08 5.85l-2.154.33a.5.5 0 0 0-.283.843l1.574 1.613l-.373 2.284a.5.5 0 0 0 .736.518l1.92-1.063l1.921 1.063a.5.5 0 0 0 .736-.519l-.373-2.283l1.574-1.613a.5.5 0 0 0-.283-.844L8.921 5.85l-.968-2.062Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="search" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="user" viewBox="0 0 24 24">
+        <path fill="currentColor"
+          d="M15.71 12.71a6 6 0 1 0-7.42 0a10 10 0 0 0-6.22 8.18a1 1 0 0 0 2 .22a8 8 0 0 1 15.9 0a1 1 0 0 0 1 .89h.11a1 1 0 0 0 .88-1.1a10 10 0 0 0-6.25-8.19ZM12 12a4 4 0 1 1 4-4a4 4 0 0 1-4 4Z" />
+      </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="close" viewBox="0 0 15 15">
+        <path fill="currentColor"
+          d="M7.953 3.788a.5.5 0 0 0-.906 0L6.08 5.85l-2.154.33a.5.5 0 0 0-.283.843l1.574 1.613l-.373 2.284a.5.5 0 0 0 .736.518l1.92-1.063l1.921 1.063a.5.5 0 0 0 .736-.519l-.373-2.283l1.574-1.613a.5.5 0 0 0-.283-.844L8.921 5.85l-.968-2.062Z" />
+      </symbol>
+    </defs>
+  </svg>
 
-					<div class="flex-post--standard flex_post right-item mt-sm-90 mt-xs-0">
-						<div class="flex-post-content">
-							<span class="flex-tags color__23b0ea">Sale</span>
-							<p>
-								<a href="elements/product-grid.html">
-								<img class="alignnone wp-image-399" src="../assets/images/img009.jpeg" alt="Sale"></a>
-							</p>
-						</div>
-					</div>
+  <div class="preloader text-white fs-6 text-uppercase overflow-hidden"></div>
 
-					<div class="flex-post--instagram flex_post right-item mt-sm-160 mt-xs-0">
-						<div class="flex-post-background">
-							<img src="assets/images/bg-instagram.svg" alt="Instagram Post">
-						</div>
+ <nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-						<div class="flex-post-content">
-							<span class="flex-tags color__614940">Instagram</span>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
 
-							<a href="#">
-								<img width="400" height="400" src="../assets/images/screen.png" alt="Instagram">
-							</a>
-							<div class="instagram-caption">Get the best prints from my page</div>
-							<span class="instagram-username"><i class="fa fa-instagram"></i> @ballylike</span>
-						</div>
-					</div>
-				</div>
-				<nav class="navigation next-posts-navigation clearfix">
-					<h3 class="screen-reader-text">Next projects navigation</h3>
-					<div class="nav-links">
-						<a href="#">Load More</a>
-					</div>
-				</nav>
-			</div>
-		</div>
-		<!-- FOOTER -->
-		<footer id ="colophon" class="site-footer light text-dark">
-			<div class="footer-main site-info items-vertical">
-				<div class="footer-container Ballylike-container">
-					<div class="footer-items footer-left">
-						<div class="socials-menu">
-							<ul class="menu">
-								<li class="menu-item"><a href="https://twitter.com/"><span>Twitter</span></a></li>
-								<li class="menu-item"><a href="https://www.facebook.com/share/p/18xWnWoahD/"><span>Facebook</span></a></li>
-								<li class="menu-item"><a href="https://instagram.com/ballylike_shop"><span>Instagram</span></a></li>
-								<li class="menu-item"><a href="https://pinterest.com"><span>Pinterest</span></a></li>
-							</ul>
-						</div>
-						<div class="copyright">©2025 Ballylike. All rights reserved</div>
-					</div>
-					<div class="footer-items footer-right">
-						<div class="switchers">
-							<div class="currency list-dropdown up">
-								<span class="label">Currency</span>
-								<div class="dropdown">
-									<span class="current">
-										<span class="selected">USD</span>
-										<span class="caret svg-icon icon-smaller">
-											<svg width="14px" height="14px" viewBox="0 0 14 14">
-												<g><polygon points="7,10.773 1.531,6.398 2.469,5.227 7,8.851 11.531,5.227 12.469,6.398"/></g>
-												<rect fill="none" width="14" height="14"/>
-											</svg>
-										</span>
-									</span>
-									<ul>
-										<li><a href="#">USD</a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="language list-dropdown up">
-								<span class="label">Language</span>
-								<div class="dropdown">
-									<span class="current">
-										<span class="selected">English</span>
-										<span class="caret svg-icon icon-smaller">
-											<svg width="14px" height="14px" viewBox="0 0 14 14">
-												<g><polygon points="7,10.773 1.531,6.398 2.469,5.227 7,8.851 11.531,5.227 12.469,6.398"/></g>
-												<rect fill="none" width="14" height="14"/>
-											</svg>
-										</span>
-									</span>
-									<ul>
-										<li class="en"><a href="#">English</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="custom-text"><img src="assets/images/payments.png" alt="Payment"></div>
-					</div>
-				</div>
-			</div>
-		</footer>
-	</div>
-	<!-- MENU FULL SCREEN -->
-	<div id="hamburger-fullscreen" class="hamburger-fullscreen content-menu content-animation-none">
-		<div class="hamburger-menu button-close">
-			<div class="hamburger-box">
-				<div class="hamburger-inner"></div>
-			</div>
-			<span class="menu-text">Close</span>
-		</div>
-		<div class="hamburger-screen-inner">
-			<div class="site-branding">
-				<a href="../index.html" class="logo">
-					<img src="../assets/images/logo-light.svg" alt="Ballylike" class="logo-light">
-					<img src="../assets/images/logo.png" alt="Ballylike" class="logo-dark">
-				</a>
-				<p class="site-title"><a href="../index.html" rel="home">Ballylike</a></p>
-				<p class="site-description">Creative Bag and Art Shop</p>
-			</div>
-			<div class="hamburger-screen-content ps">
-				<nav id="fullscreen-menu" class="fullscreen-menu hamburger-navigation click-open">
-					<ul class="menu">
-						<li class="menu-item menu-item-has-children">
-							<a href="../index.html">Home</a>
-						</li>
-						<li class="menu-item menu-item-has-children">
-							<a href="../elements/product-grid.html">Shop</a>
-						</li>
-						<li class="menu-item menu-item-has-children">
-							<a href="https://instagram.com/ballylike_shop">Instagram</a>
-						</li>
-						<li class="menu-item menu-item-has-children">
-							<a href="page/coming-soon-v1.html">Pages</a>
-						</li>
-						<li class="menu-item menu-item-has-children">
-							<a href="../page/coming-soon-v1.html">Projects</a>
-						</li>
-						<li class="menu-item"><a href="../page/coming-soon-v1.html">Blogs</a></li>
-					</ul>
-				</nav>
-				<div class="fullscreen-footer">
-					<div class="currency list-dropdown up">
-						<span class="label">Currency</span>
-						<div class="dropdown">
-							<span class="current">
-								<span class="selected">USD</span>
-								<span class="svg-icon icon-arrow-dropdown size-smaller caret">
-									<svg width="14px" height="14px" viewBox="0 0 14 14">
-										<g>
-											<polygon points="7,10.773 1.531,6.398 2.469,5.227 7,8.851 11.531,5.227 12.469,6.398"/>
-										</g>
-										<rect fill="none" width="14" height="14"/>
-									</svg>
-								</span>
-							</span>
-							<ul>
-								<li><a href="#">USD</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="language list-dropdown up">
-						<span class="label">Language</span>
-						<div class="dropdown">
-							<span class="current">
-								<span class="selected">English</span>
-								<span class="svg-icon icon-arrow-dropdown size-smaller caret">
-									<svg width="14px" height="14px" viewBox="0 0 14 14">
-										<g>
-											<polygon points="7,10.773 1.531,6.398 2.469,5.227 7,8.851 11.531,5.227 12.469,6.398"/>
-										</g>
-										<rect fill="none" width="14" height="14"/>
-									</svg>
-								</span>
-							</span>
-							<ul>
-								<li class="en"><a href="#">English</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="social-icons">
-					<div class="socials-menu ">
-						<ul class="menu">
-							<li class="menu-item"><a href="https://twitter.com/"><span>Twitter</span></a></li>
-							<li class="menu-item"><a href="https://www.facebook.com/share/p/18xWnWoahD/"><span>Facebook</span></a></li>
-							<li class="menu-item"><a href="https://instagram.com/ballylike_shop"><span>Instagram</span></a></li>
-							<li class="menu-item"><a href="https://pinterest.com"><span>Pinterest</span></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="hamburger-screen-background"></div>
-		</div>
-	</div>
-	<!-- MOBILE MENU -->
-	<div id="mobile-menu" class="mobile-menu-panel offscreen-panel">
-		<div class="backdrop"></div>
-		<div class="panel">
-			<div class="header-mobile custom logo-center">
-				<div class="Ballylike-container-fluid">
-					<div class="mobile-menu-hamburger">
-						<button class="mobile-menu-toggle hamburger-menu" data-toggle="off-canvas" data-target="mobile-menu">
-							<span class="hamburger-box">
-								<span class="hamburger-inner">
+      <div class="offcanvas-body d-flex flex-column justify-content-center align-items-center text-center" style="height: 100%;">
+        <!-- Ballylike Text -->
+        <!--<div class="fw-bold fs-3 mb-4">BALLYLIKE</div>-->
 
-								</span>
-							</span>
-						</button>
-					</div>
-					<div class="site-branding">
-						<a href="../index.html" class="logo">
-							<img src="../assets/images/logo.png" alt="Ballylike" class="logo-dark">
-							<img src="../assets/images/logo-light.svg" alt="Ballylike" class="logo-light">
-						</a>
-						<p class="site-title"><a href="../index.html" rel="home">Ballylike</a></p>
-						<p class="site-description">Ballylike Where Art Meets Authenticity. </p>
-					</div>
-					<div class="mobile-header-icons">
-						<div class="header-cart">
-							<a href="#" data-toggle="off-canvas" data-target="cart-panel">
-								<span class="svg-icon icon-cart size-normal shopping-cart-icon">
-									<svg width="24px" height="24px" viewBox="0 0 24 24">
-										<g>
-											<rect fill="none" width="24" height="24"/>
-											<path d="M19,10h-3V7c0-2.206-1.794-4-4-4S8,4.794,8,7v3H5c-0.55,0-0.908,0.441-0.797,0.979l1.879,9.042
-											C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7 c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
-										</g>
-									</svg>
-								</span>
-								<span class="counter cart-counter">0</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="mobile-menu__search-form">
-				<form method="get" action="#">
-					<label>
-						<span class="svg-icon icon-search size-normal search-icon">
-							<svg  width="24px" height="24px" viewBox="0 0 24 24">
-								<g>
-									<rect fill="none" width="24" height="24"/>
-									<path d="M20,18.586l-3.402-3.402C17.474,14.015,18,12.57,18,11c0-3.86-3.141-7-7-7c-3.86,0-7,3.14-7,7c0,3.859,3.14,7,7,7 c1.57,0,3.015-0.526,4.184-1.402L18.586,20L20,18.586z M6,11c0-2.757,2.243-5,5-5s5,2.243,5,5s-2.243,5-5,5S6,13.757,6,11z"/>
-								</g>
-							</svg>
-						</span>
-						<input type="text" name="s" class="search-field" value="" placeholder="Search" autocomplete="off">
-					</label>
-				</form>
-			</div>
-			<nav class="mobile-menu__nav">
-				<ul class="menu">
-					<li class="menu-item menu-item-has-children">
-						<a href="../index.html">Home</a>
-					</li>
-					<li class="menu-item menu-item-has-children">
-						<a href="../elements/product-grid.html">Shop</a>
-					</li>
-					<li class="menu-item menu-item-has-children">
-						<a href="https://www.instagram.com/ballylike_shop">Instagram</a>
-					</li>
-					<li class="menu-item menu-item-has-children">
-						<a href="#">Pages</a>
-						<ul class="sub-menu">
-							<li class="menu-item menu-item-has-children">
-								<a href="../page/about-us.html">About Us</a>
-							</li>
-							<li class="menu-item menu-item-has-children">
-								<a href="../page/contact-us.html">Contact Us</a>
-							</li>
-							
-							<li class="menu-item"><a href="../page/faq.html">FAQ</a></li>
-						</ul>
-					</li>
-					<li class="menu-item menu-item-has-children">
-						<a href="../page/coming-soon-v1.html">Projects</a>
-					</li>
-					<li class="menu-item menu-item-has-children">
-						<a href="../page/coming-soon-v1.html">Blogs</a>
-					</li>
-				</ul>
-			</nav>
-			<hr class="mobile-menu__divider divider">
-			<div class="mobile-menu__cart">
-				<a href="#">
-					<span class="mobile-menu__cart-text">Shopping Cart</span>
-					<span class="mobile-menu__cart-icon">
-						<span class="svg-icon icon-cart size-normal shopping-cart-icon">
-							<svg width="24px" height="24px" viewBox="0 0 24 24">
-								<g>
-									<rect fill="none" width="24" height="24"/>
-									<path d="M19,10h-3V7c0-2.206-1.794-4-4-4S8,4.794,8,7v3H5c-0.55,0-0.908,0.441-0.797,0.979l1.879,9.042
-									C6.194,20.559,6.736,21,7.286,21h9.429c0.55,0,1.092-0.441,1.203-0.979l1.879-9.042C19.908,10.441,19.55,10,19,10z M10,7 c0-1.103,0.897-2,2-2s2,0.897,2,2v3h-4V7z M16.087,19H7.913l-1.455-7h11.313L16.087,19z"/>
-								</g>
-							</svg>
-						</span>
-						<span class="counter cart-counter">0</span>
-					</span>
-				</a>
-			</div>
-			<div class="mobile-menu__wishlist">
-				<a href="#" class="wishlist-contents">
-					<span class="mobile-menu__wishlist-text">Wishlist</span>
-					<span class="mobile-menu__wishlist-icon">
-						<span class="svg-icon icon-heart-o size-normal ">
-							<svg width="24px" height="24px" viewBox="0 0 24 24">
-								<g>
-									<path d="M16.243,5.843c0.801,0,1.555,0.312,2.121,0.879c1.17,1.17,1.17,3.073,0,4.243l-2.121,2.121l-2.121,2.121L12,17.328 l-2.121-2.121l-2.121-2.121l-2.121-2.121c-0.567-0.567-0.879-1.32-0.879-2.121c0-0.801,0.312-1.555,0.879-2.121 c0.567-0.567,1.32-0.879,2.121-0.879c0.801,0,1.555,0.312,2.121,0.879l0.707,0.707L12,8.843l1.414-1.414l0.707-0.707 C14.688,6.155,15.441,5.843,16.243,5.843 M16.243,3.843c-1.28,0-2.559,0.488-3.536,1.464L12,6.015l-0.707-0.707 c-0.976-0.976-2.256-1.464-3.536-1.464S5.198,4.331,4.222,5.308c-1.953,1.953-1.953,5.118,0,7.071L6.343,14.5l2.121,2.121 L12,20.157l3.536-3.536l2.121-2.121l2.121-2.121c1.953-1.953,1.953-5.118,0-7.071C18.802,4.331,17.522,3.843,16.243,3.843 L16.243,3.843z"/>
-									<rect fill="none" width="24" height="24"/>
-								</g>
-							</svg>
-						</span>
-						<span class="counter wishlist-counter">0</span>
-					</span>
-				</a>
-			</div>
-			<hr class="mobile-menu__divider divider">
-			<div class="currency list-dropdown up">
-				<span class="label">Currency</span>
-				<div class="dropdown">
-					<span class="current">
-						<span class="selected">USD</span>
-						<span class="svg-icon icon-arrow-dropdown size-smaller caret">
-							<svg width="14px" height="14px" viewBox="0 0 14 14">
-								<g>
-									<polygon points="7,10.773 1.531,6.398 2.469,5.227 7,8.851 11.531,5.227 12.469,6.398"/>
-								</g>
-								<rect fill="none" width="14" height="14"/>
-							</svg>
-						</span>
-					</span>
-					<ul>
-						<li><a href="#">USD</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="language list-dropdown up">
-				<span class="label">Language</span>
-				<div class="dropdown">
-					<span class="current">
-						<span class="selected">English</span>
-						<span class="svg-icon icon-arrow-dropdown size-smaller caret">
-							<svg width="14px" height="14px" viewBox="0 0 14 14">
-								<g>
-									<polygon points="7,10.773 1.531,6.398 2.469,5.227 7,8.851 11.531,5.227 12.469,6.398"/>
-								</g>
-								<rect fill="none" width="14" height="14"/>
-							</svg>
-						</span>
-					</span>
-					<ul>
-						<li class="en"><a href="#">English</a></li>
-					</ul>
-				</div>
-			</div>
-			<hr class="mobile-menu__divider divider">
-			<div class="mobile-menu__account-login">
-				<a href="https://wa.me/c/263732952546">Subscribe</a>
-			</div>
-			<hr class="mobile-menu__divider divider">
-			<div class="mobil-menu__socials socials-menu">
-				<ul class="menu">
-					<li class="menu-item"><a href="https://twitter.com/"><span>Twitter</span></a></li>
-					<li class="menu-item"><a href="https://www.facebook.com/share/p/18xWnWoahD/"><span>Facebook</span></a></li>
-					<li class="menu-item"><a href="https://instagram.com/ballylike_shop"><span>Instagram</span></a></li>
-					<li class="menu-item"><a href="https://pinterest.com"><span>Pinterest</span></a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<!-- SCROLL DOWN -->
-	<span class="flex-posts-scroll-down sticky-scrolldown">
-		<span class="svg-icon icon-arrow-left size-normal arrow-left-icon">
-			<svg viewBox="0 0 32 32">
-				<g>
-					<rect y="0" style="fill:none;" width="32" height="32"/>
-					<path d="M14,17h14v-2H14V9L4,16l10,7V17z M7.488,15.96L12,12.841V19v0.079L7.488,15.96z"/>
-				</g>
-			</svg>
-		</span> Scroll Down
-	</span>
-	<!-- STICKY SOCIALS -->
-	<div id="sticky-socials" class="socials-menu sticky-socials">
-		<ul class="menu">
-			<li class="menu-item"><a href="https://twitter.com/"><span>Twitter</span></a></li>
-			<li class="menu-item"><a href="https://www.facebook.com/share/p/18xWnWoahD/"><span>Facebook</span></a></li>
-			<li class="menu-item"><a href="https://instagram.com/ballylike"><span>Instagram</span></a></li>
-			<li class="menu-item"><a href="https://pinterest.com"><span>Pinterest</span></a></li>
-		</ul>
-	</div>
-	
-	<!-- jQuery -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<!-- Scroll Trigger -->
-	<script src="assets/js/scrolltrigger.min.js"></script>
-	<!-- Isotope -->
-	<script src="assets/js/isotope.pkgd.min.js"></script>
-	<!-- Quantity jQuery -->
-	<script src="assets/js/quantity-dropdown.js"></script>
-	<!-- Main Scripts -->
-	<script src="assets/js/scripts.min.js"></script>
+        <!-- Nav Items -->
+        <ul class="navbar-nav gap-3">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./shop.html">Shop</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./contact.html">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./faq.html">FAQs</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+  <section id="billboard" class="bg-light py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <h1 class="section-title text-center mt-4" data-aos="fade-up">Ballylike</h1>
+      <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
+        <p>Faith. Grow. Create.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="swiper main-swiper py-4" data-aos="fade-up" data-aos-delay="600">
+        <div class="swiper-wrapper d-flex border-animation-left">
+          <div class="swiper-slide">
+            <div class="banner-item image-zoom-effect">
+              <div class="image-holder">
+                <a href="#"><img src="images/banner-image-6.jpg" alt="Canvas shoulder bag - affordable tote bag Zimbabwe" class="img-fluid"></a>
+              </div>
+              <div class="banner-content py-4">
+                <h5 class="element-title text-uppercase">
+                  <a href="index.html" class="item-anchor">Faith-Inspired Canvas Bag</a>
+                </h5>
+                <p>Designed for daily use in Harare, this durable canvas tote features hand-drawn graphics rooted in creativity and spiritual growth.</p>
+                <div class="btn-left">
+                  <a href="#" class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Shop Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="banner-item image-zoom-effect">
+              <div class="image-holder">
+                <a href="#"><img src="images/banner-image-1.jpg" alt="Custom canvas tote bag - Harare streetwear" class="img-fluid"></a>
+              </div>
+              <div class="banner-content py-4">
+                <h5 class="element-title text-uppercase">
+                  <a href="index.html" class="item-anchor">Urban Classic Canvas</a>
+                </h5>
+                <p>This bestseller combines fashion and utility—perfect for carrying essentials while representing local Zimbabwean streetwear style.</p>
+                <div class="btn-left">
+                  <a href="#" class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Shop Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="banner-item image-zoom-effect">
+              <div class="image-holder">
+                <a href="#"><img src="images/banner-image-2.jpg" alt="Affordable shoulder bag Zimbabwe - Ballylike design" class="img-fluid"></a>
+              </div>
+              <div class="banner-content py-4">
+                <h5 class="element-title text-uppercase">
+                  <a href="index.html" class="item-anchor">Signature Art Print Bag</a>
+                </h5>
+                <p>Made with eco-friendly canvas and adorned with original art from local creatives—exclusively at Ballylike.</p>
+                <div class="btn-left">
+                  <a href="#" class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Shop Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="banner-item image-zoom-effect">
+              <div class="image-holder">
+                <a href="#"><img src="images/banner-image-3.jpg" alt="Stylish tote bag Harare Zimbabwe" class="img-fluid"></a>
+              </div>
+              <div class="banner-content py-4">
+                <h5 class="element-title text-uppercase">
+                  <a href="index.html" class="item-anchor">Minimalist Canvas Tote</a>
+                </h5>
+                <p>Sleek, simple, and made to last. A unisex design for urban youth who value authenticity and impact.</p>
+                <div class="btn-left">
+                  <a href="#" class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Shop Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="banner-item image-zoom-effect">
+              <div class="image-holder">
+                <a href="#"><img src="images/banner-image-4.jpg" alt="Canvas bag for creatives Zimbabwe" class="img-fluid"></a>
+              </div>
+              <div class="banner-content py-4">
+                <h5 class="element-title text-uppercase">
+                  <a href="index.html" class="item-anchor">Ballylike Artist Series</a>
+                </h5>
+                <p>Part of our limited Artist Series collection—designed to celebrate Zimbabwean creativity with purpose-driven fashion.</p>
+                <div class="btn-left">
+                  <a href="#" class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Shop Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="banner-item image-zoom-effect">
+              <div class="image-holder">
+                <a href="#"><img src="images/banner-image-5.jpg" alt="Buy canvas tote online Zimbabwe - Ballylike" class="img-fluid"></a>
+              </div>
+              <div class="banner-content py-4">
+                <h5 class="element-title text-uppercase">
+                  <a href="index.html" class="item-anchor">Bold Canvas Essentials</a>
+                </h5>
+                <p>Affordable, faith-centered, and functional—perfect for school, work, or styling your creative lifestyle.</p>
+                <div class="btn-left">
+                  <a href="#" class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Shop Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#arrow-left"></use></svg></div>
+      <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#arrow-right"></use></svg></div>
+    </div>
+  </div>
+</section>
+
+  <section class="features py-5" aria-labelledby="ballylike-features">
+  <div class="container">
+    <h2 id="ballylike-features" class="text-center fw-bold mb-5">Why Shop with BALLYLIKE</h2>
+    <div class="row">
+      <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="0">
+        <div class="py-5">
+          <svg width="38" height="38" viewBox="0 0 24 24" role="img" aria-label="Appointment calendar icon">
+            <use xlink:href="#calendar"></use>
+          </svg>
+          <h3 class="element-title text-capitalize my-3">Book An Appointment</h3>
+          <p>Schedule a personalized session with a BALLYLIKE expert for exclusive styling and product guidance.</p>
+        </div>
+      </div>
+      <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="300">
+        <div class="py-5">
+          <svg width="38" height="38" viewBox="0 0 24 24" role="img" aria-label="Shopping bag icon">
+            <use xlink:href="#shopping-bag"></use>
+          </svg>
+          <h3 class="element-title text-capitalize my-3">Pick Up In Store</h3>
+          <p>Shop online and collect your BALLYLIKE order in-store at your convenience—fast, easy, and secure.</p>
+        </div>
+      </div>
+      <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="600">
+        <div class="py-5">
+          <svg width="38" height="38" viewBox="0 0 24 24" role="img" aria-label="Gift box icon">
+            <use xlink:href="#gift"></use>
+          </svg>
+          <h3 class="element-title text-capitalize my-3">Special Packaging</h3>
+          <p>All BALLYLIKE purchases come in premium packaging—perfect for gifting or treating yourself.</p>
+        </div>
+      </div>
+      <div class="col-md-3 text-center" data-aos="fade-in" data-aos-delay="900">
+        <div class="py-5">
+          <svg width="38" height="38" viewBox="0 0 24 24" role="img" aria-label="Return cycle icon">
+            <use xlink:href="#arrow-cycle"></use>
+          </svg>
+          <h3 class="element-title text-capitalize my-3">Free Global Returns</h3>
+          <p>Shop confidently with BALLYLIKE’s hassle-free global return policy—because your satisfaction matters.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section class="categories overflow-hidden">
+    <div class="container">
+      <div class="open-up" data-aos="zoom-out">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="cat-item image-zoom-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/cat-item1.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+              </div>
+              <div class="category-content">
+                <div class="product-button">
+                  <a href="index.html" class="btn btn-common text-uppercase">Shop for men</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="cat-item image-zoom-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/cat-item2.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+              </div>
+              <div class="category-content">
+                <div class="product-button">
+                  <a href="index.html" class="btn btn-common text-uppercase">Shop for women</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="cat-item image-zoom-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/cat-item3.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+              </div>
+              <div class="category-content">
+                <div class="product-button">
+                  <a href="index.html" class="btn btn-common text-uppercase">Shop accessories</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
+        <h4 class="text-uppercase">Our New Arrivals</h4>
+        <a href="shop.html" class="btn-link">View All Products</a>
+      </div>
+      <div class="swiper product-swiper open-up" data-aos="zoom-out">
+        <div class="swiper-wrapper d-flex">
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder position-relative">
+                <a href="index.html">
+                  <img src="images/product-item-1.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="element-title text-uppercase fs-5 mt-3">
+                    <a href="index.html">Dark florish onepiece</a>
+                  </h5>
+                  <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$95.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder position-relative">
+                <a href="index.html">
+                  <img src="images/product-item-2.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Baggy Shirt</a>
+                  </h5>
+                  <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$55.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder position-relative">
+                <a href="index.html">
+                  <img src="images/product-item-3.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Cotton off-white shirt</a>
+                  </h5>
+                  <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$65.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder position-relative">
+                <a href="index.html">
+                  <img src="images/product-item-4.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Crop sweater</a>
+                  </h5>
+                  <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$50.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder position-relative">
+                <a href="index.html">
+                  <img src="images/product-item-10.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Crop sweater</a>
+                  </h5>
+                  <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$70.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
+          <use xlink:href="#arrow-left"></use>
+        </svg></div>
+      <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
+          <use xlink:href="#arrow-right"></use>
+        </svg></div>
+    </div>
+  </section>
+
+  <section class="collection bg-light position-relative py-5">
+    <div class="container">
+      <div class="row">
+        <div class="title-xlarge text-uppercase txt-fx domino">Collection</div>
+        <div class="collection-item d-flex flex-wrap my-5">
+          <div class="col-md-6 column-container">
+            <div class="image-holder">
+              <img src="images/single-image-2.jpg" alt="collection" class="product-image img-fluid">
+            </div>
+          </div>
+          <div class="col-md-6 column-container bg-white">
+            <div class="collection-content p-5 m-0 m-md-5">
+              <h2 class="element-title text-uppercase fw-bold">Shoulder Bag Collection</h2>
+              <p>Discover timeless sophistication with our Classic Shoulder Bag Collection from BALLYLIKE. Crafted for elegance and everyday utility, each piece blends premium materials with modern style. Whether you're heading to work or a weekend escape, these bags deliver both function and fashion.</p>
+              <a href="https://wa.me/c/263781457106" class="btn btn-dark text-uppercase mt-3">Shop the Collection</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="best-sellers" class="best-sellers product-carousel py-5 position-relative overflow-hidden">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
+        <h4 class="text-uppercase">Best Selling Items</h4>
+        <a href="shop.html" class="btn-link">View All Products</a>
+      </div>
+      <div class="swiper product-swiper open-up" data-aos="zoom-out">
+        <div class="swiper-wrapper d-flex">
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/product-item-4.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Dark florish onepiece</a>
+                  </h5>
+                  <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$95.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/product-item-3.jpg" alt="product" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Baggy Shirt</a>
+                  </h5>
+                  <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$55.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/product-item-5.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Cotton off-white shirt</a>
+                  </h5>
+                  <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$65.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/product-item-6.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Handmade crop sweater</a>
+                  </h5>
+                  <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$50.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/product-item-9.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Dark florish onepiece</a>
+                  </h5>
+                  <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$70.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/product-item-10.jpg" alt="categories" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Cotton off-white shirt</a>
+                  </h5>
+                  <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$70.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
+          <use xlink:href="#arrow-left"></use>
+        </svg></div>
+      <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
+          <use xlink:href="#arrow-right"></use>
+        </svg></div>
+    </div>
+  </section>
+
+  <section class="testimonials py-5 bg-light">
+  <div class="section-header text-center mt-5">
+    <h3 class="section-title text-uppercase fw-bold">Our Customers Love Their Bags</h3>
+  </div>
+  <div class="swiper testimonial-swiper overflow-hidden my-5">
+    <div class="swiper-wrapper d-flex">
+      <div class="swiper-slide">
+        <div class="testimonial-item text-center">
+          <blockquote>
+            <p>“Absolutely love my canvas shoulder bag — super spacious, lightweight, and stylish. Perfect for everyday use!”</p>
+            <div class="review-title text-uppercase">Ava L.</div>
+          </blockquote>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="testimonial-item text-center">
+          <blockquote>
+            <p>“This tote bag is a lifesaver! It fits everything I need for work and looks amazing with any outfit.”</p>
+            <div class="review-title text-uppercase">Jasmine T.</div>
+          </blockquote>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="testimonial-item text-center">
+          <blockquote>
+            <p>“The quality of the stitching and fabric on the shoulder bag is next level. Looks designer, feels durable.”</p>
+            <div class="review-title text-uppercase">Riley M.</div>
+          </blockquote>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="testimonial-item text-center">
+          <blockquote>
+            <p>“Got the tote as a gift and now I’m obsessed. It’s elegant, eco-friendly, and fits my laptop with no problem.”</p>
+            <div class="review-title text-uppercase">Nia B.</div>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="testimonial-swiper-pagination d-flex justify-content-center mb-5"></div>
+</section>
+
+
+  <section id="related-products" class="related-products product-carousel py-5 position-relative overflow-hidden">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
+        <h4 class="text-uppercase">You May Also Like</h4>
+        <a href="shop.html" class="btn-link">View All Products</a>
+      </div>
+      <div class="swiper product-swiper open-up" data-aos="zoom-out">
+        <div class="swiper-wrapper d-flex">
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/product-item-5.jpg" alt="product" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Dark florish onepiece</a>
+                  </h5>
+                  <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$95.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/product-item-6.jpg" alt="product" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Baggy Shirt</a>
+                  </h5>
+                  <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$55.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/product-item-7.jpg" alt="product" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Cotton off-white shirt</a>
+                  </h5>
+                  <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$65.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/product-item-8.jpg" alt="product" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Handmade crop sweater</a>
+                  </h5>
+                  <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$50.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="product-item image-zoom-effect link-effect">
+              <div class="image-holder">
+                <a href="index.html">
+                  <img src="images/product-item-1.jpg" alt="product" class="product-image img-fluid">
+                </a>
+                <a href="index.html" class="btn-icon btn-wishlist">
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+                <div class="product-content">
+                  <h5 class="text-uppercase fs-5 mt-3">
+                    <a href="index.html">Handmade crop sweater</a>
+                  </h5>
+                  <a href="index.html" class="text-decoration-none" data-after="Add to cart"><span>$70.00</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
+          <use xlink:href="#arrow-left"></use>
+        </svg></div>
+      <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
+          <use xlink:href="#arrow-right"></use>
+        </svg></div>
+    </div>
+  </section>
+
+  <section class="blog py-5">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
+      <h2 class="text-uppercase fw-bold">Explore the Latest Posts</h2>
+    </div>
+    <div class="row">
+      <!-- Blog Post 1 -->
+      <div class="col-md-4">
+        <article class="post-item">
+          <div class="post-image">
+            <a href="blog-post-1.html">
+              <img src="images/post-image1.jpg" alt="Ballylike pastel fashion outfit inspiration" class="post-grid-image img-fluid rounded shadow-sm">
+            </a>
+          </div>
+          <div class="post-content my-3">
+            <div class="post-meta text-uppercase fs-6 text-secondary mb-2">
+              <span class="post-category">Ballylike Fashion</span> / 
+              <span class="meta-day">June 10, 2025</span>
+            </div>
+            <h3 class="post-title h5 text-uppercase">
+              <a href="blog-post-1.html" class="text-dark">How to Rock Pastel Outfits Ballylike Style</a>
+            </h3>
+            <p class="text-muted">Learn how to style pastel outfits with Ballylike’s signature fashion tips, perfect for everyday elegance and casual chic looks.</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Blog Post 2 -->
+      <div class="col-md-4">
+        <article class="post-item">
+          <div class="post-image">
+            <a href="blog-post-2.html">
+              <img src="images/post-image2.jpg" alt="Ballylike top summer fashion trends" class="post-grid-image img-fluid rounded shadow-sm">
+            </a>
+          </div>
+          <div class="post-content my-3">
+            <div class="post-meta text-uppercase fs-6 text-secondary mb-2">
+              <span class="post-category">Ballylike Fashion</span> / 
+              <span class="meta-day">June 5, 2025</span>
+            </div>
+            <h3 class="post-title h5 text-uppercase">
+              <a href="blog-post-2.html" class="text-dark">Top 10 Ballylike Fashion Trends for Summer</a>
+            </h3>
+            <p class="text-muted">Discover Ballylike’s curated summer fashion trends, from bold prints to relaxed silhouettes, making your style stand out this season.</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Blog Post 3 -->
+      <div class="col-md-4">
+        <article class="post-item">
+          <div class="post-image">
+            <a href="blog-post-3.html">
+              <img src="images/post-image3.jpg" alt="Unique Ballylike fashion styles in motion" class="post-grid-image img-fluid rounded shadow-sm">
+            </a>
+          </div>
+          <div class="post-content my-3">
+            <div class="post-meta text-uppercase fs-6 text-secondary mb-2">
+              <span class="post-category">Ballylike Fashion</span> / 
+              <span class="meta-day">May 29, 2025</span>
+            </div>
+            <h3 class="post-title h5 text-uppercase">
+              <a href="blog-post-3.html" class="text-dark">Crazy Ballylike Fashion with Unique Movement</a>
+            </h3>
+            <p class="text-muted">Explore Ballylike’s avant-garde fashion looks that push boundaries, creating dynamic, stylish, and unforgettable statements.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+  <footer id="footer" class="mt-5">
+  <div class="container">
+    <div class="row d-flex flex-wrap justify-content-between py-5">
+      
+      <!-- Brand & Social -->
+      <div class="col-md-3 col-sm-6">
+        <div class="footer-menu footer-menu-001">
+          <div class="footer-intro mb-4">
+            <a href="index.html">
+              <img src="images/main-logo.png" alt="Ballylike Logo">
+            </a>
+          </div>
+          <p>Ballylike is dedicated to creating unique fashion pieces, tote bags, and lifestyle accessories that inspire creativity and personal style. Our mission is to empower individuals to express themselves through fashion.</p>
+          <div class="social-links">
+            <ul class="list-unstyled d-flex flex-wrap gap-3">
+              <li><a href="#" class="text-secondary" aria-label="Ballylike Facebook"><svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#facebook"></use></svg></a></li>
+              <li><a href="#" class="text-secondary" aria-label="Ballylike Twitter"><svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#twitter"></use></svg></a></li>
+              <li><a href="#" class="text-secondary" aria-label="Ballylike YouTube"><svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#youtube"></use></svg></a></li>
+              <li><a href="#" class="text-secondary" aria-label="Ballylike Pinterest"><svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#pinterest"></use></svg></a></li>
+              <li><a href="#" class="text-secondary" aria-label="Ballylike Instagram"><svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#instagram"></use></svg></a></li>
+            </ul>
+          </div>
+          <!-- Newsletter Signup -->
+          <div class="newsletter mt-4">
+            <h6 class="text-uppercase mb-2">Subscribe to Ballylike</h6>
+            <form action="#" method="post">
+              <input type="email" name="email" placeholder="Enter your email" class="form-control mb-2">
+              <button type="submit" class="btn btn-dark btn-sm">Subscribe</button>
+            </form>
+            <small class="text-muted">Get updates on new collections, offers, and Ballylike news.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-3 col-sm-6">
+        <div class="footer-menu footer-menu-002">
+          <h5 class="widget-title text-uppercase mb-4">Quick Links</h5>
+          <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
+            <li class="menu-item"><a href="index.html" class="item-anchor">Home</a></li>
+            <li class="menu-item"><a href="about.html" class="item-anchor">About Ballylike</a></li>
+            <li class="menu-item"><a href="services.html" class="item-anchor">Services</a></li>
+            <li class="menu-item"><a href="shop.html" class="item-anchor">Shop Ballylike Products</a></li>
+            <li class="menu-item"><a href="blog.html" class="item-anchor">Ballylike Blog</a></li>
+            <li class="menu-item"><a href="contact.html" class="item-anchor">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Help & Info -->
+      <div class="col-md-3 col-sm-6">
+        <div class="footer-menu footer-menu-003">
+          <h5 class="widget-title text-uppercase mb-4">Help & Info</h5>
+          <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
+            <li class="menu-item"><a href="#" class="item-anchor">Track Your Order</a></li>
+            <li class="menu-item"><a href="#" class="item-anchor">Returns & Exchanges</a></li>
+            <li class="menu-item"><a href="#" class="item-anchor">Shipping & Delivery</a></li>
+            <li class="menu-item"><a href="contact.html" class="item-anchor">Contact Us</a></li>
+            <li class="menu-item"><a href="#" class="item-anchor">Store Locator</a></li>
+            <li class="menu-item"><a href="faq.html" class="item-anchor">FAQs</a></li>
+            <li class="menu-item"><a href="shop.html#collections" class="item-anchor">New Collections</a></li>
+            <li class="menu-item"><a href="shop.html#bestsellers" class="item-anchor">Bestsellers</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="col-md-3 col-sm-6">
+        <div class="footer-menu footer-menu-004 border-animation-left">
+          <h5 class="widget-title text-uppercase mb-4">Contact Ballylike</h5>
+          <p>Questions or suggestions? <a href="mailto:contact@ballylike.store" class="item-anchor">contact@ballylike.store</a></p>
+          <p>Need support? Call us: <a href="tel:+263783952546" class="item-anchor">+263 78 395 2546</a></p>
+          <p>Visit our store in Harare, Zimbabwe for exclusive Ballylike products.</p>
+          <p>Follow Ballylike on social media for style tips, promotions, and inspiration.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="border-top py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p>© 2025 BALLYLIKE. All rights reserved. Designed by Tirivashe Chitanda.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/SmoothScroll.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="js/script.min.js"></script>
 </body>
 </html>

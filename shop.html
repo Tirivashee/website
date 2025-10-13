@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ballylike — Shop Canvas Bags, Hoodies & Lifestyle Accessories</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Shop Ballylike — handmade tote bags, minimalist hoodies, and creative lifestyle accessories from Zimbabwe. Authentic design, crafted with style and purpose.">
+  <meta name="keywords" content="Ballylike, tote bags, hoodies, pouches, canvas bags, Zimbabwe fashion, handmade bags, designer bags, streetwear, lifestyle accessories">
+  <meta name="author" content="Ballylike">
+
+  <!-- Open Graph (Facebook, WhatsApp, Instagram preview) -->
+  <meta property="og:title" content="Ballylike — Shop Tote Bags, Hoodies & Lifestyle Accessories">
+  <meta property="og:description" content="Shop authentic handmade tote bags, hoodies, and lifestyle pieces from Ballylike. Designed in Zimbabwe with creativity, faith, and purpose.">
+  <meta property="og:image" content="https://ballylike.co.zw/images/shop-preview.jpg">
+  <meta property="og:url" content="https://ballylike.co.zw/shop.html">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ballylike — Shop Tote Bags, Hoodies & Accessories">
+  <meta name="twitter:description" content="Handcrafted fashion meets creativity. Shop Ballylike tote bags, hoodies, and lifestyle products.">
+  <meta name="twitter:image" content="https://ballylike.co.zw/images/shop-preview.jpg">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://ballylike.co.zw/shop.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <!-- Schema.org Store Info -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "Ballylike",
+    "url": "https://ballylike.co.zw",
+    "logo": "https://ballylike.co.zw/images/logo.png",
+    "image": "https://ballylike.co.zw/images/shop-preview.jpg",
+    "description": "Shop Ballylike — handmade tote bags, hoodies, and lifestyle products designed in Zimbabwe.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "ZW"
+    },
+    "sameAs": [
+      "https://www.instagram.com/ballylike",
+      "https://wa.me/c/263781457106"
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --max-width: 1100px;
+      --accent: #111;
+      --muted: #666;
+      --bg: #fafafa;
+      --fade-duration: 0.8s;
+      --slide-duration: 0.6s;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Georgia", serif;
+      background: var(--bg);
+      color: var(--accent);
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeInBody var(--fade-duration) ease forwards;
+    }
+
+    @keyframes fadeInBody {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .site {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header.site-header {
+      background: #fff;
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+      animation: slideDown var(--slide-duration) ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .site-title a {
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--accent);
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .site-title a:hover {
+      color: var(--muted);
+      transform: scale(1.05);
+    }
+
+    nav.primary a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: var(--accent);
+      font-size: 1rem;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav.primary a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    nav.primary a:hover {
+      color: var(--muted);
+    }
+
+    nav.primary a:hover::after {
+      width: 100%;
+    }
+
+    main.container {
+      flex: 1;
+      max-width: var(--max-width);
+      margin: 3rem auto;
+      padding: 0 1rem;
+      animation: fadeInMain 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInMain {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      font-weight: 500;
+    }
+
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .product {
+      flex: 1 1 calc(30% - 2rem);
+      max-width: calc(30% - 2rem);
+      text-align: center;
+      background: #fff;
+      padding: 1rem;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .product:nth-child(1) { animation-delay: 0.2s; }
+    .product:nth-child(2) { animation-delay: 0.4s; }
+    .product:nth-child(3) { animation-delay: 0.6s; }
+    .product:nth-child(4) { animation-delay: 0.8s; }
+    .product:nth-child(5) { animation-delay: 1s; }
+    .product:nth-child(6) { animation-delay: 1.2s; }
+
+    .product:hover {
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      transform: translateY(-5px);
+    }
+
+    .product-slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+    }
+
+    .product-slider img {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: scale(1.02);
+    }
+
+    .product-slider img.active {
+      opacity: 1;
+      transform: scale(1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: rgba(255,255,255,0.8);
+      padding: 0;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.4s ease, color 0.3s ease;
+      z-index: 2;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    .product-slider:hover .slider-btn {
+      opacity: 1;
+    }
+
+    .slider-btn:hover { color: #fff; }
+    .slider-btn.prev { left: 10px; }
+    .slider-btn.next { right: 10px; }
+
+    .product h3 { margin: 0.75rem 0 0.25rem; font-size: 1.1rem; font-weight: 500; }
+    .product p { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.75rem; }
+
+    .product a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product a::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 100%;
+      background: var(--accent);
+      z-index: -1;
+      transition: width 0.3s ease;
+    }
+
+    .product a:hover::before { width: 100%; }
+    .product a:hover { color: #fff; }
+
+    @media (max-width: 1024px) {
+      .product { flex: 1 1 calc(50% - 2rem); max-width: calc(50% - 2rem); }
+    }
+    @media (max-width: 640px) {
+      .product { flex: 1 1 100%; max-width: 100%; }
+      .slider-btn { font-size: 1.5rem; }
+    }
+
+    footer.site-footer {
+      background: #fff;
+      border-top: 1px solid #eee;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      opacity: 0;
+      animation: slideUpFooter 0.8s ease forwards;
+      animation-delay: 1.3s;
+    }
+
+    @keyframes slideUpFooter {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .muted { color: var(--muted); }
+  </style>
+</head>
+
+<body>
+  <div class="site">
+    <!-- Header -->
+    <header class="site-header">
+      <div class="brand">
+        <div class="site-title"><a href="index.html">Ballylike</a></div>
+        <nav class="primary">
+          <a href="index.html">Home</a>
+          <a href="shop.html" class="active">Shop</a>
+          <a href="contact.html">Contact</a>
+          <a href="faq.html">FAQs</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="container">
+      <h1>Shop Ballylike Products</h1>
+
+      <div class="product-grid">
+        <!-- Your same products below with improved alt text for SEO -->
+        <div class="product">
+          <div class="product-slider">
+            <img src="images/shop1.jpg" class="active" alt="Ballylike Canvas Shoulder Bag Handmade Tote">
+            <img src="images/shop1-alt.jpg" alt="Canvas Shoulder Bag Side View">
+            <button class="slider-btn prev">&#10094;</button>
+            <button class="slider-btn next">&#10095;</button>
+          </div>
+          <h3>Canvas Shoulder Bag</h3>
+          <p>$15.00</p>
+          <a href="https://wa.me/c/263781457106" aria-label="Shop Canvas Shoulder Bag on WhatsApp">Shop Now</a>
+        </div>
+
+        <div class="product">
+          <div class="product-slider">
+            <img src="images/shop2.jpg" class="active" alt="Ballylike Classic Hoodie Black Minimalist Design">
+            <img src="images/shop2-alt.jpg" alt="Classic Hoodie Alternate View">
+            <button class="slider-btn prev">&#10094;</button>
+            <button class="slider-btn next">&#10095;</button>
+          </div>
+          <h3>Classic Hoodie</h3>
+          <p>$60.00</p>
+          <a href="https://wa.me/c/263781457106" aria-label="Shop Classic Hoodie on WhatsApp">Shop Now</a>
+        </div>
+
+        <div class="product">
+          <div class="product-slider">
+            <img src="images/banner-image-3.jpg" class="active" alt="Ballylike Minimalist Cap Aesthetic Streetwear">
+            <img src="images/shop3-alt.jpg" alt="Minimalist Cap Alternate View">
+            <button class="slider-btn prev">&#10094;</button>
+            <button class="slider-btn next">&#10095;</button>
+          </div>
+          <h3>Minimalist Cap</h3>
+          <p>$25.00</p>
+          <a href="https://wa.me/c/263781457106" aria-label="Shop Minimalist Cap on WhatsApp">Shop Now</a>
+        </div>
+
+        <div class="product">
+          <div class="product-slider">
+            <img src="images/shop4.jpg" class="active" alt="Ballylike Terracota Orange-Halo Pouch Handmade">
+            <img src="images/shop4-alt.jpg" alt="Terracota Orange-Halo Pouch Alternate View">
+            <button class="slider-btn prev">&#10094;</button>
+            <button class="slider-btn next">&#10095;</button>
+          </div>
+          <h3>Terracota Orange-Halo Pouch</h3>
+          <p>$8</p>
+          <a href="https://wa.me/c/263781457106" aria-label="Shop Terracota Orange-Halo Pouch on WhatsApp">Shop Now</a>
+        </div>
+
+        <div class="product">
+          <div class="product-slider">
+            <img src="images/shop5.jpg" class="active" alt="Ballylike Olive Green-Halo Pouch Handmade">
+            <img src="images/shop5-alt.jpg" alt="Olive Green-Halo Pouch Alternate View">
+            <button class="slider-btn prev">&#10094;</button>
+            <button class="slider-btn next">&#10095;</button>
+          </div>
+          <h3>Olive Green-Halo Pouch</h3>
+          <p>$8</p>
+          <a href="https://wa.me/c/263781457106" aria-label="Shop Olive Green-Halo Pouch on WhatsApp">Shop Now</a>
+        </div>
+
+        <div class="product">
+          <div class="product-slider">
+            <img src="images/shop6.jpg" class="active" alt="Ballylike Retro Yellow-Halo Pouch Handmade">
+            <img src="images/shop6-alt.jpg" alt="Retro Yellow-Halo Pouch Alternate View">
+            <button class="slider-btn prev">&#10094;</button>
+            <button class="slider-btn next">&#10095;</button>
+          </div>
+          <h3>Retro Yellow-Halo Pouch</h3>
+          <p>$8</p>
+          <a href="https://wa.me/c/263781457106" aria-label="Shop Retro Yellow-Halo Pouch on WhatsApp">Shop Now</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div><div class="muted">&copy;2025 Ballylike. All rights reserved.</div></div>
+        <div class="meta"><div class="muted">Currency: USD • Language: English</div></div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Slider Script -->
+  <script>
+    document.querySelectorAll('.product-slider').forEach(slider => {
+      const images = slider.querySelectorAll('img');
+      const prevBtn = slider.querySelector('.prev');
+      const nextBtn = slider.querySelector('.next');
+      let index = 0;
+
+      function showImage(i) {
+        images.forEach(img => img.classList.remove('active'));
+        images[i].classList.add('active');
+      }
+
+      prevBtn.addEventListener('click', () => {
+        index = (index - 1 + images.length) % images.length;
+        showImage(index);
+      });
+
+      nextBtn.addEventListener('click', () => {
+        index = (index + 1) % images.length;
+        showImage(index);
+      });
+    });
+  </script>
+</body>
+</html>
