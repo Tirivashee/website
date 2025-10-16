@@ -66,92 +66,6 @@
   <link rel="stylesheet" href="https://ballylike.co.zw/css/vendor.css">
   <link rel="stylesheet" href="https://ballylike.co.zw/style.css">
 
-  <!-- Responsive tweaks (mobile-first) -->
-  <style>
-    /* Base mobile-friendly adjustments */
-    :root{
-      --site-max-width: 1200px;
-      --container-padding: 1rem;
-    }
-
-    body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-
-    /* Improve tappable areas */
-    .btn, .btn-link, .nav-link, .btn-icon { padding: 0.6rem 0.8rem; }
-
-    /* Banner & hero */
-    .banner-item .image-holder img, .post-banner img, .product-image { width: 100%; height: auto; max-height: 420px; object-fit: cover; }
-
-    /* Make columns stack on small screens */
-    .collection-item .column-container { width: 100%; padding: 0; }
-
-    /* Smaller text for mobile summaries */
-    .element-title { font-size: 1rem; }
-
-    /* Swiper adjustments: avoid overflow and ensure proper touch gestures */
-    .swiper { padding-bottom: 1.1rem; }
-    .swiper-wrapper { gap: 0.8rem; }
-
-    /* Arrows & pagination visibility */
-    .icon-arrow { display: none; }
-
-    /* Footer stacks simpler on small screens */
-    #footer .row > div { width: 100%; margin-bottom: 1.25rem; }
-
-    /* Medium screens (>=576px) */
-    @media (min-width: 576px) {
-      .product-image { max-height: 360px; }
-      .collection-item .column-container { padding: 0.5rem; }
-    }
-
-    /* Tablet (>=768px) */
-    @media (min-width: 768px) {
-      .collection-item .column-container { width: 50%; }
-      .icon-arrow { display: block; }
-      .banner-item .image-holder img, .product-image { max-height: 420px; }
-      .element-title { font-size: 1.05rem; }
-    }
-
-    /* Desktop (>=992px) */
-    @media (min-width: 992px) {
-      main, .container { max-width: var(--site-max-width); padding: 0 var(--container-padding); }
-      .product-image { max-height: 500px; }
-      .collection-item .column-container { width: 50%; }
-      #footer .row > div { width: auto; }
-    }
-
-    /* Large screens (>=1200px) */
-    @media (min-width: 1200px) {
-      .banner-item .image-holder img { max-height: 540px; }
-      .product-image { max-height: 620px; }
-    }
-    
-    /* Accessibility & touch targets */
-    a:focus, button:focus, .btn:focus, .nav-link:focus { outline: 3px solid rgba(0,0,0,0.12); outline-offset: 2px; }
-    .btn, .btn-link, .nav-link { min-height: 44px; min-width: 44px; }
-
-    /* Navbar / offcanvas improvements */
-    .navbar-toggler { width: 48px; height: 48px; }
-    .offcanvas-body { padding: 2rem 1.25rem; }
-
-    /* Section headings scale */
-    .section-title { font-size: 1.6rem; margin-bottom: 0.25rem; }
-    @media (min-width: 768px) { .section-title { font-size: 2.4rem; } }
-
-    /* Blog grid images */
-    .post-grid-image { max-height: 320px; object-fit: cover; }
-
-    /* Ensure product buttons are easy to tap on mobile */
-    .btn-common, .btn-dark { padding: 0.8rem 1rem; border-radius: 6px; }
-
-    /* Make hidden decorative elements less intrusive for assistive tech */
-    .icon-arrow svg { pointer-events: none; }
-
-    /* Prevent horizontal overflow from long text or elements */
-    html, body { overflow-x: hidden; }
-  </style>
-  </style>
-
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://ballylike.co.zw/images/favicon.png">
 </head>
@@ -1143,25 +1057,5 @@
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script src="js/script.min.js"></script>
-  <script>
-    // Ensure images without loading attribute get lazy loading (progressive enhancement)
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('img').forEach(img => {
-        if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
-        // ensure object-fit works on older browsers by applying a fallback class
-        if (!('objectFit' in document.documentElement.style)) img.style.width = '100%';
-      });
-
-      // Make navbar-toggler reflect aria-expanded correctly
-      var toggler = document.querySelector('.navbar-toggler');
-      var offcanvas = document.getElementById('offcanvasNavbar');
-      if (toggler && offcanvas) {
-        toggler.addEventListener('click', function () {
-          var expanded = this.getAttribute('aria-expanded') === 'true';
-          this.setAttribute('aria-expanded', (!expanded).toString());
-        });
-      }
-    });
-  </script>
 </body>
 </html>

@@ -1540,3 +1540,123 @@ a.btn-link.text-light:after {
   background-size: cover;
   transition: transform .3s ease-out;
 }
+
+/* -----------------------------
+   Responsive helpers (added)
+   - Keeps original design and structure
+   - Only CSS adjustments for small/medium screens
+   ----------------------------- */
+
+/* Ensure images always fit their containers */
+.image-holder img,
+.product-image,
+.post-grid-image,
+.banner-item .image-holder img,
+.cat-item .image-holder img {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+  object-fit: cover;
+}
+
+/* Tweak very large decorative text to avoid overflow on small screens */
+.title-xlarge {
+  position: absolute;
+  top: -40px;
+  left: 0;
+}
+
+@media (max-width: 1200px) {
+  .title-xlarge {
+    font-size: calc(1.75rem + 8vw);
+    top: -30px;
+  }
+}
+
+@media (max-width: 991px) {
+  /* Reduce heading sizes for medium screens */
+  h1, .h1 { font-size: 2.6rem; }
+  h2, .h2 { font-size: 2.2rem; }
+  h3, .h3 { font-size: 1.6rem; }
+
+  /* Make big decorative text less dominant */
+  .title-xlarge {
+    position: static;
+    font-size: calc(1.15rem + 6vw);
+    top: auto;
+    left: auto;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  /* Ensure banner content stacks well */
+  .banner-item .banner-content {
+    padding: 1rem 0 !important;
+    text-align: center;
+  }
+
+  /* Collection columns: reduce large paddings */
+  .collection-content {
+    padding: 1.25rem !important;
+    margin: 0.5rem !important;
+  }
+
+  /* Testimonial slides should display full width on smaller screens */
+  .testimonial-swiper .swiper-slide {
+    width: 100% !important;
+    opacity: 1 !important;
+    margin: 0 auto;
+  }
+
+  .testimonial-swiper .testimonial-item blockquote {
+    font-size: 1.15rem;
+  }
+
+  /* Reduce icon arrow size and hide where space is tight (already hidden below 991) */
+  .icon-arrow { width: 64px; height: 64px; }
+}
+
+@media (max-width: 767px) {
+  /* Further reduce headings for phones */
+  h1, .h1 { font-size: 2rem; }
+  h2, .h2 { font-size: 1.6rem; }
+  h3, .h3 { font-size: 1.25rem; }
+
+  /* Navbar spacing */
+  .navbar { padding: 0.5rem 0.75rem; }
+
+  /* Make the feature blocks stack cleanly */
+  .features .col-md-3 { padding: 0.5rem; }
+
+  /* Collections: stack image above content (Bootstrap col-md will handle stacking, just reduce spacing) */
+  .collection .column-container { padding: 0; }
+
+  /* Product items: ensure readable spacing */
+  .product-content { padding: .5rem 0 .75rem; }
+
+  /* Footer lists: add spacing for touch */
+  #footer .menu-list li { margin-bottom: 0.5rem; }
+}
+
+@media (max-width: 575px) {
+  /* Small phones: compact typography and spacing */
+  body { --bs-body-font-size: 16px; }
+
+  h1, .h1 { font-size: 1.6rem; }
+  h2, .h2 { font-size: 1.25rem; }
+  h3, .h3 { font-size: 1.05rem; }
+
+  .section-title { font-size: 1.1rem; }
+
+  .icon-arrow { display: none; }
+
+  /* Reduce collection image height so pages don't become very long */
+  .collection .image-holder img { max-height: 280px; object-fit: cover; }
+
+  /* Compact the banner images and content */
+  .swiper.main-swiper { padding: 0.5rem 0; }
+
+  /* Make buttons and links easier to tap */
+  a.btn, a.btn-common, a.btn-dark { padding: .5rem 0.75rem; font-size: 0.9rem; }
+}
+
