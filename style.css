@@ -1,27 +1,3 @@
-/*
-Theme Name: Kaira - Bootstrap 5 Fashion Store HTML CSS Template
-Theme URI: https://templatejungle.com/
-Author: TemplatesJungle
-Author URI: https://templatejungle.com/
-Description: Kaira - Bootstrap 5 Fashion Store HTML CSS Template is specially designed product packaged for Fashion Stores by TemplatesJungle.
-Version: 1.1
-*/
-
-/*--------------------------------------------------------------
-This is main CSS file that contains custom style rules used in this template
---------------------------------------------------------------*/
-
-/*------------------------------------*\
-    Table of contents
-\*------------------------------------*/
-
-/*------------------------------------------------
-CSS STRUCTURE:
-
-1. VARIABLES
-2. GENERAL TYPOGRAPHY
-
---------------------------------------------------------------*/
 body {
   --heading-font: "Marcellus", Roboto, sans-serif;
   --heading-font-weight: 400;
@@ -32,11 +8,12 @@ body {
 
   /* bootstrap */
   --bs-body-font-family: "Jost", Roboto, sans-serif;
-  --bs-body-font-size: 18px;
+  --bs-body-font-size: clamp(16px, 2vw, 18px);
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
   --bs-body-color: #8f8f8f;
   --bs-body-color-rgb: 143, 143, 143;
+  --container-padding: clamp(1rem, 3vw, 3rem);
 
   --bs-primary: #8C907E;
   --bs-secondary: #6c757d;
@@ -145,6 +122,76 @@ a {
 .container-fluid {
   /* width: 98%; */
   max-width: 1800px;
+}
+
+/* Billboard section title enhancement */
+#billboard .section-title {
+  font-size: clamp(3.5rem, 6vw, 5rem);
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+/* Collection section improvements */
+.collection-item {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.collection-item .column-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+}
+
+.collection-item .image-holder {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.collection-item .image-holder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.collection-item .collection-content {
+  padding: clamp(1.5rem, 4vw, 3rem) !important;
+  margin: 0 !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #fff;
+}
+
+@media (max-width: 767px) {
+  #billboard .section-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .collection-item {
+    flex-direction: column;
+  }
+  
+  .collection-item .column-container {
+    min-height: auto;
+  }
+  
+  .collection-item .image-holder {
+    height: 300px;
+    position: relative;
+  }
+  
+  .collection-item .collection-content {
+    padding: 2rem 1.5rem !important;
+  }
 }
 
 /* Dropdown */
@@ -858,13 +905,58 @@ a {
 }
 
 .swiper-button-normal .icon {
-  font-size: 1.6em;
+  font-size: clamp(1.2em, 2vw, 1.6em);
   color: var(--dark-color);
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+}
+
+/* Enhanced Swiper Navigation */
+.swiper-container {
+  padding: 0 var(--container-padding);
+}
+
+.swiper-pagination {
+  position: relative;
+  margin-top: 2rem;
+}
+
+/* Responsive Product Cards */
+.product-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-item .image-holder {
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+
+.product-item .product-content {
+  padding: 1rem 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive Banner Items */
+.banner-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.banner-item .image-holder {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.banner-item .banner-content {
+  padding: clamp(1rem, 3vw, 2rem) 0;
 }
 
 /** Swiper Slide Arrows with background 3
@@ -1542,10 +1634,49 @@ a.btn-link.text-light:after {
 }
 
 /* -----------------------------
-   Responsive helpers (added)
-   - Keeps original design and structure
-   - Only CSS adjustments for small/medium screens
+   Responsive Design System
+   - Maintains original design and structure
+   - Ensures proper alignment and symmetry
+   - Optimizes layout for all devices
    ----------------------------- */
+
+/* Base responsive container */
+.container {
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+/* Flex grid enhancements */
+.row {
+  margin-left: calc(-1 * var(--container-padding));
+  margin-right: calc(-1 * var(--container-padding));
+}
+
+.row > [class*='col-'] {
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* Image responsiveness */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Grid system improvements */
+.grid {
+  display: grid;
+  gap: var(--container-padding);
+}
+
+@media (min-width: 768px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
 
 /* Ensure images always fit their containers */
 .image-holder img,
@@ -1574,10 +1705,24 @@ a.btn-link.text-light:after {
 }
 
 @media (max-width: 991px) {
-  /* Reduce heading sizes for medium screens */
-  h1, .h1 { font-size: 2.6rem; }
-  h2, .h2 { font-size: 2.2rem; }
-  h3, .h3 { font-size: 1.6rem; }
+  /* Responsive typography system */
+  h1, .h1 { font-size: clamp(2rem, 4vw, 2.6rem); }
+  h2, .h2 { font-size: clamp(1.8rem, 3vw, 2.2rem); }
+  h3, .h3 { font-size: clamp(1.4rem, 2.5vw, 1.6rem); }
+  
+  /* Enhance product grid layout */
+  .product-carousel .swiper-slide {
+    width: 50% !important;
+    padding: 0 10px;
+  }
+  
+  /* Improve collection layout */
+  .collection-item {
+    flex-direction: column;
+  }
+  .collection-item .col-md-6 {
+    width: 100%;
+  }
 
   /* Make big decorative text less dominant */
   .title-xlarge {
@@ -1617,10 +1762,33 @@ a.btn-link.text-light:after {
 }
 
 @media (max-width: 767px) {
-  /* Further reduce headings for phones */
-  h1, .h1 { font-size: 2rem; }
-  h2, .h2 { font-size: 1.6rem; }
-  h3, .h3 { font-size: 1.25rem; }
+  /* Optimize mobile typography */
+  h1, .h1 { font-size: clamp(1.8rem, 5vw, 2rem); }
+  h2, .h2 { font-size: clamp(1.4rem, 4vw, 1.6rem); }
+  h3, .h3 { font-size: clamp(1.1rem, 3vw, 1.25rem); }
+
+  /* Enhanced mobile navigation */
+  .navbar .navbar-toggler {
+    padding: .5rem;
+  }
+  .offcanvas-body {
+    padding: 2rem 1rem;
+  }
+  
+  /* Improve mobile features section */
+  .features .col-md-3 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .features svg {
+    margin: 0 auto 1rem;
+  }
+
+  /* Optimize testimonials for mobile */
+  .testimonial-swiper .testimonial-item blockquote {
+    font-size: clamp(1.1rem, 3vw, 1.25rem);
+    padding: 0 1rem;
+  }
 
   /* Navbar spacing */
   .navbar { padding: 0.5rem 0.75rem; }
@@ -1639,12 +1807,49 @@ a.btn-link.text-light:after {
 }
 
 @media (max-width: 575px) {
-  /* Small phones: compact typography and spacing */
-  body { --bs-body-font-size: 16px; }
+  /* Optimize for small phones */
+  body { 
+    --bs-body-font-size: 16px;
+    --container-padding: 1rem;
+  }
 
-  h1, .h1 { font-size: 1.6rem; }
-  h2, .h2 { font-size: 1.25rem; }
-  h3, .h3 { font-size: 1.05rem; }
+  h1, .h1 { font-size: clamp(1.4rem, 4vw, 1.6rem); }
+  h2, .h2 { font-size: clamp(1.2rem, 3.5vw, 1.25rem); }
+  h3, .h3 { font-size: clamp(1rem, 3vw, 1.05rem); }
+
+  /* Enhance small screen layout */
+  .product-carousel .swiper-slide {
+    width: 100% !important;
+  }
+
+  /* Improve small screen spacing */
+  .section-title {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Optimize category grid */
+  .categories .cat-item {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Better blog post spacing */
+  .blog .post-item {
+    margin-bottom: 2rem;
+  }
+  
+  /* Footer improvements */
+  #footer .footer-menu {
+    margin-bottom: 2rem;
+  }
+  
+  /* Enhanced mobile buttons */
+  .btn {
+    padding: .75rem 1.5rem;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+  }
 
   .section-title { font-size: 1.1rem; }
 

@@ -1,226 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>The Ballylike Journey | Ballylike Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Discover the inspiring story behind Ballylike — a Zimbabwean lifestyle brand built on faith, creativity, and growth. Learn how Ballylike grew from an idea into a movement of minimalism, confidence, and purpose.">
-  <meta name="keywords" content="Ballylike, Ballylike story, Ballylike journey, Zimbabwe fashion brand, Ballylike blog, minimalist brand, tote bags Zimbabwe, Tirivashe Chitanda, faith create grow">
-  <meta name="author" content="Ballylike">
-  <link rel="canonical" href="https://ballylike.co.zw/blog.html">
+  <meta charset="utf-8" />
+  <title>Ballylike — Journal</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Ballylike Journal — stories, design notes and features from Ballylike. Minimal. Urban. Confident." />
+  <meta name="keywords" content="Ballylike blog, Ballylike journal, Zimbabwe fashion blog, tote bags, minimalist brand, design stories" />
+  <link rel="canonical" href="https://ballylike.co.zw/blogs_ballylike.html" />
+  <!-- Social preview -->
+  <meta property="og:title" content="Ballylike Journal" />
+  <meta property="og:description" content="Stories and studio notes from Ballylike — minimal design, creative process and brand features." />
+  <meta property="og:image" content="https://ballylike.co.zw/images/blog-hero.jpg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&family=Marcellus&display=swap" rel="stylesheet">
+  <!-- Fonts (Ballylike) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&family=Marcellus&display=swap" rel="stylesheet" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Optional tiny grid helper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+
   <style>
-    :root {
-      --accent: #111;
-      --muted: #666;
-      --bg: #fff;
-      --max-width: 900px;
+    :root{
+      --bg:#ffffff;
+      --accent:#0f1720; /* deep charcoal */
+      --muted:#7a7a7a;
+      --accent-2:#f6e7d7; /* warm paper */
+      --accent-pop:#f1c40f; /* subtle pop */
+      --card-radius:12px;
+      --grid-gap:20px;
+      --max-w:1200px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--accent);
+      font-family: 'Jost', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.6;
+      font-size:16px;
     }
 
-    body {
-      font-family: 'Georgia', serif;
-      background: var(--bg);
-      color: var(--accent);
-      margin: 0;
-      line-height: 1.7;
+    /* Header (same look as site) */
+    header.site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:#fff;
+      border-bottom:1px solid #eee;
+      padding:1rem 0;
+    }
+    nav.primary{
+      display:flex;
+      justify-content:center;
+      gap:2rem;
+      font-weight:600;
+      flex-wrap:wrap;
+    }
+    nav.primary a{
+      color:var(--accent);
+      text-decoration:none;
+      letter-spacing:0.04em;
+      font-size:0.95rem;
+    }
+    .logo{
+      font-family:'Marcellus', serif;
+      text-align:center;
+      font-size:2rem;
+      margin-top:0.6rem;
+      color:var(--accent);
+    }
+    .tagline{ text-align:center; color:var(--muted); font-size:0.92rem; margin-bottom:1rem; }
+
+    /* Page container */
+    .container{
+      max-width:var(--max-w);
+      margin:0 auto;
+      padding:2rem 1rem 4rem;
     }
 
-    header.site-header {
-      background: #fff;
-      padding: 1.5rem 0;
-      border-bottom: 1px solid #eee;
+    /* Page header */
+    .page-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      margin-bottom:1.2rem;
+    }
+    .page-head .title{
+      font-family:'Marcellus', serif;
+      font-size:1.8rem;
+      margin:0;
+    }
+    .page-head .sub{ color:var(--muted); font-size:0.95rem; }
+
+    /* Grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:var(--grid-gap);
     }
 
-    nav.primary {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      font-family: "Jost", Roboto, sans-serif;
-      flex-wrap: wrap;
+    /* Card */
+    .card-post{
+      position:relative;
+      overflow:hidden;
+      border-radius:var(--card-radius);
+      background:#fff;
+      box-shadow:0 6px 18px rgba(16,24,32,0.06);
+      transform:translateZ(0);
+      transition:transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .35s;
+      cursor:pointer;
+    }
+    .card-post:focus, .card-post:hover{
+      transform:translateY(-8px) scale(1.01);
+      box-shadow:0 18px 40px rgba(16,24,32,0.12);
     }
 
-    nav.primary a {
-      text-decoration: none;
-      color: var(--accent);
-      font-size: 0.95rem;
-      letter-spacing: 0.05em;
-      transition: color 0.3s ease;
+    .card-post .media{
+      width:100%;
+      aspect-ratio:1/1;
+      display:block;
+      object-fit:cover;
+      transition:transform .6s cubic-bezier(.2,.9,.3,1);
+    }
+    .card-post:hover .media{ transform: scale(1.05) rotate(.2deg); }
+
+    /* overlay */
+    .overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      padding:18px;
+      background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.42) 100%);
+      color:#fff;
+      opacity:0;
+      transition:opacity .28s ease;
+      pointer-events:none;
+    }
+    .card-post:hover .overlay{ opacity:1; pointer-events:auto; }
+
+    .overlay .meta{
+      font-size:0.85rem;
+      color:rgba(255,255,255,0.85);
+      margin-bottom:6px;
+      letter-spacing:0.02em;
+    }
+    .overlay .title{
+      font-weight:700;
+      font-family:'Jost', sans-serif;
+      font-size:1.05rem;
+      line-height:1.1;
+      text-transform:none;
+      letter-spacing:0.01em;
+    }
+    .overlay .excerpt{
+      margin-top:8px;
+      font-size:0.9rem;
+      color:rgba(255,255,255,0.92);
+      max-width:100%;
+      display:block;
     }
 
-    nav.primary a:hover {
-      color: var(--muted);
+    /* small card info underneath (for accessibility & mobile) */
+    .card-info{
+      padding:14px 16px;
+    }
+    .card-info .kicker{
+      color:var(--muted);
+      font-size:0.78rem;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+      margin-bottom:6px;
+    }
+    .card-info .headline{
+      font-family:'Marcellus', serif;
+      font-size:1.05rem;
+      margin:0 0 6px;
+      color:var(--accent);
+    }
+    .card-info .snippet{
+      color:var(--muted);
+      font-size:0.94rem;
+      margin:0;
     }
 
-    .logo {
-      text-align: center;
-      font-size: 2.5rem;
-      font-weight: 500;
-      font-family: 'Marcellus', serif;
-      margin-top: 1rem;
+    /* subtle accent marker */
+    .accent-marker{
+      width:36px;
+      height:4px;
+      background:var(--accent-pop);
+      border-radius:4px;
+      margin-top:10px;
     }
 
-    .tagline {
-      text-align: center;
-      color: var(--muted);
-      font-size: 1rem;
-      margin-bottom: 2.5rem;
-    }
+    /* responsive */
+    @media (max-width:1000px){ .grid{ grid-template-columns: repeat(2,1fr); } }
+    @media (max-width:640px){ .grid{ grid-template-columns: 1fr; } .card-post .media{ aspect-ratio: 3/2; } .page-head{flex-direction:column; align-items:flex-start; gap:.6rem;} }
 
-    main {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 2rem 1rem 4rem;
-    }
-
-    article img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-    }
-
-    /* Banner styles */
-    .post-banner {
-      width: 100%;
-      /* keep a natural widescreen aspect while allowing the height to scale */
-      aspect-ratio: 16 / 9;
-      max-height: 460px;
-      overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 6px 20px rgba(17,17,17,0.06);
-      margin: 1.25rem 0 2rem;
-    }
-
-    .post-banner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Accessible visually-hidden helper for captions */
-    .sr-only {
-      position: absolute !important;
-      width: 1px !important;
-      height: 1px !important;
-      padding: 0 !important;
-      margin: -1px !important;
-      overflow: hidden !important;
-      clip: rect(0, 0, 0, 0) !important;
-      white-space: nowrap !important;
-      border: 0 !important;
-    }
-
-    h1 {
-      font-family: 'Marcellus', serif;
-      font-size: 2.2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    h2 {
-      font-family: 'Marcellus', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .meta {
-      text-align: center;
-      color: var(--muted);
-      margin-bottom: 2rem;
-      font-size: 0.9rem;
-    }
-
-    p {
-      font-size: 1.05rem;
-      margin-bottom: 1.5rem;
-      text-align: justify;
-      font-family: "Jost", Roboto, sans-serif;
-    }
-
-    blockquote {
-      font-style: italic;
-      border-left: 3px solid var(--accent);
-      padding-left: 1rem;
-      margin: 2rem 0;
-      color: var(--muted);
-    }
-
-    /* Founder Section */
-    .founder-section {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      margin-top: 3rem;
-      padding: 1.5rem;
-      border-top: 1px solid #eee;
-      border-bottom: 1px solid #eee;
-      flex-wrap: wrap;
-    }
-
-    .founder-photo {
-      width: 100%;
-      max-width: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #ddd;
-    }
-
-    .founder-info {
-      flex: 1;
-    }
-
-    .founder-info h3 {
-      font-family: 'Marcellus', serif;
-      font-size: 1.2rem;
-      margin: 0;
-    }
-
-    .founder-info p {
-      margin: 0.3rem 0 0;
-      font-size: 0.95rem;
-      color: var(--muted);
-    }
-
-    footer {
-      background: #fff;
-      border-top: 1px solid #eee;
-      text-align: center;
-      padding: 1.5rem;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .socials a {
-      color: var(--accent);
-      text-decoration: none;
-      margin: 0 0.5rem;
-      transition: color 0.3s ease;
-    }
-
-    .socials a:hover {
-      color: var(--muted);
-    }
-
-    @media (max-width: 768px) {
-      .founder-section {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
+    /* subtle reveal on scroll */
+    .reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.visible{ opacity:1; transform:none; }
   </style>
 </head>
-
 <body>
-  <!-- HEADER -->
+
   <header class="site-header">
     <nav class="primary">
       <a href="index.html">HOME</a>
@@ -232,78 +222,191 @@
     <div class="tagline">Faith. Create. Grow.</div>
   </header>
 
-  <!-- MAIN BLOG ARTICLE -->
-  <main>
-    <article>
-      <h1>The Ballylike Journey: From Vision to Vibe</h1>
-      <div class="meta">Brand Story / October 16, 2025 • by Ballylike</div>
-
-      <!-- Banner Image -->
-      <figure class="post-banner" aria-labelledby="banner-caption">
-        <img src="images/banner-1.jpg" alt="Ballylike brand visual — soft neutral lifestyle image" loading="lazy">
-        <figcaption id="banner-caption" class="sr-only">Neutral-toned lifestyle scene used as a visual header for the Ballylike blog — evokes calm, minimal style.</figcaption>
-      </figure>
-
-      <h2>The Ballylike Journey</h2>
-      <p>In a world full of noise and fleeting trends, Ballylike represents calm confidence — a modern Zimbabwean lifestyle brand built on faith, creativity, and authenticity. But before it became a name recognized for minimalist designs and handmade tote bags, Ballylike began as a simple idea in a high school classroom.</p>
-
-      <h2>The Beginning</h2>
-      <p>“The slang word Bally was introduced to me at my high school,” says Tirivashe Chitanda, founder of Ballylike. “The meaning resonated with mentorship, and creativity in growth and faith.”</p>
-      <p>The name Ballylike grew from his way of doing things — in an exceptional, standout way. “I did my art in a Ballylike way,” he explains. The word blends the British slang “bally,” used for emphasis, with mentor-like, legendary qualities — a perfect reflection of his artistic mindset.</p>
-      <p>From day one, Tirivashe dreamed beyond limits: “I saw Ballylike in different countries and cities, engaging with people, and seeing the dream get bigger. I’m super grateful for where I am now — and I’m still working hard to keep moving forward.”</p>
-
-      <h2>Vision & Values</h2>
-      <p>Ballylike’s mantra, Faith. Create. Grow., forms the foundation of everything it stands for.</p>
-      <p>Faith means finding it within yourself to imagine, dream, and believe your vision into existence. Create means taking action — being a slave to your dream. And Grow represents evolution, turning potential into reality.</p>
-      <blockquote>“It gives me hope and reminds me that I only live once. It can’t be for no reason. So let’s run Ballylike like no man’s business. Let’s run it the Ballylike Way.”</blockquote>
-
-      <h2>The Creative Journey</h2>
-      <p>The journey from digital art to fashion was born out of curiosity and courage. “I was inspired by a tote bag design I made for a German bookshop in Berlin,” he recalls. “I woke up in the middle of the night, started sketching, and told my dad at 5 a.m. we needed to go find fabric in town.”</p>
-      <p>They didn’t find the exact one he imagined — but they found inspiration in the process. “Each fabric led to a new design,” he smiles. “I started small — one fabric, one design at a time.”</p>
-      <p>Minimal. Urban. Confident. That’s how Ballylike’s style can be described.</p>
-
-      <h2>Challenges & Growth</h2>
-      <p>Balancing school, power cuts, and limited resources wasn’t easy. “I had to learn money management young — investing in myself like I didn’t have parents. We were rich in spirit and mental wellness, but I wanted more.”</p>
-      <p>“I feel like giving up every day,” he admits. “That’s why I wake up and prove myself wrong — because I’m arrogant by nature.”</p>
-      <blockquote>“Wealth is energy. You have to master it like you possess it.”</blockquote>
-
-      <h2>Marketing & Identity</h2>
-      <p>Ballylike designs for the modern Zimbabwean creative — people who move with intention, travel, attend classes, church events, and live with quiet confidence. They value style without shouting for attention.</p>
-      <p>Instagram (@ballylike_shop) tells the emotional story — visual, lifestyle-focused, and authentic. Each photo feels curated and calm. The website (ballylike.co.zw) completes the experience — minimalist, local, and easy to navigate. Together, they make Ballylike feel both homegrown and world-class.</p>
-      <blockquote>“Instagram builds the emotion. The website delivers the experience.”</blockquote>
-
-      <h2>Standing Out</h2>
-      <p>Ballylike stands apart by blending modern Zimbabwean identity with global polish. Instead of loud prints, it embraces minimalism and quiet confidence. Every design, photo, and post reflects intention and calm sophistication.</p>
-      <p>It’s a voice for a new generation of Zimbabweans — creative, grounded, and globally minded. Ballylike proves that simplicity can be both powerful and beautiful.</p>
-      <blockquote>“Simple. Soulful. Sophisticated.”</blockquote>
-
-      <h2>The Future</h2>
-      <p>Tirivashe envisions Ballylike reaching new corners of Zimbabwe — from Harare to Vic Falls and Bulawayo — and crossing borders into South Africa and beyond. When asked about dream collaborations, he smiles, “SALT and Rachel Chinouriri. Their vibe aligns perfectly with Ballylike’s soul.”</p>
-
-      <h2>Personal Reflection</h2>
-      <p>“Ballylike made me more arrogant for positivity — stronger and more aware of my gifts,” he reflects. “Fear blocks clarity. Courage creates a great story. And a great story needs clarity.”</p>
-      <blockquote>“You don’t need to be loud to be seen. Confidence is calm.”</blockquote>
-
-      <!-- Founder Spotlight -->
-      <div class="founder-section">
-        <img src="images/founder.jpg" alt="Tirivashe Chitanda, Founder of Ballylike" class="founder-photo">
-        <div class="founder-info">
-          <h3>Tirivashe Chitanda</h3>
-          <p>Founder & Creative Director, Ballylike</p>
-          <p>"Creating not just for aesthetics — but for meaning, impact, and the next generation of dreamers."</p>
-        </div>
+  <main class="container">
+    <div class="page-head reveal" data-reveal>
+      <div>
+        <h2 class="title">Ballylike Journal</h2>
+        <div class="sub">A visual archive of stories, studio notes and product features</div>
       </div>
-    </article>
+      <div style="align-self:center; color:var(--muted); font-size:.95rem;">Follow @ballylike_shop for daily visuals</div>
+    </div>
+
+    <section class="grid" aria-label="Blog posts grid">
+
+      <!-- Post 1 -->
+      <article class="card-post reveal" data-reveal>
+        <img class="media" loading="lazy" src="images/product-item-6.png" alt="The Ballylike Journey — feature" />
+        <div class="overlay" aria-hidden="true">
+          <div class="meta">Brand Story • Oct 16, 2025</div>
+          <div class="title">The Ballylike Journey: From Vision to Vibe</div>
+          <div class="excerpt">How a high-school idea grew into a minimalist lifestyle brand rooted in faith, creativity and grit.</div>
+        </div>
+        <div class="card-info">
+          <div class="kicker">Brand Story</div>
+          <h3 class="headline">The Ballylike Journey</h3>
+          <p class="snippet">In a world of noise, Ballylike chooses calm confidence — minimal design with purpose.</p>
+          <div class="accent-marker" aria-hidden="true"></div>
+        </div>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="card-post reveal" data-reveal>
+        <img class="media" loading="lazy" src="images/IMG_0426.jpg" alt="Designing Purpose" />
+        <div class="overlay" aria-hidden="true">
+          <div class="meta">Design • Sep 2025</div>
+          <div class="title">Designing Purpose: Faith in Every Stitch</div>
+          <div class="excerpt">Exploring the process behind Ballylike's signature tote: from sketch to sample and the fabric story.</div>
+        </div>
+        <div class="card-info">
+          <div class="kicker">Design</div>
+          <h3 class="headline">Designing Purpose</h3>
+          <p class="snippet">Small samples, big meaning — how materials shape each idea.</p>
+          <div class="accent-marker"></div>
+        </div>
+      </article>
+
+      <!-- Post 3 -->
+      <article class="card-post reveal" data-reveal>
+        <img class="media" loading="lazy" src="images/blog-3.jpg" alt="Street to Studio" />
+        <div class="overlay" aria-hidden="true">
+          <div class="meta">Studio • Aug 2025</div>
+          <div class="title">Street to Studio: The Art Behind Our Bags</div>
+          <div class="excerpt">How the streets and studio conversations inform the Ballylike color palette and lines.</div>
+        </div>
+        <div class="card-info">
+          <div class="kicker">Studio</div>
+          <h3 class="headline">Street to Studio</h3>
+          <p class="snippet">Urban rhythms translated into clean design.</p>
+          <div class="accent-marker"></div>
+        </div>
+      </article>
+
+      <!-- Post 4 -->
+      <article class="card-post reveal" data-reveal>
+        <img class="media" loading="lazy" src="images/blog-4.jpg" alt="Minimal. Urban. Confident." />
+        <div class="overlay" aria-hidden="true">
+          <div class="meta">Style • Jul 2025</div>
+          <div class="title">Minimal. Urban. Confident.</div>
+          <div class="excerpt">A short guide to building a wardrobe that speaks without shouting.</div>
+        </div>
+        <div class="card-info">
+          <div class="kicker">Style</div>
+          <h3 class="headline">Minimal. Urban. Confident.</h3>
+          <p class="snippet">Wardrobe choices that last and carry meaning.</p>
+          <div class="accent-marker"></div>
+        </div>
+      </article>
+
+      <!-- Post 5 -->
+      <article class="card-post reveal" data-reveal>
+        <img class="media" loading="lazy" src="images/blog-5.jpg" alt="Creative Hustle Diaries" />
+        <div class="overlay" aria-hidden="true">
+          <div class="meta">Notes • Jun 2025</div>
+          <div class="title">Creative Hustle Diaries</div>
+          <div class="excerpt">Lessons from juggling school, power cuts and the early hustle of Ballylike.</div>
+        </div>
+        <div class="card-info">
+          <div class="kicker">Notes</div>
+          <h3 class="headline">Creative Hustle Diaries</h3>
+          <p class="snippet">How persistence shapes quality work.</p>
+          <div class="accent-marker"></div>
+        </div>
+      </article>
+
+      <!-- Post 6 -->
+      <article class="card-post reveal" data-reveal>
+        <img class="media" loading="lazy" src="images/blog-6.jpg" alt="From Canvas to Culture" />
+        <div class="overlay" aria-hidden="true">
+          <div class="meta">Culture • May 2025</div>
+          <div class="title">From Canvas to Culture</div>
+          <div class="excerpt">How Ballylike balances local identity with global ambition.</div>
+        </div>
+        <div class="card-info">
+          <div class="kicker">Culture</div>
+          <h3 class="headline">From Canvas to Culture</h3>
+          <p class="snippet">Local roots, global eyes.</p>
+          <div class="accent-marker"></div>
+        </div>
+      </article>
+
+      <!-- Post 7 -->
+      <article class="card-post reveal" data-reveal>
+        <img class="media" loading="lazy" src="images/blog-7.jpg" alt="Brand Collabs" />
+        <div class="overlay" aria-hidden="true">
+          <div class="meta">Feature • Apr 2025</div>
+          <div class="title">Dream Collabs: Who We'd Partner With</div>
+          <div class="excerpt">Artists and brands that share the Ballylike aesthetic and ethos.</div>
+        </div>
+        <div class="card-info">
+          <div class="kicker">Feature</div>
+          <h3 class="headline">Dream Collabs</h3>
+          <p class="snippet">Artists who match our calm confidence.</p>
+          <div class="accent-marker"></div>
+        </div>
+      </article>
+
+      <!-- Post 8 -->
+      <article class="card-post reveal" data-reveal>
+        <img class="media" loading="lazy" src="images/blog-8.jpg" alt="Making the Tote" />
+        <div class="overlay" aria-hidden="true">
+          <div class="meta">How-To • Mar 2025</div>
+          <div class="title">Making the Tote: A Material Story</div>
+          <div class="excerpt">A closer look at fabrics, sourcing, and why texture matters.</div>
+        </div>
+        <div class="card-info">
+          <div class="kicker">How-To</div>
+          <h3 class="headline">Making the Tote</h3>
+          <p class="snippet">Fabric choices that impact design.</p>
+          <div class="accent-marker"></div>
+        </div>
+      </article>
+
+      <!-- Post 9 -->
+      <article class="card-post reveal" data-reveal>
+        <img class="media" loading="lazy" src="images/blog-9.jpg" alt="Confidence is Calm" />
+        <div class="overlay" aria-hidden="true">
+          <div class="meta">Reflections • Feb 2025</div>
+          <div class="title">Confidence is Calm</div>
+          <div class="excerpt">Why Ballylike believes in quiet presence over noise.</div>
+        </div>
+        <div class="card-info">
+          <div class="kicker">Reflections</div>
+          <h3 class="headline">Confidence is Calm</h3>
+          <p class="snippet">A philosophy behind the design choices.</p>
+          <div class="accent-marker"></div>
+        </div>
+      </article>
+
+    </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="socials">
-      <a href="https://instagram.com/ballylike_shop" target="_blank">Instagram</a> •
-      <a href="https://facebook.com/share/p/18xWnWoahD" target="_blank">Facebook</a> •
-      <a href="https://pinterest.com" target="_blank">Pinterest</a>
+  <footer style="border-top:1px solid #eee; padding:1.25rem 0; text-align:center; color:var(--muted);">
+    <div>
+      <a href="https://instagram.com/ballylike_shop" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; margin:0 .6rem;">Instagram</a>
+      <span style="color:#ddd; margin:0 .3rem;">•</span>
+      <a href="https://facebook.com/ballylike" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; margin:0 .6rem;">Facebook</a>
+      <span style="color:#ddd; margin:0 .3rem;">•</span>
+      <a href="https://pinterest.com/ballylike" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; margin:0 .6rem;">Pinterest</a>
     </div>
-    <div>&copy; 2025 Ballylike. All rights reserved.</div>
+    <div style="margin-top:.6rem;">&copy; 2025 Ballylike. All rights reserved.</div>
   </footer>
+
+  <script>
+    // reveal on scroll
+    (function(){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, {threshold:0.12});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    })();
+
+    // keyboard focus support for accessibility (adds hover state)
+    document.querySelectorAll('.card-post').forEach(card=>{
+      card.addEventListener('focus', ()=> card.classList.add('hover'));
+      card.addEventListener('blur', ()=> card.classList.remove('hover'));
+    });
+  </script>
 </body>
 </html>
