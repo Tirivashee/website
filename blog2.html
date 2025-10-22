@@ -216,16 +216,6 @@
         text-align: center;
       }
     }
-    /* Page transition helpers */
-    :root { --page-trans-duration: 360ms; }
-    [data-page-transition] { overflow-x: hidden; }
-    .page-enter { opacity: 0; transform: translateY(10px); }
-    .page-enter.page-enter-active { opacity: 1; transform: translateY(0); transition: opacity var(--page-trans-duration) ease, transform var(--page-trans-duration) ease; }
-    .page-exit { opacity: 1; transform: translateY(0); }
-    .page-exit.page-exit-active { opacity: 0; transform: translateY(-8px); transition: opacity var(--page-trans-duration) ease, transform var(--page-trans-duration) ease; }
-    @media (prefers-reduced-motion: reduce) {
-      .page-enter, .page-enter.page-enter-active, .page-exit, .page-exit.page-exit-active { transition: none !important; transform: none !important; }
-    }
   </style>
 </head>
 
@@ -315,38 +305,5 @@
     </div>
     <div>&copy; 2025 Ballylike. All rights reserved.</div>
   </footer>
-  <script>
-    // Page transition behavior (same as blog.html)
-    (function(){
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReduced) return;
-
-      const root = document.documentElement;
-      root.setAttribute('data-page-transition', '');
-      root.classList.add('page-enter');
-      requestAnimationFrame(()=> root.classList.add('page-enter-active'));
-
-      function handleLinkClick(e){
-        if (e.defaultPrevented) return;
-        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-        const a = e.target.closest('a');
-        if (!a) return;
-        const href = a.getAttribute('href');
-        if (!href || href.startsWith('mailto:') || href.startsWith('tel:')) return;
-        if (a.target === '_blank' || a.host && a.host !== location.host) return;
-        if (href.startsWith('#')) return;
-
-        e.preventDefault();
-        root.classList.add('page-exit');
-        requestAnimationFrame(()=>{
-          root.classList.add('page-exit-active');
-          const onEnd = ()=> { location.href = a.href; };
-          setTimeout(onEnd, parseInt(getComputedStyle(root).getPropertyValue('--page-trans-duration')) + 80);
-        });
-      }
-
-      document.addEventListener('click', handleLinkClick);
-    })();
-  </script>
 </body>
 </html>

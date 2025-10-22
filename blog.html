@@ -45,36 +45,47 @@
       font-size:16px;
     }
 
-    /* Header (same look as site) */
+    /* Header (match blog1.html for seamless transitions) */
     header.site-header{
+      background:#fff;
+      padding:1.5rem 0;
+      border-bottom:1px solid #eee;
       position:sticky;
       top:0;
       z-index:50;
-      background:#fff;
-      border-bottom:1px solid #eee;
-      padding:1rem 0;
     }
+    /* Make linked cards behave visually like the original card and be keyboard-focusable */
+    .card-post-link{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      outline: none;
+    }
+    .card-post-link:focus { outline: 3px solid rgba(17,17,17,0.12); outline-offset: 4px; }
     nav.primary{
       display:flex;
       justify-content:center;
       gap:2rem;
-      font-weight:600;
+      font-family: "Jost", Roboto, sans-serif;
       flex-wrap:wrap;
     }
     nav.primary a{
-      color:var(--accent);
       text-decoration:none;
-      letter-spacing:0.04em;
+      color:var(--accent);
       font-size:0.95rem;
+      letter-spacing:0.05em;
+      transition: color 0.3s ease;
     }
+    nav.primary a:hover{ color:var(--muted); }
     .logo{
-      font-family:'Marcellus', serif;
       text-align:center;
-      font-size:2rem;
-      margin-top:0.6rem;
+      font-size:2.5rem;
+      font-weight:500;
+      font-family:'Marcellus', serif;
+      margin-top:1rem;
       color:var(--accent);
     }
-    .tagline{ text-align:center; color:var(--muted); font-size:0.92rem; margin-bottom:1rem; }
+    .tagline{ text-align:center; color:var(--muted); font-size:1rem; margin-bottom:2.5rem; }
 
     /* Page container */
     .container{
@@ -207,6 +218,16 @@
     /* subtle reveal on scroll */
     .reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
     .reveal.visible{ opacity:1; transform:none; }
+    /* Page transition helpers */
+    :root { --page-trans-duration: 360ms; }
+    [data-page-transition] { overflow-x: hidden; }
+    .page-enter { opacity: 0; transform: translateY(10px); }
+    .page-enter.page-enter-active { opacity: 1; transform: translateY(0); transition: opacity var(--page-trans-duration) ease, transform var(--page-trans-duration) ease; }
+    .page-exit { opacity: 1; transform: translateY(0); }
+    .page-exit.page-exit-active { opacity: 0; transform: translateY(-8px); transition: opacity var(--page-trans-duration) ease, transform var(--page-trans-duration) ease; }
+    @media (prefers-reduced-motion: reduce) {
+      .page-enter, .page-enter.page-enter-active, .page-exit, .page-exit.page-exit-active { transition: none !important; transform: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -234,20 +255,22 @@
     <section class="grid" aria-label="Blog posts grid">
 
       <!-- Post 1 -->
-      <article class="card-post reveal" data-reveal>
-        <img class="media" loading="lazy" src="images/product-item-6.png" alt="The Ballylike Journey — feature" />
-        <div class="overlay" aria-hidden="true">
-          <div class="meta">Brand Story • Oct 16, 2025</div>
-          <div class="title">The Ballylike Journey: From Vision to Vibe</div>
-          <div class="excerpt">How a high-school idea grew into a minimalist lifestyle brand rooted in faith, creativity and grit.</div>
-        </div>
-        <div class="card-info">
-          <div class="kicker">Brand Story</div>
-          <h3 class="headline">The Ballylike Journey</h3>
-          <p class="snippet">In a world of noise, Ballylike chooses calm confidence — minimal design with purpose.</p>
-          <div class="accent-marker" aria-hidden="true"></div>
-        </div>
-      </article>
+      <a class="card-post-link" href="blog1.html" aria-label="Read: The Ballylike Journey: From Vision to Vibe">
+        <article class="card-post reveal" tabindex="0">
+          <img class="media" loading="lazy" src="images/product-item-6.png" alt="The Ballylike Journey — feature" />
+          <div class="overlay" aria-hidden="true">
+            <div class="meta">Brand Story • Oct 16, 2025</div>
+            <div class="title">The Ballylike Journey: From Vision to Vibe</div>
+            <div class="excerpt">How a high-school idea grew into a minimalist lifestyle brand rooted in faith, creativity and grit.</div>
+          </div>
+          <div class="card-info">
+            <div class="kicker">Brand Story</div>
+            <h3 class="headline">The Ballylike Journey</h3>
+            <p class="snippet">In a world of noise, Ballylike chooses calm confidence — minimal design with purpose.</p>
+            <div class="accent-marker" aria-hidden="true"></div>
+          </div>
+        </article>
+      </a>
 
       <!-- Post 2 -->
       <article class="card-post reveal" data-reveal>
@@ -407,6 +430,55 @@
       card.addEventListener('focus', ()=> card.classList.add('hover'));
       card.addEventListener('blur', ()=> card.classList.remove('hover'));
     });
+    // If a card is wrapped by a link, make the link focus show the same hover state
+    document.querySelectorAll('.card-post-link').forEach(link => {
+      link.addEventListener('focus', () => {
+        const card = link.querySelector('.card-post');
+        if (card) card.classList.add('hover');
+      });
+      link.addEventListener('blur', () => {
+        const card = link.querySelector('.card-post');
+        if (card) card.classList.remove('hover');
+      });
+    });
+    // Page transition behavior
+    (function(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return; // don't animate if user prefers reduced motion
+
+      const root = document.documentElement;
+      root.setAttribute('data-page-transition', '');
+      // enter animation
+      root.classList.add('page-enter');
+      requestAnimationFrame(()=> root.classList.add('page-enter-active'));
+
+      // helper to handle internal navigation with exit animation
+      function handleLinkClick(e){
+        if (e.defaultPrevented) return;
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; // allow modifier clicks
+        const a = e.target.closest('a');
+        if (!a) return;
+        const href = a.getAttribute('href');
+        if (!href || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+        // external or target=_blank -> allow default
+        if (a.target === '_blank' || a.host && a.host !== location.host) return;
+        // same-page anchors should just jump
+        if (href.startsWith('#')) return;
+
+        e.preventDefault();
+        // start exit animation, then navigate
+        root.classList.add('page-exit');
+        // ensure frame for transition classes
+        requestAnimationFrame(()=>{
+          root.classList.add('page-exit-active');
+          const onEnd = ()=> { location.href = a.href; };
+          // fallback in case transitionend doesn't fire
+          setTimeout(onEnd, parseInt(getComputedStyle(root).getPropertyValue('--page-trans-duration')) + 80);
+        });
+      }
+
+      document.addEventListener('click', handleLinkClick);
+    })();
   </script>
 </body>
 </html>
