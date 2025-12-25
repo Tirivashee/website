@@ -1,0 +1,51 @@
+/* Placeholder Image Styles - Remove when using real images */
+
+/* This creates colored placeholder backgrounds for images */
+.card-image,
+.collection-item-image {
+  background: linear-gradient(135deg, #FF6600 0%, #E55A00 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: var(--spacing-lg);
+}
+
+.card-image::after,
+.collection-item-image::after {
+  content: 'Product Image';
+  opacity: 0.5;
+}
+
+/* Different colors for variety */
+.card:nth-child(2) .card-image,
+.collection-item:nth-child(2) .collection-item-image {
+  background: linear-gradient(135deg, #000000 0%, #1A1A1A 100%);
+}
+
+.card:nth-child(3) .card-image,
+.collection-item:nth-child(3) .collection-item-image {
+  background: linear-gradient(135deg, #FF7A1F 0%, #FF6600 100%);
+}
+
+.card:nth-child(4) .card-image {
+  background: linear-gradient(135deg, #1A1A1A 0%, #000000 100%);
+}
+
+/* When actual images are loaded, these styles won't apply */
+img.card-image[src*=".jpg"],
+img.card-image[src*=".png"],
+img.collection-item-image[src*=".jpg"],
+img.collection-item-image[src*=".png"] {
+  background: none !important;
+}
+
+img.card-image[src*=".jpg"]::after,
+img.card-image[src*=".png"]::after,
+img.collection-item-image[src*=".jpg"]::after,
+img.collection-item-image[src*=".png"]::after {
+  content: none !important;
+}

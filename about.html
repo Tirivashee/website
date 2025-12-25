@@ -3,118 +3,374 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Learn about Ballylike, a creative brand blending art, faith, and growth. Discover our mission, vision, founder, awards, and happy customers.">
-  <title>About Us | Ballylike</title>
-  <link rel="stylesheet" href="css/style.css">
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&family=Marcellus&display=swap" rel="stylesheet">
+  <meta name="description" content="BALLYLIKE* - Faith-driven fashion from Zimbabwe.">
+  <title>ABOUT - BALLYLIKE*</title>
+  
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/placeholders.css">
 </head>
 <body>
-  
-  <!-- Header -->
-  <header>
-    <nav class="navbar">
-      <a href="index.html" class="logo">
-        <img src="images/main-logo.png" alt="Ballylike Logo">
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">
+        BALLY<span>LIKE*</span>
       </a>
-      <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html" class="active">About</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+      
+      <div class="navbar-menu" id="navbarMenu">
+        <a href="index.html" class="navbar-link">HOME</a>
+        <a href="shop.html" class="navbar-link">SHOP</a>
+        <a href="gallery.html" class="navbar-link">GALLERY</a>
+        <a href="about.html" class="navbar-link active">ABOUT</a>
+        <a href="#contact" class="navbar-link">CONTACT</a>
+      </div>
+      
+      <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
 
-  <!-- About Banner -->
-  <section class="about-banner text-center py-5" style="background: #f8f8f8;">
-    <div class="container">
-      <h1 class="fw-bold text-uppercase">About Us</h1>
-      <p class="lead">Bringing creativity, faith, and growth to every design.</p>
+  <!-- Hero -->
+  <section class="hero" style="min-height: 40vh;">
+    <div class="hero-content">
+      <h1 class="hero-logo" style="font-size: var(--font-size-3xl);">
+        ABOUT
+      </h1>
+      <p class="hero-tagline">
+        FAITH × CULTURE × DESIGN
+      </p>
     </div>
   </section>
 
-  <!-- The Company -->
-  <section class="about-company py-5">
-    <div class="container">
-      <h2 class="text-uppercase fw-bold mb-4">The Company</h2>
-      <p>Founded with a passion for art and driven by core values of faith, creativity, and growth, Ballylike is more than just a design brand. We are a community that celebrates individuality, style, and purpose. Each piece is crafted with attention to detail and a commitment to inspire.</p>
-      <p>Founded with a passion for creating meaningful, visually appealing products, Ballylike blends art with purpose. Whether it's a tote bag, hoodie, or graphic design, our creations aim to stand out and leave a lasting impression. We take pride in infusing every piece with quality, craftsmanship, and a touch of boldness, ensuring that each item is as unique as the person who wears it.</p>
+  <!-- Our Story -->
+  <section class="container">
+    <div class="section-header">
+      <h2 class="section-title">OUR STORY</h2>
+      <p class="section-subtitle">ZIMBABWE TO THE WORLD</p>
+    </div>
+    
+    <div style="max-width: 900px; margin: 0 auto; border: 1px solid var(--color-black); padding: var(--spacing-2xl);">
+      <p style="font-size: var(--font-size-md); line-height: 2; margin-bottom: var(--spacing-xl); text-transform: uppercase; letter-spacing: 0.05em;">
+        BALLYLIKE* WAS BORN FROM A VISION TO CREATE MORE THAN JUST CLOTHING. WE'RE BUILDING A MOVEMENT THAT CELEBRATES FAITH, URBAN CULTURE, AND ARTISTIC EXPRESSION.
+      </p>
+      <p style="font-size: var(--font-size-md); line-height: 2; margin-bottom: var(--spacing-xl); text-transform: uppercase; letter-spacing: 0.05em;">
+        FOUNDED IN HARARE, ZIMBABWE, OUR BRAND REPRESENTS THE INTERSECTION OF STYLE AND PURPOSE. EVERY PIECE IS DESIGNED WITH INTENTION.
+      </p>
+      <p style="font-size: var(--font-size-md); line-height: 2; text-transform: uppercase; letter-spacing: 0.05em;">
+        FROM THE STREETS OF AFRICA TO THE GLOBAL STAGE, WE REPRESENT A NEW GENERATION OF FASHION THAT'S BOLD, PURPOSEFUL, AND AUTHENTIC.
+      </p>
     </div>
   </section>
 
-  <!-- Mission & Vision -->
-  <section class="about-mission-vision py-5 bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 mb-4">
-          <h3 class="text-uppercase fw-bold">Our Mission</h3>
-          <p>To create innovative and meaningful designs that inspire individuals to live boldly, creatively, and authentically. We are dedicated to providing our customers with high-quality, unique products that reflect their values and personality.</p>
+  <!-- Core Values -->
+  <section class="container">
+    <div class="section-header">
+      <h2 class="section-title">CORE VALUES</h2>
+      <p class="section-subtitle">WHAT DRIVES US</p>
+    </div>
+    
+    <div class="grid grid-3">
+      <div class="performance-card">
+        <div class="performance-icon">01</div>
+        <h3 class="performance-title">FAITH-DRIVEN</h3>
+        <p class="performance-description">
+          FOUNDATION BUILT ON FAITH. CLOTHING THAT EXPRESSES BELIEFS WITH CONFIDENCE.
+        </p>
+      </div>
+      
+      <div class="performance-card">
+        <div class="performance-icon">02</div>
+        <h3 class="performance-title">CULTURAL PRIDE</h3>
+        <p class="performance-description">
+          ROOTED IN ZIMBABWE, INSPIRED BY THE WORLD. CELEBRATING AFRICAN HERITAGE.
+        </p>
+      </div>
+      
+      <div class="performance-card">
+        <div class="performance-icon">03</div>
+        <h3 class="performance-title">QUALITY FIRST</h3>
+        <p class="performance-description">
+          NEVER COMPROMISE ON QUALITY. ATHLETIC FASHION THAT PERFORMS AND LASTS.
+        </p>
+      </div>
+      
+      <div class="performance-card">
+        <div class="performance-icon">04</div>
+        <h3 class="performance-title">ARTISTIC EXPRESSION</h3>
+        <p class="performance-description">
+          FASHION IS ART IN MOTION. DESIGNS THAT PUSH CREATIVE BOUNDARIES.
+        </p>
+      </div>
+      
+      <div class="performance-card">
+        <div class="performance-icon">05</div>
+        <h3 class="performance-title">COMMUNITY FOCUS</h3>
+        <p class="performance-description">
+          BUILDING MORE THAN A BRAND. CULTIVATING A COMMUNITY OF BELIEVERS.
+        </p>
+      </div>
+      
+      <div class="performance-card">
+        <div class="performance-icon">06</div>
+        <h3 class="performance-title">SUSTAINABILITY</h3>
+        <p class="performance-description">
+          COMMITTED TO RESPONSIBLE FASHION. ETHICAL SOURCING, SUSTAINABLE PRACTICES.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Statement -->
+  <section class="container">
+    <div class="feature-banner">
+      <h2 class="feature-banner-title">OUR MISSION</h2>
+      <p class="feature-banner-text" style="max-width: 900px; margin: 0 auto var(--spacing-xl);">
+        TO CREATE ATHLETIC FASHION THAT EMPOWERS INDIVIDUALS TO EXPRESS THEIR FAITH, CELEBRATE THEIR CULTURE, AND EMBRACE THEIR CREATIVITY. NOT JUST MAKING CLOTHES — CRAFTING A MOVEMENT.
+      </p>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="container">
+    <div class="section-header">
+      <h2 class="section-title">THE VISION MAKERS</h2>
+      <p class="section-subtitle">BRINGING BALLYLIKE* TO LIFE</p>
+    </div>
+    
+    <div class="grid grid-4">
+      <div class="card">
+        <div class="card-image-wrapper">
+          <img src="assets/images/team/tirivashe.jpg" alt="Creative Director" class="card-image">
         </div>
-        <div class="col-md-6 mb-4">
-          <h3 class="text-uppercase fw-bold">Our Vision</h3>
-          <p>To empower individuals through design, to create a world where creativity, faith, and growth are embraced in every aspect of life. We envision a future where Ballylike products serve as a reminder of the power of authenticity and positive impact.</p>
+        <div class="card-content" style="text-align: center;">
+          <h3 class="card-title">CREATIVE DIRECTOR</h3>
+          <p class="card-description">
+            VISIONARY BEHIND BALLYLIKE*'S UNIQUE AESTHETIC
+          </p>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-image-wrapper">
+          <img src="assets/images/team/tatenda.jpg" alt="Lead Designer" class="card-image">
+        </div>
+        <div class="card-content" style="text-align: center;">
+          <h3 class="card-title">SALES & MARKETING MANAGER</h3>
+          <p class="card-description">
+            DRIVING BRAND GROWTH AND MARKET PRESENCE
+          </p>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-image-wrapper">
+          <img src="assets/images/team/tinaye.jpg" alt="Community Lead" class="card-image">
+        </div>
+        <div class="card-content" style="text-align: center;">
+        <h3 class="card-title">OPERATIONS DIRECTOR</h3>
+          <p class="card-description">
+            ENSURING SEAMLESS BUSINESS OPERATIONS
+          </p>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-image-wrapper">
+          <img src="assets/images/team/tadiwa.jpg" alt="Brand Manager" class="card-image">
+        </div>
+        <div class="card-content" style="text-align: center;">
+          <h3 class="card-title">FINANCE DIRECTOR</h3>
+          <p class="card-description">
+            MANAGING FINANCIAL STRATEGY AND SUSTAINABILITY
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Founder -->
-  <section class="about-founder py-5">
-    <div class="container text-center">
-      <h2 class="text-uppercase fw-bold mb-4">The Founder</h2>
-      <img src="images/founder.jpg" alt="Tirivashe Onias Chitanda, Founder of Ballylike" class="img-fluid rounded-circle mb-3" style="width:200px;">
-      <h4 class="fw-bold">Tirivashe Onias Chitanda</h4>
-      <p>A creator passionate about blending art with values. His mission is to inspire others through the power of design and creative expression.</p>
+  <!-- FAQ Section -->
+  <section class="container">
+    <div class="section-header">
+      <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
+      <p class="section-subtitle">EVERYTHING YOU NEED TO KNOW</p>
     </div>
-  </section>
-
-  <!-- Stats -->
-  <section class="about-stats py-5 bg-light">
-    <div class="container">
-      <div class="row text-center">
-        <div class="col-md-3 col-6 mb-4">
-          <h3 class="fw-bold">40,000+</h3>
-          <p>Happy Customers</p>
+    
+    <div style="max-width: 900px; margin: 0 auto;">
+      <!-- Shopping Questions -->
+      <div style="margin-bottom: var(--spacing-3xl);">
+        <h3 style="font-size: var(--font-size-lg); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-sm); border-bottom: 2px solid var(--color-black);">SHOPPING</h3>
+        
+        <div class="faq-item" style="border: 1px solid var(--color-black); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+          <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-sm);">HOW LONG DOES IT TAKE TO GET MY ORDER?</h4>
+          <p style="font-size: var(--font-size-sm); line-height: 1.8; opacity: 0.8;">
+            ORDERS ARE TYPICALLY PROCESSED WITHIN 1-2 BUSINESS DAYS. DELIVERY WITHIN HARARE TAKES 2-3 BUSINESS DAYS. FOR COLLECTION ORDERS, YOU'LL BE NOTIFIED WHEN YOUR ORDER IS READY FOR PICKUP.
+          </p>
         </div>
-        <div class="col-md-3 col-6 mb-4">
-          <h3 class="fw-bold">12</h3>
-          <p>Awards Won</p>
+        
+        <div class="faq-item" style="border: 1px solid var(--color-black); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+          <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-sm);">WHAT DOES BALLYLIKE MEAN?</h4>
+          <p style="font-size: var(--font-size-sm); line-height: 1.8; opacity: 0.8;">
+            BALLYLIKE* REPRESENTS A MOVEMENT WHERE FAITH MEETS FASHION. IT'S ABOUT EXPRESSING YOUR BELIEFS BOLDLY THROUGH STYLE, CELEBRATING CULTURE, AND EMBRACING ARTISTIC EXPRESSION IN ATHLETIC FASHION.
+          </p>
         </div>
-        <div class="col-md-3 col-6 mb-4">
-          <h3 class="fw-bold">16</h3>
-          <p>Years of Experience</p>
+        
+        <div class="faq-item" style="border: 1px solid var(--color-black); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+          <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-sm);">HOW DO I ORDER?</h4>
+          <p style="font-size: var(--font-size-sm); line-height: 1.8; opacity: 0.8;">
+            BROWSE OUR COLLECTIONS, SELECT YOUR DESIRED ITEMS, ADD THEM TO YOUR CART, AND PROCEED TO CHECKOUT. YOU CAN CHOOSE BETWEEN HOME DELIVERY OR COLLECTION AT OUR STORE IN HARARE.
+          </p>
         </div>
-        <div class="col-md-3 col-6 mb-4">
-          <h3 class="fw-bold">20+</h3>
-          <p>Brand Partners</p>
+      </div>
+      
+      <!-- Payment Questions -->
+      <div style="margin-bottom: var(--spacing-3xl);">
+        <h3 style="font-size: var(--font-size-lg); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-sm); border-bottom: 2px solid var(--color-black);">PAYMENT</h3>
+        
+        <div class="faq-item" style="border: 1px solid var(--color-black); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+          <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-sm);">WHAT PAYMENT METHODS DO YOU ACCEPT?</h4>
+          <p style="font-size: var(--font-size-sm); line-height: 1.8; opacity: 0.8;">
+            WE ACCEPT MULTIPLE PAYMENT METHODS INCLUDING MOBILE MONEY (ECOCASH, ONEMONEY), BANK TRANSFERS, AND CASH ON DELIVERY/COLLECTION. ONLINE PAYMENT OPTIONS ARE ALSO AVAILABLE AT CHECKOUT.
+          </p>
+        </div>
+        
+        <div class="faq-item" style="border: 1px solid var(--color-black); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+          <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-sm);">CAN I PAY WHEN I COLLECT MY ORDER?</h4>
+          <p style="font-size: var(--font-size-sm); line-height: 1.8; opacity: 0.8;">
+            YES! CASH ON COLLECTION IS AVAILABLE. SIMPLY SELECT THIS OPTION DURING CHECKOUT AND PAY WHEN YOU PICK UP YOUR ORDER AT OUR HARARE LOCATION.
+          </p>
+        </div>
+        
+        <div class="faq-item" style="border: 1px solid var(--color-black); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+          <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-sm);">ARE ONLINE PAYMENT OPTIONS AVAILABLE?</h4>
+          <p style="font-size: var(--font-size-sm); line-height: 1.8; opacity: 0.8;">
+            YES, WE OFFER SECURE ONLINE PAYMENT OPTIONS INCLUDING MOBILE MONEY AND DIGITAL WALLETS FOR YOUR CONVENIENCE.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Shipping Questions -->
+      <div style="margin-bottom: var(--spacing-3xl);">
+        <h3 style="font-size: var(--font-size-lg); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-lg); padding-bottom: var(--spacing-sm); border-bottom: 2px solid var(--color-black);">SHIPPING & DELIVERY</h3>
+        
+        <div class="faq-item" style="border: 1px solid var(--color-black); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+          <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-sm);">WHERE CAN I COLLECT MY ORDER?</h4>
+          <p style="font-size: var(--font-size-sm); line-height: 1.8; opacity: 0.8;">
+            ORDERS CAN BE COLLECTED AT OUR STORE IN HARARE, ZIMBABWE. YOU'LL RECEIVE THE EXACT ADDRESS AND COLLECTION INSTRUCTIONS VIA EMAIL OR SMS WHEN YOUR ORDER IS READY.
+          </p>
+        </div>
+        
+        <div class="faq-item" style="border: 1px solid var(--color-black); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+          <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-sm);">DO YOU DELIVER WITHIN HARARE?</h4>
+          <p style="font-size: var(--font-size-sm); line-height: 1.8; opacity: 0.8;">
+            YES! WE OFFER DELIVERY SERVICES THROUGHOUT HARARE. DELIVERY FEES VARY BASED ON YOUR LOCATION. SELECT DELIVERY AT CHECKOUT TO SEE THE COST FOR YOUR AREA.
+          </p>
+        </div>
+        
+        <div class="faq-item" style="border: 1px solid var(--color-black); padding: var(--spacing-lg); margin-bottom: var(--spacing-md);">
+          <h4 style="font-size: var(--font-size-base); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-sm);">HOW DO I TRACK MY DELIVERY OR COLLECTION STATUS?</h4>
+          <p style="font-size: var(--font-size-sm); line-height: 1.8; opacity: 0.8;">
+            YOU'LL RECEIVE SMS AND EMAIL UPDATES AT EVERY STAGE: ORDER CONFIRMATION, PROCESSING, READY FOR COLLECTION/OUT FOR DELIVERY, AND COMPLETION. YOU CAN ALSO CONTACT US DIRECTLY FOR REAL-TIME UPDATES.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Brand Partners Placeholder -->
-  <section class="about-partners py-5">
-    <div class="container text-center">
-      <h2 class="text-uppercase fw-bold mb-4">Brand Partners</h2>
-      <div class="d-flex flex-wrap justify-content-center align-items-center gap-4">
-        <img src="images/partner1.png" alt="Brand Partner 1" class="img-fluid" style="max-width:120px;">
-        <img src="images/partner2.png" alt="Brand Partner 2" class="img-fluid" style="max-width:120px;">
-        <img src="images/partner3.png" alt="Brand Partner 3" class="img-fluid" style="max-width:120px;">
-        <img src="images/partner4.png" alt="Brand Partner 4" class="img-fluid" style="max-width:120px;">
+  <!-- Join Us CTA -->
+  <section class="container">
+    <div style="border: 1px solid var(--color-black); padding: var(--spacing-3xl); text-align: center; max-width: 800px; margin: 0 auto;">
+      <h2 class="section-title">JOIN THE MOVEMENT</h2>
+      <p style="font-size: var(--font-size-md); margin-bottom: var(--spacing-xl); line-height: 2; text-transform: uppercase; letter-spacing: 0.05em;">
+        MORE THAN A BRAND — A COMMUNITY OF INDIVIDUALS WHO BELIEVE IN THE POWER OF FAITH, CULTURE, AND CREATIVITY.
+      </p>
+      <div style="display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap;">
+        <a href="shop.html" class="btn btn-primary btn-large">SHOP NOW</a>
+        <a href="#contact" class="btn btn-secondary btn-large">CONTACT</a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer>
-    <!-- Include your footer here (can reuse updated footer.html) -->
-    <!-- e.g., <?php include 'footer.html'; ?> if using PHP -->
+  <footer class="footer" id="contact">
+    <div class="footer-content container">
+      <div class="footer-section">
+        <h3>BALLYLIKE*</h3>
+        <p style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-top: var(--spacing-md); line-height: 1.8;">
+          ATHLETIC FASHION BRAND BLENDING FAITH, URBAN CULTURE, AND ARTISTIC EXPRESSION. BASED IN HARARE, ZIMBABWE.
+        </p>
+        <div class="footer-social">
+          <a href="https://instagram.com/ballylike_shop" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/>
+            </svg>
+          </a>
+          <a href="https://tiktok.com/@ballylike" class="social-icon" aria-label="TikTok" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+            </svg>
+          </a>
+          <a href="https://facebook.com/ballylikebrand" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/263781457106" class="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>LINKS</h3>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">HOME</a>
+          <a href="shop.html" class="footer-link">SHOP</a>
+          <a href="gallery.html" class="footer-link">GALLERY</a>
+          <a href="about.html" class="footer-link">ABOUT</a>
+          <a href="#contact" class="footer-link">CONTACT</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>SUPPORT</h3>
+        <div class="footer-links">
+          <a href="#" class="footer-link">SHIPPING</a>
+          <a href="#" class="footer-link">RETURNS</a>
+          <a href="#" class="footer-link">SIZE GUIDE</a>
+          <a href="#" class="footer-link">FAQ</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>CONTACT</h3>
+        <div class="footer-links">
+          <p style="font-size: var(--font-size-xs); opacity: 0.7;">
+            INFO@BALLYLIKE.CO.ZW<br>
+            +263 78 145 7106<br>
+            +263 78 395 2546<br>
+            HARARE, ZIMBABWE
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom container">
+      <p>© 2025 BALLYLIKE*. ALL RIGHTS RESERVED. | BALLYLIKE.CO.ZW</p>
+    </div>
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/scroll.js"></script>
+  <script src="js/animations.js"></script>
 </body>
 </html>
+ 

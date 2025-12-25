@@ -2,456 +2,650 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ballylike — Shop Canvas Bags, Hoodies & Lifestyle Accessories</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Shop Ballylike — handmade tote bags, minimalist hoodies, and creative lifestyle accessories from Zimbabwe. Authentic design, crafted with style and purpose.">
-  <meta name="keywords" content="Ballylike, tote bags, hoodies, pouches, canvas bags, Zimbabwe fashion, handmade bags, designer bags, streetwear, lifestyle accessories">
-  <meta name="author" content="Ballylike">
-
-  <!-- Open Graph (Facebook, WhatsApp, Instagram preview) -->
-  <meta property="og:title" content="Ballylike — Shop Tote Bags, Hoodies & Lifestyle Accessories">
-  <meta property="og:description" content="Shop authentic handmade tote bags, hoodies, and lifestyle pieces from Ballylike. Designed in Zimbabwe with creativity, faith, and purpose.">
-  <meta property="og:image" content="https://ballylike.co.zw/images/product-item-6.jpg">
-  <meta property="og:url" content="https://ballylike.co.zw/shop.html">
-  <meta property="og:type" content="website">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ballylike — Shop Tote Bags, Hoodies & Accessories">
-  <meta name="twitter:description" content="Handcrafted fashion meets creativity. Shop Ballylike tote bags, hoodies, and lifestyle products.">
-  <meta name="twitter:image" content="https://ballylike.co.zw/images/product-item-6.jpg">
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://ballylike.co.zw/shop.html">
-
-  <!-- Favicon -->
-  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&family=Marcellus&display=swap" rel="stylesheet">
-  <!-- Schema.org Store Info -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Store",
-    "name": "Ballylike",
-    "url": "https://ballylike.co.zw",
-    "logo": "https://ballylike.co.zw/images/logo.png",
-    "image": "https://ballylike.co.zw/images/product-item-6.jpg",
-    "description": "Shop Ballylike — handmade tote bags, hoodies, and lifestyle products designed in Zimbabwe.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "ZW"
-    },
-    "sameAs": [
-      "https://www.instagram.com/ballylike",
-      "https://wa.me/c/263781457106"
-    ]
-  }
-  </script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BALLYLIKE* Shop - Browse all products by collection.">
+  <title>SHOP - BALLYLIKE*</title>
+  
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/placeholders.css">
+  
   <style>
-    :root {
-      --max-width: 1100px;
-      --accent: #111;
-      --muted: #666;
-      --bg: #fafafa;
-      --fade-duration: 0.8s;
-      --slide-duration: 0.6s;
+    /* Filter Bar */
+    .filter-bar {
+      background-color: var(--color-black);
+      color: var(--color-white);
+      border-bottom: var(--border);
+      position: sticky;
+      top: 60px;
+      z-index: 100;
     }
-
-    body {
-      margin: 0;
-      font-family: "Jost", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--accent);
-      line-height: 1.7;
-      opacity: 0;
-      animation: fadeInBody var(--fade-duration) ease forwards;
+    
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--spacing-xs);
+      padding: var(--spacing-md);
+      flex-wrap: wrap;
     }
-
-    @keyframes fadeInBody {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    
+    .filter-btn {
+      padding: var(--spacing-xs) var(--spacing-md);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      background-color: transparent;
+      color: var(--color-white);
+      border: 1px solid var(--color-white);
+      cursor: pointer;
+      transition: all var(--transition-fast);
     }
-
-    .site {
+    
+    .filter-btn:hover,
+    .filter-btn.active {
+      background-color: var(--color-white);
+      color: var(--color-black);
+    }
+    
+    /* Product Animation */
+    .product-card {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Product Detail Modal */
+    .product-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      overflow-y: auto;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    .product-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-lg);
+    }
+    
+    .modal-content {
+      background-color: var(--color-white);
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-3xl);
+      padding: var(--spacing-3xl);
+      position: relative;
+      animation: slideUp 0.3s ease-out;
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: var(--spacing-lg);
+      right: var(--spacing-lg);
+      width: 40px;
+      height: 40px;
+      background-color: transparent;
+      border: 2px solid var(--color-black);
+      color: var(--color-black);
+      font-size: 24px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    
+    .modal-close:hover {
+      background-color: var(--color-black);
+      color: var(--color-white);
+    }
+    
+    .modal-image-section {
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      gap: var(--spacing-md);
     }
-
-    header.site-header {
-      background: #fff;
-      padding: 1.5rem;
-      border-bottom: 1px solid #eee;
-      animation: slideDown var(--slide-duration) ease-out forwards;
-      opacity: 0;
+    
+    .modal-main-image {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border: var(--border);
     }
-
-    @keyframes slideDown {
-      from { transform: translateY(-30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    
+    .modal-info-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
     }
-
-    .brand {
+    
+    .modal-product-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+    }
+    
+    .modal-product-price {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-black);
+    }
+    
+    .modal-product-description {
+      font-size: var(--font-size-sm);
+      line-height: 1.8;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .modal-product-details {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      padding-top: var(--spacing-lg);
+      border-top: var(--border);
+    }
+    
+    .modal-detail-row {
       display: flex;
       justify-content: space-between;
-      font-family: "Jost", Roboto, sans-serif;
-      align-items: center;
-      max-width: var(--max-width);
-      margin: 0 auto;
+      font-size: var(--font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .modal-detail-label {
+      font-weight: var(--font-weight-medium);
+      opacity: 0.6;
+    }
+    
+    .modal-detail-value {
+      font-weight: var(--font-weight-bold);
+    }
+    
+    .modal-buy-button {
       width: 100%;
-    }
-
-    .site-title a {
-      font-size: 1.75rem;
-      font-weight: 600;
-      text-decoration: none;
-      color: var(--accent);
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    .site-title a:hover {
-      color: var(--muted);
-      transform: scale(1.05);
-    }
-
-    nav.primary a {
-      margin-left: 2rem;
-      text-decoration: none;
-      color: var(--accent);
-      font-size: 1rem;
-      position: relative;
-      transition: color 0.3s ease;
-    }
-
-    nav.primary a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    nav.primary a:hover {
-      color: var(--muted);
-    }
-
-    nav.primary a:hover::after {
-      width: 100%;
-    }
-
-    main.container {
-      flex: 1;
-      max-width: var(--max-width);
-      margin: 3rem auto;
-      padding: 0 1rem;
-      animation: fadeInMain 1s ease forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadeInMain {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      text-align: center;
-      margin-bottom: 2.5rem;
-      font-weight: 500;
-    }
-
-    .product-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-    }
-
-    .product {
-      flex: 1 1 calc(30% - 2rem);
-      max-width: calc(30% - 2rem);
-      text-align: center;
-      background: #fff;
-      padding: 1rem;
-      border: 1px solid #eee;
-      border-radius: 6px;
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards;
-      position: relative;
-      overflow: hidden;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(25px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .product:nth-child(1) { animation-delay: 0.2s; }
-    .product:nth-child(2) { animation-delay: 0.4s; }
-    .product:nth-child(3) { animation-delay: 0.6s; }
-    .product:nth-child(4) { animation-delay: 0.8s; }
-    .product:nth-child(5) { animation-delay: 1s; }
-    .product:nth-child(6) { animation-delay: 1.2s; }
-
-    .product:hover {
-      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-      transform: translateY(-5px);
-    }
-
-    .product-slider {
-      position: relative;
-      overflow: hidden;
-      border-radius: 6px;
-    }
-
-    .product-slider img {
-      width: 100%;
-      height: auto;
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      transform: scale(1.02);
-    }
-
-    .product-slider img.active {
-      opacity: 1;
-      transform: scale(1);
-      position: relative;
-      z-index: 1;
-    }
-
-    .slider-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      font-size: 2rem;
-      color: rgba(255,255,255,0.8);
-      padding: 0;
+      padding: var(--spacing-md) var(--spacing-lg);
+      background-color: var(--color-black);
+      color: var(--color-white);
+      border: 2px solid var(--color-black);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
       cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.4s ease, color 0.3s ease;
-      z-index: 2;
-      font-weight: bold;
-      user-select: none;
-    }
-
-    .product-slider:hover .slider-btn {
-      opacity: 1;
-    }
-
-    .slider-btn:hover { color: #fff; }
-    .slider-btn.prev { left: 10px; }
-    .slider-btn.next { right: 10px; }
-
-    .product h3 { margin: 0.75rem 0 0.25rem; font-size: 1.1rem; font-weight: 500; }
-    .product p { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.75rem; }
-
-    .product a {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--accent);
-      color: var(--accent);
+      transition: all var(--transition-fast);
+      text-align: center;
       text-decoration: none;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      border-radius: 4px;
-      position: relative;
-      overflow: hidden;
+      display: inline-block;
+      margin-top: var(--spacing-lg);
     }
-
-    .product a::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 0;
-      height: 100%;
-      background: var(--accent);
-      z-index: -1;
-      transition: width 0.3s ease;
+    
+    .modal-buy-button:hover {
+      background-color: var(--color-white);
+      color: var(--color-black);
     }
-
-    .product a:hover::before { width: 100%; }
-    .product a:hover { color: #fff; }
-
-    @media (max-width: 1024px) {
-      .product { flex: 1 1 calc(50% - 2rem); max-width: calc(50% - 2rem); }
+    
+    @media (max-width: 768px) {
+      .modal-content {
+        grid-template-columns: 1fr;
+        padding: var(--spacing-xl);
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      
+      .modal-close {
+        top: var(--spacing-md);
+        right: var(--spacing-md);
+      }
     }
-    @media (max-width: 640px) {
-      .product { flex: 1 1 100%; max-width: 100%; }
-      .slider-btn { font-size: 1.5rem; }
-    }
-
-    footer.site-footer {
-      background: #fff;
-      border-top: 1px solid #eee;
-      padding: 1.5rem;
-      font-size: 0.9rem;
-      opacity: 0;
-      animation: slideUpFooter 0.8s ease forwards;
-      animation-delay: 1.3s;
-    }
-
-    @keyframes slideUpFooter {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .footer-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .muted { color: var(--muted); }
   </style>
 </head>
-
 <body>
-  <div class="site">
-    <!-- Header -->
-    <header class="site-header">
-      <div class="brand">
-        <div class="site-title"><a href="index.html">Ballylike</a></div>
-        <nav class="primary">
-          <a href="index.html">Home</a>
-          <a href="shop.html" class="active">Shop</a>
-          <a href="contact.html">Contact</a>
-          <a href="faq.html">FAQs</a>
-        </nav>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">
+        BALLY<span>LIKE*</span>
+      </a>
+      
+      <div class="navbar-menu" id="navbarMenu">
+        <a href="index.html" class="navbar-link">HOME</a>
+        <a href="shop.html" class="navbar-link active">SHOP</a>
+        <a href="gallery.html" class="navbar-link">GALLERY</a>
+        <a href="about.html" class="navbar-link">ABOUT</a>
+        <a href="#contact" class="navbar-link">CONTACT</a>
       </div>
-    </header>
+      
+      <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
 
-    <!-- Main -->
-    <main class="container">
-      <h1>Shop Ballylike Products</h1>
+  <!-- Hero -->
+  <section class="hero" style="min-height: 40vh;">
+    <div class="hero-content">
+      <h1 class="hero-logo" style="font-size: var(--font-size-3xl);">
+        SHOP
+      </h1>
+      <p class="hero-tagline">
+        DISCOVER YOUR STYLE
+      </p>
+    </div>
+  </section>
 
-      <div class="product-grid">
-        <!-- Your same products below with improved alt text for SEO -->
-        <div class="product">
-          <div class="product-slider">
-            <img src="images/shop1.jpg" class="active" alt="Ballylike Canvas Shoulder Bag Handmade Tote">
-            <img src="images/shop1-alt.jpg" alt="Canvas Shoulder Bag Side View">
-            <button class="slider-btn prev">&#10094;</button>
-            <button class="slider-btn next">&#10095;</button>
-          </div>
-          <h3>Canvas Shoulder Bag</h3>
-          <p>$15.00</p>
-          <a href="https://wa.me/c/263781457106" aria-label="Shop Canvas Shoulder Bag on WhatsApp">Shop Now</a>
-        </div>
-
-        <div class="product">
-          <div class="product-slider">
-            <img src="images/shop2.jpg" class="active" alt="Ballylike Classic Hoodie Black Minimalist Design">
-            <img src="images/shop2-alt.jpg" alt="Classic Hoodie Alternate View">
-            <button class="slider-btn prev">&#10094;</button>
-            <button class="slider-btn next">&#10095;</button>
-          </div>
-          <h3>Canvas Shoulder Bag</h3>
-          <p>$15.00</p>
-          <a href="https://wa.me/c/263781457106" aria-label="Shop Classic Hoodie on WhatsApp">Shop Now</a>
-        </div>
-
-        <div class="product">
-          <div class="product-slider">
-            <img src="images/banner-image-3.jpg" class="active" alt="Ballylike Minimalist Cap Aesthetic Streetwear">
-            <img src="images/shop3-alt.jpg" alt="Minimalist Cap Alternate View">
-            <button class="slider-btn prev">&#10094;</button>
-            <button class="slider-btn next">&#10095;</button>
-          </div>
-          <h3>Canvas Shoulder Bag</h3>
-          <p>$15.00</p>
-          <a href="https://wa.me/c/263781457106" aria-label="Shop Minimalist Cap on WhatsApp">Shop Now</a>
-        </div>
-
-        <div class="product">
-          <div class="product-slider">
-            <img src="images/shop4.jpg" class="active" alt="Ballylike Terracota Orange-Halo Pouch Handmade">
-            <img src="images/shop4-alt.jpg" alt="Terracota Orange-Halo Pouch Alternate View">
-            <button class="slider-btn prev">&#10094;</button>
-            <button class="slider-btn next">&#10095;</button>
-          </div>
-          <h3>Terracota Orange-Halo Pouch</h3>
-          <p>$8</p>
-          <a href="https://wa.me/c/263781457106" aria-label="Shop Terracota Orange-Halo Pouch on WhatsApp">Shop Now</a>
-        </div>
-
-        <div class="product">
-          <div class="product-slider">
-            <img src="images/shop5.jpg" class="active" alt="Ballylike Olive Green-Halo Pouch Handmade">
-            <img src="images/shop5-alt.jpg" alt="Olive Green-Halo Pouch Alternate View">
-            <button class="slider-btn prev">&#10094;</button>
-            <button class="slider-btn next">&#10095;</button>
-          </div>
-          <h3>Olive Green-Halo Pouch</h3>
-          <p>$8</p>
-          <a href="https://wa.me/c/263781457106" aria-label="Shop Olive Green-Halo Pouch on WhatsApp">Shop Now</a>
-        </div>
-
-        <div class="product">
-          <div class="product-slider">
-            <img src="images/shop6.jpg" class="active" alt="Ballylike Retro Yellow-Halo Pouch Handmade">
-            <img src="images/shop6-alt.jpg" alt="Retro Yellow-Halo Pouch Alternate View">
-            <button class="slider-btn prev">&#10094;</button>
-            <button class="slider-btn next">&#10095;</button>
-            
-          </div>
-          <h3>Retro Yellow-Halo Pouch</h3>
-          <p>$8</p>
-          <a href="https://wa.me/c/263781457106" aria-label="Shop Retro Yellow-Halo Pouch on WhatsApp">Shop Now</a>
-        </div>
-      </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <div><div class="muted">&copy;2025 Ballylike. All rights reserved.</div></div>
-        <div class="meta"><div class="muted">Currency: USD • Language: English</div></div>
-      </div>
-    </footer>
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="filter-container">
+      <button class="filter-btn active" data-filter="all">ALL PRODUCTS</button>
+      <button class="filter-btn" data-filter="unisex">UNISEX</button>
+      <button class="filter-btn" data-filter="men">MEN</button>
+      <button class="filter-btn" data-filter="women">WOMEN</button>
+    </div>
   </div>
 
-  <!-- Slider Script -->
+  <!-- All Products View -->
+  <section class="container" id="shop-products">
+    <div class="section-header">
+      <h2 class="section-title">ALL PRODUCTS</h2>
+      <p class="section-subtitle">COMPLETE COLLECTION</p>
+    </div>
+    
+    <div class="grid grid-3" id="products-grid">
+      <!-- Men Products -->
+      <div class="card product-card" data-category="men">
+        <div class="card-image-wrapper">
+          <img src="assets/images/products/prod-bcs.png" alt="Black Canvas Sling" class="card-image">
+          <div class="product-overlay">
+            <button class="btn btn-secondary">VIEW</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">BLACK CANVAS SLING</h3>
+          <p class="card-description">UTILITY DESIGN</p>
+          <p class="card-price">$12.99</p>
+        </div>
+      </div>
+      
+      <div class="card product-card" data-category="men">
+        <div class="card-image-wrapper">
+          <div class="card-badge">NEW</div>
+          <img src="assets/images/products/prod-t.png" alt="URBAN FASHION TEE" class="card-image">
+          <div class="product-overlay">
+            <button class="btn btn-secondary">VIEW</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">URBAN FASHION TEE</h3>
+          <p class="card-description">HEAVYWEIGHT COTTON</p>
+          <p class="card-price">$14.99</p>
+        </div>
+      </div>
+      
+      <!-- Unisex Products -->
+      <div class="card product-card" data-category="unisex">
+        <div class="card-image-wrapper">
+          <img src="assets/images/products/prod-bcsb.png" alt="Black Canvas Shoulder Bag" class="card-image">
+          <div class="product-overlay">
+            <button class="btn btn-secondary">VIEW</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">BLACK CANVAS SHOULDER BAG</h3>
+          <p class="card-description">UTILITY DESIGN</p>
+          <p class="card-price">$14.99</p>
+        </div>
+      </div>
+      
+      <div class="card product-card" data-category="unisex">
+        <div class="card-image-wrapper">
+          <div class="card-badge">NEW</div>
+          <img src="assets/images/products/prod-c.png" alt="PERFORMANCE CAP" class="card-image">
+          <div class="product-overlay">
+            <button class="btn btn-secondary">VIEW</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">PERFORMANCE CAP</h3>
+          <p class="card-description">ORGANIC COTTON</p>
+          <p class="card-price">$11.99</p>
+        </div>
+      </div>
+      
+      <div class="card product-card" data-category="unisex">
+        <div class="card-image-wrapper">
+          <div class="card-badge">NEW</div>
+          <img src="assets/images/products/prod-hpb.png" alt="Black Halo Pouch" class="card-image">
+          <div class="product-overlay">
+            <button class="btn btn-secondary">VIEW</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">BLACK HALO POUCH</h3>
+          <p class="card-description">UTILITY DESIGN</p>
+          <p class="card-price">$7.99</p>
+        </div>
+      </div>
+      
+      <div class="card product-card" data-category="unisex">
+        <div class="card-image-wrapper">
+          <img src="assets/images/products/prod-ocsb.png" alt="Orange Canvas Shoulder Bag" class="card-image">
+          <div class="product-overlay">
+            <button class="btn btn-secondary">VIEW</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">ORANGE CANVAS SHOULDER BAG</h3>
+          <p class="card-description">UTILITY DESIGN</p>
+          <p class="card-price">$14.99</p>
+        </div>
+      </div>
+      
+      <!-- Women Products -->
+      <div class="card product-card" data-category="women">
+        <div class="card-image-wrapper">
+          <div class="card-badge">NEW</div>
+          <img src="assets/images/products/prod-hpo.png" alt="Orange Halo Pouch" class="card-image">
+          <div class="product-overlay">
+            <button class="btn btn-secondary">VIEW</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">ORANGE HALO POUCH</h3>
+          <p class="card-description">UTILITY DESIGN</p>
+          <p class="card-price">$7.99</p>
+        </div>
+      </div>
+      
+      <div class="card product-card" data-category="women">
+        <div class="card-image-wrapper">
+          <div class="card-badge">NEW</div>
+          <img src="assets/images/products/prod-hpy.png" alt="Yellow Halo Pouch" class="card-image">
+          <div class="product-overlay">
+            <button class="btn btn-secondary">VIEW</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">YELLOW HALO POUCH</h3>
+          <p class="card-description">UTILITY DESIGN</p>
+          <p class="card-price">$7.99</p>
+        </div>
+      </div>
+      
+      <div class="card product-card" data-category="women">
+        <div class="card-image-wrapper">
+          <img src="assets/images/products/prod-ocs.png" alt="Orange Canvas Sling" class="card-image">
+          <div class="product-overlay">
+            <button class="btn btn-secondary">VIEW</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">ORANGE CANVAS SLING</h3>
+          <p class="card-description">UTILITY DESIGN</p>
+          <p class="card-price">$12.99</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Detail Modal -->
+  <div class="product-modal" id="productModal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+      
+      <div class="modal-image-section">
+        <img src="" alt="Product Image" class="modal-main-image" id="modalImage">
+      </div>
+      
+      <div class="modal-info-section">
+        <h2 class="modal-product-title" id="modalTitle"></h2>
+        <p class="modal-product-price" id="modalPrice"></p>
+        <p class="modal-product-description" id="modalDescription"></p>
+        
+        <div class="modal-product-details">
+          <div class="modal-detail-row">
+            <span class="modal-detail-label">CATEGORY</span>
+            <span class="modal-detail-value" id="modalCategory"></span>
+          </div>
+          <div class="modal-detail-row">
+            <span class="modal-detail-label">AVAILABILITY</span>
+            <span class="modal-detail-value">IN STOCK</span>
+          </div>
+        </div>
+        
+        <a href="https://wa.me/c/263781457106" class="modal-buy-button" target="_blank" rel="noopener">BUY</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-content container">
+      <div class="footer-section">
+        <h3>BALLYLIKE*</h3>
+        <p style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-top: var(--spacing-md); line-height: 1.8;">
+          ATHLETIC FASHION BRAND BLENDING FAITH, URBAN CULTURE, AND ARTISTIC EXPRESSION. BASED IN HARARE, ZIMBABWE.
+        </p>
+        <div class="footer-social">
+          <a href="https://instagram.com/ballylike_shop" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/>
+            </svg>
+          </a>
+          <a href="https://tiktok.com/@ballylike" class="social-icon" aria-label="TikTok" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+            </svg>
+          </a>
+          <a href="https://facebook.com/ballylikebrand" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/263781457106" class="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>LINKS</h3>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">HOME</a>
+          <a href="shop.html" class="footer-link">SHOP</a>
+          <a href="gallery.html" class="footer-link">GALLERY</a>
+          <a href="about.html" class="footer-link">ABOUT</a>
+          <a href="#contact" class="footer-link">CONTACT</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>SUPPORT</h3>
+        <div class="footer-links">
+          <a href="#" class="footer-link">SHIPPING</a>
+          <a href="#" class="footer-link">RETURNS</a>
+          <a href="#" class="footer-link">SIZE GUIDE</a>
+          <a href="#" class="footer-link">FAQ</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>CONTACT</h3>
+        <div class="footer-links">
+          <p style="font-size: var(--font-size-xs); opacity: 0.7;">
+            INFO@BALLYLIKE.CO.ZW<br>
+            +263 78 145 7106<br>
+            +263 78 395 2546<br>
+            HARARE, ZIMBABWE
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom container">
+      <p>© 2025 BALLYLIKE*. ALL RIGHTS RESERVED. | BALLYLIKE.CO.ZW</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/scroll.js"></script>
+  <script src="js/animations.js"></script>
+  
   <script>
-    document.querySelectorAll('.product-slider').forEach(slider => {
-      const images = slider.querySelectorAll('img');
-      const prevBtn = slider.querySelector('.prev');
-      const nextBtn = slider.querySelector('.next');
-      let index = 0;
-
-      function showImage(i) {
-        images.forEach(img => img.classList.remove('active'));
-        images[i].classList.add('active');
+    // Shop Filtering System
+    (function() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const products = document.querySelectorAll('.product-card');
+      
+      // Handle filter button clicks
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const filter = this.getAttribute('data-filter');
+          
+          // Update active button
+          filterBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Filter products
+          products.forEach(product => {
+            const category = product.getAttribute('data-category');
+            
+            if (filter === 'all') {
+              product.style.display = 'block';
+            } else if (category === filter) {
+              product.style.display = 'block';
+            } else {
+              product.style.display = 'none';
+            }
+          });
+          
+          // Update URL hash
+          window.location.hash = filter;
+          
+          // Scroll to top of content
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+      
+      // Handle URL hash on page load
+      function handleHashChange() {
+        const hash = window.location.hash.substring(1); // Remove #
+        
+        if (hash && ['unisex', 'men', 'women'].includes(hash)) {
+          // Find and click the corresponding button
+          const btn = document.querySelector(`[data-filter="${hash}"]`);
+          if (btn) {
+            btn.click();
+          }
+        }
       }
-
-      prevBtn.addEventListener('click', () => {
-        index = (index - 1 + images.length) % images.length;
-        showImage(index);
+      
+      // Check hash on page load
+      if (window.location.hash) {
+        handleHashChange();
+      }
+      
+      // Listen for hash changes
+      window.addEventListener('hashchange', handleHashChange);
+    })();
+    
+    // Product Detail Modal
+    (function() {
+      const modal = document.getElementById('productModal');
+      const modalClose = document.getElementById('modalClose');
+      const viewButtons = document.querySelectorAll('.product-overlay .btn');
+      
+      // Open modal when clicking VIEW button
+      viewButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Get product information from the card
+          const productCard = this.closest('.product-card');
+          const productImage = productCard.querySelector('.card-image').src;
+          const productTitle = productCard.querySelector('.card-title').textContent;
+          const productDescription = productCard.querySelector('.card-description').textContent;
+          const productPrice = productCard.querySelector('.card-price').textContent;
+          const productCategory = productCard.getAttribute('data-category');
+          
+          // Populate modal with product data
+          document.getElementById('modalImage').src = productImage;
+          document.getElementById('modalTitle').textContent = productTitle;
+          document.getElementById('modalDescription').textContent = productDescription;
+          document.getElementById('modalPrice').textContent = productPrice;
+          document.getElementById('modalCategory').textContent = productCategory.toUpperCase();
+          
+          // Show modal
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
       });
-
-      nextBtn.addEventListener('click', () => {
-        index = (index + 1) % images.length;
-        showImage(index);
+      
+      // Close modal
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      
+      modalClose.addEventListener('click', closeModal);
+      
+      // Close when clicking outside modal content
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          closeModal();
+        }
       });
-    });
+      
+      // Close with Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          closeModal();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
