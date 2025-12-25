@@ -337,9 +337,15 @@
       
       grid.innerHTML = shuffled.map((item, index) => {
         const loadMoreClass = index >= initialItemsCount ? 'load-more-hidden' : '';
+        const categoryNames = {
+          'urban': 'Urban Street Style',
+          'performance': 'Performance Athletic',
+          'faith': 'Faith Essentials'
+        };
+        const altText = `BALLYLIKE ${categoryNames[item.category]} Collection - Zimbabwe Faith-Driven Fashion Photography`;
         return `
           <div class="gallery-item ${loadMoreClass}" data-category="${item.category}" data-index="${index}">
-            <img src="${item.src}" alt="Collection Image ${index + 1}" loading="lazy">
+            <img src="${item.src}" alt="${altText}" loading="lazy">
           </div>
         `;
       }).join('');
