@@ -37,7 +37,7 @@
 
 /* When actual images are loaded, these styles won't apply */
 img.card-image[src*=".jpg"],
-img.card-image[src*=".png"],
+img.card-image[src*=".jpg"],
 img.collection-item-image[src*=".jpg"],
 img.collection-item-image[src*=".png"] {
   background: none !important;
