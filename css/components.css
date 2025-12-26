@@ -243,25 +243,27 @@
 .feature-banner {
   background: var(--color-black);
   color: var(--color-white);
-  padding: var(--spacing-2xl);
+  padding: var(--spacing-xl) var(--spacing-md);
   text-align: center;
   border: var(--border);
 }
 
 .feature-banner-title {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-md);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
 }
 
 .feature-banner-text {
-  font-size: var(--font-size-sm);
-  margin-bottom: var(--spacing-xl);
+  font-size: var(--font-size-xs);
+  margin-bottom: var(--spacing-lg);
   opacity: 0.8;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
 }
 
 /* Category Grid */
@@ -330,8 +332,19 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .feature-banner {
+    padding: var(--spacing-2xl);
+  }
+
   .feature-banner-title {
     font-size: var(--font-size-2xl);
+    letter-spacing: 0.1em;
+  }
+
+  .feature-banner-text {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-xl);
+    letter-spacing: 0.1em;
   }
 }
  
