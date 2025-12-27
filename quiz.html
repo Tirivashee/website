@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Discover your BALLYLIKE style persona! Take our style quiz to find your urban fashion archetype and get personalized product recommendations.">
+  <meta name="keywords" content="style quiz, fashion quiz, BALLYLIKE, Zimbabwe fashion, urban style, streetwear personality, fashion archetype">
+  <meta name="author" content="BALLYLIKE">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.ballylike.co.zw/quiz.html">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.ballylike.co.zw/quiz.html">
+  <meta property="og:title" content="What's Your BALLYLIKE Style? Take The Quiz">
+  <meta property="og:description" content="Discover your urban fashion archetype and find your perfect BALLYLIKE style!">
+  <meta property="og:image" content="https://www.ballylike.co.zw/assets/images/og-quiz.jpg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.ballylike.co.zw/quiz.html">
+  <meta name="twitter:title" content="What's Your BALLYLIKE Style? Take The Quiz">
+  <meta name="twitter:description" content="Discover your urban fashion archetype!">
+  <meta name="twitter:image" content="https://www.ballylike.co.zw/assets/images/twitter-quiz.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
+  <title>Style Quiz - Discover Your BALLYLIKE Persona</title>
+  
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  
+  <style>
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--spacing-xl) var(--spacing-md);
+      min-height: calc(100vh - var(--navbar-height) - 200px);
+    }
+    
+    .quiz-progress {
+      width: 100%;
+      height: 4px;
+      background: var(--color-gray-300);
+      border: var(--border);
+      margin-bottom: var(--spacing-xl);
+      overflow: hidden;
+    }
+    
+    .quiz-progress-bar {
+      height: 100%;
+      background: var(--color-black);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .quiz-section {
+      display: none;
+    }
+    
+    .quiz-section.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .question-container {
+      background: var(--color-white);
+      border: var(--border);
+      padding: var(--spacing-xl);
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .question-number {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-gray-500);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .question-text {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--spacing-xl);
+      line-height: 1.4;
+    }
+    
+    .answers-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    .answer-option {
+      padding: var(--spacing-lg);
+      border: var(--border);
+      background: var(--color-white);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-align: left;
+    }
+    
+    .answer-option:hover {
+      background: var(--color-gray-100);
+      transform: translateX(4px);
+    }
+    
+    .answer-option.selected {
+      background: var(--color-black);
+      color: var(--color-white);
+      border-color: var(--color-black);
+    }
+    
+    .answer-emoji {
+      font-size: 24px;
+      margin-bottom: var(--spacing-sm);
+      display: block;
+    }
+    
+    .answer-text {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .quiz-navigation {
+      display: flex;
+      gap: var(--spacing-md);
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    
+    .results-container {
+      text-align: center;
+    }
+    
+    .result-badge {
+      display: inline-block;
+      padding: var(--spacing-2xl);
+      border: 4px solid var(--color-black);
+      background: var(--color-white);
+      margin: var(--spacing-xl) 0;
+    }
+    
+    .result-icon {
+      font-size: 64px;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .result-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--spacing-sm);
+      color: var(--color-primary);
+    }
+    
+    .result-subtitle {
+      font-size: var(--font-size-base);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-gray-500);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .result-description {
+      font-size: var(--font-size-base);
+      line-height: 1.8;
+      margin: var(--spacing-xl) 0;
+      padding: var(--spacing-lg);
+      background: var(--color-gray-100);
+      border: var(--border);
+      text-align: left;
+    }
+    
+    .result-traits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-md);
+      margin: var(--spacing-xl) 0;
+    }
+    
+    .trait-item {
+      padding: var(--spacing-md);
+      border: var(--border);
+      background: var(--color-white);
+    }
+    
+    .trait-label {
+      font-size: var(--font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-gray-500);
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .trait-value {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .product-recommendations {
+      margin: var(--spacing-2xl) 0;
+      text-align: left;
+    }
+    
+    .recommendations-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--spacing-lg);
+      text-align: center;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .question-text {
+        font-size: var(--font-size-base);
+      }
+      
+      .result-title {
+        font-size: var(--font-size-xl);
+      }
+      
+      .result-badge {
+        padding: var(--spacing-xl);
+      }
+      
+      .result-icon {
+        font-size: 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">
+        BALLY<span>LIKE*</span>
+      </a>
+      
+      <div class="navbar-menu" id="navbarMenu">
+        <a href="index.html" class="navbar-link">HOME</a>
+        <a href="shop.html" class="navbar-link">SHOP</a>
+        <a href="gallery.html" class="navbar-link">GALLERY</a>
+        <a href="explore.html" class="navbar-link active">EXPLORE</a>
+        <a href="about.html" class="navbar-link">ABOUT</a>
+        <a href="#contact" class="navbar-link">CONTACT</a>
+      </div>
+      
+      <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" style="min-height: 40vh; margin-top: var(--navbar-height);">
+    <div class="hero-content">
+      <h1 class="hero-logo" style="font-size: var(--font-size-3xl);">
+        STYLE QUIZ
+      </h1>
+      <p class="hero-tagline">
+        DISCOVER YOUR URBAN FASHION ARCHETYPE
+      </p>
+    </div>
+  </section>
+
+  <!-- Quiz Container -->
+  <div class="quiz-container">
+    <!-- Progress Bar -->
+    <div class="quiz-progress">
+      <div class="quiz-progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Start Section -->
+    <div class="quiz-section active" id="startSection">
+      <div class="question-container">
+        <h2 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-md); text-align: center;">
+          WHAT'S YOUR BALLYLIKE STYLE?
+        </h2>
+        <p style="font-size: var(--font-size-base); line-height: 1.8; margin-bottom: var(--spacing-xl); text-align: center; color: var(--color-gray-500);">
+          Answer 8 questions to discover your unique urban fashion archetype and get personalized product recommendations.
+        </p>
+        <div style="text-align: center;">
+          <button class="btn btn-primary btn-large" id="startBtn">
+            START QUIZ
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Questions Section -->
+    <div class="quiz-section" id="questionsSection">
+      <div class="question-container" id="questionContainer">
+        <!-- Questions will be inserted here -->
+      </div>
+      
+      <div class="quiz-navigation">
+        <button class="btn btn-outline" id="prevBtn" disabled>
+          ← PREVIOUS
+        </button>
+        <button class="btn btn-primary" id="nextBtn" disabled>
+          NEXT →
+        </button>
+      </div>
+    </div>
+    
+    <!-- Results Section -->
+    <div class="quiz-section" id="resultsSection">
+      <div class="results-container">
+        <div class="result-badge">
+          <div class="result-icon" id="resultIcon">🔥</div>
+          <div class="result-title" id="resultTitle">STYLE ARCHETYPE</div>
+          <div class="result-subtitle" id="resultSubtitle">Your Fashion DNA</div>
+        </div>
+        
+        <div class="result-description" id="resultDescription">
+          Your personalized style profile...
+        </div>
+        
+        <div class="result-traits" id="resultTraits">
+          <!-- Traits will be inserted here -->
+        </div>
+        
+        <div class="product-recommendations">
+          <h3 class="recommendations-title">YOUR PERFECT BALLYLIKE PIECES</h3>
+          <div class="grid grid-4" id="recommendedProducts">
+            <!-- Products will be inserted here -->
+          </div>
+        </div>
+        
+        <div class="share-buttons" style="display: flex; gap: var(--spacing-md); justify-content: center; margin-top: var(--spacing-2xl); flex-wrap: wrap;">
+          <button class="btn btn-secondary btn-large" id="shareResultBtn">
+            SHARE RESULT
+          </button>
+          <button class="btn btn-outline btn-large" id="retakeBtn">
+            RETAKE QUIZ
+          </button>
+          <a href="shop.html" class="btn btn-primary btn-large">
+            SHOP YOUR STYLE
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-content container">
+      <div class="footer-section">
+        <h3>BALLYLIKE*</h3>
+        <p style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-top: var(--spacing-md); line-height: 1.8;">
+          ATHLETIC FASHION BRAND BLENDING FAITH, URBAN CULTURE, AND ARTISTIC EXPRESSION. BASED IN HARARE, ZIMBABWE.
+        </p>
+        <div class="footer-social">
+          <a href="https://instagram.com/ballylike_shop" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/>
+            </svg>
+          </a>
+          <a href="https://tiktok.com/@ballylike" class="social-icon" aria-label="TikTok" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+            </svg>
+          </a>
+          <a href="https://facebook.com/ballylikebrand" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/263781457106" class="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>LINKS</h3>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">HOME</a>
+          <a href="shop.html" class="footer-link">SHOP</a>
+          <a href="gallery.html" class="footer-link">GALLERY</a>
+          <a href="fitcheck.html" class="footer-link">FIT CHECK</a>
+          <a href="quiz.html" class="footer-link">STYLE QUIZ</a>
+          <a href="about.html" class="footer-link">ABOUT</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>CONTACT</h3>
+        <div class="footer-links">
+          <a href="mailto:info@ballylike.co.zw" class="footer-link">INFO@BALLYLIKE.CO.ZW</a>
+          <a href="tel:+263781457106" class="footer-link">+263 78 145 7106</a>
+          <a href="#" class="footer-link">HARARE, ZIMBABWE</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>LEGAL</h3>
+        <div class="footer-links">
+          <a href="#" class="footer-link">PRIVACY POLICY</a>
+          <a href="#" class="footer-link">TERMS OF SERVICE</a>
+          <a href="#" class="footer-link">SHIPPING INFO</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom container">
+      <p>© 2024 BALLYLIKE. ALL RIGHTS RESERVED.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

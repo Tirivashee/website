@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Discover your alignment with BALLYLIKE's faith-driven values. Take the Faith Meter quiz to explore your values and find products that reflect your beliefs.">
+  <meta name="keywords" content="faith meter, values quiz, BALLYLIKE, faith-driven fashion, Christian values, purpose-driven lifestyle">
+  <meta name="author" content="BALLYLIKE">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.ballylike.co.zw/faithmeter.html">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.ballylike.co.zw/faithmeter.html">
+  <meta property="og:title" content="BALLYLIKE Faith Meter - Discover Your Values Alignment">
+  <meta property="og:description" content="Take the Faith Meter quiz and discover how your values align with purpose-driven living.">
+  <meta property="og:image" content="https://www.ballylike.co.zw/assets/images/og-faithmeter.jpg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.ballylike.co.zw/faithmeter.html">
+  <meta name="twitter:title" content="BALLYLIKE Faith Meter Quiz">
+  <meta name="twitter:description" content="Discover your values alignment score!">
+  <meta name="twitter:image" content="https://www.ballylike.co.zw/assets/images/twitter-faithmeter.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
+  <title>Faith Meter - BALLYLIKE Values Alignment Quiz</title>
+  
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  
+  <style>
+    .faith-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--spacing-xl) var(--spacing-md);
+      min-height: calc(100vh - var(--navbar-height) - 200px);
+    }
+    
+    .faith-progress {
+      width: 100%;
+      height: 6px;
+      background: var(--color-gray-300);
+      border: var(--border);
+      margin-bottom: var(--spacing-xl);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .faith-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-primary) 0%, #FFD700 100%);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+    
+    .faith-section {
+      display: none;
+    }
+    
+    .faith-section.active {
+      display: block;
+      animation: fadeInUp 0.5s ease;
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .question-card {
+      background: var(--color-white);
+      border: var(--border);
+      padding: var(--spacing-2xl);
+      margin-bottom: var(--spacing-xl);
+      position: relative;
+    }
+    
+    .question-badge {
+      position: absolute;
+      top: var(--spacing-md);
+      right: var(--spacing-md);
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: var(--spacing-xs) var(--spacing-md);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+    
+    .question-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--spacing-xl);
+      line-height: 1.4;
+      padding-right: var(--spacing-2xl);
+    }
+    
+    .scale-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+    
+    .scale-option {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      padding: var(--spacing-lg);
+      border: var(--border);
+      background: var(--color-white);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    
+    .scale-option:hover {
+      background: var(--color-gray-100);
+      transform: translateX(4px);
+    }
+    
+    .scale-option.selected {
+      background: var(--color-black);
+      color: var(--color-white);
+      border-color: var(--color-black);
+    }
+    
+    .scale-radio {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--color-black);
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+    }
+    
+    .scale-option.selected .scale-radio {
+      border-color: var(--color-white);
+    }
+    
+    .scale-option.selected .scale-radio::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      background: var(--color-white);
+      border-radius: 50%;
+    }
+    
+    .scale-text {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      flex: 1;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      gap: var(--spacing-md);
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    
+    .certificate-container {
+      background: var(--color-white);
+      border: 4px solid var(--color-black);
+      padding: var(--spacing-2xl);
+      text-align: center;
+      margin: var(--spacing-2xl) 0;
+      position: relative;
+    }
+    
+    .certificate-badge {
+      display: inline-block;
+      width: 120px;
+      height: 120px;
+      border: 4px solid var(--color-primary);
+      border-radius: 50%;
+      background: var(--color-white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--spacing-lg);
+      position: relative;
+    }
+    
+    .certificate-score {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      font-family: var(--font-mono);
+      color: var(--color-primary);
+      line-height: 1;
+    }
+    
+    .certificate-percent {
+      font-size: var(--font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-gray-500);
+    }
+    
+    .certificate-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .certificate-subtitle {
+      font-size: var(--font-size-base);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-gray-500);
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .alignment-description {
+      font-size: var(--font-size-base);
+      line-height: 1.8;
+      margin: var(--spacing-xl) 0;
+      padding: var(--spacing-lg);
+      background: var(--color-gray-100);
+      border: var(--border);
+      text-align: left;
+    }
+    
+    .value-pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--spacing-md);
+      margin: var(--spacing-xl) 0;
+    }
+    
+    .pillar-item {
+      padding: var(--spacing-md);
+      border: var(--border);
+      background: var(--color-white);
+      text-align: center;
+    }
+    
+    .pillar-icon {
+      font-size: 32px;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .pillar-name {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .pillar-score {
+      font-size: var(--font-size-sm);
+      font-family: var(--font-mono);
+      color: var(--color-primary);
+    }
+    
+    .recommendations-section {
+      margin: var(--spacing-2xl) 0;
+      text-align: left;
+    }
+    
+    .recommendations-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--spacing-lg);
+      text-align: center;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .question-title {
+        font-size: var(--font-size-base);
+        padding-right: 0;
+      }
+      
+      .question-badge {
+        position: static;
+        display: inline-block;
+        margin-bottom: var(--spacing-md);
+      }
+      
+      .certificate-score {
+        font-size: var(--font-size-2xl);
+      }
+      
+      .certificate-title {
+        font-size: var(--font-size-xl);
+      }
+      
+      .certificate-badge {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">
+        BALLY<span>LIKE*</span>
+      </a>
+      
+      <div class="navbar-menu" id="navbarMenu">
+        <a href="index.html" class="navbar-link">HOME</a>
+        <a href="shop.html" class="navbar-link">SHOP</a>
+        <a href="gallery.html" class="navbar-link">GALLERY</a>
+        <a href="explore.html" class="navbar-link active">EXPLORE</a>
+        <a href="about.html" class="navbar-link">ABOUT</a>
+        <a href="#contact" class="navbar-link">CONTACT</a>
+      </div>
+      
+      <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" style="min-height: 40vh; margin-top: var(--navbar-height);">
+    <div class="hero-content">
+      <h1 class="hero-logo" style="font-size: var(--font-size-3xl);">
+        FAITH METER
+      </h1>
+      <p class="hero-tagline">
+        DISCOVER YOUR VALUES ALIGNMENT SCORE
+      </p>
+    </div>
+  </section>
+
+  <!-- Faith Meter Container -->
+  <div class="faith-container">
+    <!-- Progress Bar -->
+    <div class="faith-progress">
+      <div class="faith-progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Start Section -->
+    <div class="faith-section active" id="startSection">
+      <div class="question-card">
+        <h2 style="font-size: var(--font-size-xl); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--spacing-md); text-align: center;">
+          MEASURE YOUR FAITH ALIGNMENT
+        </h2>
+        <p style="font-size: var(--font-size-base); line-height: 1.8; margin-bottom: var(--spacing-md); text-align: center; color: var(--color-gray-500);">
+          Answer 10 questions to discover how your values align with purpose-driven living and BALLYLIKE's faith-centered mission.
+        </p>
+        <p style="font-size: var(--font-size-sm); line-height: 1.8; margin-bottom: var(--spacing-xl); text-align: center; color: var(--color-gray-500); font-style: italic;">
+          "Let your light shine before others, that they may see your good deeds and glorify your Father in heaven." - Matthew 5:16
+        </p>
+        <div style="text-align: center;">
+          <button class="btn btn-primary btn-large" id="startBtn">
+            BEGIN ASSESSMENT
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Questions Section -->
+    <div class="faith-section" id="questionsSection">
+      <div class="question-card" id="questionCard">
+        <!-- Questions will be inserted here -->
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="btn btn-outline" id="prevBtn" disabled>
+          ← PREVIOUS
+        </button>
+        <button class="btn btn-primary" id="nextBtn" disabled>
+          NEXT →
+        </button>
+      </div>
+    </div>
+    
+    <!-- Results Section -->
+    <div class="faith-section" id="resultsSection">
+      <div class="certificate-container" id="certificate">
+        <div class="certificate-badge">
+          <div class="certificate-score" id="alignmentScore">0%</div>
+          <div class="certificate-percent">ALIGNED</div>
+        </div>
+        
+        <div class="certificate-title" id="alignmentTitle">FAITH ALIGNMENT</div>
+        <div class="certificate-subtitle">BALLYLIKE VALUES METER</div>
+        
+        <div class="alignment-description" id="alignmentDescription">
+          Your personalized values assessment...
+        </div>
+        
+        <div class="value-pillars" id="valuePillars">
+          <!-- Value pillars will be inserted here -->
+        </div>
+      </div>
+      
+      <div class="recommendations-section">
+        <h3 class="recommendations-title">PRODUCTS THAT REFLECT YOUR VALUES</h3>
+        <div class="grid grid-4" id="recommendedProducts">
+          <!-- Products will be inserted here -->
+        </div>
+      </div>
+      
+      <div style="display: flex; gap: var(--spacing-md); justify-content: center; margin-top: var(--spacing-2xl); flex-wrap: wrap;">
+        <button class="btn btn-secondary btn-large" id="shareBtn">
+          SHARE RESULT
+        </button>
+        <button class="btn btn-outline btn-large" id="retakeBtn">
+          RETAKE ASSESSMENT
+        </button>
+        <a href="shop.html" class="btn btn-primary btn-large">
+          EXPLORE PRODUCTS
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-content container">
+      <div class="footer-section">
+        <h3>BALLYLIKE*</h3>
+        <p style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-top: var(--spacing-md); line-height: 1.8;">
+          ATHLETIC FASHION BRAND BLENDING FAITH, URBAN CULTURE, AND ARTISTIC EXPRESSION. BASED IN HARARE, ZIMBABWE.
+        </p>
+        <div class="footer-social">
+          <a href="https://instagram.com/ballylike_shop" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/>
+            </svg>
+          </a>
+          <a href="https://tiktok.com/@ballylike" class="social-icon" aria-label="TikTok" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+            </svg>
+          </a>
+          <a href="https://facebook.com/ballylikebrand" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/263781457106" class="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>LINKS</h3>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">HOME</a>
+          <a href="shop.html" class="footer-link">SHOP</a>
+          <a href="gallery.html" class="footer-link">GALLERY</a>
+          <a href="fitcheck.html" class="footer-link">FIT CHECK</a>
+          <a href="quiz.html" class="footer-link">STYLE QUIZ</a>
+          <a href="faithmeter.html" class="footer-link">FAITH METER</a>
+          <a href="about.html" class="footer-link">ABOUT</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>CONTACT</h3>
+        <div class="footer-links">
+          <a href="mailto:info@ballylike.co.zw" class="footer-link">INFO@BALLYLIKE.CO.ZW</a>
+          <a href="tel:+263781457106" class="footer-link">+263 78 145 7106</a>
+          <a href="#" class="footer-link">HARARE, ZIMBABWE</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>LEGAL</h3>
+        <div class="footer-links">
+          <a href="#" class="footer-link">PRIVACY POLICY</a>
+          <a href="#" class="footer-link">TERMS OF SERVICE</a>
+          <a href="#" class="footer-link">SHIPPING INFO</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom container">
+      <p>© 2024 BALLYLIKE. ALL RIGHTS RESERVED.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/faithmeter.js"></script>
+</body>
+</html>
