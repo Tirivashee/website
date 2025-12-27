@@ -1,8 +1,4 @@
-# robots.txt for BALLYLIKE
-# https://www.ballylike.co.zw/robots.txt
-
 User-agent: *
 Allow: /
 
-# Sitemap location
 Sitemap: https://www.ballylike.co.zw/sitemap.xml
