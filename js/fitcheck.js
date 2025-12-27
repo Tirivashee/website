@@ -26,7 +26,7 @@
   // Product database for suggestions
   const products = [
     { name: 'URBAN FASHION TEE', image: 'assets/images/products/prod-t.jpg', price: '$14.99' },
-    { name: 'BLACK CANVAS SLING', image: 'assets/images/products/prod-bcs.jpg', price: '$12.99' },
+    { name: 'BLACK CANVAS SHOULDER BAG', image: 'assets/images/products/prod-bcs.jpg', price: '$14.99' },
     { name: 'PERFORMANCE CAP', image: 'assets/images/products/prod-c.jpg', price: '$11.99' },
     { name: 'CANVAS SHOULDER BAG', image: 'assets/images/products/prod-bcsb.jpg', price: '$14.99' },
     { name: 'BLACK HALO POUCH', image: 'assets/images/products/prod-hpb.jpg', price: '$7.99' }
