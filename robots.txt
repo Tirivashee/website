@@ -1,4 +1,85 @@
+# Ballylike Store - Robots.txt
+# Updated: December 2025
+
+# Default rules for all robots
 User-agent: *
 Allow: /
+Disallow: /cgi-bin/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /api/
 
+# Allow access to CSS and JS files for better rendering
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+
+# Crawl-delay to prevent server overload
+Crawl-delay: 1
+
+# Google-specific settings
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /assets/images/
+
+# Bing-specific settings
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# AI Crawlers - Allow indexing but prevent training on content
+# OpenAI GPTBot
+User-agent: GPTBot
+Disallow: /
+
+# Google Extended (for AI training)
+User-agent: Google-Extended
+Disallow: /
+
+# Common Crawlers (Anthropic Claude)
+User-agent: CCBot
+Disallow: /
+
+# ChatGPT User (for browsing)
+User-agent: ChatGPT-User
+Allow: /
+
+# Facebook/Meta crawler
+User-agent: FacebookBot
+Allow: /
+
+# Twitter/X crawler
+User-agent: Twitterbot
+Allow: /
+
+# Pinterest crawler
+User-agent: Pinterestbot
+Allow: /
+
+# LinkedIn crawler
+User-agent: LinkedInBot
+Allow: /
+
+# Bad bots and scrapers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+# Sitemap location
 Sitemap: https://www.ballylike.co.zw/sitemap.xml
