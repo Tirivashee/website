@@ -137,54 +137,43 @@
       transition: transform var(--transition-fast);
       display: flex;
       flex-direction: column;
+      aspect-ratio: 1 / 1;
+      position: relative;
     }
     
     .activity-card:hover {
       transform: translateY(-4px);
-    }
-    
-    .activity-icon {
-      background: var(--color-black);
-      color: var(--color-white);
-      font-size: 64px;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: var(--border);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     }
     
     .activity-content {
-      padding: var(--spacing-xl);
+      padding: 2rem;
       flex: 1;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
     }
     
     .activity-title {
-      font-size: var(--font-size-lg);
+      font-size: 1.1rem;
       font-weight: var(--font-weight-bold);
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin-bottom: var(--spacing-sm);
-    }
-    
-    .activity-description {
-      font-size: var(--font-size-sm);
-      line-height: 1.8;
-      color: var(--color-gray-500);
-      margin-bottom: var(--spacing-lg);
-      flex: 1;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--color-black);
     }
     
     .activity-meta {
       display: flex;
-      gap: var(--spacing-md);
-      margin-bottom: var(--spacing-lg);
-      font-size: var(--font-size-xs);
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
       color: var(--color-gray-500);
+      font-weight: 600;
     }
     
     .activity-meta-item {
@@ -193,14 +182,48 @@
       gap: var(--spacing-xs);
     }
     
+    .activity-description {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--color-gray-500);
+      margin-bottom: 1.5rem;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .activity-description {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--color-gray-500);
+      margin-bottom: 1.5rem;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .activity-card .btn {
+      width: 100%;
+      padding: 0.9rem;
+      font-size: 0.75rem;
+      margin-top: auto;
+    }
+    
     @media (max-width: 768px) {
       .activities-grid {
         grid-template-columns: 1fr;
       }
       
-      .activity-icon {
-        height: 150px;
-        font-size: 48px;
+      .activity-card {
+        aspect-ratio: auto;
+      }
+      
+      .activity-content {
+        padding: var(--spacing-lg);
       }
     }
   </style>
@@ -257,12 +280,11 @@
     <div class="activities-grid">
       <!-- AI Fit Check -->
       <a href="fitcheck.html" class="activity-card">
-        <div class="activity-icon">📸</div>
         <div class="activity-content">
           <h3 class="activity-title">AI FIT CHECK</h3>
           <div class="activity-meta">
-            <span class="activity-meta-item">⏱️ 2 MIN</span>
-            <span class="activity-meta-item">🔥 VIRAL</span>
+            <span class="activity-meta-item">2 MIN</span>
+            <span class="activity-meta-item">VIRAL</span>
           </div>
           <p class="activity-description">
             Upload your outfit photo and get instant AI-powered rating (1-10). Receive honest feedback, style tips, and personalized product recommendations to level up your fit.
@@ -275,12 +297,11 @@
       
       <!-- Style Quiz -->
       <a href="quiz.html" class="activity-card">
-        <div class="activity-icon">🎨</div>
         <div class="activity-content">
           <h3 class="activity-title">STYLE QUIZ</h3>
           <div class="activity-meta">
-            <span class="activity-meta-item">⏱️ 5 MIN</span>
-            <span class="activity-meta-item">✨ POPULAR</span>
+            <span class="activity-meta-item">5 MIN</span>
+            <span class="activity-meta-item">POPULAR</span>
           </div>
           <p class="activity-description">
             Answer 8 questions to discover your urban fashion archetype. Find out if you're a Faith Warrior, Creative Soul, Street Prophet, or Performance Pioneer. Get personalized product matches.
@@ -293,12 +314,11 @@
       
       <!-- Faith Meter -->
       <a href="faithmeter.html" class="activity-card">
-        <div class="activity-icon">✝️</div>
         <div class="activity-content">
           <h3 class="activity-title">FAITH METER</h3>
           <div class="activity-meta">
-            <span class="activity-meta-item">⏱️ 6 MIN</span>
-            <span class="activity-meta-item">🙏 DEEP</span>
+            <span class="activity-meta-item">6 MIN</span>
+            <span class="activity-meta-item">DEEP</span>
           </div>
           <p class="activity-description">
             Discover your alignment with purpose-driven living through 10 value-based questions. Get a personalized certificate showing your faith foundation, purpose, community, and authenticity scores.
