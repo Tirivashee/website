@@ -38,9 +38,25 @@
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "BALLYLIKE Shop",
-    "description": "Browse all BALLYLIKE collections - premium streetwear and faith-driven fashion.",
+    "name": "BALLYLIKE Shop - Zimbabwe Streetwear & Faith-Driven Fashion",
+    "description": "Browse all BALLYLIKE collections - premium streetwear and faith-driven fashion from Zimbabwe. T-shirts, hoodies, bags, caps and accessories.",
     "url": "https://www.ballylike.co.zw/shop.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "BALLYLIKE",
+      "url": "https://www.ballylike.co.zw",
+      "logo": "https://www.ballylike.co.zw/assets/images/logo.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Harare",
+        "addressCountry": "Zimbabwe"
+      },
+      "sameAs": [
+        "https://instagram.com/ballylike_shop",
+        "https://tiktok.com/@ballylike",
+        "https://facebook.com/ballylikebrand"
+      ]
+    },
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -197,11 +213,81 @@
       align-items: center;
     }
     
+    .modal-image-carousel {
+      position: relative;
+      width: 100%;
+    }
+    
+    .modal-image-container {
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
     .modal-main-image {
       width: 100%;
+      height: auto;
       max-height: 500px;
       object-fit: contain;
       border: var(--border);
+      transition: opacity 0.3s ease;
+      display: block;
+    }
+    
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.6);
+      color: var(--color-white);
+      border: none;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+      z-index: 10;
+    }
+    
+    .carousel-btn:hover {
+      background-color: var(--color-black);
+    }
+    
+    .carousel-btn.hidden {
+      display: none;
+    }
+    
+    .carousel-prev {
+      left: 0;
+    }
+    
+    .carousel-next {
+      right: 0;
+    }
+    
+    .modal-image-dots {
+      display: flex;
+      gap: var(--spacing-xs);
+      justify-content: center;
+      margin-top: var(--spacing-sm);
+    }
+    
+    .image-dot {
+      width: 8px;
+      height: 8px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    
+    .image-dot.active {
+      background-color: var(--color-black);
+      width: 24px;
     }
     
     .modal-info-section {
@@ -326,10 +412,10 @@
   <section class="hero" style="min-height: 40vh;">
     <div class="hero-content">
       <h1 class="hero-logo" style="font-size: var(--font-size-3xl);">
-        SHOP
+        SHOP BALLYLIKE - ZIMBABWE STREETWEAR COLLECTION
       </h1>
       <p class="hero-tagline">
-        DISCOVER YOUR STYLE
+        Premium faith-driven fashion, urban apparel, and accessories. Shop t-shirts, hoodies, bags, and caps with free shipping in Zimbabwe.
       </p>
     </div>
   </section>
@@ -337,18 +423,18 @@
   <!-- Filter Bar -->
   <div class="filter-bar">
     <div class="filter-container">
-      <button class="filter-btn active" data-filter="all">ALL PRODUCTS</button>
-      <button class="filter-btn" data-filter="unisex">UNISEX</button>
-      <button class="filter-btn" data-filter="men">MEN</button>
-      <button class="filter-btn" data-filter="women">WOMEN</button>
+      <button class="filter-btn active" data-filter="all" title="View all BALLYLIKE products">ALL PRODUCTS</button>
+      <button class="filter-btn" data-filter="unisex" title="Shop unisex streetwear collection">UNISEX</button>
+      <button class="filter-btn" data-filter="men" title="Shop men's fashion collection">MEN</button>
+      <button class="filter-btn" data-filter="women" title="Shop women's fashion collection">WOMEN</button>
     </div>
   </div>
 
   <!-- All Products View -->
   <section class="container" id="shop-products">
     <div class="section-header">
-      <h2 class="section-title">ALL PRODUCTS</h2>
-      <p class="section-subtitle">COMPLETE COLLECTION</p>
+      <h2 class="section-title">BALLYLIKE ZIMBABWE STREETWEAR - ALL PRODUCTS</h2>
+      <p class="section-subtitle">Faith-driven fashion, urban apparel, bags, caps & accessories from Harare</p>
     </div>
     
     <div class="grid grid-3" id="products-grid">
@@ -494,7 +580,22 @@
       <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
       
       <div class="modal-image-section">
-        <img src="" alt="Product Image" class="modal-main-image" id="modalImage">
+        <div class="modal-image-carousel">
+          <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Previous image">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+          </button>
+          <div class="modal-image-container">
+            <img src="" alt="Product Image" class="modal-main-image" id="modalImage">
+          </div>
+          <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Next image">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-image-dots" id="imageDots"></div>
       </div>
       
       <div class="modal-info-section">
@@ -590,6 +691,13 @@
     </div>
   </footer>
 
+  <!-- Floating Refresh Button -->
+  <button class="floating-refresh" onclick="location.reload()" aria-label="Refresh page" title="Refresh">
+    <svg fill="currentColor" viewBox="0 0 24 24">
+      <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+    </svg>
+  </button>
+
   <script src="js/main.js"></script>
   <script src="js/scroll.js"></script>
   <script src="js/animations.js"></script>
@@ -657,6 +765,96 @@
       const modal = document.getElementById('productModal');
       const modalClose = document.getElementById('modalClose');
       const viewButtons = document.querySelectorAll('.product-overlay .btn');
+      const modalImage = document.getElementById('modalImage');
+      const carouselPrev = document.getElementById('carouselPrev');
+      const carouselNext = document.getElementById('carouselNext');
+      const dotsContainer = document.getElementById('imageDots');
+      
+      let currentImages = [];
+      let currentImageIndex = 0;
+      
+      // Function to update carousel
+      function updateCarousel() {
+        if (currentImages.length === 0) return;
+        
+        modalImage.src = currentImages[currentImageIndex];
+        
+        // Update dots
+        dotsContainer.innerHTML = '';
+        if (currentImages.length > 1) {
+          currentImages.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = 'image-dot' + (index === currentImageIndex ? ' active' : '');
+            dot.setAttribute('aria-label', `View image ${index + 1}`);
+            dot.addEventListener('click', () => {
+              currentImageIndex = index;
+              updateCarousel();
+            });
+            dotsContainer.appendChild(dot);
+          });
+        }
+        
+        // Show/hide navigation buttons
+        if (currentImages.length <= 1) {
+          carouselPrev.classList.add('hidden');
+          carouselNext.classList.add('hidden');
+        } else {
+          carouselPrev.classList.remove('hidden');
+          carouselNext.classList.remove('hidden');
+        }
+      }
+      
+      // Navigation handlers
+      carouselPrev.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+        updateCarousel();
+      });
+      
+      carouselNext.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+        updateCarousel();
+      });
+      
+      // Touch swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      modalImage.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      });
+      
+      modalImage.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      });
+      
+      function handleSwipe() {
+        if (currentImages.length <= 1) return;
+        
+        if (touchEndX < touchStartX - 50) {
+          // Swipe left - next image
+          currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+          updateCarousel();
+        }
+        if (touchEndX > touchStartX + 50) {
+          // Swipe right - previous image
+          currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+          updateCarousel();
+        }
+      }
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('active')) return;
+        
+        if (e.key === 'ArrowLeft') {
+          currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+          updateCarousel();
+        } else if (e.key === 'ArrowRight') {
+          currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+          updateCarousel();
+        }
+      });
       
       // Open modal when clicking VIEW button
       viewButtons.forEach(button => {
@@ -671,12 +869,43 @@
           const productPrice = productCard.querySelector('.card-price').textContent;
           const productCategory = productCard.getAttribute('data-category');
           
+          // Set up images array based on product type
+          if (productTitle.toLowerCase().includes('halo pouch')) {
+            currentImages = [
+              productImage,
+              'assets/images/blueprints/hp.jpg',
+              productImage
+            ];
+          } else if (productTitle.toLowerCase().includes('shoulder bag')) {
+            currentImages = [
+              productImage,
+              'assets/images/blueprints/sb.jpg',
+              productImage
+            ];
+          } else if (productTitle.toLowerCase().includes('cap')) {
+            currentImages = [
+              productImage,
+              'assets/images/products/prod-c-2.jpg',
+              'assets/images/products/prod-c-3.jpg',
+              'assets/images/products/prod-c-3b.jpg'
+            ];
+          } else {
+            currentImages = [
+              productImage,
+              productImage,
+              productImage
+            ];
+          }
+          currentImageIndex = 0;
+          
           // Populate modal with product data
-          document.getElementById('modalImage').src = productImage;
           document.getElementById('modalTitle').textContent = productTitle;
           document.getElementById('modalDescription').textContent = productDescription;
           document.getElementById('modalPrice').textContent = productPrice;
           document.getElementById('modalCategory').textContent = productCategory.toUpperCase();
+          
+          // Update carousel
+          updateCarousel();
           
           // Show modal
           modal.classList.add('active');

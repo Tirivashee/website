@@ -66,6 +66,7 @@ const createProgressBar = () => {
 const createScrollToTopButton = () => {
   const button = document.createElement('button');
   button.innerHTML = '↑';
+  button.setAttribute('aria-label', 'Scroll to top');
   button.style.cssText = `
     position: fixed;
     bottom: 30px;
@@ -75,7 +76,6 @@ const createScrollToTopButton = () => {
     background-color: var(--color-primary);
     color: var(--color-white);
     border: none;
-    border-radius: 50%;
     font-size: 24px;
     cursor: pointer;
     opacity: 0;

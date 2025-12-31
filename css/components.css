@@ -48,6 +48,51 @@
   border-color: var(--color-black);
 }
 
+/* Floating Refresh Button */
+.floating-refresh {
+  position: fixed;
+  bottom: 30px;
+  right: 90px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border: 2px solid var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.floating-refresh:hover {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  transform: rotate(180deg);
+}
+
+.floating-refresh svg {
+  width: 22px;
+  height: 22px;
+  transition: transform var(--transition-fast);
+}
+
+@media (max-width: 768px) {
+  .floating-refresh {
+    bottom: 90px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .floating-refresh svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
 .btn-large {
   padding: var(--spacing-md) var(--spacing-xl);
   font-size: var(--font-size-sm);
