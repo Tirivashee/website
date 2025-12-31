@@ -22,7 +22,7 @@
       answers: [
         { text: "Clean, minimal, with purpose", emoji: "🤍", scores: { faith: 2, minimalist: 3, performance: 1 } },
         { text: "Bold colors & statement pieces", emoji: "🔥", scores: { creative: 3, culture: 2, faith: 0 } },
-        { text: "Athletic comfort meets style", emoji: "👟", scores: { performance: 3, culture: 1, creative: 1 } },
+        { text: "Comfortable & functional", emoji: "👟", scores: { performance: 3, culture: 1, creative: 1 } },
         { text: "Mix of vintage & modern", emoji: "✨", scores: { culture: 2, creative: 3, faith: 1 } }
       ]
     },
@@ -131,9 +131,9 @@
     },
     performance: {
       title: "PERFORMANCE PIONEER",
-      subtitle: "The Athletic Aesthetic",
+      subtitle: "The Functional Stylist",
       icon: "⚡",
-      description: "Function meets fashion in your world. You value comfort, durability, and performance without sacrificing style. Athletic wear is your foundation, but you elevate it beyond the gym. Your style is about being ready for anything while looking sharp.",
+      description: "Function meets fashion in your world. You value comfort, durability, and performance without sacrificing style. Versatile wear is your foundation, and you elevate it for any occasion. Your style is about being ready for anything while looking sharp.",
       traits: [
         { label: "Style Philosophy", value: "Form Follows Function" },
         { label: "Core Value", value: "Versatility" },
