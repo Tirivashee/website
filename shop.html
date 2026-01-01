@@ -483,14 +483,41 @@
     @media (max-width: 768px) {
       .modal-content {
         grid-template-columns: 1fr;
-        padding: var(--spacing-xl);
-        max-height: 90vh;
+        padding: var(--spacing-md);
+        max-height: 95vh;
         overflow-y: auto;
+        gap: var(--spacing-lg);
       }
       
       .modal-close {
-        top: var(--spacing-md);
-        right: var(--spacing-md);
+        top: var(--spacing-sm);
+        right: var(--spacing-sm);
+        width: 40px;
+        height: 40px;
+        font-size: 28px;
+      }
+
+      .modal-main-image {
+        max-height: 70vh;
+        min-height: 300px;
+        width: 100%;
+        object-fit: contain;
+      }
+
+      .modal-image-section {
+        width: 100%;
+        gap: var(--spacing-sm);
+      }
+
+      .modal-image-container {
+        min-height: 300px;
+        background: var(--color-gray-100);
+      }
+
+      .carousel-btn {
+        width: 36px;
+        height: 36px;
+        background-color: rgba(0, 0, 0, 0.7);
       }
     }
   </style>

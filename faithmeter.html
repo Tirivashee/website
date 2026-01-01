@@ -344,28 +344,109 @@
     }
     
     @media (max-width: 768px) {
+      .faith-container {
+        padding: var(--spacing-md);
+      }
+
+      .faith-progress {
+        height: 4px;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .question-card {
+        padding: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+      }
+
       .question-title {
         font-size: var(--font-size-base);
         padding-right: 0;
+        line-height: 1.4;
       }
       
       .question-badge {
         position: static;
         display: inline-block;
         margin-bottom: var(--spacing-md);
+        font-size: 0.65rem;
+      }
+
+      .question-description {
+        font-size: var(--font-size-xs);
+      }
+
+      .scale-container {
+        padding: var(--spacing-md) 0;
+      }
+
+      .scale-labels {
+        font-size: 0.65rem;
+      }
+
+      .scale-buttons {
+        gap: var(--spacing-xs);
+      }
+
+      .scale-btn {
+        width: 36px;
+        height: 36px;
+        font-size: var(--font-size-sm);
       }
       
+      .certificate {
+        padding: var(--spacing-lg);
+      }
+
+      .certificate-header {
+        padding: var(--spacing-lg);
+      }
+
       .certificate-score {
         font-size: var(--font-size-2xl);
       }
       
       .certificate-title {
-        font-size: var(--font-size-xl);
+        font-size: var(--font-size-lg);
+      }
+
+      .certificate-subtitle {
+        font-size: var(--font-size-xs);
       }
       
       .certificate-badge {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
+      }
+
+      .scores-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+      }
+
+      .score-item {
+        padding: var(--spacing-md);
+      }
+
+      .score-label {
+        font-size: var(--font-size-xs);
+      }
+
+      .score-value {
+        font-size: var(--font-size-xl);
+      }
+
+      .certificate-message {
+        padding: var(--spacing-md);
+        font-size: var(--font-size-xs);
+      }
+
+      .certificate-actions {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+      }
+
+      .certificate-actions .btn {
+        width: 100%;
       }
     }
   </style>

@@ -406,25 +406,88 @@
     }
     
     @media (max-width: 768px) {
+      .fitcheck-hero {
+        padding: var(--spacing-xl) var(--spacing-md);
+      }
+
       .fitcheck-hero h1 {
         font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .fitcheck-hero p {
+        font-size: var(--font-size-xs);
+      }
+      
+      .upload-section {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
       }
       
       .rating-display {
-        font-size: 56px;
+        font-size: 48px;
+      }
+
+      .rating-grade {
+        font-size: var(--font-size-xl);
       }
       
       .upload-area {
-        min-height: 200px;
-        padding: var(--spacing-xl) var(--spacing-md);
+        min-height: 180px;
+        padding: var(--spacing-lg) var(--spacing-sm);
+        border-width: 2px;
+      }
+
+      .upload-icon {
+        font-size: 36px;
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .upload-text {
+        font-size: var(--font-size-sm);
+      }
+
+      .upload-subtext {
+        font-size: 0.7rem;
+      }
+
+      #imagePreview {
+        max-height: 300px;
+      }
+
+      .result-section {
+        padding: var(--spacing-lg);
+      }
+
+      .recommendations-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
       }
       
       .policy-content {
         padding: var(--spacing-md);
+        max-height: 85vh;
       }
       
       .policy-title {
         font-size: var(--font-size-lg);
+      }
+
+      .policy-text {
+        font-size: var(--font-size-xs);
+      }
+
+      .policy-list {
+        font-size: var(--font-size-xs);
+      }
+
+      .policy-buttons {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+      }
+
+      .policy-buttons .btn {
+        width: 100%;
       }
     }
   </style>

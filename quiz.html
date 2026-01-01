@@ -289,8 +289,36 @@
     }
     
     @media (max-width: 768px) {
+      .quiz-container {
+        padding: var(--spacing-md);
+      }
+
+      .quiz-progress {
+        height: 3px;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .question-container {
+        padding: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .question-number {
+        font-size: 0.65rem;
+      }
+
       .question-text {
         font-size: var(--font-size-base);
+        line-height: 1.4;
+      }
+
+      .options-grid {
+        gap: var(--spacing-sm);
+      }
+
+      .option-btn {
+        padding: var(--spacing-md);
+        font-size: var(--font-size-xs);
       }
       
       .result-title {
@@ -298,11 +326,39 @@
       }
       
       .result-badge {
-        padding: var(--spacing-xl);
+        padding: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
       }
       
       .result-icon {
-        font-size: 48px;
+        font-size: 42px;
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .archetype-name {
+        font-size: var(--font-size-lg);
+      }
+
+      .archetype-subtitle {
+        font-size: var(--font-size-xs);
+      }
+
+      .result-description {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-md);
+      }
+
+      .traits-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+      }
+
+      .recommendations-section {
+        padding: var(--spacing-lg);
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>

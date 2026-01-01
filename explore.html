@@ -216,14 +216,48 @@
     @media (max-width: 768px) {
       .activities-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
       }
       
       .activity-card {
         aspect-ratio: auto;
+        min-height: auto;
       }
       
       .activity-content {
         padding: var(--spacing-lg);
+      }
+
+      .activity-title {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .activity-meta {
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .activity-description {
+        font-size: 0.75rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        -webkit-line-clamp: 5;
+      }
+
+      .activity-card .btn {
+        padding: 0.75rem;
+        font-size: 0.7rem;
+      }
+
+      .feature-banner-title {
+        font-size: var(--font-size-xl);
+      }
+
+      .feature-banner-text {
+        font-size: var(--font-size-xs);
       }
     }
   </style>
