@@ -1,18 +1,21 @@
-// Scroll Reveal Animations
+// Smooth Scroll Reveal Animations
 
 const observerOptions = {
   root: null,
-  rootMargin: '0px',
-  threshold: 0.1
+  rootMargin: '0px 0px -50px 0px',
+  threshold: [0.1, 0.25]
 };
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.classList.add('revealed');
+      // Add revealed class with slight delay for smoother effect
+      requestAnimationFrame(() => {
+        entry.target.classList.add('revealed');
+      });
       
-      // Optional: Stop observing after reveal (for performance)
-      // observer.unobserve(entry.target);
+      // Stop observing after reveal for better performance
+      observer.unobserve(entry.target);
     }
   });
 }, observerOptions);
@@ -23,21 +26,34 @@ scrollRevealElements.forEach(element => {
   observer.observe(element);
 });
 
-// Parallax Effect for Hero Section (Optional)
+// Optimized Parallax Effect for Hero Section
 const hero = document.querySelector('.hero');
 
 if (hero) {
-  window.addEventListener('scroll', () => {
+  let ticking = false;
+  
+  const updateParallax = () => {
     const scrolled = window.pageYOffset;
-    const parallaxSpeed = 0.5;
+    const parallaxSpeed = 0.3;
     
     if (scrolled < window.innerHeight) {
-      hero.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+      requestAnimationFrame(() => {
+        hero.style.transform = `translate3d(0, ${scrolled * parallaxSpeed}px, 0)`;
+      });
     }
-  });
+    
+    ticking = false;
+  };
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }, { passive: true });
 }
 
-// Progress Bar on Scroll (Optional)
+// Optimized Progress Bar on Scroll
 const createProgressBar = () => {
   const progressBar = document.createElement('div');
   progressBar.style.cssText = `
@@ -45,18 +61,36 @@ const createProgressBar = () => {
     top: 0;
     left: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+    background: var(--color-primary);
     z-index: 9999;
-    transition: width 0.1s ease;
-    width: 0;
+    transform: translateZ(0);
+    will-change: transform;
+    transform-origin: 0 0;
+    width: 100%;
+    transform: scaleX(0);
+    transition: transform 0.1s ease-out;
   `;
   document.body.appendChild(progressBar);
   
-  window.addEventListener('scroll', () => {
+  let ticking = false;
+  
+  const updateProgress = () => {
     const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (window.pageYOffset / windowHeight) * 100;
-    progressBar.style.width = `${scrolled}%`;
-  });
+    const scrolled = window.pageYOffset / windowHeight;
+    
+    requestAnimationFrame(() => {
+      progressBar.style.transform = `scaleX(${scrolled}) translateZ(0)`;
+    });
+    
+    ticking = false;
+  };
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateProgress);
+      ticking = true;
+    }
+  }, { passive: true });
 };
 
 // Uncomment to enable progress bar
@@ -92,15 +126,23 @@ const createScrollToTopButton = () => {
     });
   });
   
+  let ticking = false;
+  
   window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      button.style.opacity = '1';
-      button.style.visibility = 'visible';
-    } else {
-      button.style.opacity = '0';
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        if (window.pageYOffset > 300) {
+          button.style.opacity = '1';
+          button.style.visibility = 'visible';
+        } else {
+          button.style.opacity = '0';
       button.style.visibility = 'hidden';
+        }
+        ticking = false;
+      });
+      ticking = true;
     }
-  });
+  }, { passive: true });
   
   document.body.appendChild(button);
 };

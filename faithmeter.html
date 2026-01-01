@@ -354,14 +354,15 @@
       }
 
       .question-card {
-        padding: var(--spacing-lg);
+        padding: var(--spacing-md);
         margin-bottom: var(--spacing-md);
       }
 
       .question-title {
-        font-size: var(--font-size-base);
+        font-size: 0.95rem;
         padding-right: 0;
-        line-height: 1.4;
+        line-height: 1.5;
+        margin-bottom: var(--spacing-md);
       }
       
       .question-badge {
@@ -369,10 +370,39 @@
         display: inline-block;
         margin-bottom: var(--spacing-md);
         font-size: 0.65rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
       }
 
       .question-description {
         font-size: var(--font-size-xs);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .scale-options {
+        gap: var(--spacing-sm);
+      }
+
+      .scale-option {
+        padding: var(--spacing-md);
+        gap: var(--spacing-sm);
+        min-height: 60px;
+      }
+
+      .scale-radio {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+
+      .scale-option.selected .scale-radio::after {
+        width: 10px;
+        height: 10px;
+      }
+
+      .scale-text {
+        font-size: 0.75rem;
+        line-height: 1.4;
+        letter-spacing: 0.02em;
       }
 
       .scale-container {
@@ -392,9 +422,23 @@
         height: 36px;
         font-size: var(--font-size-sm);
       }
+
+      .nav-buttons {
+        gap: var(--spacing-sm);
+      }
+
+      .nav-buttons .btn {
+        flex: 1;
+        padding: var(--spacing-sm);
+      }
       
       .certificate {
         padding: var(--spacing-lg);
+      }
+
+      .certificate-container {
+        padding: var(--spacing-lg);
+        border-width: 3px;
       }
 
       .certificate-header {
