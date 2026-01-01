@@ -62,6 +62,172 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/placeholders.css">
+  
+  <style>
+    /* Mobile Optimizations for About Page */
+    @media (max-width: 768px) {
+      /* Hero Section */
+      .hero {
+        min-height: 30vh !important;
+        padding: var(--spacing-xl) var(--spacing-md);
+      }
+      
+      .hero-logo {
+        font-size: var(--font-size-2xl) !important;
+      }
+      
+      .hero-tagline {
+        font-size: var(--font-size-sm) !important;
+      }
+      
+      /* Story Section */
+      .container > div[style*="max-width: 900px"] {
+        padding: var(--spacing-lg) !important;
+      }
+      
+      .container > div[style*="max-width: 900px"] p {
+        font-size: var(--font-size-sm) !important;
+        line-height: 1.8 !important;
+        margin-bottom: var(--spacing-lg) !important;
+      }
+      
+      /* Core Values Grid */
+      .grid-3 {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-md);
+      }
+      
+      .performance-card {
+        padding: var(--spacing-lg);
+      }
+      
+      .performance-icon {
+        font-size: var(--font-size-xl) !important;
+        margin-bottom: var(--spacing-sm);
+      }
+      
+      .performance-title {
+        font-size: var(--font-size-base) !important;
+        margin-bottom: var(--spacing-sm);
+      }
+      
+      .performance-description {
+        font-size: var(--font-size-xs) !important;
+      }
+      
+      /* Mission Banner */
+      .feature-banner {
+        padding: var(--spacing-xl) var(--spacing-lg);
+      }
+      
+      .feature-banner-title {
+        font-size: var(--font-size-xl) !important;
+        margin-bottom: var(--spacing-md);
+      }
+      
+      .feature-banner-text {
+        font-size: var(--font-size-sm) !important;
+        line-height: 1.8 !important;
+        margin-bottom: var(--spacing-lg) !important;
+      }
+      
+      /* Team Grid */
+      .grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-lg);
+      }
+      
+      .card {
+        margin-bottom: 0;
+      }
+      
+      .card-content {
+        padding: var(--spacing-md);
+      }
+      
+      .card-title {
+        font-size: var(--font-size-sm) !important;
+        margin-bottom: var(--spacing-xs);
+      }
+      
+      .card-description {
+        font-size: var(--font-size-xs) !important;
+      }
+      
+      /* FAQ Section */
+      .section-header {
+        margin-bottom: var(--spacing-xl);
+      }
+      
+      .section-title {
+        font-size: var(--font-size-xl) !important;
+      }
+      
+      .section-subtitle {
+        font-size: var(--font-size-xs) !important;
+      }
+      
+      .faq-item {
+        padding: var(--spacing-md) !important;
+        margin-bottom: var(--spacing-sm) !important;
+      }
+      
+      .faq-item h3 {
+        font-size: var(--font-size-base) !important;
+        margin-bottom: var(--spacing-md) !important;
+      }
+      
+      .faq-item h4 {
+        font-size: var(--font-size-sm) !important;
+        margin-bottom: var(--spacing-xs) !important;
+      }
+      
+      .faq-item p {
+        font-size: var(--font-size-xs) !important;
+        line-height: 1.6 !important;
+      }
+      
+      /* Join CTA Section */
+      section > div[style*="border: 1px solid"] {
+        padding: var(--spacing-xl) var(--spacing-md) !important;
+      }
+      
+      section > div[style*="border: 1px solid"] h2 {
+        font-size: var(--font-size-xl) !important;
+        margin-bottom: var(--spacing-md);
+      }
+      
+      section > div[style*="border: 1px solid"] p {
+        font-size: var(--font-size-sm) !important;
+        line-height: 1.6 !important;
+        margin-bottom: var(--spacing-lg) !important;
+      }
+      
+      section > div[style*="border: 1px solid"] > div {
+        flex-direction: column;
+        gap: var(--spacing-sm) !important;
+      }
+      
+      .btn-large {
+        width: 100%;
+        padding: var(--spacing-md);
+        font-size: var(--font-size-sm);
+      }
+      
+      /* Floating Refresh Button */
+      .floating-refresh {
+        width: 48px;
+        height: 48px;
+        bottom: 80px;
+        right: var(--spacing-md);
+      }
+      
+      .floating-refresh svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
