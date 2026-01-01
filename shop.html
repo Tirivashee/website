@@ -76,6 +76,120 @@
     }
   }
   </script>
+
+  <!-- Product Schema for Google Images -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "Product",
+        "name": "Black Canvas Shoulder Bag",
+        "description": "BALLYLIKE Utility Design Crossbody Bag - Premium black canvas shoulder bag with multiple compartments",
+        "brand": { "@type": "Brand", "name": "BALLYLIKE" },
+        "offers": {
+          "@type": "Offer",
+          "price": "14.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "image": [
+          "https://www.ballylike.co.zw/assets/images/products/prod-bcs.jpg",
+          "https://www.ballylike.co.zw/assets/images/products/prod-bcsb.jpg",
+          "https://www.ballylike.co.zw/assets/images/products/prod-bcsb-3.jpg",
+          "https://www.ballylike.co.zw/assets/images/products/prod-bcsb-inside.jpg",
+          "https://www.ballylike.co.zw/assets/images/blueprints/sb.jpg"
+        ]
+      },
+      {
+        "@type": "Product",
+        "name": "Orange Canvas Shoulder Bag",
+        "description": "BALLYLIKE Vibrant Orange Utility Design Tote - Premium orange canvas shoulder bag",
+        "brand": { "@type": "Brand", "name": "BALLYLIKE" },
+        "offers": {
+          "@type": "Offer",
+          "price": "14.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "image": [
+          "https://www.ballylike.co.zw/assets/images/products/prod-ocs.jpg",
+          "https://www.ballylike.co.zw/assets/images/products/prod-ocsb.jpg",
+          "https://www.ballylike.co.zw/assets/images/products/prod-ocsb-3.jpg",
+          "https://www.ballylike.co.zw/assets/images/products/prod-ocsb-inside.jpg",
+          "https://www.ballylike.co.zw/assets/images/blueprints/sb.jpg"
+        ]
+      },
+      {
+        "@type": "Product",
+        "name": "Performance Cap",
+        "description": "BALLYLIKE Organic Cotton Logo Embroidered Baseball Cap",
+        "brand": { "@type": "Brand", "name": "BALLYLIKE" },
+        "offers": {
+          "@type": "Offer",
+          "price": "9.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "image": [
+          "https://www.ballylike.co.zw/assets/images/products/prod-c.jpg",
+          "https://www.ballylike.co.zw/assets/images/products/prod-c-2.jpg",
+          "https://www.ballylike.co.zw/assets/images/products/prod-c-3.jpg",
+          "https://www.ballylike.co.zw/assets/images/products/prod-c-3b.jpg"
+        ]
+      },
+      {
+        "@type": "Product",
+        "name": "Black Halo Pouch",
+        "description": "BALLYLIKE Utility Design Compact Crossbody Pouch",
+        "brand": { "@type": "Brand", "name": "BALLYLIKE" },
+        "offers": {
+          "@type": "Offer",
+          "price": "7.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "image": [
+          "https://www.ballylike.co.zw/assets/images/products/prod-hpb.jpg",
+          "https://www.ballylike.co.zw/assets/images/blueprints/hp.jpg"
+        ]
+      },
+      {
+        "@type": "Product",
+        "name": "Orange Halo Pouch",
+        "description": "BALLYLIKE Vibrant Orange Compact Crossbody Pouch",
+        "brand": { "@type": "Brand", "name": "BALLYLIKE" },
+        "offers": {
+          "@type": "Offer",
+          "price": "7.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "image": [
+          "https://www.ballylike.co.zw/assets/images/products/prod-hpo.jpg",
+          "https://www.ballylike.co.zw/assets/images/blueprints/hp.jpg"
+        ]
+      },
+      {
+        "@type": "Product",
+        "name": "Yellow Halo Pouch",
+        "description": "BALLYLIKE Vibrant Yellow Compact Crossbody Pouch",
+        "brand": { "@type": "Brand", "name": "BALLYLIKE" },
+        "offers": {
+          "@type": "Offer",
+          "price": "7.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "image": [
+          "https://www.ballylike.co.zw/assets/images/products/prod-hpy.jpg",
+          "https://www.ballylike.co.zw/assets/images/blueprints/hp.jpg"
+        ]
+      }
+    ]
+  }
+  </script>
   
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
@@ -412,10 +526,10 @@
   <section class="hero" style="min-height: 40vh;">
     <div class="hero-content">
       <h1 class="hero-logo" style="font-size: var(--font-size-3xl);">
-        SHOP BALLYLIKE - ZIMBABWE STREETWEAR COLLECTION
+        SHOP
       </h1>
       <p class="hero-tagline">
-        Premium faith-driven fashion, urban apparel, and accessories. Shop t-shirts, hoodies, bags, and caps with free shipping in Zimbabwe.
+        DISCOVER YOUR STYLE
       </p>
     </div>
   </section>
@@ -433,8 +547,8 @@
   <!-- All Products View -->
   <section class="container" id="shop-products">
     <div class="section-header">
-      <h2 class="section-title">BALLYLIKE ZIMBABWE STREETWEAR - ALL PRODUCTS</h2>
-      <p class="section-subtitle">Faith-driven fashion, urban apparel, bags, caps & accessories from Harare</p>
+      <h2 class="section-title">ALL PRODUCTS</h2>
+      <p class="section-subtitle">COMPLETE COLLECTION</p>
     </div>
     
     <div class="grid grid-3" id="products-grid">
@@ -471,20 +585,6 @@
       <!-- Unisex Products -->
       <div class="card product-card" data-category="unisex">
         <div class="card-image-wrapper">
-          <img src="assets/images/products/prod-bcsb.jpg" alt="Black Canvas Shoulder Bag - BALLYLIKE Unisex Utility Design Tote Bag" class="card-image">
-          <div class="product-overlay">
-            <button class="btn btn-secondary">VIEW</button>
-          </div>
-        </div>
-        <div class="card-content">
-          <h3 class="card-title">BLACK CANVAS SHOULDER BAG</h3>
-          <p class="card-description">UTILITY DESIGN</p>
-          <p class="card-price">$14.99</p>
-        </div>
-      </div>
-      
-      <div class="card product-card" data-category="unisex">
-        <div class="card-image-wrapper">
           <div class="card-badge">NEW</div>
           <img src="assets/images/products/prod-c.jpg" alt="Performance Cap - BALLYLIKE Organic Cotton Logo Embroidered Baseball Cap" class="card-image">
           <div class="product-overlay">
@@ -515,7 +615,7 @@
       
       <div class="card product-card" data-category="unisex">
         <div class="card-image-wrapper">
-          <img src="assets/images/products/prod-ocsb.jpg" alt="Orange Canvas Shoulder Bag - BALLYLIKE Vibrant Orange Utility Design Tote" class="card-image">
+          <img src="assets/images/products/prod-ocs.jpg" alt="Orange Canvas Shoulder Bag - BALLYLIKE Vibrant Orange Utility Design Tote" class="card-image">
           <div class="product-overlay">
             <button class="btn btn-secondary">VIEW</button>
           </div>
@@ -555,20 +655,6 @@
           <h3 class="card-title">YELLOW HALO POUCH</h3>
           <p class="card-description">UTILITY DESIGN</p>
           <p class="card-price">$7.99</p>
-        </div>
-      </div>
-      
-      <div class="card product-card" data-category="women">
-        <div class="card-image-wrapper">
-          <img src="assets/images/products/prod-ocsb.jpg" alt="Orange Canvas Shoulder Bag - BALLYLIKE Women's Vibrant Orange Utility Design Tote" class="card-image">
-          <div class="product-overlay">
-            <button class="btn btn-secondary">VIEW</button>
-          </div>
-        </div>
-        <div class="card-content">
-          <h3 class="card-title">ORANGE CANVAS SHOULDER BAG</h3>
-          <p class="card-description">UTILITY DESIGN</p>
-          <p class="card-price">$14.99</p>
         </div>
       </div>
     </div>
@@ -875,6 +961,22 @@
               productImage,
               'assets/images/blueprints/hp.jpg',
               productImage
+            ];
+          } else if (productTitle.toLowerCase().includes('black') && productTitle.toLowerCase().includes('shoulder bag')) {
+            currentImages = [
+              'assets/images/products/prod-bcs.jpg',
+              'assets/images/products/prod-bcsb.jpg',
+              'assets/images/products/prod-bcsb-3.jpg',
+              'assets/images/products/prod-bcsb-inside.jpg',
+              'assets/images/blueprints/sb.jpg'
+            ];
+          } else if (productTitle.toLowerCase().includes('orange') && productTitle.toLowerCase().includes('shoulder bag')) {
+            currentImages = [
+              'assets/images/products/prod-ocs.jpg',
+              'assets/images/products/prod-ocsb.jpg',
+              'assets/images/products/prod-ocsb-3.jpg',
+              'assets/images/products/prod-ocsb-inside.jpg',
+              'assets/images/blueprints/sb.jpg'
             ];
           } else if (productTitle.toLowerCase().includes('shoulder bag')) {
             currentImages = [
