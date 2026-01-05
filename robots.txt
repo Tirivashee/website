@@ -10,6 +10,7 @@ Disallow: /private/
 Disallow: /*.json$
 Disallow: /*.xml$
 Disallow: /api/
+Disallow: /explore.html
 
 # Allow access to CSS and JS files for better rendering
 Allow: /css/
