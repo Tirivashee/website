@@ -31,15 +31,15 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   
-  <title>Gallery - BALLYLIKE Fashion Collection & Lookbook</title>
+  <title>Lookbook & Stories - BALLYLIKE Fashion Collection</title>
   
   <!-- Structured Data (Schema.org) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ImageGallery",
-    "name": "BALLYLIKE Gallery",
-    "description": "Complete collection of BALLYLIKE fashion photography and product showcase - faith-driven streetwear from Zimbabwe.",
+    "@type": "CollectionPage",
+    "name": "BALLYLIKE Lookbook & Stories",
+    "description": "Explore BALLYLIKE's fashion lookbook and lifestyle stories - faith-driven streetwear from Zimbabwe.",
     "url": "https://www.ballylike.co.zw/gallery.html",
     "creator": {
       "@type": "Organization",
@@ -51,8 +51,8 @@
         "addressCountry": "Zimbabwe"
       }
     },
-    "about": "Faith-driven streetwear fashion photography",
-    "keywords": "Zimbabwe fashion, streetwear gallery, urban fashion, faith fashion, BALLYLIKE lookbook",
+    "about": "Faith-driven streetwear fashion lookbook and lifestyle blog",
+    "keywords": "Zimbabwe fashion, streetwear lookbook, urban fashion, faith fashion, BALLYLIKE stories",
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -65,7 +65,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Gallery",
+          "name": "Lookbook",
           "item": "https://www.ballylike.co.zw/gallery.html"
         }
       ]
@@ -78,79 +78,343 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
-  <link rel="stylesheet" href="css/placeholders.css">
   
   <style>
-    .filter-bar {
-      background-color: var(--color-black);
-      color: var(--color-white);
-      border-bottom: var(--border);
-      position: sticky;
-      top: 60px;
-      z-index: 100;
-    }
-    
-    .filter-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--spacing-xs);
-      padding: var(--spacing-md);
-      flex-wrap: wrap;
-    }
-    
-    .filter-btn {
-      padding: var(--spacing-xs) var(--spacing-md);
-      font-size: var(--font-size-xs);
-      font-weight: var(--font-weight-medium);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      background-color: transparent;
-      color: var(--color-white);
-      border: 1px solid var(--color-white);
-      cursor: pointer;
-      transition: all var(--transition-fast);
-    }
-    
-    .filter-btn:hover,
-    .filter-btn.active {
-      background-color: var(--color-white);
-      color: var(--color-black);
-    }
-    
-    .gallery-item {
+    /* Lookbook Styles */
+    .lookbook-hero {
       position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
       overflow: hidden;
-      border: 1px solid var(--color-black);
-      aspect-ratio: 4/5;
-      transition: transform 0.3s ease;
     }
     
-    .gallery-item:hover {
-      transform: scale(1.02);
+    .lookbook-hero-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.3;
     }
     
-    .gallery-item img {
+    .lookbook-hero-bg img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
     
-    .gallery-item.hidden {
-      display: none;
-    }
-    
-    .gallery-item.load-more-hidden {
-      display: none;
-    }
-    
-    .view-more-container {
+    .lookbook-hero-content {
+      position: relative;
+      z-index: 2;
       text-align: center;
-      padding: var(--spacing-2xl) 0;
+      color: #fff;
+      padding: 2rem;
     }
     
-    .view-more-container.hidden {
-      display: none;
+    .lookbook-title {
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+    
+    .lookbook-subtitle {
+      font-size: clamp(0.875rem, 2vw, 1.125rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #FF6600;
+      font-weight: 600;
+    }
+    
+    /* Section Navigation */
+    .section-nav {
+      position: sticky;
+      top: 60px;
+      background: #fff;
+      border-bottom: 3px solid #000;
+      z-index: 100;
+      padding: 1.5rem 0;
+    }
+    
+    .section-nav-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .section-nav-link {
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #000;
+      text-decoration: none;
+      padding: 0.5rem 1.5rem;
+      border: 2px solid transparent;
+      transition: all 0.3s;
+    }
+    
+    .section-nav-link:hover,
+    .section-nav-link.active {
+      border-color: #FF6600;
+      color: #FF6600;
+    }
+    
+    /* Featured Lookbook Section */
+    .featured-lookbook {
+      padding: 0;
+      background: #000;
+    }
+    
+    .lookbook-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 0;
+    }
+    
+    .lookbook-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+    
+    .lookbook-item:hover {
+      transform: scale(1.02);
+      z-index: 2;
+    }
+    
+    .lookbook-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .lookbook-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 2rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .lookbook-item:hover .lookbook-item-overlay {
+      opacity: 1;
+    }
+    
+    .lookbook-item-title {
+      color: #fff;
+      font-weight: 900;
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+    
+    .lookbook-item-tag {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: #FF6600;
+      color: #000;
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    
+    /* Blog Posts Section */
+    .blog-section {
+      padding: 5rem 2rem;
+      background: #fff;
+    }
+    
+    .blog-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .blog-header h2 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    
+    .blog-header p {
+      font-size: 1rem;
+      color: #666;
+      letter-spacing: 0.05em;
+    }
+    
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .blog-card {
+      background: #fff;
+      border: 2px solid #000;
+      overflow: hidden;
+      transition: transform 0.3s;
+      text-decoration: none;
+      color: #000;
+      display: block;
+    }
+    
+    .blog-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .blog-card-image {
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .blog-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    
+    .blog-card:hover .blog-card-image img {
+      transform: scale(1.05);
+    }
+    
+    .blog-card-content {
+      padding: 2rem;
+    }
+    
+    .blog-card-category {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #FF6600;
+      margin-bottom: 1rem;
+    }
+    
+    .blog-card-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+    
+    .blog-card-excerpt {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+    
+    .blog-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .blog-card-readmore {
+      color: #000;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+    
+    /* Grid Layouts */
+    .grid-large { grid-column: span 6; grid-row: span 2; min-height: 600px; }
+    .grid-medium { grid-column: span 4; grid-row: span 1; min-height: 400px; }
+    .grid-small { grid-column: span 3; grid-row: span 1; min-height: 350px; }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .lookbook-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+      .grid-large { grid-column: span 6; min-height: 500px; }
+      .grid-medium { grid-column: span 6; min-height: 400px; }
+      .grid-small { grid-column: span 3; min-height: 300px; }
+    }
+    
+    @media (max-width: 768px) {
+      .lookbook-grid {
+        grid-template-columns: 1fr;
+      }
+      .grid-large,
+      .grid-medium,
+      .grid-small { 
+        grid-column: span 1; 
+        min-height: 400px;
+      }
+      
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .section-nav-container {
+        gap: 1rem;
+      }
+      
+      .section-nav-link {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+      }
+    }
+    
+    /* Collection Section */
+    .collection-showcase {
+      padding: 5rem 2rem;
+      background: #000;
+      color: #fff;
+    }
+    
+    .collection-title {
+      text-align: center;
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+    
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .collection-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      border: 2px solid #fff;
+    }
+    
+    .collection-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    
+    .collection-item:hover img {
+      transform: scale(1.1);
     }
   </style>
 </head>
@@ -165,7 +429,7 @@
       <div class="navbar-menu" id="navbarMenu">
         <a href="index.html" class="navbar-link">HOME</a>
         <a href="shop.html" class="navbar-link">SHOP</a>
-        <a href="gallery.html" class="navbar-link active">GALLERY</a>
+        <a href="gallery.html" class="navbar-link active">LOOKBOOK</a>
         <a href="about.html" class="navbar-link">ABOUT</a>
         <a href="#contact" class="navbar-link">CONTACT</a>
       </div>
@@ -179,47 +443,232 @@
   </nav>
 
   <!-- Hero -->
-  <section class="hero" style="min-height: 40vh;">
-    <div class="hero-content">
-      <h1 class="hero-logo" style="font-size: var(--font-size-3xl);">
-        GALLERY
-      </h1>
-      <p class="hero-tagline">
-        EXPLORE OUR COMPLETE COLLECTION
-      </p>
+  <section class="lookbook-hero">
+    <div class="lookbook-hero-bg">
+      <img src="assets/images/urban/18.jpg" alt="BALLYLIKE Lookbook Zimbabwe">
+    </div>
+    <div class="lookbook-hero-content">
+      <p class="lookbook-subtitle">BALLYLIKE 2026</p>
+      <h1 class="lookbook-title">LOOKBOOK<br>& STORIES</h1>
     </div>
   </section>
 
-  <!-- Filter Bar -->
-  <div class="filter-bar">
-    <div class="filter-container">
-      <button class="filter-btn active" data-category="all">ALL</button>
-      <button class="filter-btn" data-category="urban">URBAN STREET</button>
-      <button class="filter-btn" data-category="performance">PERFORMANCE</button>
-      <button class="filter-btn" data-category="faith">FAITH ESSENTIALS</button>
+  <!-- Section Navigation -->
+  <nav class="section-nav">
+    <div class="section-nav-container">
+      <a href="#featured" class="section-nav-link active">FEATURED</a>
+      <a href="#stories" class="section-nav-link">STORIES</a>
+      <a href="#collection" class="section-nav-link">FULL COLLECTION</a>
     </div>
-  </div>
+  </nav>
 
-  <!-- Gallery Grid -->
-  <section class="container">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-md);" id="galleryGrid">
-      <!-- Images will be inserted here by JavaScript -->
+  <!-- Featured Lookbook -->
+  <section id="featured" class="featured-lookbook">
+    <div class="lookbook-grid">
+      <!-- Large Feature 1 -->
+      <div class="lookbook-item grid-large">
+        <img src="assets/images/urban/1.jpg" alt="Faith-Driven Fashion Zimbabwe">
+        <span class="lookbook-item-tag">NEW</span>
+        <div class="lookbook-item-overlay">
+          <h3 class="lookbook-item-title">Faith Essentials</h3>
+        </div>
+      </div>
+      
+      <!-- Medium Items -->
+      <div class="lookbook-item grid-medium">
+        <img src="assets/images/urban/3.jpg" alt="Urban Streetwear Collection">
+        <div class="lookbook-item-overlay">
+          <h3 class="lookbook-item-title">Urban Edge</h3>
+        </div>
+      </div>
+      
+      <div class="lookbook-item grid-medium">
+        <img src="assets/images/urban/7.jpg" alt="Performance Fashion Zimbabwe">
+        <span class="lookbook-item-tag">TRENDING</span>
+        <div class="lookbook-item-overlay">
+          <h3 class="lookbook-item-title">Performance</h3>
+        </div>
+      </div>
+      
+      <!-- Small Items -->
+      <div class="lookbook-item grid-small">
+        <img src="assets/images/urban/10.jpg" alt="Zimbabwe Fashion Photography">
+        <div class="lookbook-item-overlay">
+          <h3 class="lookbook-item-title">Lifestyle</h3>
+        </div>
+      </div>
+      
+      <div class="lookbook-item grid-small">
+        <img src="assets/images/urban/12.jpg" alt="Faith-Based Streetwear">
+        <div class="lookbook-item-overlay">
+          <h3 class="lookbook-item-title">Essentials</h3>
+        </div>
+      </div>
+      
+      <!-- Medium Items -->
+      <div class="lookbook-item grid-medium">
+        <img src="assets/images/urban/15.jpg" alt="Harare Street Fashion">
+        <div class="lookbook-item-overlay">
+          <h3 class="lookbook-item-title">Street Style</h3>
+        </div>
+      </div>
+      
+      <div class="lookbook-item grid-medium">
+        <img src="assets/images/urban/20.jpg" alt="Urban Culture Zimbabwe">
+        <div class="lookbook-item-overlay">
+          <h3 class="lookbook-item-title">Urban Culture</h3>
+        </div>
+      </div>
+      
+      <!-- Large Feature 2 -->
+      <div class="lookbook-item grid-large">
+        <img src="assets/images/urban/23.jpg" alt="Zimbabwe Streetwear Collection">
+        <span class="lookbook-item-tag">HOT</span>
+        <div class="lookbook-item-overlay">
+          <h3 class="lookbook-item-title">Signature Collection</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog/Stories Section -->
+  <section id="stories" class="blog-section">
+    <div class="blog-header">
+      <h2>STORIES & INSIGHTS</h2>
+      <p>Fashion, Faith, and Culture from Zimbabwe</p>
     </div>
     
-    <!-- View More Button -->
-    <div class="view-more-container" id="viewMoreContainer">
-      <button class="btn btn-primary btn-large" id="viewMoreBtn">VIEW MORE</button>
+    <div class="blog-grid">
+      <!-- Blog Post 1 -->
+      <article class="blog-card">
+        <div class="blog-card-image">
+          <img src="assets/images/urban/2.jpg" alt="Trending Fashion Zimbabwe 2026">
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-category">FASHION TRENDS</span>
+          <h3 class="blog-card-title">What's Trending in Zimbabwe Fashion 2026</h3>
+          <p class="blog-card-excerpt">
+            From faith-driven streetwear to urban culture - discover the hottest fashion movements shaping Zimbabwe's style scene this year.
+          </p>
+          <div class="blog-card-meta">
+            <span>5 MIN READ</span>
+            <a href="trending-fashion-zimbabwe.html" class="blog-card-readmore">READ MORE →</a>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Blog Post 2 -->
+      <article class="blog-card">
+        <div class="blog-card-image">
+          <img src="assets/images/urban/18.jpg" alt="Lifestyle Zimbabwe">
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-category">LIFESTYLE</span>
+          <h3 class="blog-card-title">Lifestyle Zimbabwe: Urban Culture & Faith</h3>
+          <p class="blog-card-excerpt">
+            Exploring how faith, fashion, and creative expression intersect in Zimbabwe's vibrant urban lifestyle scene.
+          </p>
+          <div class="blog-card-meta">
+            <span>7 MIN READ</span>
+            <a href="lifestyle-zimbabwe.html" class="blog-card-readmore">READ MORE →</a>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Blog Post 3 -->
+      <article class="blog-card">
+        <div class="blog-card-image">
+          <img src="assets/images/urban/10.jpg" alt="Online Shopping Guide Zimbabwe">
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-category">SHOPPING GUIDE</span>
+          <h3 class="blog-card-title">Online Shopping Guide for Zimbabwe</h3>
+          <p class="blog-card-excerpt">
+            Your complete guide to shopping for clothes online in Zimbabwe - payment methods, delivery, and safety tips included.
+          </p>
+          <div class="blog-card-meta">
+            <span>6 MIN READ</span>
+            <a href="online-shopping-guide-zimbabwe.html" class="blog-card-readmore">READ MORE →</a>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Blog Post 4 - Placeholder for future content -->
+      <article class="blog-card" style="opacity: 0.6; pointer-events: none;">
+        <div class="blog-card-image">
+          <img src="assets/images/urban/5.jpg" alt="Faith-Driven Fashion">
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-category">FAITH & FASHION</span>
+          <h3 class="blog-card-title">How Faith Shapes Our Design Philosophy</h3>
+          <p class="blog-card-excerpt">
+            Behind the scenes at BALLYLIKE - how our faith influences every design decision and creative choice we make.
+          </p>
+          <div class="blog-card-meta">
+            <span>COMING SOON</span>
+            <span class="blog-card-readmore">READ MORE →</span>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Blog Post 5 - Placeholder -->
+      <article class="blog-card" style="opacity: 0.6; pointer-events: none;">
+        <div class="blog-card-image">
+          <img src="assets/images/urban/14.jpg" alt="Zimbabwe Streetwear Culture">
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-category">CULTURE</span>
+          <h3 class="blog-card-title">The Rise of Zimbabwean Streetwear</h3>
+          <p class="blog-card-excerpt">
+            How local brands are putting Zimbabwe on the global streetwear map with authentic design and cultural pride.
+          </p>
+          <div class="blog-card-meta">
+            <span>COMING SOON</span>
+            <span class="blog-card-readmore">READ MORE →</span>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Blog Post 6 - Placeholder -->
+      <article class="blog-card" style="opacity: 0.6; pointer-events: none;">
+        <div class="blog-card-image">
+          <img src="assets/images/urban/22.jpg" alt="Style Guide Zimbabwe">
+        </div>
+        <div class="blog-card-content">
+          <span class="blog-card-category">STYLE TIPS</span>
+          <h3 class="blog-card-title">How to Style Your BALLYLIKE Pieces</h3>
+          <p class="blog-card-excerpt">
+            Complete styling guide - from casual everyday looks to statement streetwear outfits that turn heads.
+          </p>
+          <div class="blog-card-meta">
+            <span>COMING SOON</span>
+            <span class="blog-card-readmore">READ MORE →</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Full Collection Grid -->
+  <section id="collection" class="collection-showcase">
+    <h2 class="collection-title">FULL COLLECTION</h2>
+    <div class="collection-grid" id="collectionGrid">
+      <!-- Images will be loaded here by JavaScript -->
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="container">
-    <div class="feature-banner">
-      <h2 class="feature-banner-title">READY TO SHOP?</h2>
-      <p class="feature-banner-text">
-        EXPLORE OUR COMPLETE CATALOG AND FIND YOUR STYLE
+  <section style="padding: 5rem 2rem; background: #FF6600; text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -0.02em; color: #000;">
+        READY TO SHOP?
+      </h2>
+      <p style="font-size: 1.125rem; margin-bottom: 2.5rem; color: #000; opacity: 0.9;">
+        Explore our complete catalog and find your style
       </p>
-      <a href="shop.html" class="btn btn-secondary btn-large">SHOP NOW</a>
+      <a href="shop.html" class="btn" style="padding: 1.25rem 3rem; background: #000; color: #fff; border: 2px solid #000; font-weight: 700; letter-spacing: 0.1em; text-decoration: none; display: inline-block; transition: all 0.3s;">
+        SHOP NOW
+      </a>
     </div>
   </section>
   </main>
@@ -307,142 +756,84 @@
   <script src="js/animations.js"></script>
   
   <script>
-    // Gallery data - all images from urban folder
-    const galleryImages = [
-      { src: 'assets/images/urban/1.jpg', category: 'urban', title: 'BALLYLIKE Urban Streetwear Zimbabwe Fashion' },
-      { src: 'assets/images/urban/2.jpg', category: 'urban', title: 'Zimbabwe Street Fashion Photography' },
-      { src: 'assets/images/urban/3.jpg', category: 'performance', title: 'Performance Streetwear Zimbabwe' },
-      { src: 'assets/images/urban/4.JPEG', category: 'urban', title: 'Urban Fashion Collection Harare' },
-      { src: 'assets/images/urban/5.jpg', category: 'urban', title: 'Streetwear Lookbook Zimbabwe' },
-      { src: 'assets/images/urban/6.jpg', category: 'performance', title: 'Active Fashion Zimbabwe BALLYLIKE' },
-      { src: 'assets/images/urban/7.jpg', category: 'urban', title: 'Urban Style Photography Harare' },
-      { src: 'assets/images/urban/8.jpg', category: 'performance', title: 'Performance Fashion Collection' },
-      { src: 'assets/images/urban/9.jpg', category: 'performance', title: 'Active Fashion Photography Zimbabwe' },
-      { src: 'assets/images/urban/10.jpg', category: 'faith', title: 'Faith-Driven Fashion Zimbabwe' },
-      { src: 'assets/images/urban/11.jpg', category: 'faith', title: 'Christian Streetwear BALLYLIKE' },
-      { src: 'assets/images/urban/12.jpg', category: 'faith', title: 'Faith Essentials Collection Zimbabwe' },
-      { src: 'assets/images/urban/13.jpg', category: 'urban', title: 'Urban Fashion Zimbabwe Lookbook' },
-      { src: 'assets/images/urban/14.jpg', category: 'performance', title: 'Performance Streetwear Photography' },
-      { src: 'assets/images/urban/15.jpg', category: 'urban', title: 'Street Style Fashion Harare' },
-      { src: 'assets/images/urban/16.jpg', category: 'faith', title: 'Faith-Based Streetwear' },
-      { src: 'assets/images/urban/17.jpg', category: 'urban', title: 'Zimbabwe Urban Fashion Collection' },
-      { src: 'assets/images/urban/18.jpg', category: 'performance', title: 'Performance Wear Lookbook Zimbabwe' },
-      { src: 'assets/images/urban/19.jpg', category: 'faith', title: 'Christian Fashion Zimbabwe BALLYLIKE' },
-      { src: 'assets/images/urban/20.jpg', category: 'urban', title: 'Urban Streetwear Harare Collection' },
-      { src: 'assets/images/urban/21.jpg', category: 'performance', title: 'Performance Fashion Collection Zimbabwe' },
-      { src: 'assets/images/urban/22.jpg', category: 'urban', title: 'Street Fashion Photography BALLYLIKE' },
-      { src: 'assets/images/urban/23.jpg', category: 'faith', title: 'Faith Essentials Zimbabwe Streetwear' },
-      { src: 'assets/images/urban/24.jpg', category: 'urban', title: 'Urban Fashion Lookbook Harare' }
+    // Collection images
+    const collectionImages = [
+      'assets/images/urban/1.jpg',
+      'assets/images/urban/2.jpg',
+      'assets/images/urban/3.jpg',
+      'assets/images/urban/4.JPEG',
+      'assets/images/urban/5.jpg',
+      'assets/images/urban/6.jpg',
+      'assets/images/urban/7.jpg',
+      'assets/images/urban/8.jpg',
+      'assets/images/urban/9.jpg',
+      'assets/images/urban/11.jpg',
+      'assets/images/urban/13.jpg',
+      'assets/images/urban/14.jpg',
+      'assets/images/urban/16.jpg',
+      'assets/images/urban/17.jpg',
+      'assets/images/urban/19.jpg',
+      'assets/images/urban/21.jpg',
+      'assets/images/urban/22.jpg',
+      'assets/images/urban/24.jpg'
     ];
     
-    const ITEMS_PER_ROW = 3;
-    const INITIAL_ROWS = 3;
-    const initialItemsCount = ITEMS_PER_ROW * INITIAL_ROWS;
-    let showingAll = false;
-    
-    // Shuffle array function
-    function shuffleArray(array) {
-      const shuffled = [...array];
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-      return shuffled;
+    // Load collection grid
+    function loadCollection() {
+      const grid = document.getElementById('collectionGrid');
+      const shuffled = collectionImages.sort(() => Math.random() - 0.5);
+      
+      grid.innerHTML = shuffled.map((img, index) => `
+        <div class="collection-item">
+          <img src="${img}" alt="BALLYLIKE Collection ${index + 1}" loading="lazy">
+        </div>
+      `).join('');
     }
     
-    // Render gallery
-    function renderGallery(category = 'all') {
-      const grid = document.getElementById('galleryGrid');
-      const shuffled = shuffleArray(galleryImages);
-      
-      grid.innerHTML = shuffled.map((item, index) => {
-        const loadMoreClass = index >= initialItemsCount ? 'load-more-hidden' : '';
-        const categoryNames = {
-          'urban': 'Urban Street Style',
-          'performance': 'Performance Fashion',
-          'faith': 'Faith Essentials'
-        };
-        const altText = `${item.title} - BALLYLIKE ${categoryNames[item.category]} Collection`;
-        return `
-          <div class="gallery-item ${loadMoreClass}" data-category="${item.category}" data-index="${index}">
-            <img src="${item.src}" alt="${altText}" title="${item.title}" loading="lazy" width="400" height="500">
-          </div>
-        `;
-      }).join('');
-      
-      showingAll = false;
-      updateViewMoreButton();
-      filterGallery(category);
-    }
-    
-    // Filter gallery
-    function filterGallery(category) {
-      const items = document.querySelectorAll('.gallery-item');
-      let visibleCount = 0;
-      
-      items.forEach((item, index) => {
-        const matchesCategory = category === 'all' || item.dataset.category === category;
-        const isInitialItem = index < initialItemsCount;
+    // Smooth scroll for navigation
+    document.querySelectorAll('.section-nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
         
-        if (matchesCategory) {
-          item.classList.remove('hidden');
-          if (!showingAll && !isInitialItem) {
-            item.classList.add('load-more-hidden');
-          } else {
-            item.classList.remove('load-more-hidden');
-          }
-          if (!item.classList.contains('load-more-hidden')) {
-            visibleCount++;
-          }
-        } else {
-          item.classList.add('hidden');
+        if (targetSection) {
+          const navHeight = 120; // navbar + section nav height
+          const targetPosition = targetSection.offsetTop - navHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          // Update active state
+          document.querySelectorAll('.section-nav-link').forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
         }
       });
-      
-      updateViewMoreButton();
-    }
-    
-    // Update View More button visibility
-    function updateViewMoreButton() {
-      const viewMoreContainer = document.getElementById('viewMoreContainer');
-      const items = document.querySelectorAll('.gallery-item:not(.hidden)');
-      const hiddenItems = document.querySelectorAll('.gallery-item.load-more-hidden:not(.hidden)');
-      
-      if (hiddenItems.length > 0 && !showingAll) {
-        viewMoreContainer.classList.remove('hidden');
-      } else {
-        viewMoreContainer.classList.add('hidden');
-      }
-    }
-    
-    // View More button handler
-    document.getElementById('viewMoreBtn').addEventListener('click', function() {
-      showingAll = true;
-      const items = document.querySelectorAll('.gallery-item.load-more-hidden');
-      items.forEach(item => {
-        item.classList.remove('load-more-hidden');
-      });
-      updateViewMoreButton();
     });
     
-    // Filter button handlers
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        const category = this.dataset.category;
+    // Update active nav on scroll
+    window.addEventListener('scroll', function() {
+      const sections = ['featured', 'stories', 'collection'];
+      const navHeight = 120;
+      
+      sections.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        const link = document.querySelector(`a[href="#${sectionId}"]`);
         
-        // Update active button
-        filterBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Filter gallery
-        filterGallery(category);
+        if (section && link) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= navHeight && rect.bottom >= navHeight) {
+            document.querySelectorAll('.section-nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+          }
+        }
       });
     });
     
-    // Initial render
-    renderGallery();
+    // Load collection on page load
+    loadCollection();
   </script>
 </body>
 </html>
