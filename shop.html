@@ -214,12 +214,12 @@
       justify-content: center;
       align-items: center;
       gap: var(--spacing-xs);
-      padding: var(--spacing-md);
+      padding: 10px var(--spacing-md);
       flex-wrap: wrap;
     }
     
     .filter-btn {
-      padding: var(--spacing-xs) var(--spacing-md);
+      padding: 6px var(--spacing-sm);
       font-size: var(--font-size-xs);
       font-weight: var(--font-weight-medium);
       text-transform: uppercase;
@@ -261,29 +261,32 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.95);
+      background-color: var(--color-white);
       z-index: 9999;
       overflow-y: auto;
+      overflow-x: hidden;
       animation: fadeIn 0.3s ease-in-out;
+      scrollbar-width: none;
+    }
+
+    .product-modal::-webkit-scrollbar {
+      display: none;
     }
     
     .product-modal.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: var(--spacing-lg);
+      display: block;
     }
     
     .modal-content {
       background-color: var(--color-white);
       width: 100%;
-      max-width: 900px;
+      max-width: 1600px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--spacing-xl);
-      padding: var(--spacing-xl);
+      grid-template-columns: 1fr 480px;
+      gap: 0;
+      min-height: 100vh;
       position: relative;
-      animation: slideUp 0.3s ease-out;
     }
     
     @keyframes slideUp {
@@ -296,207 +299,360 @@
         transform: translateY(0);
       }
     }
+
+    body.modal-open {
+      overflow: hidden !important;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+    }
     
     .modal-close {
-      position: absolute;
-      top: var(--spacing-lg);
-      right: var(--spacing-lg);
+      position: fixed;
+      top: 24px;
+      right: 24px;
       width: 40px;
       height: 40px;
       background-color: transparent;
-      border: 2px solid var(--color-black);
+      border: none;
       color: var(--color-black);
-      font-size: 24px;
+      font-size: 32px;
       cursor: pointer;
-      transition: all var(--transition-fast);
+      transition: opacity var(--transition-fast);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 10;
+      z-index: 10000;
+      font-weight: 300;
+      line-height: 1;
     }
     
     .modal-close:hover {
-      background-color: var(--color-black);
-      color: var(--color-white);
+      opacity: 0.6;
     }
     
     .modal-image-section {
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-md);
-      align-items: center;
+      gap: 0;
+      padding: 80px 40px 40px 40px;
+      background-color: #fafafa;
     }
     
     .modal-image-carousel {
       position: relative;
       width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
     
     .modal-image-container {
       width: 100%;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin-bottom: 8px;
     }
     
     .modal-main-image {
       width: 100%;
       height: auto;
-      max-height: 500px;
-      object-fit: contain;
-      border: var(--border);
-      transition: opacity 0.3s ease;
+      object-fit: cover;
       display: block;
+      cursor: zoom-in;
     }
     
     .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.6);
-      color: var(--color-white);
-      border: none;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all var(--transition-fast);
-      z-index: 10;
-    }
-    
-    .carousel-btn:hover {
-      background-color: var(--color-black);
-    }
-    
-    .carousel-btn.hidden {
       display: none;
     }
     
-    .carousel-prev {
-      left: 0;
-    }
-    
-    .carousel-next {
-      right: 0;
-    }
-    
     .modal-image-dots {
-      display: flex;
-      gap: var(--spacing-xs);
-      justify-content: center;
-      margin-top: var(--spacing-sm);
-    }
-    
-    .image-dot {
-      width: 8px;
-      height: 8px;
-      background-color: rgba(0, 0, 0, 0.3);
-      border: none;
-      cursor: pointer;
-      transition: all var(--transition-fast);
-    }
-    
-    .image-dot.active {
-      background-color: var(--color-black);
-      width: 24px;
+      display: none;
     }
     
     .modal-info-section {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-md);
+      gap: 0;
+      padding: 80px 40px 40px 40px;
+      border-left: none;
+      background-color: var(--color-white);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    }
+
+    .modal-info-section::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-info-section::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .modal-info-section::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+    }
+
+    .modal-info-section::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-breadcrumb {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(0, 0, 0, 0.6);
+      margin-bottom: 24px;
     }
     
     .modal-product-title {
-      font-size: var(--font-size-xl);
-      font-weight: var(--font-weight-bold);
+      font-size: 15px;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      line-height: 1.2;
+      letter-spacing: 0.08em;
+      line-height: 1.5;
+      margin: 0 0 12px 0;
+      padding: 0;
     }
     
     .modal-product-price {
-      font-size: var(--font-size-lg);
-      font-weight: var(--font-weight-bold);
+      font-size: 14px;
+      font-weight: 400;
       color: var(--color-black);
+      margin: 0 0 20px 0;
+      display: none;
     }
     
     .modal-product-description {
-      font-size: var(--font-size-sm);
-      line-height: 1.8;
-      opacity: 0.8;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(0, 0, 0, 0.8);
+      text-transform: none;
+      letter-spacing: 0;
+      margin: 12px 0 32px 0;
+      font-weight: 400;
+    }
+
+    .modal-color-selector {
+      margin: 0 0 24px 0;
+      display: none;
+    }
+
+    .modal-color-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .modal-color-options {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-sm);
+    }
+
+    .modal-color-option {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    .modal-color-option.active {
+      border: 2px solid var(--color-black);
+    }
+
+    .modal-color-option.black {
+      background-color: #000;
+    }
+
+    .modal-color-option.orange {
+      background-color: #ff6600;
+    }
+
+    .modal-color-option.yellow {
+      background-color: #ffd700;
+    }
+
+    .modal-size-selector {
+      margin: var(--spacing-md) 0;
+    }
+
+    .modal-size-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--spacing-sm);
+      display: block;
+    }
+
+    .modal-size-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+      gap: var(--spacing-xs);
+    }
+
+    .modal-size-option {
+      padding: var(--spacing-sm);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background: transparent;
+      cursor: pointer;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      transition: all var(--transition-fast);
+      text-align: center;
+    }
+
+    .modal-size-option:hover,
+    .modal-size-option.active {
+      background-color: var(--color-black);
+      color: var(--color-white);
+      border-color: var(--color-black);
+    }
+
+    .modal-size-option.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
     }
     
     .modal-product-details {
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-sm);
-      padding-top: var(--spacing-md);
-      border-top: var(--border);
+      gap: 0;
+      margin-top: 0;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .modal-detail-section {
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .modal-detail-header {
+      width: 100%;
+      padding: 18px 0;
+      background: transparent;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+      text-align: left;
+      color: var(--color-black);
+    }
+
+    .modal-detail-header:hover {
+      opacity: 0.7;
+    }
+
+    .modal-detail-icon {
+      transition: transform 0.3s ease;
+      font-size: 10px;
+      color: var(--color-black);
+    }
+
+    .modal-detail-section.open .modal-detail-icon {
+      transform: rotate(180deg);
+    }
+
+    .modal-detail-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(0, 0, 0, 0.8);
+      font-weight: 400;
+    }
+
+    .modal-detail-section.open .modal-detail-content {
+      max-height: 500px;
+      padding-bottom: 18px;
     }
     
     .modal-detail-row {
       display: flex;
       justify-content: space-between;
-      font-size: var(--font-size-xs);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      font-size: 13px;
+      margin-bottom: var(--spacing-xs);
     }
     
     .modal-detail-label {
       font-weight: var(--font-weight-medium);
-      opacity: 0.6;
+      color: rgba(0, 0, 0, 0.6);
     }
     
     .modal-detail-value {
-      font-weight: var(--font-weight-bold);
+      font-weight: var(--font-weight-medium);
+      text-align: right;
     }
     
     .modal-buy-button {
       width: 100%;
-      padding: var(--spacing-md) var(--spacing-lg);
+      padding: 14px 24px;
       background-color: var(--color-black);
       color: var(--color-white);
-      border: 2px solid var(--color-black);
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-bold);
+      border: none;
+      font-size: 11px;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.12em;
       cursor: pointer;
       transition: all var(--transition-fast);
       text-align: center;
       text-decoration: none;
-      display: inline-block;
-      margin-top: var(--spacing-lg);
+      display: none;
+      margin-bottom: 16px;
     }
     
     .modal-buy-button:hover {
-      background-color: var(--color-white);
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-find-store {
+      font-size: 13px;
+      font-weight: 400;
       color: var(--color-black);
+      text-decoration: underline;
+      text-transform: none;
+      letter-spacing: 0;
+      cursor: pointer;
+      transition: opacity var(--transition-fast);
+      text-align: left;
+      display: inline-block;
+      margin-bottom: 32px;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .modal-find-store:hover {
+      opacity: 0.7;
     }
     
     @media (max-width: 768px) {
       .product-modal.active {
-        padding: 0;
-        align-items: flex-start;
+        display: block;
       }
 
       .modal-content {
         grid-template-columns: 1fr;
-        padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
-        max-height: 100vh;
-        height: 100vh;
-        overflow-y: auto;
-        gap: var(--spacing-md);
         max-width: 100%;
-        width: 100%;
-        margin: 0;
-        -webkit-overflow-scrolling: touch;
+        min-height: 100vh;
       }
       
       .modal-close {
@@ -505,87 +661,46 @@
         width: 44px;
         height: 44px;
         font-size: 28px;
-        background-color: rgba(255, 255, 255, 0.95);
-        border: 2px solid var(--color-black);
-        z-index: 100;
-      }
-
-      .modal-main-image {
-        max-height: 50vh;
-        min-height: 250px;
-        width: 100%;
-        object-fit: contain;
+        background-color: var(--color-white);
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        z-index: 10001;
       }
 
       .modal-image-section {
+        padding: var(--spacing-md);
+      }
+
+      .modal-main-image {
         width: 100%;
-        gap: var(--spacing-sm);
-        position: sticky;
-        top: 0;
-        background-color: var(--color-white);
-        z-index: 1;
-        padding-bottom: var(--spacing-sm);
-      }
-
-      .modal-image-container {
-        min-height: 250px;
-        max-height: 50vh;
         height: auto;
-        background: var(--color-white);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .modal-image-carousel {
-        background: var(--color-white);
-      }
-
-      .carousel-btn {
-        width: 44px;
-        height: 44px;
-        background-color: rgba(0, 0, 0, 0.8);
-        font-size: 20px;
-      }
-
-      .carousel-btn svg {
-        width: 20px;
-        height: 20px;
       }
 
       .modal-info-section {
-        padding-bottom: var(--spacing-xl);
+        position: relative;
+        height: auto;
+        border-left: none;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        padding: var(--spacing-lg) var(--spacing-md);
       }
 
       .modal-product-title {
-        font-size: var(--font-size-lg);
-        line-height: 1.3;
+        font-size: 16px;
       }
 
       .modal-product-price {
-        font-size: var(--font-size-md);
+        font-size: 14px;
       }
 
       .modal-product-description {
-        font-size: var(--font-size-xs);
-        line-height: 1.6;
+        font-size: 13px;
       }
 
       .modal-buy-button {
-        position: sticky;
-        bottom: 0;
-        margin-top: var(--spacing-md);
-        padding: var(--spacing-md);
-        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        padding: 14px;
       }
 
-      .image-dot {
-        width: 10px;
-        height: 10px;
-      }
-
-      .image-dot.active {
-        width: 30px;
+      .modal-find-store {
+        padding: 14px;
       }
     }
   </style>
@@ -696,7 +811,7 @@
       <div class="card product-card" data-category="halo-pouches">
         <div class="card-image-wrapper">
           <div class="card-badge">NEW</div>
-          <img src="assets/images/products/prod-hpb.jpg" alt="Black Halo Pouch - BALLYLIKE Compact Utility Design Crossbody Pouch" class="card-image">
+          <img src="assets/images/products/prod-hpb.jpg" alt="Black Halo Pouch - BALLYLIKE Compact Utility Design Crossbody Pouch" class="card-image" loading="lazy">
           <div class="product-overlay">
             <button class="btn btn-secondary">VIEW</button>
           </div>
@@ -710,7 +825,7 @@
       
       <div class="card product-card" data-category="shoulder-bags">
         <div class="card-image-wrapper">
-          <img src="assets/images/products/prod-ocs.jpg" alt="Orange Canvas Shoulder Bag - BALLYLIKE Vibrant Orange Utility Design Tote" class="card-image">
+          <img src="assets/images/products/prod-ocs.jpg" alt="Orange Canvas Shoulder Bag - BALLYLIKE Vibrant Orange Utility Design Tote" class="card-image" loading="lazy">
           <div class="product-overlay">
             <button class="btn btn-secondary">VIEW</button>
           </div>
@@ -725,7 +840,7 @@
       <div class="card product-card" data-category="halo-pouches">
         <div class="card-image-wrapper">
           <div class="card-badge">NEW</div>
-          <img src="assets/images/products/prod-hpo.jpg" alt="Orange Halo Pouch - BALLYLIKE Women's Vibrant Orange Compact Crossbody Pouch" class="card-image">
+          <img src="assets/images/products/prod-hpo.jpg" alt="Orange Halo Pouch - BALLYLIKE Women's Vibrant Orange Compact Crossbody Pouch" class="card-image" loading="lazy">
           <div class="product-overlay">
             <button class="btn btn-secondary">VIEW</button>
           </div>
@@ -740,7 +855,7 @@
       <div class="card product-card" data-category="halo-pouches">
         <div class="card-image-wrapper">
           <div class="card-badge">NEW</div>
-          <img src="assets/images/products/prod-hpy.jpg" alt="Yellow Halo Pouch - BALLYLIKE Women's Bright Yellow Utility Design Crossbody Pouch" class="card-image">
+          <img src="assets/images/products/prod-hpy.jpg" alt="Yellow Halo Pouch - BALLYLIKE Women's Bright Yellow Utility Design Crossbody Pouch" class="card-image" loading="lazy">
           <div class="product-overlay">
             <button class="btn btn-secondary">VIEW</button>
           </div>
@@ -760,41 +875,101 @@
       <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
       
       <div class="modal-image-section">
-        <div class="modal-image-carousel">
-          <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Previous image">
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-            </svg>
-          </button>
-          <div class="modal-image-container">
-            <img src="" alt="Product Image" class="modal-main-image" id="modalImage">
-          </div>
-          <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Next image">
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-            </svg>
-          </button>
+        <div class="modal-image-carousel" id="imageCarousel">
+          <!-- Images will be dynamically inserted here -->
         </div>
-        <div class="modal-image-dots" id="imageDots"></div>
       </div>
       
       <div class="modal-info-section">
-        <h2 class="modal-product-title" id="modalTitle"></h2>
-        <p class="modal-product-price" id="modalPrice"></p>
-        <p class="modal-product-description" id="modalDescription"></p>
-        
-        <div class="modal-product-details">
-          <div class="modal-detail-row">
-            <span class="modal-detail-label">CATEGORY</span>
-            <span class="modal-detail-value" id="modalCategory"></span>
-          </div>
-          <div class="modal-detail-row">
-            <span class="modal-detail-label">AVAILABILITY</span>
-            <span class="modal-detail-value">IN STOCK</span>
-          </div>
+        <div class="modal-breadcrumb">
+          <span id="modalBreadcrumb">MEN / BAGS</span>
         </div>
         
-        <a href="https://wa.me/c/263781457106" class="modal-buy-button" target="_blank" rel="noopener">BUY</a>
+        <div class="modal-product-header">
+          <h2 class="modal-product-title" id="modalTitle"></h2>
+        </div>
+
+        <p class="modal-product-description" id="modalDescription"></p>
+
+        <!-- Find in Store Link -->
+        <a href="https://wa.me/263781457106" class="modal-find-store" target="_blank" rel="noopener">Find in store</a>
+
+        <!-- Color Selector -->
+        <div class="modal-color-selector" id="colorSelector" style="display: none;">
+          <label class="modal-color-label">COLOR</label>
+          <div class="modal-color-options" id="colorOptions">
+            <!-- Color options will be dynamically inserted -->
+          </div>
+        </div>
+
+        <!-- Size Selector -->
+        <div class="modal-size-selector" id="sizeSelector" style="display: none;">
+          <label class="modal-size-label">SIZE</label>
+          <div class="modal-size-options" id="sizeOptions">
+            <!-- Size options will be dynamically inserted -->
+          </div>
+        </div>
+
+        <!-- Add to Bag Button (hidden by default) -->
+        <a href="https://wa.me/c/263781457106" class="modal-buy-button" target="_blank" rel="noopener" style="display: none;">ADD TO BAG</a>
+        
+        <!-- Collapsible Details Sections -->
+        <div class="modal-product-details">
+          <div class="modal-detail-section">
+            <button class="modal-detail-header" data-section="product-details">
+              <span>PRODUCT DETAILS</span>
+              <span class="modal-detail-icon">▼</span>
+            </button>
+            <div class="modal-detail-content">
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">CATEGORY</span>
+                <span class="modal-detail-value" id="modalCategory"></span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">AVAILABILITY</span>
+                <span class="modal-detail-value">IN STOCK</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">BRAND</span>
+                <span class="modal-detail-value">BALLYLIKE</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">PRICE</span>
+                <span class="modal-detail-value" id="modalPrice"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-detail-section">
+            <button class="modal-detail-header" data-section="dimensions">
+              <span>DIMENSIONS</span>
+              <span class="modal-detail-icon">▼</span>
+            </button>
+            <div class="modal-detail-content">
+              <p id="modalDimensions">Dimensions vary by product. Contact us for specific measurements.</p>
+            </div>
+          </div>
+
+          <div class="modal-detail-section">
+            <button class="modal-detail-header" data-section="care">
+              <span>PRODUCT CARE</span>
+              <span class="modal-detail-icon">▼</span>
+            </button>
+            <div class="modal-detail-content">
+              <p>Clean with a soft, dry cloth. Avoid exposure to water and direct sunlight. Store in a cool, dry place.</p>
+            </div>
+          </div>
+
+          <div class="modal-detail-section">
+            <button class="modal-detail-header" data-section="sustainability">
+              <span>SUSTAINABILITY</span>
+              <span class="modal-detail-icon">▼</span>
+            </button>
+            <div class="modal-detail-content">
+              <p>We are committed to sustainable practices in our production process. Our products are made with high-quality materials designed for longevity.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -945,95 +1120,45 @@
       const modal = document.getElementById('productModal');
       const modalClose = document.getElementById('modalClose');
       const viewButtons = document.querySelectorAll('.product-overlay .btn');
-      const modalImage = document.getElementById('modalImage');
-      const carouselPrev = document.getElementById('carouselPrev');
-      const carouselNext = document.getElementById('carouselNext');
-      const dotsContainer = document.getElementById('imageDots');
+      const imageCarousel = document.getElementById('imageCarousel');
       
       let currentImages = [];
-      let currentImageIndex = 0;
       
-      // Function to update carousel
-      function updateCarousel() {
-        if (currentImages.length === 0) return;
-        
-        modalImage.src = currentImages[currentImageIndex];
-        
-        // Update dots
-        dotsContainer.innerHTML = '';
-        if (currentImages.length > 1) {
-          currentImages.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.className = 'image-dot' + (index === currentImageIndex ? ' active' : '');
-            dot.setAttribute('aria-label', `View image ${index + 1}`);
-            dot.addEventListener('click', () => {
-              currentImageIndex = index;
-              updateCarousel();
-            });
-            dotsContainer.appendChild(dot);
+      // Function to load all images in vertical layout
+      function loadImages() {
+        imageCarousel.innerHTML = '';
+        currentImages.forEach((imgSrc, index) => {
+          const container = document.createElement('div');
+          container.className = 'modal-image-container';
+          
+          const img = document.createElement('img');
+          img.src = imgSrc;
+          img.alt = `Product Image ${index + 1}`;
+          img.className = 'modal-main-image';
+          img.loading = 'lazy';
+          
+          container.appendChild(img);
+          imageCarousel.appendChild(container);
+        });
+      }
+
+      // Collapsible sections functionality
+      const detailHeaders = document.querySelectorAll('.modal-detail-header');
+      detailHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+          const section = this.closest('.modal-detail-section');
+          const isOpen = section.classList.contains('open');
+          
+          // Close all sections
+          document.querySelectorAll('.modal-detail-section').forEach(s => {
+            s.classList.remove('open');
           });
-        }
-        
-        // Show/hide navigation buttons
-        if (currentImages.length <= 1) {
-          carouselPrev.classList.add('hidden');
-          carouselNext.classList.add('hidden');
-        } else {
-          carouselPrev.classList.remove('hidden');
-          carouselNext.classList.remove('hidden');
-        }
-      }
-      
-      // Navigation handlers
-      carouselPrev.addEventListener('click', () => {
-        currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
-        updateCarousel();
-      });
-      
-      carouselNext.addEventListener('click', () => {
-        currentImageIndex = (currentImageIndex + 1) % currentImages.length;
-        updateCarousel();
-      });
-      
-      // Touch swipe support
-      let touchStartX = 0;
-      let touchEndX = 0;
-      
-      modalImage.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      });
-      
-      modalImage.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-      });
-      
-      function handleSwipe() {
-        if (currentImages.length <= 1) return;
-        
-        if (touchEndX < touchStartX - 50) {
-          // Swipe left - next image
-          currentImageIndex = (currentImageIndex + 1) % currentImages.length;
-          updateCarousel();
-        }
-        if (touchEndX > touchStartX + 50) {
-          // Swipe right - previous image
-          currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
-          updateCarousel();
-        }
-      }
-      
-      // Keyboard navigation
-      document.addEventListener('keydown', (e) => {
-        if (!modal.classList.contains('active')) return;
-        
-        if (e.key === 'ArrowLeft') {
-          currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
-          updateCarousel();
-        } else if (e.key === 'ArrowRight') {
-          currentImageIndex = (currentImageIndex + 1) % currentImages.length;
-          updateCarousel();
-        }
+          
+          // Open clicked section if it was closed
+          if (!isOpen) {
+            section.classList.add('open');
+          }
+        });
       });
       
       // Open modal when clicking VIEW button
@@ -1092,32 +1217,138 @@
               productImage
             ];
           }
-          currentImageIndex = 0;
           
           // Populate modal with product data
           document.getElementById('modalTitle').textContent = productTitle;
           document.getElementById('modalDescription').textContent = productDescription;
           document.getElementById('modalPrice').textContent = productPrice;
-          document.getElementById('modalCategory').textContent = productCategory.toUpperCase();
+          document.getElementById('modalCategory').textContent = productCategory.toUpperCase().replace('-', ' ');
           
-          // Update carousel
-          updateCarousel();
+          // Set breadcrumb based on category
+          let breadcrumb = 'MEN / BAGS';
+          if (productCategory === 'shoulder-bags') {
+            breadcrumb = 'MEN / BAGS / SHOULDER BAGS';
+          } else if (productCategory === 'halo-pouches') {
+            breadcrumb = 'WOMEN / BAGS / POUCHES';
+          } else if (productCategory === 'garments') {
+            breadcrumb = 'UNISEX / APPAREL';
+          }
+          document.getElementById('modalBreadcrumb').textContent = breadcrumb;
+          
+          // Set dimensions based on product type
+          const dimensionsEl = document.getElementById('modalDimensions');
+          if (productTitle.toLowerCase().includes('halo pouch')) {
+            dimensionsEl.innerHTML = `
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">DIAMETER</span>
+                <span class="modal-detail-value">8CM</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">DEPTH</span>
+                <span class="modal-detail-value">2.5CM</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">LOOP LENGTH</span>
+                <span class="modal-detail-value">2CM</span>
+              </div>
+            `;
+          } else if (productTitle.toLowerCase().includes('shoulder bag')) {
+            dimensionsEl.innerHTML = `
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">WIDTH</span>
+                <span class="modal-detail-value">34CM</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">HEIGHT</span>
+                <span class="modal-detail-value">25CM</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">DEPTH</span>
+                <span class="modal-detail-value">12CM</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">STRAP DROP</span>
+                <span class="modal-detail-value">60CM</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">STRAP WIDTH</span>
+                <span class="modal-detail-value">3CM</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">ZIPPER POCKET WIDTH</span>
+                <span class="modal-detail-value">20CM</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">SIDE POCKET</span>
+                <span class="modal-detail-value">10CM × 15CM</span>
+              </div>
+            `;
+          } else {
+            dimensionsEl.innerHTML = 'Dimensions vary by product. Contact us for specific measurements.';
+          }
+          
+          // Load images in vertical layout
+          loadImages();
+          
+          // Show/hide color selector based on product
+          const colorSelector = document.getElementById('colorSelector');
+          const colorOptions = document.getElementById('colorOptions');
+          if (productTitle.toLowerCase().includes('pouch') || productTitle.toLowerCase().includes('shoulder bag')) {
+            colorSelector.style.display = 'block';
+            colorOptions.innerHTML = '';
+            
+            // Add color options
+            if (productTitle.toLowerCase().includes('black')) {
+              colorOptions.innerHTML = '<button class="modal-color-option black active" data-color="black" aria-label="Black"></button>';
+            } else if (productTitle.toLowerCase().includes('orange')) {
+              colorOptions.innerHTML = '<button class="modal-color-option orange active" data-color="orange" aria-label="Orange"></button>';
+            } else if (productTitle.toLowerCase().includes('yellow')) {
+              colorOptions.innerHTML = '<button class="modal-color-option yellow active" data-color="yellow" aria-label="Yellow"></button>';
+            } else {
+              colorOptions.innerHTML = `
+                <button class="modal-color-option black" data-color="black" aria-label="Black"></button>
+                <button class="modal-color-option orange" data-color="orange" aria-label="Orange"></button>
+                <button class="modal-color-option yellow" data-color="yellow" aria-label="Yellow"></button>
+              `;
+            }
+            
+            // Color option click handlers
+            colorOptions.querySelectorAll('.modal-color-option').forEach(option => {
+              option.addEventListener('click', function() {
+                colorOptions.querySelectorAll('.modal-color-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+              });
+            });
+          } else {
+            colorSelector.style.display = 'none';
+          }
+          
+          // Size selector (hidden for now, can be enabled for garments)
+          document.getElementById('sizeSelector').style.display = 'none';
           
           // Show modal
           modal.classList.add('active');
-          document.body.style.overflow = 'hidden';
+          document.body.classList.add('modal-open');
+          
+          // Scroll to top of modal
+          modal.scrollTop = 0;
         });
       });
       
       // Close modal
       function closeModal() {
         modal.classList.remove('active');
-        document.body.style.overflow = '';
+        document.body.classList.remove('modal-open');
+        
+        // Close all collapsible sections
+        document.querySelectorAll('.modal-detail-section').forEach(s => {
+          s.classList.remove('open');
+        });
       }
       
       modalClose.addEventListener('click', closeModal);
       
-      // Close when clicking outside modal content
+      // Close when clicking outside modal content (on the modal background)
       modal.addEventListener('click', function(e) {
         if (e.target === modal) {
           closeModal();
