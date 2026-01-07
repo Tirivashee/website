@@ -147,8 +147,15 @@ class WishlistManager {
   renderWishlistPage() {
     const wishlistContainer = document.getElementById('wishlistItems');
     const emptyMessage = document.getElementById('emptyWishlist');
+    const authMessage = document.getElementById('wishlistAuthMessage');
 
     if (!wishlistContainer) return;
+
+    // Show/hide auth message for non-authenticated users
+    if (authMessage) {
+      const isAuthenticated = window.authManager?.isAuthenticated();
+      authMessage.style.display = isAuthenticated ? 'none' : 'block';
+    }
 
     if (this.wishlist.length === 0) {
       if (emptyMessage) emptyMessage.style.display = 'block';

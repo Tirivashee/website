@@ -88,43 +88,86 @@
   gap: 8px;
 }
 
-/* Modal Wishlist Icon */
+/* Modal Action Buttons Container */
+.modal-action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+/* Modal Wishlist Button (Black) */
 .modal-wishlist-btn {
   width: 100%;
-  padding: var(--spacing-md);
-  background: var(--color-white);
-  border: 3px solid var(--color-black);
-  font-size: var(--font-size-sm);
+  padding: 8px var(--spacing-sm);
+  background: var(--color-black);
+  color: var(--color-white);
+  border: 2px solid var(--color-black);
+  font-size: 0.75rem;
   font-weight: var(--font-weight-bold);
   cursor: pointer;
   transition: var(--transition-base);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-top: var(--spacing-sm);
+  letter-spacing: 0.08em;
 }
 
 .modal-wishlist-btn:hover {
-  background: var(--color-black);
-  color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-black);
 }
 
 .modal-wishlist-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   transition: all var(--transition-fast);
 }
 
 .modal-wishlist-btn.active {
-  background: var(--color-black);
-  color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-black);
 }
 
 .modal-wishlist-btn.active svg {
-  fill: var(--color-white);
+  fill: var(--color-black);
+}
+
+/* Modal Cart Button (Orange) */
+.modal-cart-btn {
+  width: 100%;
+  padding: 8px var(--spacing-sm);
+  background: #ff6b35;
+  color: var(--color-white);
+  border: 2px solid #ff6b35;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.modal-cart-btn:hover {
+  background: #e55a25;
+  border-color: #e55a25;
+}
+
+.modal-cart-btn svg {
+  width: 14px;
+  height: 14px;
+  transition: all var(--transition-fast);
+}
+
+.modal-cart-btn.active {
+  background: #d54915;
+  border-color: #d54915;
 }
 
 @media (min-width: 768px) {

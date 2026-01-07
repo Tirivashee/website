@@ -30,14 +30,17 @@
     }
 
     .checkout-header h1 {
-      font-size: var(--font-size-3xl);
+      font-size: var(--font-size-xl);
       font-weight: var(--font-weight-bold);
       margin-bottom: var(--spacing-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .checkout-notice {
       background: #FFF3CD;
-      border: 3px solid #FFC107;
+      border: var(--border);
+      border-color: #FFC107;
       padding: var(--spacing-md);
       margin-bottom: var(--spacing-xl);
     }
@@ -45,6 +48,9 @@
     .checkout-notice h3 {
       font-weight: var(--font-weight-bold);
       margin-bottom: var(--spacing-xs);
+      font-size: var(--font-size-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .checkout-notice p {
@@ -60,12 +66,12 @@
 
     .checkout-form {
       background: var(--color-white);
-      border: 3px solid var(--color-black);
-      padding: var(--spacing-xl);
+      border: var(--border);
+      padding: var(--spacing-lg);
     }
 
     .form-section {
-      margin-bottom: var(--spacing-xl);
+      margin-bottom: var(--spacing-lg);
     }
 
     .form-section:last-child {
@@ -73,11 +79,13 @@
     }
 
     .form-section h2 {
-      font-size: var(--font-size-xl);
+      font-size: var(--font-size-md);
       font-weight: var(--font-weight-bold);
       margin-bottom: var(--spacing-md);
       padding-bottom: var(--spacing-sm);
-      border-bottom: 2px solid var(--color-gray-200);
+      border-bottom: var(--border);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .form-group {
@@ -95,8 +103,8 @@
     .form-group textarea {
       width: 100%;
       padding: var(--spacing-sm);
-      border: 2px solid var(--color-black);
-      font-size: var(--font-size-md);
+      border: var(--border);
+      font-size: var(--font-size-sm);
       font-family: var(--font-primary);
     }
 
@@ -104,7 +112,6 @@
     .form-group textarea:focus {
       outline: none;
       border-color: var(--color-black);
-      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
     }
 
     .form-group textarea {
@@ -120,19 +127,21 @@
 
     .order-summary {
       background: var(--color-white);
-      border: 3px solid var(--color-black);
-      padding: var(--spacing-md);
+      border: var(--border);
+      padding: var(--spacing-lg);
       height: fit-content;
       position: sticky;
       top: 100px;
     }
 
     .order-summary h2 {
-      font-size: var(--font-size-xl);
+      font-size: var(--font-size-md);
       font-weight: var(--font-weight-bold);
       margin-bottom: var(--spacing-md);
       padding-bottom: var(--spacing-sm);
-      border-bottom: 2px solid var(--color-gray-200);
+      border-bottom: var(--border);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .order-item {
@@ -151,7 +160,7 @@
       width: 60px;
       height: 60px;
       object-fit: cover;
-      border: 2px solid var(--color-black);
+      border: var(--border);
     }
 
     .order-item-details {
@@ -178,28 +187,31 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: var(--spacing-sm);
-      font-size: var(--font-size-md);
+      font-size: var(--font-size-sm);
+      font-family: var(--font-mono);
     }
 
     .summary-row.total {
-      font-size: var(--font-size-lg);
+      font-size: var(--font-size-md);
       font-weight: var(--font-weight-bold);
       padding-top: var(--spacing-sm);
-      border-top: 2px solid var(--color-black);
+      border-top: var(--border);
       margin-top: var(--spacing-md);
     }
 
     .submit-btn {
       width: 100%;
-      padding: var(--spacing-md);
+      padding: 12px;
       background: var(--color-black);
       color: var(--color-white);
-      border: 3px solid var(--color-black);
-      font-size: var(--font-size-md);
+      border: 2px solid var(--color-black);
+      font-size: var(--font-size-sm);
       font-weight: var(--font-weight-bold);
       cursor: pointer;
       margin-top: var(--spacing-md);
       transition: var(--transition-base);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .submit-btn:hover:not(:disabled) {
@@ -235,45 +247,75 @@
 
     .success-content {
       background: var(--color-white);
-      border: 5px solid var(--color-black);
+      border: var(--border);
       padding: var(--spacing-xl);
       max-width: 500px;
       text-align: center;
     }
 
     .success-content h2 {
-      font-size: var(--font-size-2xl);
+      font-size: var(--font-size-xl);
       font-weight: var(--font-weight-bold);
       margin-bottom: var(--spacing-md);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .success-content p {
-      font-size: var(--font-size-md);
+      font-size: var(--font-size-sm);
       line-height: 1.6;
       margin-bottom: var(--spacing-md);
     }
 
     .order-number {
       font-family: var(--font-mono);
-      font-size: var(--font-size-lg);
+      font-size: var(--font-size-base);
       font-weight: var(--font-weight-bold);
       padding: var(--spacing-sm);
       background: var(--color-gray-100);
-      border: 2px solid var(--color-black);
+      border: var(--border);
       margin: var(--spacing-md) 0;
     }
 
-    @media (max-width: 768px) {
+    @media (min-width: 1024px) {
+      .checkout-content {
+        grid-template-columns: 1fr 400px;
+      }
+    }
+
+    @media (max-width: 1023px) {
       .checkout-content {
         grid-template-columns: 1fr;
+      }
+
+      .order-summary {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 70px;
+      }
+
+      .checkout-container {
+        padding: var(--spacing-lg) var(--spacing-sm);
+      }
+
+      .checkout-header h1 {
+        font-size: var(--font-size-lg);
       }
 
       .form-row {
         grid-template-columns: 1fr;
       }
 
+      .checkout-form {
+        padding: var(--spacing-md);
+      }
+
       .order-summary {
-        position: static;
+        padding: var(--spacing-md);
       }
     }
   </style>
@@ -441,7 +483,78 @@
     </div>
   </div>
 
-  <!-- Footer -->\n  <footer class=\"footer\" id=\"contact\">\n    <div class=\"footer-content container\">\n      <div class=\"footer-section\">\n        <h3>BALLYLIKE*</h3>\n        <p style=\"font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-top: var(--spacing-md); line-height: 1.8;\">\n          FASHION BRAND BLENDING FAITH, URBAN CULTURE, AND ARTISTIC EXPRESSION. BASED IN HARARE, ZIMBABWE.\n        </p>\n        <div class=\"footer-social\">\n          <a href=\"https://instagram.com/ballylike_shop\" class=\"social-icon\" aria-label=\"Instagram\" target=\"_blank\" rel=\"noopener\">\n            <svg width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 24 24\">\n              <path d=\"M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z\"/>\n            </svg>\n          </a>\n          <a href=\"https://tiktok.com/@ballylike\" class=\"social-icon\" aria-label=\"TikTok\" target=\"_blank\" rel=\"noopener\">\n            <svg width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 24 24\">\n              <path d=\"M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z\"/>\n            </svg>\n          </a>\n          <a href=\"https://facebook.com/ballylikebrand\" class=\"social-icon\" aria-label=\"Facebook\" target=\"_blank\" rel=\"noopener\">\n            <svg width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 24 24\">\n              <path d=\"M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z\"/>\n            </svg>\n          </a>\n          <a href=\"https://wa.me/263781457106\" class=\"social-icon\" aria-label=\"WhatsApp\" target=\"_blank\" rel=\"noopener\">\n            <svg width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 24 24\">\n              <path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z\"/>\n            </svg>\n          </a>\n        </div>\n      </div>\n      \n      <div class=\"footer-section\">\n        <h3>LINKS</h3>\n        <div class=\"footer-links\">\n          <a href=\"index.html\" class=\"footer-link\">HOME</a>\n          <a href=\"shop.html\" class=\"footer-link\">SHOP</a>\n          <a href=\"gallery.html\" class=\"footer-link\">GALLERY</a>\n          <a href=\"about.html\" class=\"footer-link\">ABOUT</a>\n          <a href=\"#contact\" class=\"footer-link\">CONTACT</a>\n        </div>\n      </div>\n      \n      <div class=\"footer-section\">\n        <h3>SUPPORT</h3>\n        <div class=\"footer-links\">\n          <a href=\"#\" class=\"footer-link\">SHIPPING</a>\n          <a href=\"#\" class=\"footer-link\">RETURNS</a>\n          <a href=\"#\" class=\"footer-link\">SIZE GUIDE</a>\n          <a href=\"#\" class=\"footer-link\">FAQ</a>\n        </div>\n      </div>\n      \n      <div class=\"footer-section\">\n        <h3>CONTACT</h3>\n        <div class=\"footer-links\">\n          <p style=\"font-size: var(--font-size-xs); opacity: 0.7;\">\n            INFO@BALLYLIKE.CO.ZW<br>\n            +263 78 145 7106<br>\n            +263 78 395 2546<br>\n            HARARE, ZIMBABWE\n          </p>\n        </div>\n      </div>\n    </div>\n    \n    <div class=\"footer-bottom container\">\n      <p>© 2025 BALLYLIKE*. ALL RIGHTS RESERVED. | BALLYLIKE.CO.ZW</p>\n    </div>\n  </footer>\n\n  <!-- Scripts -->
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="footer-content container">
+      <div class="footer-section">
+        <h3>BALLYLIKE*</h3>
+        <p style="font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-top: var(--spacing-md); line-height: 1.8;">
+          FASHION BRAND BLENDING FAITH, URBAN CULTURE, AND ARTISTIC EXPRESSION. BASED IN HARARE, ZIMBABWE.
+        </p>
+        <div class="footer-social">
+          <a href="https://instagram.com/ballylike_shop" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/>
+            </svg>
+          </a>
+          <a href="https://tiktok.com/@ballylike" class="social-icon" aria-label="TikTok" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+            </svg>
+          </a>
+          <a href="https://facebook.com/ballylikebrand" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/263781457106" class="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>LINKS</h3>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">HOME</a>
+          <a href="shop.html" class="footer-link">SHOP</a>
+          <a href="gallery.html" class="footer-link">GALLERY</a>
+          <a href="about.html" class="footer-link">ABOUT</a>
+          <a href="#contact" class="footer-link">CONTACT</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>SUPPORT</h3>
+        <div class="footer-links">
+          <a href="#" class="footer-link">SHIPPING</a>
+          <a href="#" class="footer-link">RETURNS</a>
+          <a href="#" class="footer-link">SIZE GUIDE</a>
+          <a href="#" class="footer-link">FAQ</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>CONTACT</h3>
+        <div class="footer-links">
+          <p style="font-size: var(--font-size-xs); opacity: 0.7;">
+            INFO@BALLYLIKE.CO.ZW<br>
+            +263 78 145 7106<br>
+            +263 78 395 2546<br>
+            HARARE, ZIMBABWE
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom container">
+      <p>© 2025 BALLYLIKE*. ALL RIGHTS RESERVED. | BALLYLIKE.CO.ZW</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
   <script src="js/supabase-config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/cart.js"></script>
@@ -453,6 +566,20 @@
   <script>
     // Checkout page logic
     document.addEventListener('DOMContentLoaded', async function() {
+      // Wait for cart manager to be ready
+      await new Promise(resolve => {
+        if (window.cartManager) {
+          resolve();
+        } else {
+          const interval = setInterval(() => {
+            if (window.cartManager) {
+              clearInterval(interval);
+              resolve();
+            }
+          }, 100);
+        }
+      });
+
       // Check authentication
       if (!window.authManager?.isAuthenticated()) {
         window.notificationManager.warning('Please login to checkout');

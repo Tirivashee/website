@@ -15,30 +15,38 @@
   
   <style>
     body {
-      padding-top: 70px;
-      background: #f5f5f5;
+      padding-top: 80px;
+      background: #fafafa;
     }
 
     .wishlist-container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: var(--spacing-md) var(--spacing-md);
+      padding: var(--spacing-xl) var(--spacing-md);
     }
 
     .wishlist-header {
-      margin-bottom: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+      text-align: center;
     }
 
     .wishlist-header h1 {
-      font-size: var(--font-size-2xl);
+      font-size: 2.5rem;
       font-weight: var(--font-weight-bold);
       margin-bottom: var(--spacing-xs);
+      letter-spacing: 0.05em;
+    }
+
+    .wishlist-header p {
+      color: var(--color-gray-600);
+      font-size: var(--font-size-sm);
+      letter-spacing: 0.1em;
     }
 
     .wishlist-items {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: var(--spacing-md);
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
     }
 
     .wishlist-item {
@@ -54,7 +62,6 @@
 
     .product-image-container {
       position: relative;
-      width: 100%;
       aspect-ratio: 1;
       overflow: hidden;
       background-color: var(--color-white);
@@ -75,13 +82,17 @@
 
     .product-overlay {
       position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.8);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.95);
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
-      transition: var(--transition-base);
+      transition: opacity var(--transition-fast);
+      border-bottom: var(--border);
     }
 
     .wishlist-item:hover .product-overlay {
@@ -98,6 +109,7 @@
       margin-bottom: var(--spacing-xs);
       text-transform: uppercase;
       letter-spacing: 0.1em;
+      color: var(--color-black);
     }
 
     .product-price {
@@ -105,44 +117,238 @@
       font-weight: var(--font-weight-bold);
       font-family: var(--font-mono);
       color: var(--color-black);
-      margin-bottom: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
     }
 
     .btn-remove {
       width: 100%;
-      padding: var(--spacing-sm);
+      padding: 12px;
       background: var(--color-white);
-      border: 2px solid var(--color-black);
-      font-weight: var(--font-weight-bold);
+      border: var(--border);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       cursor: pointer;
-      transition: var(--transition-base);
+      transition: all var(--transition-fast);
+      color: var(--color-black);
     }
 
     .btn-remove:hover {
-      background: #ff0000;
+      background: var(--color-black);
       color: var(--color-white);
-      border-color: #ff0000;
     }
 
     .empty-wishlist {
       text-align: center;
       padding: var(--spacing-xl);
       display: none;
+      background: var(--color-white);
+      border: var(--border);
     }
 
     .empty-wishlist h2 {
-      font-size: var(--font-size-2xl);
+      font-size: 1.8rem;
       margin-bottom: var(--spacing-sm);
+      font-weight: 600;
     }
 
     .empty-wishlist p {
-      color: var(--color-gray-600);
-      margin-bottom: var(--spacing-md);
+      color: #888;
+      margin-bottom: var(--spacing-lg);
+      font-size: 1rem;
+    }
+
+    /* Auth Message for Non-Authenticated Users */
+    .auth-message {
+      margin-top: var(--spacing-lg);
+      padding: var(--spacing-md) var(--spacing-lg);
+      background: #fff8f0;
+      border: 1px solid #ffd4b3;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .auth-message-content {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-md);
+    }
+
+    .auth-message svg {
+      flex-shrink: 0;
+      color: #ff6b35;
+    }
+
+    .auth-message p {
+      margin: 0;
+      line-height: 1.4;
+      font-size: 0.9rem;
+      color: #333;
+      text-align: left;
+    }
+
+    .auth-message strong {
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: inline;
+    }
+
+    .auth-message-buttons {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .auth-message-buttons .btn {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1024px) {
+      .wishlist-container {
+        max-width: 100%;
+        padding: var(--spacing-lg) var(--spacing-md);
+      }
+
+      .wishlist-items {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--spacing-md);
+      }
     }
 
     @media (max-width: 768px) {
+      body {
+        padding-top: 70px;
+      }
+
+      .wishlist-header h1 {
+        font-size: 2rem;
+      }
+
+      .wishlist-header p {
+        font-size: 0.8rem;
+      }
+
       .wishlist-items {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: var(--spacing-sm);
+      }
+
+      .wishlist-item {
+        border-radius: 8px;
+      }
+
+      .product-info {
+        padding: var(--spacing-md);
+      }
+
+      .product-name {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+
+      .product-price {
+        font-size: 1.1rem;
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .btn-remove {
+        padding: 10px;
+        font-size: 0.85rem;
+      }
+
+      .empty-wishlist {
+        padding: var(--spacing-xl) var(--spacing-md);
+        border-radius: 8px;
+      }
+
+      .empty-wishlist h2 {
+        font-size: 1.5rem;
+      }
+
+      .empty-wishlist p {
+        font-size: 0.9rem;
+      }
+
+      .auth-message {
+        padding: var(--spacing-sm) var(--spacing-md);
+      }
+
+      .auth-message-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .auth-message p {
+        text-align: center;
+        font-size: 0.85rem;
+      }
+
+      .auth-message-buttons {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wishlist-header {
+        margin-bottom: var(--spacing-md);
+      }
+
+      .wishlist-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .wishlist-items {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 10px;
+      }
+
+      .wishlist-item {
+        border-radius: 6px;
+      }
+
+      .product-info {
+        padding: var(--spacing-sm);
+      }
+
+      .product-name {
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+      }
+
+      .product-price {
+        font-size: 1rem;
+      }
+
+      .btn-remove {
+        padding: 8px;
+        font-size: 0.75rem;
+        border-radius: 30px;
+      }
+
+      .empty-wishlist {
+        padding: var(--spacing-lg) var(--spacing-sm);
+      }
+
+      .empty-wishlist h2 {
+        font-size: 1.3rem;
+      }
+
+      .auth-message-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .auth-message-buttons .btn {
+        width: 100%;
       }
     }
   </style>
@@ -201,6 +407,7 @@
     <div class="wishlist-container">
       <div class="wishlist-header">
         <h1>MY WISHLIST</h1>
+        <p>YOUR SAVED ITEMS</p>
       </div>
 
       <div class="empty-wishlist" id="emptyWishlist">
@@ -211,6 +418,21 @@
 
       <div class="wishlist-items" id="wishlistItems">
         <!-- Wishlist items will be rendered here by JavaScript -->
+      </div>
+      
+      <!-- Auth Message for Non-Authenticated Users -->
+      <div class="auth-message" id="wishlistAuthMessage" style="display: none;">
+        <div class="auth-message-content">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <p><strong>Register now</strong> to keep items in your wishlist and access them from any device.</p>
+          <div class="auth-message-buttons">
+            <a href="users/signup.html" class="btn btn-primary">SIGN UP</a>
+            <a href="users/login.html" class="btn btn-secondary">LOGIN</a>
+          </div>
+        </div>
       </div>
     </div>
   </main>

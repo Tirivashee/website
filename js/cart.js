@@ -165,8 +165,15 @@ class CartManager {
     const emptyMessage = document.getElementById('emptyCart');
     const cartSummary = document.getElementById('cartSummary');
     const cartContent = document.querySelector('.cart-content');
+    const authMessage = document.getElementById('cartAuthMessage');
 
     if (!cartContainer) return;
+
+    // Show/hide auth message for non-authenticated users
+    if (authMessage) {
+      const isAuthenticated = window.authManager?.isAuthenticated();
+      authMessage.style.display = isAuthenticated ? 'none' : 'block';
+    }
 
     if (this.cart.length === 0) {
       if (emptyMessage) emptyMessage.style.display = 'block';
@@ -182,27 +189,35 @@ class CartManager {
 
     cartContainer.innerHTML = this.cart.map((item, index) => `
       <div class="cart-item" data-index="${index}">
-        <img src="${item.product_image}" alt="${item.product_name}" class="cart-item-image">
+        <div class="cart-item-image-wrapper">
+          <img src="${item.product_image}" alt="${item.product_name}" class="cart-item-image">
+        </div>
         <div class="cart-item-details">
-          <h3 class="cart-item-name">${item.product_name}</h3>
+          <h3>${item.product_name}</h3>
           ${item.size ? `<p class="cart-item-variant">Size: ${item.size}</p>` : ''}
           ${item.color ? `<p class="cart-item-variant">Color: ${item.color}</p>` : ''}
           <p class="cart-item-price">$${item.price.toFixed(2)}</p>
         </div>
-        <div class="cart-item-quantity">
-          <button class="qty-btn" onclick="cartManager.updateQuantity(${index}, ${item.quantity - 1})">-</button>
-          <span class="qty-value">${item.quantity}</span>
-          <button class="qty-btn" onclick="cartManager.updateQuantity(${index}, ${item.quantity + 1})">+</button>
+        <div class="cart-item-actions">
+          <div class="cart-item-quantity">
+            <button class="qty-btn" onclick="cartManager.updateQuantity(${index}, ${item.quantity - 1})">-</button>
+            <span class="qty-value">${item.quantity}</span>
+            <button class="qty-btn" onclick="cartManager.updateQuantity(${index}, ${item.quantity + 1})">+</button>
+          </div>
+          <button class="cart-item-remove" onclick="cartManager.removeItem(${index})">×</button>
         </div>
-        <div class="cart-item-subtotal">
-          $${(item.price * item.quantity).toFixed(2)}
-        </div>
-        <button class="cart-item-remove" onclick="cartManager.removeItem(${index})">×</button>
       </div>
     `).join('');
 
-    if (cartTotal) {
-      cartTotal.textContent = `$${this.getTotal().toFixed(2)}`;
+    const total = this.getTotal();
+    const subtotalElement = document.getElementById('cartSubtotal');
+    const totalElement = document.getElementById('cartTotal');
+    
+    if (subtotalElement) {
+      subtotalElement.textContent = `$${total.toFixed(2)}`;
+    }
+    if (totalElement) {
+      totalElement.textContent = `$${total.toFixed(2)}`;
     }
   }
 

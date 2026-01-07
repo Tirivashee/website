@@ -88,7 +88,7 @@ class ProductInteractions {
         actionsContainer.appendChild(wishlistBtn);
       }
 
-      // Add to cart button
+      // Add to cart button - only for authenticated users
       if (window.authManager?.isAuthenticated()) {
         const cartBtn = document.createElement('button');
         cartBtn.className = 'add-to-cart-btn btn btn-primary';
@@ -100,15 +100,6 @@ class ProductInteractions {
         `;
         
         actionsContainer.appendChild(cartBtn);
-      } else {
-        // Show login prompt for guests
-        const loginBtn = document.createElement('button');
-        loginBtn.className = 'btn btn-primary';
-        loginBtn.textContent = 'LOGIN TO SHOP';
-        loginBtn.onclick = () => {
-          window.location.href = '/users/login.html?redirect=shop.html';
-        };
-        actionsContainer.appendChild(loginBtn);
       }
 
       // Keep original VIEW button if it exists

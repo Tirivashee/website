@@ -166,58 +166,9 @@ class AuthManager {
   }
 
   updateNavbar() {
-    const navbar = document.querySelector('.navbar-menu');
-    if (!navbar) return;
-
-    // Remove existing auth links
-    const existingAuthLinks = navbar.querySelectorAll('.auth-link');
-    existingAuthLinks.forEach(link => link.remove());
-
-    if (this.isAuthenticated()) {
-      // Add authenticated user links
-      const cartLink = document.createElement('a');
-      cartLink.href = '/cart.html';
-      cartLink.className = 'navbar-link auth-link';
-      cartLink.innerHTML = '🛒 CART';
-      
-      const wishlistLink = document.createElement('a');
-      wishlistLink.href = '/wishlist.html';
-      wishlistLink.className = 'navbar-link auth-link';
-      wishlistLink.innerHTML = '🔖 WISHLIST';
-      
-      const accountLink = document.createElement('a');
-      accountLink.href = '#';
-      accountLink.className = 'navbar-link auth-link';
-      accountLink.innerHTML = `👤 ${this.getUserName().toUpperCase()}`;
-      
-      const logoutLink = document.createElement('a');
-      logoutLink.href = '#';
-      logoutLink.className = 'navbar-link auth-link';
-      logoutLink.innerHTML = 'LOGOUT';
-      logoutLink.addEventListener('click', async (e) => {
-        e.preventDefault();
-        await this.signOut();
-      });
-
-      navbar.appendChild(cartLink);
-      navbar.appendChild(wishlistLink);
-      navbar.appendChild(accountLink);
-      navbar.appendChild(logoutLink);
-    } else {
-      // Add guest links
-      const loginLink = document.createElement('a');
-      loginLink.href = '/users/login.html';
-      loginLink.className = 'navbar-link auth-link guest-only';
-      loginLink.innerHTML = 'LOGIN';
-      
-      const signupLink = document.createElement('a');
-      signupLink.href = '/users/signup.html';
-      signupLink.className = 'navbar-link auth-link guest-only';
-      signupLink.innerHTML = 'SIGN UP';
-
-      navbar.appendChild(loginLink);
-      navbar.appendChild(signupLink);
-    }
+    // Navbar structure is managed in HTML
+    // No dynamic link injection needed
+    return;
   }
 }
 
