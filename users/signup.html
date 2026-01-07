@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Create your BALLYLIKE account today! Join Zimbabwe's premier faith-driven fashion community for exclusive deals, early releases & free shipping on first order.">
+  <meta name="keywords" content="BALLYLIKE signup, create account Zimbabwe, register online shopping, BALLYLIKE membership, Zimbabwe fashion signup, online clothing account">
+  <meta name="author" content="BALLYLIKE">
+  <meta name="robots" content="index, follow, max-snippet:-1">
+  <link rel="canonical" href="https://www.ballylike.co.zw/users/signup.html">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.ballylike.co.zw/users/signup.html">
+  <meta property="og:title" content="Sign Up - BALLYLIKE | Join Zimbabwe's Faith-Driven Fashion Community">
+  <meta property="og:description" content="Create your account for exclusive access to trending streetwear, member-only deals, and free shipping on your first order.">
+  <meta property="og:image" content="https://www.ballylike.co.zw/assets/images/og-image.jpg">
+  <meta property="og:site_name" content="BALLYLIKE">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://www.ballylike.co.zw/users/signup.html">
+  <meta name="twitter:title" content="Sign Up - BALLYLIKE">
+  <meta name="twitter:description" content="Join Zimbabwe's faith-driven fashion community today.">
+  <meta name="twitter:site" content="@ballylike">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
+  <title>Sign Up | Create Account - BALLYLIKE Zimbabwe Fashion</title>
+  
+  <!-- Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Sign Up",
+    "description": "Create a BALLYLIKE account for exclusive access to faith-driven fashion in Zimbabwe",
+    "url": "https://www.ballylike.co.zw/users/signup.html",
+    "inLanguage": "en-US",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "BALLYLIKE",
+      "url": "https://www.ballylike.co.zw"
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.ballylike.co.zw"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Sign Up",
+          "item": "https://www.ballylike.co.zw/users/signup.html"
+        }
+      ]
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "BALLYLIKE",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.ballylike.co.zw/assets/images/logo.png"
+      }
+    }
+  }
+  </script>
+  
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  
+  <style>
+    /* Auth Page Specific Styles */
+    body {
+      padding-top: 80px;
+    }
+    
+    .auth-container {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-xl) var(--spacing-md);
+      background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+    }
+    
+    .auth-box {
+      width: 100%;
+      max-width: 500px;
+      border: var(--border);
+      background-color: var(--color-white);
+      padding: var(--spacing-xl);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    
+    .auth-header {
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .auth-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .auth-subtitle {
+      font-size: var(--font-size-xs);
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .form-label {
+      display: block;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: var(--spacing-sm);
+      font-size: var(--font-size-xs);
+      font-family: var(--font-mono);
+      border: var(--border);
+      background-color: var(--color-white);
+      transition: all var(--transition-fast);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-black);
+      background-color: var(--color-light);
+    }
+    
+    .form-input::placeholder {
+      opacity: 0.5;
+      text-transform: uppercase;
+      font-size: 0.85em;
+    }
+    
+    .form-checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+    }
+    
+    .form-checkbox {
+      width: 18px;
+      height: 18px;
+      border: var(--border);
+      cursor: pointer;
+    }
+    
+    .form-checkbox-label {
+      font-size: var(--font-size-xs);
+      opacity: 0.7;
+      cursor: pointer;
+    }
+    
+    .form-submit {
+      width: 100%;
+      margin-top: var(--spacing-lg);
+    }
+    
+    .auth-divider {
+      text-align: center;
+      margin: var(--spacing-lg) 0;
+      position: relative;
+    }
+    
+    .auth-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: var(--color-black);
+    }
+    
+    .auth-divider-text {
+      position: relative;
+      display: inline-block;
+      padding: 0 var(--spacing-md);
+      background-color: var(--color-white);
+      font-size: var(--font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+    }
+    
+    .auth-link {
+      text-align: center;
+      margin-top: var(--spacing-lg);
+      font-size: var(--font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .auth-link a {
+      color: var(--color-black);
+      text-decoration: underline;
+      font-weight: var(--font-weight-medium);
+    }
+    
+    .auth-link a:hover {
+      opacity: 0.6;
+    }
+    
+    .form-error {
+      color: #d32f2f;
+      font-size: var(--font-size-xs);
+      margin-top: var(--spacing-xs);
+      display: none;
+    }
+    
+    .form-group.error .form-input {
+      border-color: #d32f2f;
+    }
+    
+    .form-group.error .form-error {
+      display: block;
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding-top: 70px;
+      }
+      
+      .auth-container {
+        padding: var(--spacing-lg) var(--spacing-sm);
+      }
+      
+      .auth-box {
+        padding: var(--spacing-lg);
+      }
+      
+      .auth-title {
+        font-size: var(--font-size-md);
+        letter-spacing: 0.15em;
+      }
+      
+      .form-input {
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .auth-container {
+        padding: var(--spacing-md) var(--spacing-xs);
+      }
+      
+      .auth-box {
+        padding: var(--spacing-md);
+      }
+      
+      .auth-title {
+        font-size: var(--font-size-sm);
+        letter-spacing: 0.1em;
+      }
+      
+      .auth-subtitle,
+      .form-label,
+      .form-checkbox-label,
+      .auth-link {
+        font-size: 0.75em;
+      }
+      
+      .form-group {
+        margin-bottom: var(--spacing-sm);
+      }
+      
+      .btn-large {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: var(--font-size-xs);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="../index.html" class="navbar-logo">
+        BALLY<span>LIKE*</span>
+      </a>
+      
+      <div class="navbar-menu" id="navbarMenu">
+        <a href="../index.html" class="navbar-link">HOME</a>
+        <a href="../shop.html" class="navbar-link">SHOP</a>
+        <a href="../gallery.html" class="navbar-link">GALLERY</a>
+        <a href="../about.html" class="navbar-link">ABOUT</a>
+        <a href="#contact" class="navbar-link">CONTACT</a>
+      </div>
+      
+      <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <div class="auth-container">
+      <div class="auth-box animate-fade-in-up">
+        <div class="auth-header">
+          <h1 class="auth-title">CREATE ACCOUNT</h1>
+          <p class="auth-subtitle">Join the BALLYLIKE community</p>
+        </div>
+        
+        <form id="signupForm" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="fullName" class="form-label">Full Name *</label>
+            <input 
+              type="text" 
+              id="fullName" 
+              name="fullName" 
+              class="form-input" 
+              placeholder="John Doe"
+              required
+            >
+            <span class="form-error">Please enter your full name</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address *</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              placeholder="your@email.com"
+              required
+            >
+            <span class="form-error">Please enter a valid email address</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone" 
+              class="form-input" 
+              placeholder="+263 78 123 4567"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="password" class="form-label">Password *</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Min. 8 characters"
+              required
+              minlength="8"
+            >
+            <span class="form-error">Password must be at least 8 characters</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="confirmPassword" class="form-label">Confirm Password *</label>
+            <input 
+              type="password" 
+              id="confirmPassword" 
+              name="confirmPassword" 
+              class="form-input" 
+              placeholder="Re-enter password"
+              required
+            >
+            <span class="form-error">Passwords do not match</span>
+          </div>
+          
+          <div class="form-group">
+            <div class="form-checkbox-group">
+              <input 
+                type="checkbox" 
+                id="newsletter" 
+                name="newsletter" 
+                class="form-checkbox"
+              >
+              <label for="newsletter" class="form-checkbox-label">
+                Subscribe to newsletter for exclusive offers
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="form-checkbox-group">
+              <input 
+                type="checkbox" 
+                id="terms" 
+                name="terms" 
+                class="form-checkbox"
+                required
+              >
+              <label for="terms" class="form-checkbox-label">
+                I agree to the <a href="terms.html" target="_blank" style="color: var(--color-black); text-decoration: underline;">Terms & Conditions</a> *
+              </label>
+            </div>
+            <span class="form-error">You must accept the terms and conditions</span>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-large form-submit">
+            CREATE ACCOUNT
+          </button>
+        </form>
+        
+        <div class="auth-divider">
+          <span class="auth-divider-text">Or</span>
+        </div>
+        
+        <div class="auth-link">
+          Already have an account? <a href="login.html">LOG IN</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content container">
+      <div class="footer-section">
+        <h3>BALLYLIKE*</h3>
+        <p style="font-size: var(--font-size-xs); opacity: 0.7; max-width: 300px;">
+          FAITH × CULTURE × DESIGN<br>
+          Zimbabwean fashion brand blending faith, urban culture, and artistic expression.
+        </p>
+        <div class="footer-social">
+          <a href="https://instagram.com/ballylike_shop" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <a href="https://tiktok.com/@ballylike" class="social-icon" aria-label="TikTok" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+            </svg>
+          </a>
+          <a href="https://facebook.com/ballylikebrand" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/263781457106" class="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>LINKS</h3>
+        <div class="footer-links">
+          <a href="../index.html" class="footer-link">HOME</a>
+          <a href="../shop.html" class="footer-link">SHOP</a>
+          <a href="../gallery.html" class="footer-link">GALLERY</a>
+          <a href="../about.html" class="footer-link">ABOUT</a>
+          <a href="#contact" class="footer-link">CONTACT</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>CONTACT</h3>
+        <div class="footer-links">
+          <p style="font-size: var(--font-size-xs); opacity: 0.7;">
+            INFO@BALLYLIKE.CO.ZW<br>
+            +263 78 145 7106<br>
+            +263 78 395 2546<br>
+            HARARE, ZIMBABWE
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom container">
+      <p>© 2025 BALLYLIKE*. ALL RIGHTS RESERVED. | BALLYLIKE.CO.ZW</p>
+    </div>
+  </footer>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/main.js"></script>
+  
+  <script>
+    // Check if already logged in
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.authManager?.isAuthenticated()) {
+        window.location.href = '../index.html';
+      }
+    });
+
+    // Form validation and submission
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Clear previous errors
+      document.querySelectorAll('.form-group').forEach(group => {
+        group.classList.remove('error');
+      });
+      
+      let isValid = true;
+      
+      // Validate full name
+      const fullNameInput = document.getElementById('fullName');
+      if (!fullNameInput.value.trim()) {
+        fullNameInput.closest('.form-group').classList.add('error');
+        isValid = false;
+      }
+      
+      // Validate email
+      const emailInput = document.getElementById('email');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailInput.value.trim() || !emailRegex.test(emailInput.value)) {
+        emailInput.closest('.form-group').classList.add('error');
+        isValid = false;
+      }
+      
+      // Validate password
+      const passwordInput = document.getElementById('password');
+      if (passwordInput.value.length < 8) {
+        passwordInput.closest('.form-group').classList.add('error');
+        isValid = false;
+      }
+      
+      // Validate confirm password
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+      if (confirmPasswordInput.value !== passwordInput.value) {
+        confirmPasswordInput.closest('.form-group').classList.add('error');
+        isValid = false;
+      }
+      
+      // Validate terms
+      const termsInput = document.getElementById('terms');
+      if (!termsInput.checked) {
+        termsInput.closest('.form-group').classList.add('error');
+        isValid = false;
+      }
+      
+      if (!isValid) return;
+
+      // Disable submit button
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'CREATING ACCOUNT...';
+      
+      // Register with Supabase
+      const result = await window.authManager.signUp(
+        emailInput.value,
+        passwordInput.value,
+        fullNameInput.value
+      );
+      
+      if (result.success) {
+        alert('Account created successfully! Please check your email to verify your account.');
+        window.location.href = 'login.html';
+      } else {
+        alert('Registration failed: ' + result.error);
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    });
+  </script>
+</body>
+</html>

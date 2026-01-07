@@ -11,9 +11,9 @@ if (navbarToggle && navbarMenu) {
     
     // Prevent body scroll when menu is open
     if (navbarMenu.classList.contains('active')) {
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('menu-open');
     } else {
-      document.body.style.overflow = '';
+      document.body.classList.remove('menu-open');
     }
   });
 
@@ -23,7 +23,7 @@ if (navbarToggle && navbarMenu) {
     link.addEventListener('click', () => {
       navbarToggle.classList.remove('active');
       navbarMenu.classList.remove('active');
-      document.body.style.overflow = '';
+      document.body.classList.remove('menu-open');
     });
   });
 
@@ -32,7 +32,7 @@ if (navbarToggle && navbarMenu) {
     if (!navbarToggle.contains(e.target) && !navbarMenu.contains(e.target)) {
       navbarToggle.classList.remove('active');
       navbarMenu.classList.remove('active');
-      document.body.style.overflow = '';
+      document.body.classList.remove('menu-open');
     }
   });
 }

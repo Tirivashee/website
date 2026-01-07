@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Checkout - BALLYLIKE</title>
+  
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/navigation.css">
+  
+  <style>
+    body {
+      padding-top: 80px;
+      background: #f5f5f5;
+    }
+
+    .checkout-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    .checkout-header {
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .checkout-header h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .checkout-notice {
+      background: #FFF3CD;
+      border: 3px solid #FFC107;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .checkout-notice h3 {
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .checkout-notice p {
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+    }
+
+    .checkout-content {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: var(--spacing-xl);
+    }
+
+    .checkout-form {
+      background: var(--color-white);
+      border: 3px solid var(--color-black);
+      padding: var(--spacing-xl);
+    }
+
+    .form-section {
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .form-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-section h2 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-md);
+      padding-bottom: var(--spacing-sm);
+      border-bottom: 2px solid var(--color-gray-200);
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-xs);
+      font-size: var(--font-size-sm);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: var(--spacing-sm);
+      border: 2px solid var(--color-black);
+      font-size: var(--font-size-md);
+      font-family: var(--font-primary);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-black);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .order-summary {
+      background: var(--color-white);
+      border: 3px solid var(--color-black);
+      padding: var(--spacing-md);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .order-summary h2 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-md);
+      padding-bottom: var(--spacing-sm);
+      border-bottom: 2px solid var(--color-gray-200);
+    }
+
+    .order-item {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+
+    .order-item:last-child {
+      border-bottom: none;
+    }
+
+    .order-item-image {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 2px solid var(--color-black);
+    }
+
+    .order-item-details {
+      flex: 1;
+    }
+
+    .order-item-name {
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-sm);
+      margin-bottom: 4px;
+    }
+
+    .order-item-variant {
+      font-size: var(--font-size-xs);
+      color: var(--color-gray-600);
+    }
+
+    .order-item-price {
+      font-weight: var(--font-weight-bold);
+      text-align: right;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-sm);
+      font-size: var(--font-size-md);
+    }
+
+    .summary-row.total {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      padding-top: var(--spacing-sm);
+      border-top: 2px solid var(--color-black);
+      margin-top: var(--spacing-md);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: var(--spacing-md);
+      background: var(--color-black);
+      color: var(--color-white);
+      border: 3px solid var(--color-black);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      cursor: pointer;
+      margin-top: var(--spacing-md);
+      transition: var(--transition-base);
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: var(--color-white);
+      color: var(--color-black);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .error-message {
+      color: #d32f2f;
+      font-size: var(--font-size-sm);
+      margin-top: var(--spacing-xs);
+      display: none;
+    }
+
+    .success-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-modal.show {
+      display: flex;
+    }
+
+    .success-content {
+      background: var(--color-white);
+      border: 5px solid var(--color-black);
+      padding: var(--spacing-xl);
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .success-content h2 {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .success-content p {
+      font-size: var(--font-size-md);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .order-number {
+      font-family: var(--font-mono);
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      padding: var(--spacing-sm);
+      background: var(--color-gray-100);
+      border: 2px solid var(--color-black);
+      margin: var(--spacing-md) 0;
+    }
+
+    @media (max-width: 768px) {
+      .checkout-content {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .order-summary {
+        position: static;
+      }
+    }
+  </style>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">
+        BALLY<span>LIKE*</span>
+      </a>
+      
+      <div class="navbar-menu" id="navbarMenu">
+        <div class="navbar-actions">
+          <a href="users/login.html" class="navbar-icon" aria-label="Login" title="Login">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </a>
+          <a href="wishlist.html" class="navbar-icon" aria-label="Wishlist" title="Wishlist">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="navbar-badge" id="wishlistCount">0</span>
+          </a>
+          <a href="cart.html" class="navbar-icon" aria-label="Cart" title="Cart">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span class="navbar-badge" id="cartCount">0</span>
+          </a>
+        </div>
+        
+        <a href="index.html" class="navbar-link">HOME</a>
+        <a href="shop.html" class="navbar-link">SHOP</a>
+        <a href="gallery.html" class="navbar-link">GALLERY</a>
+        <a href="about.html" class="navbar-link">ABOUT</a>
+        <a href="#contact" class="navbar-link">CONTACT</a>
+      </div>
+      
+      <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="checkout-container">
+      <div class="checkout-header">
+        <h1>CHECKOUT</h1>
+      </div>
+
+      <div class="checkout-notice">
+        <h3>⚠️ Important Information</h3>
+        <p>No payment is required at this time. After you submit your order, our team will review it and contact you to arrange payment and delivery. We accept various payment methods and will discuss all details with you personally.</p>
+      </div>
+
+      <div class="checkout-content">
+        <div class="checkout-form">
+          <form id="checkoutForm">
+            <div class="form-section">
+              <h2>CONTACT INFORMATION</h2>
+              <div class="form-group">
+                <label for="full_name">Full Name *</label>
+                <input type="text" id="full_name" name="full_name" required>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number *</label>
+                  <input type="tel" id="phone" name="phone" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>DELIVERY ADDRESS</h2>
+              <div class="form-group">
+                <label for="address_line1">Street Address *</label>
+                <input type="text" id="address_line1" name="address_line1" required>
+              </div>
+              <div class="form-group">
+                <label for="address_line2">Apartment, Suite, etc. (Optional)</label>
+                <input type="text" id="address_line2" name="address_line2">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city">City *</label>
+                  <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                  <label for="postal_code">Postal Code</label>
+                  <input type="text" id="postal_code" name="postal_code">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="country">Country *</label>
+                <input type="text" id="country" name="country" value="Zimbabwe" required>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>ADDITIONAL NOTES</h2>
+              <div class="form-group">
+                <label for="notes">Order Notes (Optional)</label>
+                <textarea id="notes" name="notes" placeholder="Any special instructions or preferences..."></textarea>
+              </div>
+            </div>
+
+            <div class="error-message" id="formError"></div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+              SUBMIT ORDER
+            </button>
+          </form>
+        </div>
+
+        <div class="order-summary">
+          <h2>ORDER SUMMARY</h2>
+          <div id="orderItems">
+            <!-- Order items will be rendered here -->
+          </div>
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span id="subtotal">$0.00</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping:</span>
+            <span>To be confirmed</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total:</span>
+            <span id="total">$0.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="success-modal" id="successModal">
+    <div class="success-content">
+      <h2>✓ ORDER SUBMITTED!</h2>
+      <p>Thank you for your order! We have received your information and will contact you shortly to arrange payment and delivery.</p>
+      <div class="order-number" id="orderNumber">
+        ORDER #: <span id="orderIdDisplay">-</span>
+      </div>
+      <p style="font-size: var(--font-size-sm); color: var(--color-gray-600);">
+        You will receive a confirmation email at <span id="confirmEmail"></span>
+      </p>
+      <button class="btn btn-primary" onclick="window.location.href='index.html'" style="margin-top: var(--spacing-md);">
+        CONTINUE SHOPPING
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->\n  <footer class=\"footer\" id=\"contact\">\n    <div class=\"footer-content container\">\n      <div class=\"footer-section\">\n        <h3>BALLYLIKE*</h3>\n        <p style=\"font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-top: var(--spacing-md); line-height: 1.8;\">\n          FASHION BRAND BLENDING FAITH, URBAN CULTURE, AND ARTISTIC EXPRESSION. BASED IN HARARE, ZIMBABWE.\n        </p>\n        <div class=\"footer-social\">\n          <a href=\"https://instagram.com/ballylike_shop\" class=\"social-icon\" aria-label=\"Instagram\" target=\"_blank\" rel=\"noopener\">\n            <svg width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 24 24\">\n              <path d=\"M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z\"/>\n            </svg>\n          </a>\n          <a href=\"https://tiktok.com/@ballylike\" class=\"social-icon\" aria-label=\"TikTok\" target=\"_blank\" rel=\"noopener\">\n            <svg width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 24 24\">\n              <path d=\"M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z\"/>\n            </svg>\n          </a>\n          <a href=\"https://facebook.com/ballylikebrand\" class=\"social-icon\" aria-label=\"Facebook\" target=\"_blank\" rel=\"noopener\">\n            <svg width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 24 24\">\n              <path d=\"M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z\"/>\n            </svg>\n          </a>\n          <a href=\"https://wa.me/263781457106\" class=\"social-icon\" aria-label=\"WhatsApp\" target=\"_blank\" rel=\"noopener\">\n            <svg width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 24 24\">\n              <path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z\"/>\n            </svg>\n          </a>\n        </div>\n      </div>\n      \n      <div class=\"footer-section\">\n        <h3>LINKS</h3>\n        <div class=\"footer-links\">\n          <a href=\"index.html\" class=\"footer-link\">HOME</a>\n          <a href=\"shop.html\" class=\"footer-link\">SHOP</a>\n          <a href=\"gallery.html\" class=\"footer-link\">GALLERY</a>\n          <a href=\"about.html\" class=\"footer-link\">ABOUT</a>\n          <a href=\"#contact\" class=\"footer-link\">CONTACT</a>\n        </div>\n      </div>\n      \n      <div class=\"footer-section\">\n        <h3>SUPPORT</h3>\n        <div class=\"footer-links\">\n          <a href=\"#\" class=\"footer-link\">SHIPPING</a>\n          <a href=\"#\" class=\"footer-link\">RETURNS</a>\n          <a href=\"#\" class=\"footer-link\">SIZE GUIDE</a>\n          <a href=\"#\" class=\"footer-link\">FAQ</a>\n        </div>\n      </div>\n      \n      <div class=\"footer-section\">\n        <h3>CONTACT</h3>\n        <div class=\"footer-links\">\n          <p style=\"font-size: var(--font-size-xs); opacity: 0.7;\">\n            INFO@BALLYLIKE.CO.ZW<br>\n            +263 78 145 7106<br>\n            +263 78 395 2546<br>\n            HARARE, ZIMBABWE\n          </p>\n        </div>\n      </div>\n    </div>\n    \n    <div class=\"footer-bottom container\">\n      <p>© 2025 BALLYLIKE*. ALL RIGHTS RESERVED. | BALLYLIKE.CO.ZW</p>\n    </div>\n  </footer>\n\n  <!-- Scripts -->
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/orders.js"></script>
+  <script src="js/wishlist.js"></script>
+  <script src="js/nav-badges.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    // Checkout page logic
+    document.addEventListener('DOMContentLoaded', async function() {
+      // Check authentication
+      if (!window.authManager?.isAuthenticated()) {
+        alert('Please login to checkout');
+        window.location.href = '/users/login.html?redirect=checkout.html';
+        return;
+      }
+
+      // Check if cart is empty
+      if (!window.cartManager || window.cartManager.cart.length === 0) {
+        alert('Your cart is empty');
+        window.location.href = '/shop.html';
+        return;
+      }
+
+      // Populate form with user data
+      const email = window.authManager.getUserEmail();
+      const name = window.authManager.getUserName();
+      document.getElementById('email').value = email;
+      document.getElementById('full_name').value = name;
+
+      // Render order summary
+      renderOrderSummary();
+
+      // Handle form submission
+      document.getElementById('checkoutForm').addEventListener('submit', handleCheckoutSubmit);
+    });
+
+    function renderOrderSummary() {
+      const orderItemsContainer = document.getElementById('orderItems');
+      const cart = window.cartManager.cart;
+
+      orderItemsContainer.innerHTML = cart.map(item => `
+        <div class="order-item">
+          <img src="${item.product_image}" alt="${item.product_name}" class="order-item-image">
+          <div class="order-item-details">
+            <div class="order-item-name">${item.product_name}</div>
+            <div class="order-item-variant">Qty: ${item.quantity}</div>
+            ${item.size ? `<div class="order-item-variant">Size: ${item.size}</div>` : ''}
+          </div>
+          <div class="order-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+        </div>
+      `).join('');
+
+      const total = window.cartManager.getTotal();
+      document.getElementById('subtotal').textContent = `$${total.toFixed(2)}`;
+      document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+    }
+
+    async function handleCheckoutSubmit(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submitBtn');
+      const errorMsg = document.getElementById('formError');
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'SUBMITTING...';
+      errorMsg.style.display = 'none';
+
+      // Get form data
+      const formData = new FormData(e.target);
+      const orderData = {
+        full_name: formData.get('full_name'),
+        phone: formData.get('phone'),
+        address_line1: formData.get('address_line1'),
+        address_line2: formData.get('address_line2'),
+        city: formData.get('city'),
+        postal_code: formData.get('postal_code'),
+        country: formData.get('country'),
+        notes: formData.get('notes'),
+        items: window.cartManager.cart,
+        subtotal: window.cartManager.getTotal(),
+        shipping: 0,
+        total: window.cartManager.getTotal()
+      };
+
+      // Submit order
+      const result = await window.orderManager.createOrder(orderData);
+
+      if (result.success) {
+        // Show success modal
+        document.getElementById('orderIdDisplay').textContent = result.order.id.substring(0, 8).toUpperCase();
+        document.getElementById('confirmEmail').textContent = orderData.full_name;
+        document.getElementById('successModal').classList.add('show');
+      } else {
+        errorMsg.textContent = 'Failed to submit order: ' + result.error;
+        errorMsg.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'SUBMIT ORDER';
+      }
+    }
+  </script>
+</body>
+</html>

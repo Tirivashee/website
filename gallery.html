@@ -78,6 +78,7 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/navigation.css">
   
   <style>
     /* Lookbook Styles */
@@ -135,6 +136,12 @@
       border-bottom: 3px solid #000;
       z-index: 100;
       padding: 1.5rem 0;
+    }
+    
+    /* Hide section nav when mobile menu is open */
+    body.menu-open .section-nav {
+      opacity: 0;
+      pointer-events: none;
     }
     
     .section-nav-container {
@@ -427,9 +434,32 @@
       </a>
       
       <div class="navbar-menu" id="navbarMenu">
+        <div class="navbar-actions">
+          <a href="users/login.html" class="navbar-icon" aria-label="Login" title="Login">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </a>
+          <a href="wishlist.html" class="navbar-icon" aria-label="Wishlist" title="Wishlist">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="navbar-badge" id="wishlistCount">0</span>
+          </a>
+          <a href="cart.html" class="navbar-icon" aria-label="Cart" title="Cart">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span class="navbar-badge" id="cartCount">0</span>
+          </a>
+        </div>
+        
         <a href="index.html" class="navbar-link">HOME</a>
         <a href="shop.html" class="navbar-link">SHOP</a>
-        <a href="gallery.html" class="navbar-link active">LOOKBOOK</a>
+        <a href="gallery.html" class="navbar-link active">GALLERY</a>
         <a href="about.html" class="navbar-link">ABOUT</a>
         <a href="#contact" class="navbar-link">CONTACT</a>
       </div>
@@ -466,32 +496,62 @@
   <section id="featured" class="featured-lookbook">
     <div class="lookbook-grid">
       <!-- Large Feature 1 -->
-      <div class="lookbook-item grid-large">
+      <div class="lookbook-item grid-large" data-post-id="post-1">
         <img src="assets/images/urban/1.jpg" alt="Faith-Driven Fashion Zimbabwe">
         <span class="lookbook-item-tag">NEW</span>
         <div class="lookbook-item-overlay">
           <h3 class="lookbook-item-title">Faith Essentials</h3>
+          <div class="lookbook-item-interactions" style="display: flex; gap: 15px; margin-top: 10px;">
+            <button class="like-btn" data-post-id="post-1" style="background: rgba(255,255,255,0.2); border: 2px solid white; padding: 8px 15px; color: white; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+              <span class="like-icon">🤍</span>
+              <span class="like-count">0</span>
+            </button>
+            <button class="comment-toggle-btn" data-post-id="post-1" style="background: rgba(255,255,255,0.2); border: 2px solid white; padding: 8px 15px; color: white; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+              <span>💬</span>
+              <span class="comment-count" data-post-id="post-1">0</span>
+            </button>
+          </div>
         </div>
       </div>
       
       <!-- Medium Items -->
-      <div class="lookbook-item grid-medium">
+      <div class="lookbook-item grid-medium" data-post-id="post-2">
         <img src="assets/images/urban/3.jpg" alt="Urban Streetwear Collection">
         <div class="lookbook-item-overlay">
           <h3 class="lookbook-item-title">Urban Edge</h3>
+          <div class="lookbook-item-interactions" style="display: flex; gap: 15px; margin-top: 10px;">
+            <button class="like-btn" data-post-id="post-2" style="background: rgba(255,255,255,0.2); border: 2px solid white; padding: 8px 15px; color: white; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+              <span class="like-icon">🤍</span>
+              <span class="like-count">0</span>
+            </button>
+            <button class="comment-toggle-btn" data-post-id="post-2" style="background: rgba(255,255,255,0.2); border: 2px solid white; padding: 8px 15px; color: white; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+              <span>💬</span>
+              <span class="comment-count" data-post-id="post-2">0</span>
+            </button>
+          </div>
         </div>
       </div>
       
-      <div class="lookbook-item grid-medium">
+      <div class="lookbook-item grid-medium" data-post-id="post-3">
         <img src="assets/images/urban/7.jpg" alt="Performance Fashion Zimbabwe">
         <span class="lookbook-item-tag">TRENDING</span>
         <div class="lookbook-item-overlay">
           <h3 class="lookbook-item-title">Performance</h3>
+          <div class="lookbook-item-interactions" style="display: flex; gap: 15px; margin-top: 10px;">
+            <button class="like-btn" data-post-id="post-3" style="background: rgba(255,255,255,0.2); border: 2px solid white; padding: 8px 15px; color: white; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+              <span class="like-icon">🤍</span>
+              <span class="like-count">0</span>
+            </button>
+            <button class="comment-toggle-btn" data-post-id="post-3" style="background: rgba(255,255,255,0.2); border: 2px solid white; padding: 8px 15px; color: white; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+              <span>💬</span>
+              <span class="comment-count" data-post-id="post-3">0</span>
+            </button>
+          </div>
         </div>
       </div>
       
       <!-- Small Items -->
-      <div class="lookbook-item grid-small">
+      <div class="lookbook-item grid-small" data-post-id="post-4">
         <img src="assets/images/urban/10.jpg" alt="Zimbabwe Fashion Photography">
         <div class="lookbook-item-overlay">
           <h3 class="lookbook-item-title">Lifestyle</h3>
@@ -751,11 +811,120 @@
     </svg>
   </button>
 
+  <!-- Supabase Integration -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/wishlist.js"></script>
+  <script src="js/nav-badges.js"></script>
+  <script src="js/gallery.js"></script>
+  
   <script src="js/main.js"></script>
   <script src="js/scroll.js"></script>
   <script src="js/animations.js"></script>
   
   <script>
+    // Handle like button clicks
+    document.addEventListener('click', async (e) => {
+      if (e.target.closest('.like-btn')) {
+        const btn = e.target.closest('.like-btn');
+        const postId = btn.dataset.postId;
+        
+        if (window.galleryInteraction) {
+          await window.galleryInteraction.toggleLike(postId);
+        }
+      }
+    });
+
+    // Handle comment toggle (show comment section)
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.comment-toggle-btn')) {
+        const btn = e.target.closest('.comment-toggle-btn');
+        const postId = btn.dataset.postId;
+        
+        // Create or toggle comment modal
+        let modal = document.getElementById('comment-modal-' + postId);
+        if (!modal) {
+          modal = createCommentModal(postId);
+          document.body.appendChild(modal);
+        }
+        modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+      }
+    });
+
+    // Create comment modal
+    function createCommentModal(postId) {
+      const modal = document.createElement('div');
+      modal.id = 'comment-modal-' + postId;
+      modal.style.cssText = `
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        padding: 20px;
+      `;
+
+      modal.innerHTML = `
+        <div style="background: white; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; padding: 30px; border: 3px solid black;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="font-size: 20px; font-weight: bold;">COMMENTS</h3>
+            <button onclick="this.closest('[id^=comment-modal]').style.display='none'" style="font-size: 24px; border: none; background: none; cursor: pointer;">×</button>
+          </div>
+          
+          ${window.authManager?.isAuthenticated() ? `
+            <div style="margin-bottom: 20px;">
+              <textarea id="comment-input-${postId}" placeholder="Write a comment..." style="width: 100%; min-height: 80px; padding: 10px; border: 2px solid black; font-family: inherit; resize: vertical;"></textarea>
+              <button onclick="submitComment('${postId}')" style="margin-top: 10px; padding: 10px 20px; background: black; color: white; border: 3px solid black; font-weight: bold; cursor: pointer;">
+                POST COMMENT
+              </button>
+            </div>
+          ` : `
+            <div style="text-align: center; padding: 20px; background: #f5f5f5; margin-bottom: 20px;">
+              <p style="margin-bottom: 10px;">Please login to comment</p>
+              <a href="/users/login.html?redirect=gallery.html" style="padding: 10px 20px; background: black; color: white; text-decoration: none; display: inline-block;">
+                LOGIN
+              </a>
+            </div>
+          `}
+          
+          <div class="comments-container" data-post-id="${postId}">
+            Loading comments...
+          </div>
+        </div>
+      `;
+
+      // Close on background click
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+
+      return modal;
+    }
+
+    // Submit comment
+    window.submitComment = async function(postId) {
+      const input = document.getElementById('comment-input-' + postId);
+      const text = input.value.trim();
+      
+      if (!text) {
+        alert('Please enter a comment');
+        return;
+      }
+
+      if (window.galleryInteraction) {
+        const result = await window.galleryInteraction.addComment(postId, text);
+        if (result.success) {
+          input.value = '';
+        }
+      }
+    };
+    
     // Preload critical images
     function preloadImages(imageUrls) {
       imageUrls.forEach(url => {
