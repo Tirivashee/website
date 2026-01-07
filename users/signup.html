@@ -341,8 +341,12 @@
               class="form-input" 
               placeholder="John Doe"
               required
+              autocomplete="name"
+              minlength="2"
+              maxlength="100"
+              pattern="[A-Za-z\s]+"
             >
-            <span class="form-error">Please enter your full name</span>
+            <span class="form-error">Please enter your full name (letters only)</span>
           </div>
           
           <div class="form-group">
@@ -354,6 +358,9 @@
               class="form-input" 
               placeholder="your@email.com"
               required
+              autocomplete="email"
+              maxlength="254"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             >
             <span class="form-error">Please enter a valid email address</span>
           </div>
@@ -366,6 +373,9 @@
               name="phone" 
               class="form-input" 
               placeholder="+263 78 123 4567"
+              autocomplete="tel"
+              maxlength="20"
+              pattern="[+]?[0-9\s-]{10,20}"
             >
           </div>
           
@@ -376,11 +386,13 @@
               id="password" 
               name="password" 
               class="form-input" 
-              placeholder="Min. 8 characters"
+              placeholder="Min. 8 characters (include letters & numbers)"
               required
+              autocomplete="new-password"
               minlength="8"
+              maxlength="128"
             >
-            <span class="form-error">Password must be at least 8 characters</span>
+            <span class="form-error">Password must be at least 8 characters with letters and numbers</span>
           </div>
           
           <div class="form-group">
@@ -392,6 +404,9 @@
               class="form-input" 
               placeholder="Re-enter password"
               required
+              autocomplete="new-password"
+              minlength="8"
+              maxlength="128"
             >
             <span class="form-error">Passwords do not match</span>
           </div>
@@ -508,6 +523,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../js/supabase-config.js"></script>
   <script src="../js/auth.js"></script>
+  <script src="../js/notifications.js"></script>
   <script src="../js/main.js"></script>
   
   <script>
@@ -517,6 +533,31 @@
         window.location.href = '../index.html';
       }
     });
+
+    // Sanitize input to prevent XSS
+    function sanitizeInput(input) {
+      const temp = document.createElement('div');
+      temp.textContent = input;
+      return temp.innerHTML.trim();
+    }
+
+    // Check password strength
+    function validatePassword(password) {
+      const errors = [];
+      if (password.length < 8) {
+        errors.push('Password must be at least 8 characters');
+      }
+      if (password.length > 128) {
+        errors.push('Password is too long');
+      }
+      if (!/[a-zA-Z]/.test(password)) {
+        errors.push('Password must contain at least one letter');
+      }
+      if (!/[0-9]/.test(password)) {
+        errors.push('Password must contain at least one number');
+      }
+      return errors;
+    }
 
     // Form validation and submission
     document.getElementById('signupForm').addEventListener('submit', async function(e) {
@@ -528,33 +569,71 @@
       });
       
       let isValid = true;
+      let errorMessages = [];
       
-      // Validate full name
+      // Validate and sanitize full name
       const fullNameInput = document.getElementById('fullName');
-      if (!fullNameInput.value.trim()) {
+      const fullNameValue = sanitizeInput(fullNameInput.value);
+      const nameRegex = /^[A-Za-z\s]+$/;
+      
+      if (!fullNameValue || fullNameValue.length < 2) {
         fullNameInput.closest('.form-group').classList.add('error');
+        errorMessages.push('Full name is required (minimum 2 characters)');
+        isValid = false;
+      } else if (fullNameValue.length > 100) {
+        fullNameInput.closest('.form-group').classList.add('error');
+        errorMessages.push('Full name is too long');
+        isValid = false;
+      } else if (!nameRegex.test(fullNameValue)) {
+        fullNameInput.closest('.form-group').classList.add('error');
+        errorMessages.push('Full name should only contain letters and spaces');
         isValid = false;
       }
       
-      // Validate email
+      // Validate and sanitize email
       const emailInput = document.getElementById('email');
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailInput.value.trim() || !emailRegex.test(emailInput.value)) {
+      const emailValue = sanitizeInput(emailInput.value);
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      
+      if (!emailValue || emailValue.length > 254) {
         emailInput.closest('.form-group').classList.add('error');
+        errorMessages.push('Email address is required');
+        isValid = false;
+      } else if (!emailRegex.test(emailValue)) {
+        emailInput.closest('.form-group').classList.add('error');
+        errorMessages.push('Please enter a valid email address');
         isValid = false;
       }
       
-      // Validate password
+      // Validate phone (optional)
+      const phoneInput = document.getElementById('phone');
+      const phoneValue = sanitizeInput(phoneInput.value);
+      const phoneRegex = /^[+]?[0-9\s-]{10,20}$/;
+      
+      if (phoneValue && !phoneRegex.test(phoneValue)) {
+        phoneInput.closest('.form-group').classList.add('error');
+        errorMessages.push('Please enter a valid phone number');
+        isValid = false;
+      }
+      
+      // Validate password strength
       const passwordInput = document.getElementById('password');
-      if (passwordInput.value.length < 8) {
+      const passwordValue = passwordInput.value;
+      const passwordErrors = validatePassword(passwordValue);
+      
+      if (passwordErrors.length > 0) {
         passwordInput.closest('.form-group').classList.add('error');
+        errorMessages.push(...passwordErrors);
         isValid = false;
       }
       
       // Validate confirm password
       const confirmPasswordInput = document.getElementById('confirmPassword');
-      if (confirmPasswordInput.value !== passwordInput.value) {
+      const confirmPasswordValue = confirmPasswordInput.value;
+      
+      if (confirmPasswordValue !== passwordValue) {
         confirmPasswordInput.closest('.form-group').classList.add('error');
+        errorMessages.push('Passwords do not match');
         isValid = false;
       }
       
@@ -562,10 +641,14 @@
       const termsInput = document.getElementById('terms');
       if (!termsInput.checked) {
         termsInput.closest('.form-group').classList.add('error');
+        errorMessages.push('You must accept the Terms of Service');
         isValid = false;
       }
       
-      if (!isValid) return;
+      if (!isValid) {
+        window.notificationManager.showMultiple(errorMessages, 'error');
+        return;
+      }
 
       // Disable submit button
       const submitBtn = this.querySelector('button[type="submit"]');
@@ -573,18 +656,51 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'CREATING ACCOUNT...';
       
-      // Register with Supabase
-      const result = await window.authManager.signUp(
-        emailInput.value,
-        passwordInput.value,
-        fullNameInput.value
-      );
-      
-      if (result.success) {
-        alert('Account created successfully! Please check your email to verify your account.');
-        window.location.href = 'login.html';
-      } else {
-        alert('Registration failed: ' + result.error);
+      try {
+        // Check if authManager is available
+        if (!window.authManager) {
+          console.error('AuthManager not initialized');
+          window.notificationManager.error('Authentication system not ready. Please refresh the page.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+          return;
+        }
+
+        console.log('Attempting to create account for:', emailValue.toLowerCase());
+        
+        // Register with Supabase
+        const result = await window.authManager.signUp(
+          emailValue.toLowerCase(),
+          passwordValue,
+          fullNameValue
+        );
+        
+        console.log('Signup result:', result);
+        
+        if (result.success) {
+          window.notificationManager.success('Account created successfully! Please check your email to verify.', 0);
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 3000);
+        } else {
+          let errorMsg = '';
+          if (result.error.includes('already registered')) {
+            errorMsg = 'This email is already registered. Please log in instead.';
+          } else if (result.error.includes('invalid email')) {
+            errorMsg = 'Please enter a valid email address.';
+          } else if (result.error.includes('weak password')) {
+            errorMsg = 'Password is too weak. Please use a stronger password.';
+          } else {
+            errorMsg = result.error;
+          }
+          console.error('Signup failed:', errorMsg);
+          window.notificationManager.error(errorMsg);
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      } catch (error) {
+        console.error('Signup error:', error);
+        window.notificationManager.error('An unexpected error occurred: ' + error.message);
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
       }

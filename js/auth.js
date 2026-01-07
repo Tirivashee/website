@@ -26,6 +26,13 @@ class AuthManager {
 
   async signUp(email, password, fullName) {
     try {
+      console.log('Starting signup process for:', email);
+      
+      if (!supabaseClient) {
+        console.error('Supabase client not initialized');
+        return { success: false, error: 'Authentication system not initialized' };
+      }
+
       const { data, error } = await supabaseClient.auth.signUp({
         email,
         password,
@@ -36,17 +43,29 @@ class AuthManager {
         }
       });
 
-      if (error) throw error;
+      console.log('Supabase signUp response:', { data, error });
 
-      // Create user profile in database
-      if (data.user) {
-        await this.createUserProfile(data.user.id, fullName, email);
+      if (error) {
+        console.error('Supabase signup error:', error);
+        throw error;
       }
 
+      // Create user profile in database (optional - may fail if profiles table doesn't exist)
+      if (data.user) {
+        console.log('User created, attempting to create profile...');
+        try {
+          await this.createUserProfile(data.user.id, fullName, email);
+        } catch (profileError) {
+          console.warn('Profile creation failed (non-critical):', profileError);
+          // Don't fail the signup if profile creation fails
+        }
+      }
+
+      console.log('Signup successful');
       return { success: true, data };
     } catch (error) {
       console.error('Signup error:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: error.message || 'Unknown error occurred' };
     }
   }
 
@@ -84,7 +103,9 @@ class AuthManager {
 
   async createUserProfile(userId, fullName, email) {
     try {
-      const { error } = await supabaseClient
+      console.log('Creating user profile for:', userId);
+      
+      const { data, error } = await supabaseClient
         .from('profiles')
         .insert([
           {
@@ -95,9 +116,16 @@ class AuthManager {
           }
         ]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Profile creation error:', error);
+        throw error;
+      }
+      
+      console.log('Profile created successfully');
     } catch (error) {
       console.error('Error creating profile:', error);
+      // Rethrow to let caller handle
+      throw error;
     }
   }
 

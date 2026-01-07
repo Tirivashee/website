@@ -46,8 +46,10 @@ class GalleryInteraction {
 
   async addComment(postId, commentText) {
     if (!window.authManager?.isAuthenticated()) {
-      alert('Please login to comment');
-      window.location.href = '/users/login.html';
+      window.notificationManager.warning('Please login to comment');
+      setTimeout(() => {
+        window.location.href = '/users/login.html';
+      }, 1500);
       return;
     }
 
@@ -103,8 +105,10 @@ class GalleryInteraction {
 
   async toggleLike(postId) {
     if (!window.authManager?.isAuthenticated()) {
-      alert('Please login to like posts');
-      window.location.href = '/users/login.html';
+      window.notificationManager.warning('Please login to like posts');
+      setTimeout(() => {
+        window.location.href = '/users/login.html';
+      }, 1500);
       return;
     }
 

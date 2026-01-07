@@ -455,15 +455,19 @@
     document.addEventListener('DOMContentLoaded', async function() {
       // Check authentication
       if (!window.authManager?.isAuthenticated()) {
-        alert('Please login to checkout');
-        window.location.href = '/users/login.html?redirect=checkout.html';
+        window.notificationManager.warning('Please login to checkout');
+        setTimeout(() => {
+          window.location.href = '/users/login.html?redirect=checkout.html';
+        }, 1500);
         return;
       }
 
       // Check if cart is empty
       if (!window.cartManager || window.cartManager.cart.length === 0) {
-        alert('Your cart is empty');
-        window.location.href = '/shop.html';
+        window.notificationManager.warning('Your cart is empty');
+        setTimeout(() => {
+          window.location.href = '/shop.html';
+        }, 1500);
         return;
       }
 

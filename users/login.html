@@ -367,6 +367,9 @@
               class="form-input" 
               placeholder="your@email.com"
               required
+              autocomplete="email"
+              maxlength="254"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             >
             <span class="form-error">Please enter a valid email address</span>
           </div>
@@ -380,6 +383,9 @@
               class="form-input" 
               placeholder="Your password"
               required
+              autocomplete="current-password"
+              minlength="8"
+              maxlength="128"
             >
             <span class="form-error">Please enter your password</span>
           </div>
@@ -483,6 +489,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../js/supabase-config.js"></script>
   <script src="../js/auth.js"></script>
+  <script src="../js/notifications.js"></script>
   <script src="../js/main.js"></script>
   
   <script>
@@ -495,6 +502,13 @@
       }
     });
 
+    // Sanitize input to prevent XSS
+    function sanitizeInput(input) {
+      const temp = document.createElement('div');
+      temp.textContent = input;
+      return temp.innerHTML.trim();
+    }
+
     // Form validation and submission
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -505,23 +519,41 @@
       });
       
       let isValid = true;
+      let errorMessages = [];
       
-      // Validate email
+      // Validate and sanitize email
       const emailInput = document.getElementById('email');
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailInput.value.trim() || !emailRegex.test(emailInput.value)) {
+      const emailValue = sanitizeInput(emailInput.value);
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      
+      if (!emailValue || emailValue.length > 254) {
         emailInput.closest('.form-group').classList.add('error');
+        errorMessages.push('Email address is required');
+        isValid = false;
+      } else if (!emailRegex.test(emailValue)) {
+        emailInput.closest('.form-group').classList.add('error');
+        errorMessages.push('Please enter a valid email address');
         isValid = false;
       }
       
       // Validate password
       const passwordInput = document.getElementById('password');
-      if (!passwordInput.value.trim()) {
+      const passwordValue = passwordInput.value;
+      
+      if (!passwordValue || passwordValue.length < 8) {
         passwordInput.closest('.form-group').classList.add('error');
+        errorMessages.push('Password must be at least 8 characters');
+        isValid = false;
+      } else if (passwordValue.length > 128) {
+        passwordInput.closest('.form-group').classList.add('error');
+        errorMessages.push('Password is too long');
         isValid = false;
       }
       
-      if (!isValid) return;
+      if (!isValid) {
+        window.notificationManager.showMultiple(errorMessages, 'error');
+        return;
+      }
 
       // Disable submit button
       const submitBtn = this.querySelector('button[type="submit"]');
@@ -529,19 +561,43 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'LOGGING IN...';
       
-      // Authenticate with Supabase
-      const result = await window.authManager.signIn(
-        emailInput.value,
-        passwordInput.value
-      );
-      
-      if (result.success) {
-        // Get redirect URL from query params or default to home
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirect = urlParams.get('redirect') || '../index.html';
-        window.location.href = redirect;
-      } else {
-        alert('Login failed: ' + result.error);
+      try {
+        // Authenticate with Supabase
+        const result = await window.authManager.signIn(
+          emailValue.toLowerCase(),
+          passwordValue
+        );
+        
+        if (result.success) {
+          window.notificationManager.success('Login successful! Redirecting...');
+          // Get redirect URL from query params or default to home
+          const urlParams = new URLSearchParams(window.location.search);
+          const redirect = urlParams.get('redirect') || '../index.html';
+          
+          // Validate redirect URL to prevent open redirect vulnerability
+          setTimeout(() => {
+            if (redirect.startsWith('http://') || redirect.startsWith('https://')) {
+              window.location.href = '../index.html';
+            } else {
+              window.location.href = redirect;
+            }
+          }, 1000);
+        } else {
+          let errorMsg = '';
+          if (result.error.includes('Invalid login credentials')) {
+            errorMsg = 'Invalid email or password.';
+          } else if (result.error.includes('Email not confirmed')) {
+            errorMsg = 'Please verify your email address first.';
+          } else {
+            errorMsg = result.error;
+          }
+          window.notificationManager.error(errorMsg);
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        window.notificationManager.error('An unexpected error occurred. Please try again.');
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
       }

@@ -819,6 +819,7 @@
   <script src="js/wishlist.js"></script>
   <script src="js/nav-badges.js"></script>
   <script src="js/gallery.js"></script>
+  <script src="js/notifications.js"></script>
   
   <script src="js/main.js"></script>
   <script src="js/scroll.js"></script>
@@ -913,7 +914,7 @@
       const text = input.value.trim();
       
       if (!text) {
-        alert('Please enter a comment');
+        window.notificationManager.warning('Please enter a comment');
         return;
       }
 
