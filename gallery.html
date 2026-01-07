@@ -756,6 +756,23 @@
   <script src="js/animations.js"></script>
   
   <script>
+    // Preload critical images
+    function preloadImages(imageUrls) {
+      imageUrls.forEach(url => {
+        const img = new Image();
+        img.src = url;
+      });
+    }
+    
+    // Preload hero and featured lookbook images
+    const criticalImages = [
+      'assets/images/urban/18.jpg',
+      'assets/images/urban/1.jpg',
+      'assets/images/urban/3.jpg',
+      'assets/images/urban/7.jpg'
+    ];
+    preloadImages(criticalImages);
+    
     // Collection images
     const collectionImages = [
       'assets/images/urban/1.jpg',
@@ -781,13 +798,21 @@
     // Load collection grid
     function loadCollection() {
       const grid = document.getElementById('collectionGrid');
+      if (!grid) return;
+      
       const shuffled = collectionImages.sort(() => Math.random() - 0.5);
       
       grid.innerHTML = shuffled.map((img, index) => `
         <div class="collection-item">
-          <img src="${img}" alt="BALLYLIKE Collection ${index + 1}" loading="lazy">
+          <img src="${img}" alt="BALLYLIKE Collection ${index + 1}" loading="eager" onerror="this.style.display='none'">
         </div>
       `).join('');
+      
+      // Preload collection images
+      shuffled.forEach(url => {
+        const img = new Image();
+        img.src = url;
+      });
     }
     
     // Smooth scroll for navigation
@@ -833,7 +858,11 @@
     });
     
     // Load collection on page load
-    loadCollection();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadCollection);
+    } else {
+      loadCollection();
+    }
   </script>
 </body>
 </html>
