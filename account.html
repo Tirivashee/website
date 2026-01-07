@@ -320,7 +320,7 @@
       
       <div class="navbar-menu" id="navbarMenu">
         <div class="navbar-actions">
-          <a href="account.html" class="navbar-icon navbar-icon-active" aria-label="Account" title="Account">
+          <a href="account.html" class="navbar-icon navbar-icon-active" id="accountIcon" aria-label="Account" title="Account">
             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
@@ -516,7 +516,7 @@
     document.addEventListener('DOMContentLoaded', async function() {
       // Check authentication
       if (!window.authManager?.isAuthenticated()) {
-        window.location.href = 'users/login.html?redirect=account.html';
+        window.location.href = 'users/login.html?redirect=../account.html';
         return;
       }
 
@@ -550,7 +550,7 @@
 
       // Get order count from Supabase
       try {
-        const { data: orders, error } = await window.supabase
+        const { data: orders, error } = await window.supabaseClient
           .from('orders')
           .select('id', { count: 'exact' })
           .eq('user_id', user.id);
@@ -568,7 +568,7 @@
       const user = window.authManager.user;
 
       try {
-        const { data: orders, error } = await window.supabase
+        const { data: orders, error } = await window.supabaseClient
           .from('orders')
           .select('*')
           .eq('user_id', user.id)
@@ -598,7 +598,7 @@
             day: 'numeric'
           });
 
-          const items = order.items || [];
+          const items = order.order_items || [];
           const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
           
           let statusClass = '';

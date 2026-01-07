@@ -101,6 +101,11 @@ class AuthManager {
     }
   }
 
+  // Alias for logout (same as signOut)
+  async logout() {
+    return await this.signOut();
+  }
+
   async createUserProfile(userId, fullName, email) {
     try {
       console.log('Creating user profile for:', userId);
