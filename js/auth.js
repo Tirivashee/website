@@ -166,9 +166,24 @@ class AuthManager {
   }
 
   updateNavbar() {
-    // Navbar structure is managed in HTML
-    // No dynamic link injection needed
-    return;
+    // Update account icon based on auth state
+    const accountIcon = document.getElementById('accountIcon');
+    
+    if (accountIcon) {
+      if (this.isAuthenticated()) {
+        // User is logged in - show account link
+        accountIcon.href = 'account.html';
+        accountIcon.setAttribute('aria-label', 'Account');
+        accountIcon.setAttribute('title', 'Account');
+        accountIcon.classList.add('navbar-icon-active');
+      } else {
+        // User is not logged in - show login link
+        accountIcon.href = 'users/login.html';
+        accountIcon.setAttribute('aria-label', 'Login');
+        accountIcon.setAttribute('title', 'Login');
+        accountIcon.classList.remove('navbar-icon-active');
+      }
+    }
   }
 }
 
