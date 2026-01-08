@@ -1514,6 +1514,8 @@ refreshOrdersTable();
 
     // Display order details in modal
     function displayOrderDetails(order) {
+      console.log('Displaying order details:', order);
+      
       document.getElementById('detail-order-id').textContent = order.id.substring(0, 8).toUpperCase();
       document.getElementById('detail-status').innerHTML = `<span class="status-badge ${order.status}">${window.orderManager.formatOrderStatus(order.status)}</span>`;
       document.getElementById('detail-customer').textContent = order.user_name;
@@ -1522,24 +1524,39 @@ refreshOrdersTable();
       document.getElementById('detail-date').textContent = new Date(order.created_at).toLocaleString();
       document.getElementById('detail-address').textContent = `${order.address_line1}${order.address_line2 ? ', ' + order.address_line2 : ''}, ${order.city}, ${order.country}${order.postal_code ? ' ' + order.postal_code : ''}`;
       
+      // Parse order_items if it's a string (JSONB field)
+      let orderItems = order.order_items;
+      if (typeof orderItems === 'string') {
+        try {
+          orderItems = JSON.parse(orderItems);
+        } catch (e) {
+          console.error('Error parsing order items:', e);
+          orderItems = [];
+        }
+      }
+      
       // Display order items
       const itemsContainer = document.getElementById('order-items-container');
-      itemsContainer.innerHTML = order.order_items.map(item => `
-        <div class="item-row" style="padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between;">
-          <div>
-            <strong>${item.product_name}</strong><br>
-            <small>Qty: ${item.quantity}${item.size ? ` | Size: ${item.size}` : ''}${item.color ? ` | Color: ${item.color}` : ''}</small>
+      if (!orderItems || !Array.isArray(orderItems) || orderItems.length === 0) {
+        itemsContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">No items found</div>';
+      } else {
+        itemsContainer.innerHTML = orderItems.map(item => `
+          <div class="item-row" style="padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between;">
+            <div>
+              <strong>${item.product_name || 'Unknown Product'}</strong><br>
+              <small>Qty: ${item.quantity || 1}${item.size ? ` | Size: ${item.size}` : ''}${item.color ? ` | Color: ${item.color}` : ''}</small>
+            </div>
+            <div style="text-align: right;">
+              <strong>$${((item.price || 0) * (item.quantity || 1)).toFixed(2)}</strong>
+            </div>
           </div>
-          <div style="text-align: right;">
-            <strong>$${(item.price * item.quantity).toFixed(2)}</strong>
-          </div>
-        </div>
-      `).join('');
+        `).join('');
+      }
 
-      document.getElementById('detail-subtotal').textContent = `$${order.subtotal.toFixed(2)}`;
-      document.getElementById('detail-shipping').textContent = `$${order.shipping.toFixed(2)}`;
+      document.getElementById('detail-subtotal').textContent = `$${parseFloat(order.subtotal || 0).toFixed(2)}`;
+      document.getElementById('detail-shipping').textContent = `$${parseFloat(order.shipping || 0).toFixed(2)}`;
       document.getElementById('detail-tax').textContent = '$0.00';
-      document.getElementById('detail-total').textContent = `$${order.total.toFixed(2)}`;
+      document.getElementById('detail-total').textContent = `$${parseFloat(order.total || 0).toFixed(2)}`;
     }
 
     // Refresh orders from Supabase
