@@ -1181,6 +1181,8 @@
     // Display order details in modal
     function displayOrderDetails(order) {
       console.log('Displaying order details:', order);
+      console.log('order_items type:', typeof order.order_items);
+      console.log('order_items value:', order.order_items);
       
       document.getElementById('detail-order-id').textContent = order.id.substring(0, 8).toUpperCase();
       document.getElementById('detail-status').innerHTML = `<span class="status-badge ${order.status}">${window.orderManager.formatOrderStatus(order.status)}</span>`;
@@ -1190,9 +1192,14 @@
       document.getElementById('detail-date').textContent = new Date(order.created_at).toLocaleString();
       document.getElementById('detail-address').textContent = `${order.address_line1}${order.address_line2 ? ', ' + order.address_line2 : ''}, ${order.city}, ${order.country}${order.postal_code ? ' ' + order.postal_code : ''}`;
       
-      // Parse order_items if it's a string (JSONB field)
+      // Parse order_items - it's stored as JSONB but comes back as an array already
       let orderItems = order.order_items;
-      if (typeof orderItems === 'string') {
+      
+      console.log('orderItems after assignment:', orderItems);
+      
+      // Check if it's an array and has items
+      if (!Array.isArray(orderItems)) {
+        console.log('Not an array, trying to parse as JSON');
         try {
           orderItems = JSON.parse(orderItems);
         } catch (e) {
@@ -1201,22 +1208,27 @@
         }
       }
       
+      console.log('Final orderItems:', orderItems);
+      
       // Display order items
       const itemsContainer = document.getElementById('order-items-container');
-      if (!orderItems || !Array.isArray(orderItems) || orderItems.length === 0) {
-        itemsContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">No items found</div>';
+      if (!orderItems || orderItems.length === 0) {
+        itemsContainer.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">No items found (items array is empty or undefined)</div>';
       } else {
-        itemsContainer.innerHTML = orderItems.map(item => `
-          <div class="item-row" style="padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between;">
-            <div>
-              <strong>${item.product_name || 'Unknown Product'}</strong><br>
-              <small>Qty: ${item.quantity || 1}${item.size ? ` | Size: ${item.size}` : ''}${item.color ? ` | Color: ${item.color}` : ''}</small>
+        itemsContainer.innerHTML = orderItems.map(item => {
+          console.log('Rendering item:', item);
+          return `
+            <div class="item-row" style="padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between;">
+              <div>
+                <strong>${item.product_name || 'Unknown Product'}</strong><br>
+                <small>Qty: ${item.quantity || 1}${item.size ? ` | Size: ${item.size}` : ''}${item.color ? ` | Color: ${item.color}` : ''}</small>
+              </div>
+              <div style="text-align: right;">
+                <strong>$${((item.price || 0) * (item.quantity || 1)).toFixed(2)}</strong>
+              </div>
             </div>
-            <div style="text-align: right;">
-              <strong>$${((item.price || 0) * (item.quantity || 1)).toFixed(2)}</strong>
-            </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       }
 
       document.getElementById('detail-subtotal').textContent = `$${parseFloat(order.subtotal || 0).toFixed(2)}`;
