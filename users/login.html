@@ -579,13 +579,13 @@
               // Admin users go to system page
               window.location.href = '../system/system.html';
             } else {
-              // Regular users: get redirect URL from query params or default to home
+              // Regular users: get redirect URL from query params or default to account page
               const urlParams = new URLSearchParams(window.location.search);
-              const redirect = urlParams.get('redirect') || '../index.html';
+              const redirect = urlParams.get('redirect') || '../account.html';
               
               // Validate redirect URL to prevent open redirect vulnerability
               if (redirect.startsWith('http://') || redirect.startsWith('https://')) {
-                window.location.href = '../index.html';
+                window.location.href = '../account.html';
               } else {
                 window.location.href = redirect;
               }
