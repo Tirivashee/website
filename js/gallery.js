@@ -5,17 +5,30 @@ class GalleryInteraction {
   constructor() {
     this.comments = {};
     this.likes = {};
+    this.initialized = false;
     this.init();
   }
 
   async init() {
-    // Load comments and likes for all posts on the page
-    const posts = document.querySelectorAll('[data-post-id]');
-    for (const post of posts) {
-      const postId = post.dataset.postId;
-      await this.loadPostData(postId);
+    try {
+      // Load comments and likes for all posts on the page
+      const posts = document.querySelectorAll('[data-post-id]');
+      const promises = [];
+      
+      for (const post of posts) {
+        const postId = post.dataset.postId;
+        promises.push(this.loadPostData(postId));
+      }
+      
+      // Wait for all data to load
+      await Promise.all(promises);
+      
+      this.initialized = true;
+      this.updateUI();
+      console.log('Gallery interaction initialized successfully');
+    } catch (error) {
+      console.error('Error initializing gallery interaction:', error);
     }
-    this.updateUI();
   }
 
   async loadPostData(postId) {
@@ -46,16 +59,15 @@ class GalleryInteraction {
 
   async addComment(postId, commentText) {
     if (!window.authManager?.isAuthenticated()) {
-      window.notificationManager.warning('Please login to comment');
+      window.notificationManager?.warning('Please login to comment');
       setTimeout(() => {
-        window.location.href = '/users/login.html';
+        window.location.href = '/users/login.html?redirect=gallery.html';
       }, 1500);
-      return;
+      return { success: false };
     }
 
     try {
       const userId = window.authManager.getUserId();
-      const userName = window.authManager.getUserName();
 
       const { data, error } = await supabaseClient
         .from('post_comments')
@@ -65,18 +77,21 @@ class GalleryInteraction {
           comment_text: commentText,
           created_at: new Date().toISOString()
         }])
-        .select('*, profiles(full_name, email)');
+        .select('*, profiles(full_name, email)')
+        .single();
 
       if (error) throw error;
 
       // Add to local cache
       if (!this.comments[postId]) this.comments[postId] = [];
-      this.comments[postId].unshift(data[0]);
+      this.comments[postId].unshift(data);
 
       this.updateUI();
-      return { success: true, comment: data[0] };
+      window.notificationManager?.success('Comment posted successfully');
+      return { success: true, comment: data };
     } catch (error) {
       console.error('Error adding comment:', error);
+      window.notificationManager?.error('Failed to post comment');
       return { success: false, error: error.message };
     }
   }
@@ -96,20 +111,22 @@ class GalleryInteraction {
       }
 
       this.updateUI();
+      window.notificationManager?.success('Comment deleted');
       return { success: true };
     } catch (error) {
       console.error('Error deleting comment:', error);
+      window.notificationManager?.error('Failed to delete comment');
       return { success: false, error: error.message };
     }
   }
 
   async toggleLike(postId) {
     if (!window.authManager?.isAuthenticated()) {
-      window.notificationManager.warning('Please login to like posts');
+      window.notificationManager?.warning('Please login to like posts');
       setTimeout(() => {
-        window.location.href = '/users/login.html';
+        window.location.href = '/users/login.html?redirect=gallery.html';
       }, 1500);
-      return;
+      return { success: false };
     }
 
     try {
@@ -144,19 +161,21 @@ class GalleryInteraction {
             user_id: userId,
             created_at: new Date().toISOString()
           }])
-          .select();
+          .select()
+          .single();
 
         if (error) throw error;
 
         // Add to local cache
         if (!this.likes[postId]) this.likes[postId] = [];
-        this.likes[postId].push(data[0]);
+        this.likes[postId].push(data);
 
         this.updateUI();
         return { success: true, liked: true };
       }
     } catch (error) {
       console.error('Error toggling like:', error);
+      window.notificationManager?.error('Failed to update like');
       return { success: false, error: error.message };
     }
   }
@@ -182,12 +201,14 @@ class GalleryInteraction {
       const likeCount = this.getLikeCount(postId);
       const isLiked = this.isLikedByUser(postId);
 
-      btn.querySelector('.like-count').textContent = likeCount;
+      // Update icon and count without replacing the entire button
+      const icon = btn.querySelector('.like-icon');
+      const count = btn.querySelector('.like-count');
+      
+      if (icon) icon.textContent = isLiked ? '❤️' : '🤍';
+      if (count) count.textContent = likeCount;
+      
       btn.classList.toggle('liked', isLiked);
-      btn.innerHTML = `
-        <span class="like-icon">${isLiked ? '❤️' : '🤍'}</span>
-        <span class="like-count">${likeCount}</span>
-      `;
     });
 
     // Update comment counts
@@ -225,13 +246,26 @@ class GalleryInteraction {
           </div>
           <p class="comment-text">${this.escapeHtml(comment.comment_text)}</p>
           ${isOwner ? `
-            <button class="comment-delete" onclick="galleryInteraction.deleteComment('${comment.id}', '${postId}')">
+            <button class="comment-delete" data-comment-id="${comment.id}" data-post-id="${postId}">
               Delete
             </button>
           ` : ''}
         </div>
       `;
     }).join('');
+    
+    // Add event listeners for delete buttons
+    container.querySelectorAll('.comment-delete').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const commentId = btn.dataset.commentId;
+        const postId = btn.dataset.postId;
+        
+        if (confirm('Are you sure you want to delete this comment?')) {
+          await this.deleteComment(commentId, postId);
+        }
+      });
+    });
   }
 
   escapeHtml(text) {
