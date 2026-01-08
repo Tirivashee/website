@@ -1436,19 +1436,6 @@ refreshOrdersTable();
     }
 
     // Update statistics
-    function updateStats() {
-      // Sample data - replace with actual data from backend
-      document.getElementById('total-orders').textContent = '256';
-      document.getElementById('total-revenue').textContent = '$12,450';
-      document.getElementById('pending-orders').textContent = '18';
-      document.getElementById('completed-orders').textContent = '221';
-      
-      document.getElementById('orders-change').textContent = '+12% from last week';
-      document.getElementById('revenue-change').textContent = '+8.3% from last week';
-      document.getElementById('pending-change').textContent = '3 need attention';
-      document.getElementById('completed-change').textContent = '+15 this week';
-    }
-
     // Filter buttons
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', function() {
@@ -1540,7 +1527,7 @@ refreshOrdersTable();
       const result = await window.orderManager.getAllOrders();
       if (result.success) {
         displayOrders(result.orders);
-        updateStats();
+        updateStatsWithRealData(result.orders);
         updateTimestamp();
         showNotification('Success', 'Orders refreshed successfully!', 'success');
       } else {
@@ -1575,6 +1562,37 @@ refreshOrdersTable();
           </tr>
         `;
       }).join('');
+    }
+
+    // Update stats with real order data
+    function updateStatsWithRealData(orders) {
+      if (!orders || orders.length === 0) {
+        document.getElementById('total-orders').textContent = '0';
+        document.getElementById('total-revenue').textContent = '$0.00';
+        document.getElementById('pending-orders').textContent = '0';
+        document.getElementById('completed-orders').textContent = '0';
+        document.getElementById('orders-change').textContent = 'No data';
+        document.getElementById('revenue-change').textContent = 'No data';
+        document.getElementById('pending-change').textContent = '--';
+        document.getElementById('completed-change').textContent = '--';
+        return;
+      }
+
+      const totalOrders = orders.length;
+      const totalRevenue = orders.reduce((sum, order) => sum + parseFloat(order.total || 0), 0);
+      const pendingOrders = orders.filter(o => o.status === 'pending').length;
+      const processingOrders = orders.filter(o => o.status === 'processing').length;
+      const completedOrders = orders.filter(o => o.status === 'completed').length;
+
+      document.getElementById('total-orders').textContent = totalOrders;
+      document.getElementById('total-revenue').textContent = '$' + totalRevenue.toFixed(2);
+      document.getElementById('pending-orders').textContent = pendingOrders;
+      document.getElementById('completed-orders').textContent = completedOrders;
+      
+      document.getElementById('orders-change').textContent = `${totalOrders} total`;
+      document.getElementById('revenue-change').textContent = `$${(totalRevenue / totalOrders).toFixed(2)} avg`;
+      document.getElementById('pending-change').textContent = processingOrders > 0 ? `${processingOrders} processing` : 'None processing';
+      document.getElementById('completed-change').textContent = `${((completedOrders / totalOrders) * 100).toFixed(0)}% completion`;
     }
 
     // Wait for auth manager to be ready
