@@ -6,8 +6,10 @@
     // Wait a bit for auth to load
     setTimeout(() => {
       if (window.authManager?.isAuthenticated() && window.authManager.isAdmin()) {
-        alert('Admin users cannot access regular user pages. Redirecting to system dashboard.');
-        window.location.href = 'system/system.html';
+        if (window.notificationManager) {
+          window.notificationManager.error('Admin users cannot access regular user pages. Redirecting...');
+        }
+        setTimeout(() => window.location.href = 'system/system.html', 1500);
       }
     }, 500);
   });
@@ -516,12 +518,29 @@
     </div>
   </footer>
 
+  <!-- Confirmation Modal -->
+  <div id="confirmModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center;">
+    <div style="background: white; border: 3px solid black; max-width: 500px; width: 90%;">
+      <div style="background: black; color: white; padding: 1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em;">
+        <span id="confirmTitle">Confirm</span>
+      </div>
+      <div style="padding: 2rem; font-size: 1rem; line-height: 1.6;">
+        <p id="confirmMessage"></p>
+      </div>
+      <div style="padding: 1rem; border-top: 2px solid #e0e0e0; display: flex; gap: 1rem; justify-content: flex-end;">
+        <button id="confirmCancel" style="background: white; color: black; border: 2px solid black; padding: 0.75rem 2rem; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='white'">Cancel</button>
+        <button id="confirmOk" style="background: black; color: white; border: 2px solid black; padding: 0.75rem 2rem; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='black'">Confirm</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="js/supabase-config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/wishlist.js"></script>
   <script src="js/nav-badges.js"></script>
+  <script src="js/notifications.js"></script>
   <script src="js/main.js"></script>
 
   <script>
@@ -679,11 +698,44 @@
       });
     }
 
+    function showConfirm(title, message, onConfirm) {
+      const modal = document.getElementById('confirmModal');
+      const titleEl = document.getElementById('confirmTitle');
+      const messageEl = document.getElementById('confirmMessage');
+      const okBtn = document.getElementById('confirmOk');
+      const cancelBtn = document.getElementById('confirmCancel');
+      
+      titleEl.textContent = title;
+      messageEl.textContent = message;
+      modal.style.display = 'flex';
+      
+      const closeModal = () => {
+        modal.style.display = 'none';
+        okBtn.onclick = null;
+        cancelBtn.onclick = null;
+      };
+      
+      okBtn.onclick = () => {
+        closeModal();
+        onConfirm();
+      };
+      
+      cancelBtn.onclick = closeModal;
+      
+      // Close on backdrop click
+      modal.onclick = (e) => {
+        if (e.target === modal) closeModal();
+      };
+    }
+
     async function handleLogout() {
-      if (confirm('Are you sure you want to logout?')) {
+      showConfirm('Logout', 'Are you sure you want to logout?', async () => {
+        if (window.notificationManager) {
+          window.notificationManager.info('Logging out...');
+        }
         await window.authManager.logout();
         window.location.href = 'index.html';
-      }
+      });
     }
   </script>
 </body>

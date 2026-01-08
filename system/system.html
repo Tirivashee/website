@@ -1496,7 +1496,7 @@ refreshOrdersTable();
         displayOrderDetails(result.order);
         document.getElementById('order-modal').style.display = 'flex';
       } else {
-        alert('Failed to load order details');
+        showNotification('Error', 'Failed to load order details', 'error');
       }
     }
 
@@ -1533,7 +1533,7 @@ refreshOrdersTable();
     // Refresh orders from Supabase
     async function refreshOrders() {
       if (!window.orderManager) {
-        alert('Order manager not initialized');
+        showNotification('Error', 'Order manager not initialized', 'error');
         return;
       }
 
@@ -1542,9 +1542,9 @@ refreshOrdersTable();
         displayOrders(result.orders);
         updateStats();
         updateTimestamp();
-        alert('Orders refreshed successfully!');
+        showNotification('Success', 'Orders refreshed successfully!', 'success');
       } else {
-        alert('Failed to refresh orders: ' + result.error);
+        showNotification('Error', 'Failed to refresh orders: ' + result.error, 'error');
       }
     }
 
@@ -1597,8 +1597,8 @@ refreshOrdersTable();
       await waitForAuth();
 
       if (!window.authManager?.isAuthenticated()) {
-        alert('Please login to access the admin dashboard');
-        window.location.href = '../users/login.html?redirect=system/system.html';
+        showNotification('Error', 'Please login to access the admin dashboard', 'error');
+        setTimeout(() => window.location.href = '../users/login.html?redirect=system/system.html', 1500);
         return false;
       }
 
@@ -1606,8 +1606,8 @@ refreshOrdersTable();
       const userEmail = window.authManager.getUserEmail();
       
       if (userEmail !== 'admin@ballylike.co.zw') {
-        alert('Access denied. Admin privileges required.');
-        window.location.href = '../index.html';
+        showNotification('Error', 'Access denied. Admin privileges required.', 'error');
+        setTimeout(() => window.location.href = '../index.html', 1500);
         return false;
       }
 

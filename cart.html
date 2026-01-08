@@ -5,8 +5,10 @@
   document.addEventListener('DOMContentLoaded', async () => {
     setTimeout(() => {
       if (window.authManager?.isAuthenticated() && window.authManager.isAdmin()) {
-        alert('Admin users cannot access regular user pages. Redirecting to system dashboard.');
-        window.location.href = 'system/system.html';
+        if (window.notificationManager) {
+          window.notificationManager.error('Admin users cannot access regular user pages. Redirecting...');
+        }
+        setTimeout(() => window.location.href = 'system/system.html', 1500);
       }
     }, 500);
   });
