@@ -1,0 +1,16 @@
+node_modules
+.git
+.env
+.env.local
+*.log
+.DS_Store
+ADMIN-SETUP.md
+CONFIGURATION-CHECKLIST.md
+DEPLOYMENT.md
+IMPLEMENTATION-SUMMARY.md
+QUICK-START.md
+QUICKSTART.md
+README.md
+SUPABASE-SETUP-GUIDE.md
+SEO-IMPLEMENTATION-NOTES.txt
+supabase-schema.sql

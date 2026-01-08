@@ -936,9 +936,14 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="justify-content: space-between;">
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="action-btn" style="background: #2196F3; border-color: #2196F3;" onclick="updateOrderStatus('processing')" id="btn-processing">Mark Processing</button>
+          <button class="action-btn" style="background: #4CAF50; border-color: #4CAF50;" onclick="updateOrderStatus('completed')" id="btn-completed">Complete Order</button>
+          <button class="action-btn" style="background: #FF9800; border-color: #FF9800;" onclick="updateOrderStatus('cancelled')" id="btn-cancelled">Cancel Order</button>
+          <button class="action-btn" style="background: #F44336; border-color: #F44336;" onclick="deleteOrder()">Delete Order</button>
+        </div>
         <button class="action-btn secondary" onclick="closeModal('order-modal')">Close</button>
-        <button class="action-btn" onclick="openStatusModal()">Update Status</button>
       </div>
     </div>
   </div>
@@ -1088,11 +1093,76 @@
 
     // Modal functions
     function openModal(modalId) {
-      document.getElementById(modalId).classList.add('active');
+      const modal = document.getElementById(modalId);
+      modal.classList.add('active');
+      modal.style.display = 'flex';
     }
 
     function closeModal(modalId) {
-      document.getElementById(modalId).classList.remove('active');
+      const modal = document.getElementById(modalId);
+      modal.classList.remove('active');
+      modal.style.display = 'none';
+    }
+
+    // Update order status
+    async function updateOrderStatus(newStatus) {
+      if (!currentOrderId) {
+        showNotification('Error', 'No order selected', 'error');
+        return;
+      }
+
+      if (!confirm(`Are you sure you want to mark this order as ${newStatus}?`)) {
+        return;
+      }
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('orders')
+          .update({ 
+            status: newStatus,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', currentOrderId)
+          .select();
+
+        if (error) throw error;
+
+        showNotification('Success', `Order status updated to ${newStatus}`, 'success');
+        closeModal('order-modal');
+        await refreshOrders();
+      } catch (error) {
+        console.error('Error updating order status:', error);
+        showNotification('Error', 'Failed to update order status: ' + error.message, 'error');
+      }
+    }
+
+    // Delete order
+    async function deleteOrder() {
+      if (!currentOrderId) {
+        showNotification('Error', 'No order selected', 'error');
+        return;
+      }
+
+      if (!confirm('Are you sure you want to DELETE this order? This action cannot be undone!')) {
+        return;
+      }
+
+      try {
+        const { error } = await supabaseClient
+          .from('orders')
+          .delete()
+          .eq('id', currentOrderId);
+
+        if (error) throw error;
+
+        showNotification('Success', 'Order deleted successfully', 'success');
+        closeModal('order-modal');
+        currentOrderId = null;
+        await refreshOrders();
+      } catch (error) {
+        console.error('Error deleting order:', error);
+        showNotification('Error', 'Failed to delete order: ' + error.message, 'error');
+      }
     }
 
     // Notification system
@@ -1172,7 +1242,7 @@
       const result = await window.orderManager.getOrderById(orderId);
       if (result.success) {
         displayOrderDetails(result.order);
-        document.getElementById('order-modal').style.display = 'flex';
+        openModal('order-modal');
       } else {
         showNotification('Error', 'Failed to load order details', 'error');
       }
@@ -1183,6 +1253,9 @@
       console.log('Displaying order details:', order);
       console.log('order_items type:', typeof order.order_items);
       console.log('order_items value:', order.order_items);
+      
+      // Set current order ID for actions
+      currentOrderId = order.id;
       
       document.getElementById('detail-order-id').textContent = order.id.substring(0, 8).toUpperCase();
       document.getElementById('detail-status').innerHTML = `<span class="status-badge ${order.status}">${window.orderManager.formatOrderStatus(order.status)}</span>`;
