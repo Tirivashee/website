@@ -1,5 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+  // Block admin users from accessing regular pages
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Wait a bit for auth to load
+    setTimeout(() => {
+      if (window.authManager?.isAuthenticated() && window.authManager.isAdmin()) {
+        alert('Admin users cannot access regular user pages. Redirecting to system dashboard.');
+        window.location.href = 'system/system.html';
+      }
+    }, 500);
+  });
+</script>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

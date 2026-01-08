@@ -1585,31 +1585,18 @@ refreshOrdersTable();
         return false;
       }
 
-      // Check if user is admin
-      try {
-        const { data, error } = await supabaseClient
-          .from('profiles')
-          .select('role, email')
-          .eq('id', window.authManager.getUserId())
-          .single();
-
-        if (error) throw error;
-
-        if (data.role !== 'admin') {
-          alert('Access denied. Admin privileges required.');
-          window.location.href = '../index.html';
-          return false;
-        }
-
-        // Display admin email in dashboard
-        document.querySelector('.subtitle').textContent = `Admin: ${data.email}`;
-        return true;
-      } catch (error) {
-        console.error('Error checking admin access:', error);
-        alert('Error verifying admin access');
+      // Check if user is admin by email
+      const userEmail = window.authManager.getUserEmail();
+      
+      if (userEmail !== 'admin@ballylike.co.zw') {
+        alert('Access denied. Admin privileges required.');
         window.location.href = '../index.html';
         return false;
       }
+
+      // Display admin email in dashboard
+      document.querySelector('.subtitle').textContent = `Admin: ${userEmail} | Last updated: --`;
+      return true;
     }
 
     // Initialize on page load

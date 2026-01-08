@@ -570,16 +570,25 @@
         
         if (result.success) {
           window.notificationManager.success('Login successful! Redirecting...');
-          // Get redirect URL from query params or default to home
-          const urlParams = new URLSearchParams(window.location.search);
-          const redirect = urlParams.get('redirect') || '../index.html';
           
-          // Validate redirect URL to prevent open redirect vulnerability
+          // Check if user is admin and redirect accordingly
+          const isAdmin = result.data?.user?.email === 'admin@ballylike.co.zw';
+          
           setTimeout(() => {
-            if (redirect.startsWith('http://') || redirect.startsWith('https://')) {
-              window.location.href = '../index.html';
+            if (isAdmin) {
+              // Admin users go to system page
+              window.location.href = '../system/system.html';
             } else {
-              window.location.href = redirect;
+              // Regular users: get redirect URL from query params or default to home
+              const urlParams = new URLSearchParams(window.location.search);
+              const redirect = urlParams.get('redirect') || '../index.html';
+              
+              // Validate redirect URL to prevent open redirect vulnerability
+              if (redirect.startsWith('http://') || redirect.startsWith('https://')) {
+                window.location.href = '../index.html';
+              } else {
+                window.location.href = redirect;
+              }
             }
           }, 1000);
         } else {

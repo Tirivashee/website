@@ -158,6 +158,10 @@ class AuthManager {
     return this.user?.user_metadata?.full_name || this.user?.email?.split('@')[0] || 'User';
   }
 
+  isAdmin() {
+    return this.user?.email === 'admin@ballylike.co.zw';
+  }
+
   updateUIForAuthState() {
     const authLinks = document.querySelectorAll('.auth-required');
     const guestLinks = document.querySelectorAll('.guest-only');
