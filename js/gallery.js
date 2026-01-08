@@ -36,11 +36,31 @@ class GalleryInteraction {
       // Load comments
       const { data: comments, error: commentsError } = await supabaseClient
         .from('post_comments')
-        .select('*, profiles(full_name, email)')
+        .select('*')
         .eq('post_id', postId)
         .order('created_at', { ascending: false });
 
       if (commentsError) throw commentsError;
+      
+      // Fetch user profiles for comments
+      if (comments && comments.length > 0) {
+        const userIds = [...new Set(comments.map(c => c.user_id))];
+        const { data: profiles } = await supabaseClient
+          .from('profiles')
+          .select('id, full_name, email')
+          .in('id', userIds);
+        
+        // Map profiles to comments
+        const profileMap = {};
+        if (profiles) {
+          profiles.forEach(p => profileMap[p.id] = p);
+        }
+        
+        comments.forEach(comment => {
+          comment.profile = profileMap[comment.user_id] || null;
+        });
+      }
+      
       this.comments[postId] = comments || [];
 
       // Load likes
@@ -77,10 +97,19 @@ class GalleryInteraction {
           comment_text: commentText,
           created_at: new Date().toISOString()
         }])
-        .select('*, profiles(full_name, email)')
+        .select('*')
         .single();
 
       if (error) throw error;
+
+      // Fetch user profile for the new comment
+      const { data: profile } = await supabaseClient
+        .from('profiles')
+        .select('id, full_name, email')
+        .eq('id', userId)
+        .single();
+      
+      data.profile = profile || null;
 
       // Add to local cache
       if (!this.comments[postId]) this.comments[postId] = [];
@@ -201,13 +230,12 @@ class GalleryInteraction {
       const likeCount = this.getLikeCount(postId);
       const isLiked = this.isLikedByUser(postId);
 
-      // Update icon and count without replacing the entire button
-      const icon = btn.querySelector('.like-icon');
-      const count = btn.querySelector('.like-count');
+      // Update count and liked state
+      const count = btn.querySelector('.like-count, .count');
       
-      if (icon) icon.textContent = isLiked ? '❤️' : '🤍';
       if (count) count.textContent = likeCount;
       
+      // Toggle liked class for Instagram-style fill
       btn.classList.toggle('liked', isLiked);
     });
 
@@ -234,7 +262,7 @@ class GalleryInteraction {
     }
 
     container.innerHTML = comments.map(comment => {
-      const userName = comment.profiles?.full_name || comment.profiles?.email?.split('@')[0] || 'Anonymous';
+      const userName = comment.profile?.full_name || comment.profile?.email?.split('@')[0] || 'User';
       const isOwner = userId === comment.user_id;
       const commentDate = new Date(comment.created_at).toLocaleDateString();
 
