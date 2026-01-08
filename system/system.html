@@ -1576,7 +1576,10 @@ refreshOrdersTable();
       }
 
       tbody.innerHTML = orders.map(order => {
-        const itemCount = order.order_items ? order.order_items.length : (order.order_items && Array.isArray(order.order_items) ? order.order_items.length : 0);
+        // order_items is stored as JSONB in the database
+        const orderItems = order.order_items || [];
+        const itemCount = Array.isArray(orderItems) ? orderItems.length : 0;
+        
         return `
           <tr>
             <td><strong>#${order.id.substring(0, 8).toUpperCase()}</strong></td>

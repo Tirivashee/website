@@ -80,10 +80,7 @@ class OrderManager {
     try {
       const { data, error } = await supabaseClient
         .from('orders')
-        .select(`
-          *,
-          order_items (*)
-        `)
+        .select('*')
         .eq('id', orderId)
         .single();
 
@@ -102,10 +99,7 @@ class OrderManager {
 
       const { data, error } = await supabaseClient
         .from('orders')
-        .select(`
-          *,
-          order_items (*)
-        `)
+        .select('*')
         .eq('user_id', userId)
         .order('created_at', { ascending: false });
 
@@ -122,10 +116,7 @@ class OrderManager {
     try {
       const { data, error } = await supabaseClient
         .from('orders')
-        .select(`
-          *,
-          order_items (*)
-        `)
+        .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
