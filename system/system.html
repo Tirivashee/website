@@ -32,9 +32,12 @@
       padding: var(--spacing-md);
       margin-bottom: var(--spacing-md);
       border: 3px solid var(--color-black);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .dashboard-header h1 {
+    .dashboard-header-left h1 {
       font-size: var(--font-size-2xl);
       font-weight: var(--font-weight-bold);
       margin: 0 0 var(--spacing-xs) 0;
@@ -42,10 +45,29 @@
       letter-spacing: -0.02em;
     }
 
-    .dashboard-header .subtitle {
+    .dashboard-header-left .subtitle {
       font-size: var(--font-size-sm);
       color: var(--color-gray-300);
       font-family: var(--font-mono);
+    }
+
+    .logout-btn {
+      background: var(--color-white);
+      color: var(--color-black);
+      border: 2px solid var(--color-white);
+      padding: 10px 24px;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      font-family: var(--font-primary);
+    }
+
+    .logout-btn:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-white);
     }
 
     .stats-grid {
@@ -737,8 +759,11 @@
   <div class="dashboard-container">
     <!-- Header -->
     <div class="dashboard-header">
-      <h1>System Dashboard</h1>
-      <div class="subtitle">Last updated: <span id="last-updated">--</span></div>
+      <div class="dashboard-header-left">
+        <h1>System Dashboard</h1>
+        <div class="subtitle">Last updated: <span id="last-updated">--</span></div>
+      </div>
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
     </div>
 
     <!-- Stats Grid -->
@@ -1519,18 +1544,25 @@ refreshOrdersTable();
 
     // Refresh orders from Supabase
     async function refreshOrders() {
+      console.log('refreshOrders called');
       if (!window.orderManager) {
+        console.error('Order manager not initialized');
         showNotification('Error', 'Order manager not initialized', 'error');
         return;
       }
 
+      console.log('Fetching orders from database...');
       const result = await window.orderManager.getAllOrders();
+      console.log('Orders result:', result);
+      
       if (result.success) {
+        console.log('Orders loaded successfully:', result.orders.length, 'orders');
         displayOrders(result.orders);
         updateStatsWithRealData(result.orders);
         updateTimestamp();
-        showNotification('Success', 'Orders refreshed successfully!', 'success');
+        showNotification('Success', `Loaded ${result.orders.length} orders successfully!`, 'success');
       } else {
+        console.error('Failed to load orders:', result.error);
         showNotification('Error', 'Failed to refresh orders: ' + result.error, 'error');
       }
     }
@@ -1636,22 +1668,40 @@ refreshOrdersTable();
 
     // Initialize on page load
     async function initDashboard() {
+      console.log('Initializing dashboard...');
       updateTimestamp();
       
       // Check admin access first
       const hasAccess = await checkAdminAccess();
       if (!hasAccess) return;
 
-      // Wait for order manager to be available
+      console.log('Admin access granted, waiting for order manager...');
+      
+      // Wait for order manager with better retry logic
+      let retries = 0;
+      const maxRetries = 10;
+      
+      while (!window.orderManager && retries < maxRetries) {
+        console.log(`Waiting for order manager... attempt ${retries + 1}/${maxRetries}`);
+        await new Promise(resolve => setTimeout(resolve, 500));
+        retries++;
+      }
+      
       if (window.orderManager) {
+        console.log('Order manager found, loading orders...');
         await refreshOrders();
       } else {
-        // Wait for it to load
-        setTimeout(async () => {
-          if (window.orderManager) {
-            await refreshOrders();
-          }
-        }, 1000);
+        console.error('Order manager failed to load after', maxRetries, 'attempts');
+        showNotification('Error', 'Failed to initialize order manager. Please refresh the page.', 'error');
+      }
+    }
+
+    async function handleLogout() {
+      if (window.authManager) {
+        showNotification('Info', 'Logging out...', 'warning');
+        await window.authManager.logout();
+      } else {
+        window.location.href = '../index.html';
       }
     }
 
