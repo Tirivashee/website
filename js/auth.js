@@ -4,7 +4,7 @@
 class AuthManager {
   constructor() {
     this.user = null;
-    this.session = null;
+    this.session = undefined; // Set to undefined initially to indicate not yet loaded
     this.init();
   }
 
@@ -15,10 +15,18 @@ class AuthManager {
     this.user = session?.user || null;
 
     // Listen for auth state changes
-    supabaseClient.auth.onAuthStateChange((_event, session) => {
+    supabaseClient.auth.onAuthStateChange(async (_event, session) => {
       this.session = session;
       this.user = session?.user || null;
       this.updateUIForAuthState();
+      
+      // Reload cart and wishlist when auth state changes
+      if (window.cartManager) {
+        await window.cartManager.init();
+      }
+      if (window.wishlistManager) {
+        await window.wishlistManager.init();
+      }
     });
 
     this.updateUIForAuthState();

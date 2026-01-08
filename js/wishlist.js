@@ -8,12 +8,33 @@ class WishlistManager {
   }
 
   async init() {
+    // Wait for auth to be ready
+    await this.waitForAuth();
+    
     if (window.authManager?.isAuthenticated()) {
       await this.loadFromDatabase();
     } else {
       this.loadFromLocalStorage();
     }
     this.updateWishlistUI();
+  }
+
+  async waitForAuth() {
+    // Wait for authManager to be initialized
+    let attempts = 0;
+    while (!window.authManager && attempts < 50) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      attempts++;
+    }
+    
+    // If authManager exists, wait for it to finish initializing
+    if (window.authManager) {
+      let sessionChecks = 0;
+      while (window.authManager.session === undefined && sessionChecks < 50) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        sessionChecks++;
+      }
+    }
   }
 
   async loadFromDatabase() {
