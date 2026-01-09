@@ -166,7 +166,7 @@ class CartManager {
 
   updateCartUI() {
     // Update cart count badges
-    const cartBadges = document.querySelectorAll('.cart-count');
+    const cartBadges = document.querySelectorAll('.cart-count, #cartCount');
     const itemCount = this.getItemCount();
     
     cartBadges.forEach(badge => {

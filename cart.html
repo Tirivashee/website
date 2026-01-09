@@ -599,6 +599,97 @@
         width: 100%;
       }
     }
+
+    /* Authentication Modal */
+    .auth-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .auth-modal.show {
+      display: flex;
+    }
+
+    .auth-modal-content {
+      background: var(--color-white);
+      border: 3px solid var(--color-black);
+      padding: var(--spacing-xl);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .auth-modal-content h2 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-md);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .auth-modal-content p {
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-lg);
+      color: var(--color-gray-600);
+    }
+
+    .auth-modal-buttons {
+      display: flex;
+      gap: var(--spacing-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .auth-modal-buttons .btn {
+      padding: 12px 24px;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 2px solid var(--color-black);
+      cursor: pointer;
+      transition: var(--transition-base);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .auth-modal-buttons .btn-primary {
+      background: var(--color-black);
+      color: var(--color-white);
+    }
+
+    .auth-modal-buttons .btn-primary:hover {
+      background: var(--color-white);
+      color: var(--color-black);
+    }
+
+    .auth-modal-buttons .btn-secondary {
+      background: var(--color-white);
+      color: var(--color-black);
+    }
+
+    .auth-modal-buttons .btn-secondary:hover {
+      background: var(--color-black);
+      color: var(--color-white);
+    }
+
+    .auth-modal-buttons .btn-cancel {
+      background: transparent;
+      color: var(--color-gray-600);
+      border-color: var(--color-gray-400);
+    }
+
+    .auth-modal-buttons .btn-cancel:hover {
+      background: var(--color-gray-100);
+      color: var(--color-black);
+      border-color: var(--color-black);
+    }
   </style>
 
   <!-- Supabase -->
@@ -683,7 +774,7 @@
             <span>Total:</span>
             <span id="cartTotal">$0.00</span>
           </div>
-          <button class="checkout-btn" onclick="window.location.href='checkout.html'">
+          <button class="checkout-btn" onclick="proceedToCheckout()">
             PROCEED TO CHECKOUT
           </button>
           <a href="shop.html" class="btn btn-secondary" style="width: 100%; margin-top: 10px; display: block; text-align: center;">
@@ -708,6 +799,19 @@
       </div>
     </div>
   </main>
+
+  <!-- Authentication Modal -->
+  <div class="auth-modal" id="authModal">
+    <div class="auth-modal-content">
+      <h2>LOGIN REQUIRED</h2>
+      <p>To complete your order at checkout, you must be logged in or create an account.</p>
+      <div class="auth-modal-buttons">
+        <a href="users/signup.html?redirect=checkout.html" class="btn btn-primary">SIGN UP</a>
+        <a href="users/login.html?redirect=checkout.html" class="btn btn-secondary">LOG IN</a>
+        <button class="btn btn-cancel" onclick="closeAuthModal()">CANCEL</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="footer" id="contact">
@@ -788,5 +892,40 @@
   <script src="js/nav-badges.js"></script>
   <script src="js/transitions.js"></script>
   <script src="js/main.js"></script>
+  
+  <script>
+    // Check authentication before proceeding to checkout
+    async function proceedToCheckout() {
+      // Wait for auth manager to be ready
+      let attempts = 0;
+      while (!window.authManager && attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        attempts++;
+      }
+      
+      if (!window.authManager?.isAuthenticated()) {
+        // Show authentication modal
+        document.getElementById('authModal').classList.add('show');
+      } else {
+        // User is authenticated, proceed to checkout
+        window.location.href = 'checkout.html';
+      }
+    }
+    
+    // Close authentication modal
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.remove('show');
+    }
+    
+    // Close modal on backdrop click
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('authModal');
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          closeAuthModal();
+        }
+      });
+    });
+  </script>
 </body>
 </html>

@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
+  // Immediate authentication check - prevent page flash
+  (function() {
+    // Check if we have auth data in localStorage
+    const authSession = localStorage.getItem('supabase.auth.token');
+    if (!authSession) {
+      // No session, redirect immediately
+      window.location.href = 'users/login.html?redirect=checkout.html';
+      return;
+    }
+  })();
+  
   // Block admin users from accessing regular pages
   document.addEventListener('DOMContentLoaded', async () => {
     setTimeout(() => {
@@ -596,18 +607,22 @@
 
       // Check authentication
       if (!window.authManager?.isAuthenticated()) {
-        window.notificationManager.warning('Please login to checkout');
+        if (window.notificationManager) {
+          window.notificationManager.warning('Please login to checkout');
+        }
         setTimeout(() => {
-          window.location.href = '/users/login.html?redirect=checkout.html';
+          window.location.href = 'users/login.html?redirect=checkout.html';
         }, 1500);
         return;
       }
 
       // Check if cart is empty
       if (!window.cartManager || window.cartManager.cart.length === 0) {
-        window.notificationManager.warning('Your cart is empty');
+        if (window.notificationManager) {
+          window.notificationManager.warning('Your cart is empty');
+        }
         setTimeout(() => {
-          window.location.href = '/shop.html';
+          window.location.href = 'shop.html';
         }, 1500);
         return;
       }
@@ -679,13 +694,23 @@
       if (result.success) {
         // Show success modal
         document.getElementById('orderIdDisplay').textContent = result.order.id.substring(0, 8).toUpperCase();
-        document.getElementById('confirmEmail').textContent = orderData.full_name;
+        document.getElementById('confirmEmail').textContent = window.authManager.getUserEmail();
         document.getElementById('successModal').classList.add('show');
+        
+        // Notify user
+        if (window.notificationManager) {
+          window.notificationManager.success('Order submitted successfully!');
+        }
       } else {
-        errorMsg.textContent = 'Failed to submit order: ' + result.error;
+        errorMsg.textContent = 'Failed to submit order: ' + (result.error || 'Unknown error');
         errorMsg.style.display = 'block';
         submitBtn.disabled = false;
         submitBtn.textContent = 'SUBMIT ORDER';
+        
+        // Notify user
+        if (window.notificationManager) {
+          window.notificationManager.error('Failed to submit order. Please try again.');
+        }
       }
     }
   </script>

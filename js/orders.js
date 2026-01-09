@@ -14,6 +14,15 @@ class OrderManager {
         throw new Error('User must be authenticated to place an order');
       }
 
+      // Validate required fields
+      if (!orderData.full_name || !orderData.phone || !orderData.address_line1 || !orderData.city) {
+        throw new Error('Please fill in all required fields');
+      }
+
+      if (!orderData.items || orderData.items.length === 0) {
+        throw new Error('Cart is empty');
+      }
+
       // Prepare order data
       const order = {
         user_id: userId,

@@ -7,6 +7,14 @@ const createTransitionOverlay = () => {
   const overlay = document.createElement('div');
   overlay.id = 'page-transition-overlay';
   overlay.className = 'page-transition-overlay';
+  
+  // Create SVG with liquid morphing path
+  overlay.innerHTML = `
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <path d="M 0 100 V 100 Q 50 100 100 100 V 100 z" vector-effect="non-scaling-stroke" />
+    </svg>
+  `;
+  
   document.body.appendChild(overlay);
 };
 
@@ -54,13 +62,14 @@ const setupPageTransitions = () => {
       }
       
       // Trigger transition
+      document.body.classList.add('transitioning-out');
       overlay.classList.add('active');
       document.body.classList.remove('page-loaded');
       
-      // Navigate after animation
+      // Navigate after animation completes
       setTimeout(() => {
         window.location.href = href;
-      }, 450);
+      }, 900);
     });
   });
 };
