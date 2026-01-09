@@ -60,7 +60,7 @@ const setupPageTransitions = () => {
       // Navigate after animation
       setTimeout(() => {
         window.location.href = href;
-      }, 400);
+      }, 450);
     });
   });
 };
