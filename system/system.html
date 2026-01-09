@@ -1104,11 +1104,23 @@
       modal.style.display = 'none';
     }
 
+    // Open status modal
+    function openStatusModal(orderId) {
+      currentOrderId = orderId;
+      document.getElementById('status-order-id').value = orderId.substring(0, 8).toUpperCase();
+      openModal('status-modal');
+    }
+
     // Update order status
     async function updateOrderStatus(newStatus) {
       if (!currentOrderId) {
         showNotification('Error', 'No order selected', 'error');
         return;
+      }
+
+      // If no status provided, get it from the modal
+      if (!newStatus) {
+        newStatus = document.getElementById('new-status').value;
       }
 
       if (!confirm(`Are you sure you want to mark this order as ${newStatus}?`)) {
@@ -1129,6 +1141,7 @@
 
         showNotification('Success', `Order status updated to ${newStatus}`, 'success');
         closeModal('order-modal');
+        closeModal('status-modal');
         await refreshOrders();
       } catch (error) {
         console.error('Error updating order status:', error);
@@ -1187,7 +1200,10 @@
     // Update last updated time
     function updateTimestamp() {
       const now = new Date();
-      document.getElementById('last-updated').textContent = now.toLocaleString();
+      const element = document.getElementById('last-updated');
+      if (element) {
+        element.textContent = now.toLocaleString();
+      }
     }
 
     // Initialize dashboard

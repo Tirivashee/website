@@ -6,22 +6,85 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Page Transition Overlay */
+.page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1),
+              opacity 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform, opacity;
+}
+
+.page-transition-overlay.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+/* Page Load States */
+body {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}
+
+body.page-ready {
+  opacity: 1;
+}
+
+body.page-loaded {
+  opacity: 1;
+}
+
+/* Content Fade In on Page Load */
+main,
+.hero,
+.container {
+  animation: contentFadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+body.page-loaded main,
+body.page-loaded .hero,
+body.page-loaded .container {
+  opacity: 1;
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Fade In */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateZ(0);
+    transform: translateZ(0) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateZ(0);
+    transform: translateZ(0) scale(1);
   }
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 30px, 0);
   }
   to {
     opacity: 1;
@@ -32,7 +95,7 @@
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -30px, 0);
   }
   to {
     opacity: 1;
@@ -41,17 +104,17 @@
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: fadeIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   will-change: opacity, transform;
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   will-change: opacity, transform;
 }
 
 .animate-fade-in-down {
-  animation: fadeInDown 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: fadeInDown 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   will-change: opacity, transform;
 }
 
@@ -99,9 +162,9 @@ html {
 /* Scroll Reveal */
 .scroll-reveal {
   opacity: 0;
-  transform: translate3d(0, 30px, 0);
-  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translate3d(0, 40px, 0);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: opacity, transform;
 }
 
