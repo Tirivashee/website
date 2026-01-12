@@ -12,11 +12,96 @@ class WishlistManager {
     await this.waitForAuth();
     
     if (window.authManager?.isAuthenticated()) {
-      await this.loadFromDatabase();
+      // If guest wishlist exists in localStorage, merge it into the user's database wishlist
+      const guestWishlist = localStorage.getItem('wishlist');
+      if (guestWishlist && guestWishlist !== '[]') {
+        await this.mergeLocalToDatabase();
+      } else {
+        // Load wishlist from Supabase
+        await this.loadFromDatabase();
+      }
     } else {
+      // Load wishlist from localStorage for guests
       this.loadFromLocalStorage();
     }
     this.updateWishlistUI();
+    
+    // Listen for cross-tab storage changes
+    this.setupStorageListener();
+  }
+
+  // Merge localStorage wishlist into Supabase for authenticated user
+  async mergeLocalToDatabase() {
+    try {
+      const localWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      const userId = window.authManager.getUserId();
+
+      // Fetch existing DB items for user
+      const { data: dbItems, error } = await supabaseClient
+        .from('wishlist_items')
+        .select('*')
+        .eq('user_id', userId);
+
+      if (error) throw error;
+
+      const db = dbItems || [];
+
+      // Merge by product_id (wishlist doesn't have size/color variants)
+      const map = new Map();
+
+      db.forEach(it => {
+        map.set(it.product_id, Object.assign({}, it));
+      });
+
+      localWishlist.forEach(it => {
+        if (!map.has(it.product_id)) {
+          map.set(it.product_id, {
+            user_id: userId,
+            product_id: it.product_id,
+            product_name: it.product_name,
+            product_image: it.product_image,
+            price: it.price,
+            added_at: it.added_at || new Date().toISOString()
+          });
+        }
+      });
+
+      // Convert merged map into this.wishlist format (no DB ids)
+      this.wishlist = Array.from(map.values()).map(it => ({
+        product_id: it.product_id,
+        product_name: it.product_name,
+        product_image: it.product_image,
+        price: it.price,
+        added_at: it.added_at || new Date().toISOString()
+      }));
+
+      // Persist merged wishlist to database
+      await this.saveToDatabase();
+
+      // Clear guest wishlist
+      localStorage.removeItem('wishlist');
+    } catch (err) {
+      console.error('Error merging local wishlist into database:', err);
+      // Fallback: load DB and then append local items via toggleItem
+      await this.loadFromDatabase();
+      const fallbackLocal = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      if (fallbackLocal.length > 0) {
+        for (const it of fallbackLocal) {
+          await this.toggleItem(it);
+        }
+        localStorage.removeItem('wishlist');
+      }
+    }
+  }
+
+  setupStorageListener() {
+    // Listen for localStorage changes in other tabs
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'wishlist' && !window.authManager?.isAuthenticated()) {
+        this.loadFromLocalStorage();
+        this.updateWishlistUI();
+      }
+    });
   }
 
   async waitForAuth() {
@@ -190,12 +275,12 @@ class WishlistManager {
 
   updateWishlistUI() {
     // Update wishlist count badges
-    const wishlistBadges = document.querySelectorAll('.wishlist-count');
+    const wishlistBadges = document.querySelectorAll('#wishlistCount, .wishlist-count');
     const itemCount = this.wishlist.length;
     
     wishlistBadges.forEach(badge => {
       badge.textContent = itemCount;
-      badge.style.display = itemCount > 0 ? 'inline-block' : 'none';
+      badge.style.display = itemCount > 0 ? 'flex' : 'none';
     });
 
     // Update bookmark icons on product cards
@@ -204,10 +289,12 @@ class WishlistManager {
       const productId = btn.dataset.productId;
       if (this.isInWishlist(productId)) {
         btn.classList.add('active');
-        btn.innerHTML = '🔖'; // Filled bookmark
+        btn.style.background = '#000';
+        btn.style.color = '#fff';
       } else {
         btn.classList.remove('active');
-        btn.innerHTML = '🔖'; // Outlined bookmark
+        btn.style.background = '#fff';
+        btn.style.color = '#000';
       }
     });
 
@@ -297,6 +384,37 @@ class WishlistManager {
         quantity: 1
       });
       await this.removeItem(productId);
+    }
+  }
+
+  async moveAllToCart() {
+    if (!window.cartManager || this.wishlist.length === 0) return;
+    
+    const itemsCopy = [...this.wishlist];
+    let successCount = 0;
+    
+    for (const item of itemsCopy) {
+      try {
+        await window.cartManager.addItem({
+          product_id: item.product_id,
+          product_name: item.product_name,
+          product_image: item.product_image,
+          price: item.price,
+          quantity: 1
+        });
+        successCount++;
+      } catch (error) {
+        console.error('Error moving item to cart:', error);
+      }
+    }
+    
+    // Clear wishlist after moving all items
+    this.wishlist = [];
+    await this.saveToDatabase();
+    this.updateWishlistUI();
+    
+    if (successCount > 0) {
+      this.showNotification(`Moved ${successCount} item${successCount > 1 ? 's' : ''} to cart!`);
     }
   }
 

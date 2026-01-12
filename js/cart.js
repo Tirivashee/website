@@ -331,17 +331,32 @@ class CartManager {
       authMessage.style.display = isAuthenticated ? 'none' : 'block';
     }
 
+    // Handle empty cart state
     if (this.cart.length === 0) {
-      if (emptyMessage) emptyMessage.style.display = 'block';
-      if (cartSummary) cartSummary.style.display = 'none';
-      if (cartContent) cartContent.classList.add('hidden');
+      if (emptyMessage) {
+        emptyMessage.style.display = 'block';
+      }
+      if (cartSummary) {
+        cartSummary.style.display = 'none';
+      }
+      if (cartContent) {
+        cartContent.style.display = 'none';
+      }
       cartContainer.innerHTML = '';
+      console.log('Cart is empty - showing empty state');
       return;
     }
 
-    if (emptyMessage) emptyMessage.style.display = 'none';
-    if (cartSummary) cartSummary.style.display = 'block';
-    if (cartContent) cartContent.classList.remove('hidden');
+    // Handle cart with items
+    if (emptyMessage) {
+      emptyMessage.style.display = 'none';
+    }
+    if (cartSummary) {
+      cartSummary.style.display = 'block';
+    }
+    if (cartContent) {
+      cartContent.style.display = 'grid';
+    }
 
     // Render cart with event delegation instead of inline onclick
     cartContainer.innerHTML = this.cart.map((item, index) => `
