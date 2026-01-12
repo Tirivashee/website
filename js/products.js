@@ -21,9 +21,15 @@ class ProductInteractions {
       // Extract product data
       const productId = `product-${index + 1}`;
       const productName = card.querySelector('.card-title')?.textContent || 'Product';
-      const productPrice = parseFloat(
-        card.querySelector('.card-price')?.textContent.replace('$', '') || '0'
-      );
+      const priceText = card.querySelector('.card-price')?.textContent.replace('$', '') || '0';
+      const productPrice = parseFloat(priceText);
+      
+      // Validate price
+      if (isNaN(productPrice) || productPrice < 0) {
+        console.error('Invalid product price:', priceText);
+        return; // Skip this card
+      }
+      
       const productImage = card.querySelector('.card-image')?.src || '';
 
       // Store product data

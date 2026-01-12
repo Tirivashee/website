@@ -137,6 +137,21 @@ class WishlistManager {
   }
 
   async toggleItem(product) {
+    // Validate product data
+    if (!product || !product.product_id || !product.product_name) {
+      console.error('Invalid wishlist product:', product);
+      window.notificationManager?.error('Failed to add item to wishlist');
+      return;
+    }
+    
+    // Validate and normalize price
+    const price = parseFloat(product.price);
+    if (isNaN(price) || price < 0) {
+      console.error('Invalid product price:', product.price);
+      window.notificationManager?.error('Invalid product price');
+      return false;
+    }
+
     const index = this.wishlist.findIndex(item => item.product_id === product.product_id);
 
     if (index > -1) {
@@ -150,7 +165,7 @@ class WishlistManager {
         product_id: product.product_id,
         product_name: product.product_name,
         product_image: product.product_image,
-        price: product.price,
+        price: price,
         added_at: new Date().toISOString()
       });
       await this.saveToDatabase();
@@ -223,27 +238,52 @@ class WishlistManager {
 
     if (emptyMessage) emptyMessage.style.display = 'none';
 
-    wishlistContainer.innerHTML = this.wishlist.map(item => `
-      <div class="wishlist-item">
+    // Render wishlist with event delegation instead of inline onclick
+    wishlistContainer.innerHTML = this.wishlist.map((item, index) => `
+      <div class="wishlist-item" data-index="${index}">
         <div class="product-card">
           <div class="product-image-container">
             <img src="${item.product_image}" alt="${item.product_name}" class="product-image">
             <div class="product-overlay">
-              <button class="btn btn-secondary" onclick="wishlistManager.moveToCart('${item.product_id}')">
+              <button class="btn btn-secondary" data-action="move-to-cart" data-product-id="${item.product_id}">
                 ADD TO CART
               </button>
             </div>
           </div>
           <div class="product-info">
             <h3 class="product-name">${item.product_name}</h3>
-            <p class="product-price">$${item.price.toFixed(2)}</p>
-            <button class="btn-remove" onclick="wishlistManager.removeItem('${item.product_id}')">
+            <p class="product-price">$${(item.price || 0).toFixed(2)}</p>
+            <button class="btn-remove" data-action="remove" data-product-id="${item.product_id}">
               Remove
             </button>
           </div>
         </div>
       </div>
     `).join('');
+    
+    // Add event delegation for wishlist actions
+    this.attachWishlistEventListeners(wishlistContainer);
+  }
+  
+  attachWishlistEventListeners(container) {
+    if (!container) return;
+    
+    // Use event delegation to handle all button clicks
+    container.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-action]');
+      if (!target) return;
+      
+      const action = target.dataset.action;
+      const productId = target.dataset.productId;
+      
+      if (action === 'move-to-cart') {
+        e.preventDefault();
+        this.moveToCart(productId);
+      } else if (action === 'remove') {
+        e.preventDefault();
+        this.removeItem(productId);
+      }
+    });
   }
 
   async moveToCart(productId) {

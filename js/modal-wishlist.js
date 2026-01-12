@@ -1,10 +1,16 @@
 // Modal Wishlist and Cart Button Handler
 // Handles wishlist and cart functionality in the product modal
 
-// Wait for DOM and scripts to load
-setTimeout(() => {
+// Initialize modal buttons safely
+function initModalButtons() {
   const modalWishlistBtn = document.getElementById('modalWishlistBtn');
   const modalCartBtn = document.getElementById('modalCartBtn');
+  
+  // Retry if elements or managers not ready yet
+  if (!modalWishlistBtn || !modalCartBtn || !window.wishlistManager || !window.cartManager) {
+    requestAnimationFrame(initModalButtons);
+    return;
+  }
   
   // Wishlist Button Handler
   if (modalWishlistBtn) {
@@ -20,11 +26,20 @@ setTimeout(() => {
       // Generate product ID from title
       const productId = modalTitle.toLowerCase().replace(/\s+/g, '-');
       
+      const rawPrice = modalPrice.replace('$', '').replace(/[^0-9.]/g, '');
+      const price = parseFloat(rawPrice);
+      
+      if (isNaN(price) || price < 0) {
+        console.error('Invalid product price:', rawPrice);
+        window.notificationManager?.error('Invalid product price');
+        return;
+      }
+      
       const productData = {
         product_id: productId,
         product_name: modalTitle,
         product_image: modalImage,
-        price: parseFloat(modalPrice.replace('$', '').replace(/[^0-9.]/g, ''))
+        price: price
       };
       
       if (window.wishlistManager) {
@@ -75,11 +90,20 @@ setTimeout(() => {
       // Generate product ID from title
       const productId = modalTitle.toLowerCase().replace(/\s+/g, '-');
       
+      const rawPrice = modalPrice.replace('$', '').replace(/[^0-9.]/g, '');
+      const price = parseFloat(rawPrice);
+      
+      if (isNaN(price) || price < 0) {
+        console.error('Invalid product price:', rawPrice);
+        window.notificationManager?.error('Invalid product price');
+        return;
+      }
+      
       const productData = {
         product_id: productId,
         product_name: modalTitle,
         product_image: modalImage,
-        price: parseFloat(modalPrice.replace('$', '').replace(/[^0-9.]/g, '')),
+        price: price,
         quantity: 1,
         size: selectedSize,
         color: selectedColor
@@ -90,4 +114,11 @@ setTimeout(() => {
       }
     });
   }
-}, 500);
+}
+
+// Start initialization
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initModalButtons);
+} else {
+  initModalButtons();
+}

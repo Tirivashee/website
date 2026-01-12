@@ -55,11 +55,21 @@ function initializeWishlistButtons() {
       e.stopPropagation();
       e.preventDefault();
       
+      const rawPrice = this.getAttribute('data-product-price') || '0';
+      const price = parseFloat(rawPrice);
+      
+      // Validate price
+      if (isNaN(price) || price < 0) {
+        console.error('Invalid product price:', rawPrice);
+        window.notificationManager?.error('Invalid product price');
+        return;
+      }
+      
       const productData = {
         product_id: this.getAttribute('data-product-id'),
         product_name: this.getAttribute('data-product-name'),
         product_image: this.getAttribute('data-product-image'),
-        price: parseFloat(this.getAttribute('data-product-price'))
+        price: price
       };
       
       if (window.wishlistManager) {

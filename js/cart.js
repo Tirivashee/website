@@ -225,6 +225,21 @@ class CartManager {
   }
 
   async addItem(product) {
+    // Validate product data
+    if (!product || !product.product_id || !product.product_name) {
+      console.error('Invalid cart item:', product);
+      window.notificationManager?.error('Failed to add item to cart');
+      return;
+    }
+    
+    // Validate and normalize price
+    const price = parseFloat(product.price);
+    if (isNaN(price) || price < 0) {
+      console.error('Invalid product price:', product.price);
+      window.notificationManager?.error('Invalid product price');
+      return;
+    }
+    
     const existingItemIndex = this.cart.findIndex(
       item => item.product_id === product.product_id && 
               item.size === product.size && 
@@ -238,7 +253,7 @@ class CartManager {
         product_id: product.product_id,
         product_name: product.product_name,
         product_image: product.product_image,
-        price: product.price,
+        price: price,
         quantity: product.quantity || 1,
         size: product.size || null,
         color: product.color || null,
@@ -328,6 +343,7 @@ class CartManager {
     if (cartSummary) cartSummary.style.display = 'block';
     if (cartContent) cartContent.classList.remove('hidden');
 
+    // Render cart with event delegation instead of inline onclick
     cartContainer.innerHTML = this.cart.map((item, index) => `
       <div class="cart-item" data-index="${index}">
         <div class="cart-item-image-wrapper">
@@ -337,20 +353,20 @@ class CartManager {
           <h3>${item.product_name}</h3>
           ${item.size ? `<p class="cart-item-variant">Size: ${item.size}</p>` : ''}
           ${item.color ? `<p class="cart-item-variant">Color: ${item.color}</p>` : ''}
-          <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+          <p class="cart-item-price">$${(item.price || 0).toFixed(2)}</p>
         </div>
         <div class="cart-item-actions">
           <div class="cart-item-quantity">
-            <button class="qty-btn" onclick="cartManager.updateQuantity(${index}, ${item.quantity - 1})">-</button>
+            <button class="qty-btn" data-action="decrease" data-index="${index}" data-quantity="${item.quantity}">-</button>
             <span class="qty-value">${item.quantity}</span>
-            <button class="qty-btn" onclick="cartManager.updateQuantity(${index}, ${item.quantity + 1})">+</button>
+            <button class="qty-btn" data-action="increase" data-index="${index}" data-quantity="${item.quantity}">+</button>
           </div>
-          <button class="cart-item-remove" onclick="cartManager.removeItem(${index})">×</button>
+          <button class="cart-item-remove" data-action="remove" data-index="${index}">×</button>
         </div>
       </div>
     `).join('');
 
-    const total = this.getTotal();
+    const total = this.getTotal() || 0;
     const subtotalElement = document.getElementById('cartSubtotal');
     const totalElement = document.getElementById('cartTotal');
     
@@ -360,6 +376,37 @@ class CartManager {
     if (totalElement) {
       totalElement.textContent = `$${total.toFixed(2)}`;
     }
+    
+    // Add event delegation for cart actions
+    this.attachCartEventListeners(cartContainer);
+  }
+  
+  attachCartEventListeners(container) {
+    if (!container) return;
+    
+    // Use event delegation to handle all button clicks
+    container.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-action]');
+      if (!target) return;
+      
+      const action = target.dataset.action;
+      const index = parseInt(target.dataset.index, 10);
+      
+      if (isNaN(index)) return;
+      
+      if (action === 'increase') {
+        e.preventDefault();
+        const currentQty = parseInt(target.dataset.quantity, 10) || 0;
+        this.updateQuantity(index, currentQty + 1);
+      } else if (action === 'decrease') {
+        e.preventDefault();
+        const currentQty = parseInt(target.dataset.quantity, 10) || 0;
+        this.updateQuantity(index, currentQty - 1);
+      } else if (action === 'remove') {
+        e.preventDefault();
+        this.removeItem(index);
+      }
+    });
   }
 
   showNotification(message) {
