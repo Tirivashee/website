@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
-  // Immediate authentication check - prevent page flash
+  // Defer auth redirect until authManager is initialized to avoid false redirects
   (function() {
-    // Check if we have auth data in localStorage
-    const authSession = localStorage.getItem('supabase.auth.token');
-    if (!authSession) {
-      // No session, redirect immediately
-      window.location.href = 'users/login.html?redirect=checkout.html';
-      return;
-    }
+    const maxAttempts = 60;
+    let attempts = 0;
+    const interval = setInterval(() => {
+      if (window.authManager && window.authManager.session !== undefined) {
+        clearInterval(interval);
+        if (!window.authManager.isAuthenticated()) {
+          window.location.href = 'users/login.html?redirect=checkout.html';
+        }
+      } else if (attempts++ >= maxAttempts) {
+        clearInterval(interval);
+        // Fallback check using legacy localStorage key
+        if (!localStorage.getItem('supabase.auth.token')) {
+          window.location.href = 'users/login.html?redirect=checkout.html';
+        }
+      }
+    }, 100);
   })();
-  
+
   // Block admin users from accessing regular pages
   document.addEventListener('DOMContentLoaded', async () => {
     setTimeout(() => {
