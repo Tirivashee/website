@@ -1,6 +1,13 @@
 // Cart Management System
 // Handles shopping cart functionality with Supabase integration
 
+// Cart Configuration
+const CART_LIMITS = {
+  MAX_QUANTITY_PER_ITEM: 99,
+  MAX_TOTAL_ITEMS: 100,
+  MAX_UNIQUE_PRODUCTS: 50
+};
+
 class CartManager {
   constructor() {
     this.cart = [];
@@ -149,74 +156,116 @@ class CartManager {
     try {
       const userId = window.authManager.getUserId();
 
-      // Fetch backup of existing items so we can rollback if insert fails
-      let backup = [];
-      try {
-        const { data: existing, error: fetchErr } = await supabaseClient
-          .from('cart_items')
-          .select('*')
-          .eq('user_id', userId);
-        if (fetchErr) throw fetchErr;
-        backup = existing || [];
-      } catch (fetchErr) {
-        console.warn('Could not fetch cart backup before save:', fetchErr);
-      }
-
-      // Delete existing cart items
-      await supabaseClient
+      // Fetch existing cart items from database
+      const { data: existingItems, error: fetchErr } = await supabaseClient
         .from('cart_items')
-        .delete()
+        .select('*')
         .eq('user_id', userId);
 
-      // Insert new cart items
-      if (this.cart.length > 0) {
-        const cartItems = this.cart.map(item => ({
-          user_id: userId,
-          product_id: item.product_id,
-          product_name: item.product_name,
-          product_image: item.product_image,
-          price: item.price,
-          quantity: item.quantity,
-          size: item.size || null,
-          color: item.color || null
-        }));
+      if (fetchErr) throw fetchErr;
 
-        const { error } = await supabaseClient
-          .from('cart_items')
-          .insert(cartItems);
+      const existing = existingItems || [];
 
-        if (error) {
-          // Attempt rollback by reinserting backup (without original ids)
-          try {
-            if (backup.length > 0) {
-              const rollbackItems = backup.map(b => ({
-                user_id: b.user_id,
-                product_id: b.product_id,
-                product_name: b.product_name,
-                product_image: b.product_image,
-                price: b.price,
-                quantity: b.quantity,
-                size: b.size || null,
-                color: b.color || null
-              }));
-              const { error: rbErr } = await supabaseClient
-                .from('cart_items')
-                .insert(rollbackItems);
-              if (rbErr) console.error('Cart rollback failed:', rbErr);
-            } else {
-              // If no backup available, fallback to localStorage
-              this.saveToLocalStorage();
-            }
-          } catch (rb) {
-            console.error('Error during cart rollback:', rb);
+      // Create lookup key for cart items (product_id + size + color)
+      const itemKey = (item) => `${item.product_id}||${item.size || ''}||${item.color || ''}`;
+
+      // Build maps for comparison
+      const currentMap = new Map(this.cart.map(item => [itemKey(item), item]));
+      const existingMap = new Map(existing.map(item => [itemKey(item), item]));
+
+      // Determine operations needed
+      const toInsert = [];
+      const toUpdate = [];
+      const toDelete = [];
+
+      // Check current cart items - insert new or update existing
+      for (const [key, item] of currentMap) {
+        const existingItem = existingMap.get(key);
+        
+        if (existingItem) {
+          // Item exists - update if quantity or price changed
+          if (existingItem.quantity !== item.quantity || existingItem.price !== item.price) {
+            toUpdate.push({
+              id: existingItem.id,
+              quantity: item.quantity,
+              price: item.price,
+              product_name: item.product_name,
+              product_image: item.product_image
+            });
           }
+        } else {
+          // New item - insert
+          toInsert.push({
+            user_id: userId,
+            product_id: item.product_id,
+            product_name: item.product_name,
+            product_image: item.product_image,
+            price: item.price,
+            quantity: item.quantity,
+            size: item.size || null,
+            color: item.color || null
+          });
+        }
+      }
 
-          throw error;
+      // Check for items to delete (in DB but not in current cart)
+      for (const [key, item] of existingMap) {
+        if (!currentMap.has(key)) {
+          toDelete.push(item.id);
+        }
+      }
+
+      // Execute operations (these can run in parallel safely)
+      const operations = [];
+
+      // Insert new items
+      if (toInsert.length > 0) {
+        operations.push(
+          supabaseClient.from('cart_items').insert(toInsert)
+        );
+      }
+
+      // Update existing items
+      for (const update of toUpdate) {
+        operations.push(
+          supabaseClient
+            .from('cart_items')
+            .update({
+              quantity: update.quantity,
+              price: update.price,
+              product_name: update.product_name,
+              product_image: update.product_image
+            })
+            .eq('id', update.id)
+        );
+      }
+
+      // Delete removed items
+      if (toDelete.length > 0) {
+        operations.push(
+          supabaseClient
+            .from('cart_items')
+            .delete()
+            .in('id', toDelete)
+        );
+      }
+
+      // Execute all operations
+      if (operations.length > 0) {
+        const results = await Promise.all(operations);
+        
+        // Check for errors
+        const errors = results.filter(r => r.error);
+        if (errors.length > 0) {
+          console.error('Cart save errors:', errors);
+          throw new Error('Failed to save cart changes');
         }
       }
     } catch (error) {
       console.error('Error saving cart:', error);
+      // Fallback to localStorage on error
       this.saveToLocalStorage();
+      throw error; // Re-throw so caller knows save failed
     }
   }
 
@@ -239,6 +288,13 @@ class CartManager {
       window.notificationManager?.error('Invalid product price');
       return;
     }
+
+    // Validate quantity
+    const quantity = parseInt(product.quantity, 10) || 1;
+    if (quantity <= 0 || quantity > CART_LIMITS.MAX_QUANTITY_PER_ITEM) {
+      window.notificationManager?.error(`Quantity must be between 1 and ${CART_LIMITS.MAX_QUANTITY_PER_ITEM}`);
+      return;
+    }
     
     const existingItemIndex = this.cart.findIndex(
       item => item.product_id === product.product_id && 
@@ -247,29 +303,70 @@ class CartManager {
     );
 
     if (existingItemIndex > -1) {
-      this.cart[existingItemIndex].quantity += product.quantity || 1;
+      // Check if adding would exceed per-item limit
+      const newQuantity = this.cart[existingItemIndex].quantity + quantity;
+      if (newQuantity > CART_LIMITS.MAX_QUANTITY_PER_ITEM) {
+        window.notificationManager?.error(`Cannot add more. Maximum ${CART_LIMITS.MAX_QUANTITY_PER_ITEM} per item`);
+        return;
+      }
+      this.cart[existingItemIndex].quantity = newQuantity;
     } else {
+      // Check unique products limit
+      if (this.cart.length >= CART_LIMITS.MAX_UNIQUE_PRODUCTS) {
+        window.notificationManager?.error(`Cart is full. Maximum ${CART_LIMITS.MAX_UNIQUE_PRODUCTS} different items`);
+        return;
+      }
+
       this.cart.push({
         product_id: product.product_id,
         product_name: product.product_name,
         product_image: product.product_image,
         price: price,
-        quantity: product.quantity || 1,
+        quantity: quantity,
         size: product.size || null,
         color: product.color || null,
         added_at: new Date().toISOString()
       });
     }
 
-    await this.saveToDatabase();
-    this.updateCartUI();
-    this.showNotification('Item added to cart!');
+    // Check total items limit
+    const totalItems = this.getItemCount();
+    if (totalItems > CART_LIMITS.MAX_TOTAL_ITEMS) {
+      // Revert the change
+      if (existingItemIndex > -1) {
+        this.cart[existingItemIndex].quantity -= quantity;
+      } else {
+        this.cart.pop();
+      }
+      window.notificationManager?.error(`Cart limit reached. Maximum ${CART_LIMITS.MAX_TOTAL_ITEMS} total items`);
+      return;
+    }
+
+    try {
+      await this.saveToDatabase();
+      this.updateCartUI();
+      this.showNotification('Item added to cart!');
+    } catch (error) {
+      console.error('Failed to save cart:', error);
+      window.notificationManager?.error('Failed to add item. Please try again.');
+    }
   }
 
   async removeItem(index) {
+    if (index < 0 || index >= this.cart.length) {
+      console.error('Invalid cart item index:', index);
+      return;
+    }
+
     this.cart.splice(index, 1);
-    await this.saveToDatabase();
-    this.updateCartUI();
+    
+    try {
+      await this.saveToDatabase();
+      this.updateCartUI();
+    } catch (error) {
+      console.error('Failed to remove item:', error);
+      window.notificationManager?.error('Failed to remove item. Please try again.');
+    }
   }
 
   async updateQuantity(index, quantity) {
@@ -277,16 +374,43 @@ class CartManager {
       await this.removeItem(index);
       return;
     }
+
+    // Validate quantity limits
+    if (quantity > CART_LIMITS.MAX_QUANTITY_PER_ITEM) {
+      window.notificationManager?.error(`Maximum quantity is ${CART_LIMITS.MAX_QUANTITY_PER_ITEM}`);
+      return;
+    }
+
+    // Check total items limit
+    const currentTotal = this.getItemCount();
+    const difference = quantity - this.cart[index].quantity;
+    if (currentTotal + difference > CART_LIMITS.MAX_TOTAL_ITEMS) {
+      window.notificationManager?.error(`Cart limit reached. Maximum ${CART_LIMITS.MAX_TOTAL_ITEMS} total items`);
+      return;
+    }
     
     this.cart[index].quantity = quantity;
-    await this.saveToDatabase();
-    this.updateCartUI();
+    
+    try {
+      await this.saveToDatabase();
+      this.updateCartUI();
+    } catch (error) {
+      console.error('Failed to update quantity:', error);
+      window.notificationManager?.error('Failed to update quantity. Please try again.');
+    }
   }
 
   async clearCart() {
     this.cart = [];
-    await this.saveToDatabase();
-    this.updateCartUI();
+    
+    try {
+      await this.saveToDatabase();
+      this.updateCartUI();
+    } catch (error) {
+      console.error('Failed to clear cart:', error);
+      // Still clear UI even if save fails
+      this.updateCartUI();
+    }
   }
 
   getTotal() {
