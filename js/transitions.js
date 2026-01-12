@@ -66,10 +66,10 @@ const setupPageTransitions = () => {
       overlay.classList.add('active');
       document.body.classList.remove('page-loaded');
       
-      // Navigate after animation completes
+      // Navigate after animation completes (shorter, subtler)
       setTimeout(() => {
         window.location.href = href;
-      }, 900);
+      }, 350);
     });
   });
 };
@@ -105,8 +105,8 @@ const sectionTransitionObserver = new IntersectionObserver((entries) => {
 const sections = document.querySelectorAll('section');
 sections.forEach(section => {
   section.style.opacity = '0';
-  section.style.transform = 'translate3d(0, 30px, 0)';
-  section.style.transition = 'opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+  section.style.transform = 'translate3d(0, 20px, 0)';
+  section.style.transition = 'opacity var(--transition-base), transform var(--transition-base)';
   section.style.willChange = 'opacity, transform';
   sectionTransitionObserver.observe(section);
 });
