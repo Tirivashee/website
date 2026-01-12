@@ -148,7 +148,20 @@ class CartManager {
 
     try {
       const userId = window.authManager.getUserId();
-      
+
+      // Fetch backup of existing items so we can rollback if insert fails
+      let backup = [];
+      try {
+        const { data: existing, error: fetchErr } = await supabaseClient
+          .from('cart_items')
+          .select('*')
+          .eq('user_id', userId);
+        if (fetchErr) throw fetchErr;
+        backup = existing || [];
+      } catch (fetchErr) {
+        console.warn('Could not fetch cart backup before save:', fetchErr);
+      }
+
       // Delete existing cart items
       await supabaseClient
         .from('cart_items')
@@ -172,7 +185,34 @@ class CartManager {
           .from('cart_items')
           .insert(cartItems);
 
-        if (error) throw error;
+        if (error) {
+          // Attempt rollback by reinserting backup (without original ids)
+          try {
+            if (backup.length > 0) {
+              const rollbackItems = backup.map(b => ({
+                user_id: b.user_id,
+                product_id: b.product_id,
+                product_name: b.product_name,
+                product_image: b.product_image,
+                price: b.price,
+                quantity: b.quantity,
+                size: b.size || null,
+                color: b.color || null
+              }));
+              const { error: rbErr } = await supabaseClient
+                .from('cart_items')
+                .insert(rollbackItems);
+              if (rbErr) console.error('Cart rollback failed:', rbErr);
+            } else {
+              // If no backup available, fallback to localStorage
+              this.saveToLocalStorage();
+            }
+          } catch (rb) {
+            console.error('Error during cart rollback:', rb);
+          }
+
+          throw error;
+        }
       }
     } catch (error) {
       console.error('Error saving cart:', error);

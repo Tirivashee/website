@@ -66,7 +66,20 @@ class WishlistManager {
 
     try {
       const userId = window.authManager.getUserId();
-      
+
+      // Fetch backup of existing items so we can rollback if insert fails
+      let backup = [];
+      try {
+        const { data: existing, error: fetchErr } = await supabaseClient
+          .from('wishlist_items')
+          .select('*')
+          .eq('user_id', userId);
+        if (fetchErr) throw fetchErr;
+        backup = existing || [];
+      } catch (fetchErr) {
+        console.warn('Could not fetch wishlist backup before save:', fetchErr);
+      }
+
       // Delete existing wishlist items
       await supabaseClient
         .from('wishlist_items')
@@ -87,7 +100,31 @@ class WishlistManager {
           .from('wishlist_items')
           .insert(wishlistItems);
 
-        if (error) throw error;
+        if (error) {
+          // Attempt rollback by reinserting backup (without original ids)
+          try {
+            if (backup.length > 0) {
+              const rollbackItems = backup.map(b => ({
+                user_id: b.user_id,
+                product_id: b.product_id,
+                product_name: b.product_name,
+                product_image: b.product_image,
+                price: b.price
+              }));
+              const { error: rbErr } = await supabaseClient
+                .from('wishlist_items')
+                .insert(rollbackItems);
+              if (rbErr) console.error('Wishlist rollback failed:', rbErr);
+            } else {
+              // If no backup available, fallback to localStorage
+              this.saveToLocalStorage();
+            }
+          } catch (rb) {
+            console.error('Error during wishlist rollback:', rb);
+          }
+
+          throw error;
+        }
       }
     } catch (error) {
       console.error('Error saving wishlist:', error);
