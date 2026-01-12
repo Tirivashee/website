@@ -12,13 +12,93 @@ class CartManager {
     await this.waitForAuth();
     
     if (window.authManager?.isAuthenticated()) {
-      // Load cart from Supabase
-      await this.loadFromDatabase();
+      // If guest cart exists in localStorage, merge it into the user's database cart
+      const guestCart = localStorage.getItem('cart');
+      if (guestCart && guestCart !== '[]') {
+        await this.mergeLocalToDatabase();
+      } else {
+        // Load cart from Supabase
+        await this.loadFromDatabase();
+      }
     } else {
       // Load cart from localStorage for guests
       this.loadFromLocalStorage();
     }
     this.updateCartUI();
+  }
+
+  // Merge localStorage cart into Supabase for authenticated user
+  async mergeLocalToDatabase() {
+    try {
+      const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const userId = window.authManager.getUserId();
+
+      // Fetch existing DB items for user
+      const { data: dbItems, error } = await supabaseClient
+        .from('cart_items')
+        .select('*')
+        .eq('user_id', userId);
+
+      if (error) throw error;
+
+      const db = dbItems || [];
+
+      // Merge by product_id + size + color
+      const key = (it) => `${it.product_id}||${it.size || ''}||${it.color || ''}`;
+      const map = new Map();
+
+      db.forEach(it => {
+        map.set(key(it), Object.assign({}, it));
+      });
+
+      localCart.forEach(it => {
+        const k = key(it);
+        if (map.has(k)) {
+          map.get(k).quantity = (parseInt(map.get(k).quantity, 10) || 0) + (parseInt(it.quantity, 10) || 1);
+        } else {
+          map.set(k, {
+            user_id: userId,
+            product_id: it.product_id,
+            product_name: it.product_name,
+            product_image: it.product_image,
+            price: it.price,
+            quantity: it.quantity || 1,
+            size: it.size || null,
+            color: it.color || null,
+            added_at: it.added_at || new Date().toISOString()
+          });
+        }
+      });
+
+      // Convert merged map into this.cart format (no DB ids)
+      this.cart = Array.from(map.values()).map(it => ({
+        product_id: it.product_id,
+        product_name: it.product_name,
+        product_image: it.product_image,
+        price: it.price,
+        quantity: it.quantity,
+        size: it.size || null,
+        color: it.color || null,
+        added_at: it.added_at || new Date().toISOString()
+      }));
+
+      // Persist merged cart to database
+      await this.saveToDatabase();
+
+      // Clear guest cart
+      localStorage.removeItem('cart');
+    } catch (err) {
+      console.error('Error merging local cart into database:', err);
+      // Fallback: load DB and then append local items via addItem
+      await this.loadFromDatabase();
+      const fallbackLocal = JSON.parse(localStorage.getItem('cart') || '[]');
+      if (fallbackLocal.length > 0) {
+        for (const it of fallbackLocal) {
+          await this.addItem(it);
+        }
+        localStorage.removeItem('cart');
+      }
+    }
   }
 
   async waitForAuth() {
