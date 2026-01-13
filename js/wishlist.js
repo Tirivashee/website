@@ -127,11 +127,23 @@ class WishlistManager {
       const userId = window.authManager.getUserId();
       const { data, error } = await supabaseClient
         .from('wishlist_items')
-        .select('*')
+        .select(`
+          *,
+          product:products(*)
+        `)
         .eq('user_id', userId);
 
       if (error) throw error;
-      this.wishlist = data || [];
+      
+      // Transform data to include product details
+      this.wishlist = (data || []).map(item => ({
+        product_id: item.product_id,
+        product_name: item.product?.name || 'Unknown Product',
+        product_image: item.product?.main_image || '',
+        price: item.product?.base_price || 0,
+        added_at: item.created_at,
+        in_stock: !item.product?.track_inventory || item.product?.continue_selling_when_out_of_stock
+      }));
     } catch (error) {
       console.error('Error loading wishlist:', error);
       this.loadFromLocalStorage();
@@ -152,7 +164,7 @@ class WishlistManager {
     try {
       const userId = window.authManager.getUserId();
 
-      // Fetch backup of existing items so we can rollback if insert fails
+      // Fetch backup of existing items
       let backup = [];
       try {
         const { data: existing, error: fetchErr } = await supabaseClient
@@ -171,14 +183,11 @@ class WishlistManager {
         .delete()
         .eq('user_id', userId);
 
-      // Insert new wishlist items
+      // Insert new wishlist items (only product_id needed now)
       if (this.wishlist.length > 0) {
         const wishlistItems = this.wishlist.map(item => ({
           user_id: userId,
-          product_id: item.product_id,
-          product_name: item.product_name,
-          product_image: item.product_image,
-          price: item.price
+          product_id: item.product_id
         }));
 
         const { error } = await supabaseClient
@@ -186,22 +195,18 @@ class WishlistManager {
           .insert(wishlistItems);
 
         if (error) {
-          // Attempt rollback by reinserting backup (without original ids)
+          // Attempt rollback
           try {
             if (backup.length > 0) {
               const rollbackItems = backup.map(b => ({
                 user_id: b.user_id,
-                product_id: b.product_id,
-                product_name: b.product_name,
-                product_image: b.product_image,
-                price: b.price
+                product_id: b.product_id
               }));
               const { error: rbErr } = await supabaseClient
                 .from('wishlist_items')
                 .insert(rollbackItems);
               if (rbErr) console.error('Wishlist rollback failed:', rbErr);
             } else {
-              // If no backup available, fallback to localStorage
               this.saveToLocalStorage();
             }
           } catch (rb) {
@@ -223,10 +228,27 @@ class WishlistManager {
 
   async toggleItem(product) {
     // Validate product data
-    if (!product || !product.product_id || !product.product_name) {
-      console.error('Invalid wishlist product:', product);
+    if (!product || !product.product_id) {
+      console.error('Invalid wishlist product - missing product_id:', product);
       window.notificationManager?.error('Failed to add item to wishlist');
       return;
+    }
+
+    // For database products, fetch full product details if needed
+    if (window.authManager?.isAuthenticated() && window.productsLoader && !product.product_name) {
+      const fullProduct = await window.productsLoader.getProduct(product.product_id);
+      if (!fullProduct || !fullProduct.is_active) {
+        window.notificationManager?.error('Product not available');
+        return false;
+      }
+
+      product = {
+        product_id: fullProduct.id,
+        product_name: fullProduct.name,
+        product_image: fullProduct.main_image,
+        price: fullProduct.base_price,
+        in_stock: !fullProduct.track_inventory || fullProduct.continue_selling_when_out_of_stock
+      };
     }
     
     // Validate and normalize price
@@ -248,10 +270,11 @@ class WishlistManager {
     } else {
       this.wishlist.push({
         product_id: product.product_id,
-        product_name: product.product_name,
-        product_image: product.product_image,
+        product_name: product.product_name || 'Unknown Product',
+        product_image: product.product_image || '',
         price: price,
-        added_at: new Date().toISOString()
+        added_at: new Date().toISOString(),
+        in_stock: product.in_stock !== false
       });
       await this.saveToDatabase();
       this.updateWishlistUI();
@@ -326,11 +349,13 @@ class WishlistManager {
     if (emptyMessage) emptyMessage.style.display = 'none';
 
     // Render wishlist with event delegation instead of inline onclick
-    wishlistContainer.innerHTML = this.wishlist.map((item, index) => `
+    wishlistContainer.innerHTML = this.wishlist.map((item, index) => {
+      const price = parseFloat(item.price) || 0;
+      return `
       <div class="wishlist-item" data-index="${index}">
         <div class="product-card">
           <div class="product-image-container">
-            <img src="${item.product_image}" alt="${item.product_name}" class="product-image">
+            <img src="${item.product_image || ''}" alt="${item.product_name || 'Product'}" class="product-image">
             <div class="product-overlay">
               <button class="btn btn-secondary" data-action="move-to-cart" data-product-id="${item.product_id}">
                 ADD TO CART
@@ -338,15 +363,16 @@ class WishlistManager {
             </div>
           </div>
           <div class="product-info">
-            <h3 class="product-name">${item.product_name}</h3>
-            <p class="product-price">$${(item.price || 0).toFixed(2)}</p>
+            <h3 class="product-name">${item.product_name || 'Unknown Product'}</h3>
+            <p class="product-price">$${price.toFixed(2)}</p>
             <button class="btn-remove" data-action="remove" data-product-id="${item.product_id}">
               Remove
             </button>
           </div>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
     
     // Add event delegation for wishlist actions
     this.attachWishlistEventListeners(wishlistContainer);
@@ -354,6 +380,10 @@ class WishlistManager {
   
   attachWishlistEventListeners(container) {
     if (!container) return;
+    
+    // Remove existing listener if it exists
+    if (container._wishlistListenerAttached) return;
+    container._wishlistListenerAttached = true;
     
     // Use event delegation to handle all button clicks
     container.addEventListener('click', (e) => {

@@ -131,11 +131,31 @@ class CartManager {
       const userId = window.authManager.getUserId();
       const { data, error } = await supabaseClient
         .from('cart_items')
-        .select('*')
+        .select(`
+          *,
+          product:products(*),
+          variant:product_variants(*)
+        `)
         .eq('user_id', userId);
 
       if (error) throw error;
-      this.cart = data || [];
+      
+      // Transform data to include product details
+      this.cart = (data || []).map(item => ({
+        id: item.id,
+        product_id: item.product_id,
+        variant_id: item.variant_id,
+        product_name: item.product?.name || 'Unknown Product',
+        product_image: item.product?.main_image || '',
+        price: item.variant?.price || item.product?.base_price || 0,
+        quantity: item.quantity,
+        size: item.variant?.size || null,
+        color: item.variant?.color || null,
+        added_at: item.created_at,
+        in_stock: item.variant 
+          ? item.variant.inventory_quantity > 0 
+          : !item.product?.track_inventory || item.product?.continue_selling_when_out_of_stock
+      }));
     } catch (error) {
       console.error('Error loading cart:', error);
       this.loadFromLocalStorage();
@@ -159,15 +179,15 @@ class CartManager {
       // Fetch existing cart items from database
       const { data: existingItems, error: fetchErr } = await supabaseClient
         .from('cart_items')
-        .select('*')
+        .select('id, product_id, variant_id, quantity')
         .eq('user_id', userId);
 
       if (fetchErr) throw fetchErr;
 
       const existing = existingItems || [];
 
-      // Create lookup key for cart items (product_id + size + color)
-      const itemKey = (item) => `${item.product_id}||${item.size || ''}||${item.color || ''}`;
+      // Create lookup key for cart items (product_id + variant_id)
+      const itemKey = (item) => `${item.product_id}||${item.variant_id || 'null'}`;
 
       // Build maps for comparison
       const currentMap = new Map(this.cart.map(item => [itemKey(item), item]));
@@ -183,14 +203,11 @@ class CartManager {
         const existingItem = existingMap.get(key);
         
         if (existingItem) {
-          // Item exists - update if quantity or price changed
-          if (existingItem.quantity !== item.quantity || existingItem.price !== item.price) {
+          // Item exists - update if quantity changed
+          if (existingItem.quantity !== item.quantity) {
             toUpdate.push({
               id: existingItem.id,
-              quantity: item.quantity,
-              price: item.price,
-              product_name: item.product_name,
-              product_image: item.product_image
+              quantity: item.quantity
             });
           }
         } else {
@@ -198,12 +215,8 @@ class CartManager {
           toInsert.push({
             user_id: userId,
             product_id: item.product_id,
-            product_name: item.product_name,
-            product_image: item.product_image,
-            price: item.price,
-            quantity: item.quantity,
-            size: item.size || null,
-            color: item.color || null
+            variant_id: item.variant_id || null,
+            quantity: item.quantity
           });
         }
       }
@@ -215,7 +228,7 @@ class CartManager {
         }
       }
 
-      // Execute operations (these can run in parallel safely)
+      // Execute operations
       const operations = [];
 
       // Insert new items
@@ -230,12 +243,7 @@ class CartManager {
         operations.push(
           supabaseClient
             .from('cart_items')
-            .update({
-              quantity: update.quantity,
-              price: update.price,
-              product_name: update.product_name,
-              product_image: update.product_image
-            })
+            .update({ quantity: update.quantity })
             .eq('id', update.id)
         );
       }
@@ -265,7 +273,7 @@ class CartManager {
       console.error('Error saving cart:', error);
       // Fallback to localStorage on error
       this.saveToLocalStorage();
-      throw error; // Re-throw so caller knows save failed
+      throw error;
     }
   }
 
@@ -275,13 +283,60 @@ class CartManager {
 
   async addItem(product) {
     // Validate product data
-    if (!product || !product.product_id || !product.product_name) {
-      console.error('Invalid cart item:', product);
+    if (!product || !product.product_id) {
+      console.error('Invalid cart item - missing product_id:', product);
       window.notificationManager?.error('Failed to add item to cart');
       return;
     }
+
+    // For database products, fetch full product details if needed
+    if (window.authManager?.isAuthenticated() && window.productsLoader) {
+      const fullProduct = await window.productsLoader.getProduct(product.product_id);
+      if (!fullProduct) {
+        window.notificationManager?.error('Product not found');
+        return;
+      }
+
+      // Check variant if specified
+      let variant = null;
+      if (product.variant_id) {
+        variant = await window.productsLoader.getVariant(product.variant_id);
+        if (!variant || !variant.is_active) {
+          window.notificationManager?.error('Product variant not available');
+          return;
+        }
+
+        // Check inventory
+        if (variant.inventory_policy === 'deny' && variant.inventory_quantity < 1) {
+          window.notificationManager?.error('This item is out of stock');
+          return;
+        }
+      } else {
+        // Check base product inventory
+        if (fullProduct.track_inventory && !fullProduct.continue_selling_when_out_of_stock) {
+          const totalInventory = fullProduct.variants?.reduce((sum, v) => sum + (v.inventory_quantity || 0), 0) || 0;
+          if (totalInventory < 1) {
+            window.notificationManager?.error('This item is out of stock');
+            return;
+          }
+        }
+      }
+
+      // Enrich product data
+      product = {
+        product_id: fullProduct.id,
+        variant_id: variant?.id || null,
+        product_name: fullProduct.name,
+        product_image: fullProduct.main_image,
+        price: variant?.price || fullProduct.base_price,
+        quantity: product.quantity || 1,
+        size: variant?.size || null,
+        color: variant?.color || null,
+        in_stock: true
+      };
+    }
     
-    // Validate and normalize price
+    // Validate price
     const price = parseFloat(product.price);
     if (isNaN(price) || price < 0) {
       console.error('Invalid product price:', product.price);
@@ -298,8 +353,7 @@ class CartManager {
     
     const existingItemIndex = this.cart.findIndex(
       item => item.product_id === product.product_id && 
-              item.size === product.size && 
-              item.color === product.color
+              item.variant_id === product.variant_id
     );
 
     if (existingItemIndex > -1) {
@@ -319,13 +373,15 @@ class CartManager {
 
       this.cart.push({
         product_id: product.product_id,
+        variant_id: product.variant_id || null,
         product_name: product.product_name,
         product_image: product.product_image,
         price: price,
         quantity: quantity,
         size: product.size || null,
         color: product.color || null,
-        added_at: new Date().toISOString()
+        added_at: new Date().toISOString(),
+        in_stock: product.in_stock !== false
       });
     }
 
@@ -430,7 +486,7 @@ class CartManager {
     
     cartBadges.forEach(badge => {
       badge.textContent = itemCount;
-      badge.style.display = itemCount > 0 ? 'inline-block' : 'none';
+      badge.style.display = itemCount > 0 ? 'flex' : 'none';
     });
 
     // Update cart page if on cart page
@@ -483,16 +539,18 @@ class CartManager {
     }
 
     // Render cart with event delegation instead of inline onclick
-    cartContainer.innerHTML = this.cart.map((item, index) => `
+    cartContainer.innerHTML = this.cart.map((item, index) => {
+      const price = parseFloat(item.price) || 0;
+      return `
       <div class="cart-item" data-index="${index}">
         <div class="cart-item-image-wrapper">
-          <img src="${item.product_image}" alt="${item.product_name}" class="cart-item-image">
+          <img src="${item.product_image || ''}" alt="${item.product_name || 'Product'}" class="cart-item-image">
         </div>
         <div class="cart-item-details">
-          <h3>${item.product_name}</h3>
+          <h3>${item.product_name || 'Unknown Product'}</h3>
           ${item.size ? `<p class="cart-item-variant">Size: ${item.size}</p>` : ''}
           ${item.color ? `<p class="cart-item-variant">Color: ${item.color}</p>` : ''}
-          <p class="cart-item-price">$${(item.price || 0).toFixed(2)}</p>
+          <p class="cart-item-price">$${price.toFixed(2)}</p>
         </div>
         <div class="cart-item-actions">
           <div class="cart-item-quantity">
@@ -503,7 +561,8 @@ class CartManager {
           <button class="cart-item-remove" data-action="remove" data-index="${index}">×</button>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
 
     const total = this.getTotal() || 0;
     const subtotalElement = document.getElementById('cartSubtotal');
@@ -522,6 +581,10 @@ class CartManager {
   
   attachCartEventListeners(container) {
     if (!container) return;
+    
+    // Remove existing listener if it exists
+    if (container._cartListenerAttached) return;
+    container._cartListenerAttached = true;
     
     // Use event delegation to handle all button clicks
     container.addEventListener('click', (e) => {
