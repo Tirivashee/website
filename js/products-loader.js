@@ -101,7 +101,7 @@ class ProductsLoader {
 
     // Re-initialize product interactions after rendering
     if (window.ProductInteractions) {
-      const interactions = new ProductInteractions();
+      window.productInteractions = new window.ProductInteractions();
     }
   }
 

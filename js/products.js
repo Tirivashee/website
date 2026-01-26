@@ -18,21 +18,20 @@ class ProductInteractions {
     const productCards = document.querySelectorAll('.product-card');
     
     productCards.forEach((card, index) => {
-      // Extract product data
-      const productId = `product-${index + 1}`;
-      const productName = card.querySelector('.card-title')?.textContent || 'Product';
-      const priceText = card.querySelector('.card-price')?.textContent.replace('$', '') || '0';
-      const productPrice = parseFloat(priceText);
+      // Use existing data attributes set by products-loader.js
+      // If not present, extract from card content
+      const productId = card.dataset.productId || `product-${index + 1}`;
+      const productName = card.dataset.productName || card.querySelector('.card-title')?.textContent || 'Product';
+      const productPrice = parseFloat(card.dataset.productPrice) || parseFloat(card.querySelector('.card-price')?.textContent.replace('$', '') || '0');
+      const productImage = card.dataset.productImage || card.querySelector('.card-image')?.src || '';
       
       // Validate price
       if (isNaN(productPrice) || productPrice < 0) {
-        console.error('Invalid product price:', priceText);
+        console.error('Invalid product price for product:', productId);
         return; // Skip this card
       }
-      
-      const productImage = card.querySelector('.card-image')?.src || '';
 
-      // Store product data
+      // Ensure data attributes are set
       card.dataset.productId = productId;
       card.dataset.productName = productName;
       card.dataset.productPrice = productPrice;
@@ -64,40 +63,37 @@ class ProductInteractions {
         flex-wrap: wrap;
       `;
 
-      // Add wishlist button (bookmark icon)
-      if (window.authManager?.isAuthenticated()) {
-        const wishlistBtn = document.createElement('button');
-        wishlistBtn.className = 'wishlist-btn';
-        wishlistBtn.dataset.productId = productId;
-        wishlistBtn.innerHTML = '🔖';
-        wishlistBtn.title = 'Add to Wishlist';
-        wishlistBtn.style.cssText = `
-          width: 45px;
-          height: 45px;
-          background: white;
-          border: 3px solid black;
-          font-size: 20px;
-          cursor: pointer;
-          transition: all 0.2s;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        `;
-        
-        // Check if already in wishlist
-        if (window.wishlistManager?.isInWishlist(productId)) {
-          wishlistBtn.classList.add('active');
-          wishlistBtn.style.background = '#000';
-          wishlistBtn.style.color = '#fff';
-        }
-
-        actionsContainer.appendChild(wishlistBtn);
+      // Add wishlist button (bookmark icon) - available for all users
+      const wishlistBtn = document.createElement('button');
+      wishlistBtn.className = 'wishlist-btn';
+      wishlistBtn.dataset.productId = productId;
+      wishlistBtn.innerHTML = '🔖';
+      wishlistBtn.title = 'Add to Wishlist';
+      wishlistBtn.style.cssText = `
+        width: 45px;
+        height: 45px;
+        background: white;
+        border: 3px solid black;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `;
+      
+      // Check if already in wishlist
+      if (window.wishlistManager?.isInWishlist(productId)) {
+        wishlistBtn.classList.add('active');
+        wishlistBtn.style.background = '#000';
+        wishlistBtn.style.color = '#fff';
       }
 
-      // Add to cart button - only for authenticated users
-      if (window.authManager?.isAuthenticated()) {
-        const cartBtn = document.createElement('button');
-        cartBtn.className = 'add-to-cart-btn btn btn-primary';
+      actionsContainer.appendChild(wishlistBtn);
+
+      // Add to cart button - available for all users
+      const cartBtn = document.createElement('button');
+      cartBtn.className = 'add-to-cart-btn btn btn-primary';
         cartBtn.dataset.productId = productId;
         cartBtn.textContent = 'ADD TO CART';
         cartBtn.style.cssText = `
@@ -185,20 +181,28 @@ class ProductInteractions {
   }
 }
 
-// Initialize when DOM is ready and auth is loaded
+// Initialize when DOM is ready
 if (typeof window !== 'undefined') {
-  // Wait for auth manager to be ready
+  // Make ProductInteractions class available globally
+  window.ProductInteractions = ProductInteractions;
+  
+  // Auto-initialize after a delay to ensure products are loaded
   const initProducts = () => {
-    if (window.authManager) {
-      window.productInteractions = new ProductInteractions();
-    } else {
-      setTimeout(initProducts, 100);
-    }
+    // Wait for product cards to be rendered
+    const checkCards = () => {
+      const cards = document.querySelectorAll('.product-card');
+      if (cards.length > 0) {
+        window.productInteractions = new ProductInteractions();
+      } else {
+        setTimeout(checkCards, 100);
+      }
+    };
+    checkCards();
   };
   
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initProducts);
+    document.addEventListener('DOMContentLoaded', () => setTimeout(initProducts, 500));
   } else {
-    initProducts();
+    setTimeout(initProducts, 500);
   }
 }

@@ -290,7 +290,7 @@ class CartManager {
     }
 
     // For database products, fetch full product details if needed
-    if (window.authManager?.isAuthenticated() && window.productsLoader) {
+    if (window.productsLoader && !product.product_name) {
       const fullProduct = await window.productsLoader.getProduct(product.product_id);
       if (!fullProduct) {
         window.notificationManager?.error('Product not found');

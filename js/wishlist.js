@@ -235,7 +235,7 @@ class WishlistManager {
     }
 
     // For database products, fetch full product details if needed
-    if (window.authManager?.isAuthenticated() && window.productsLoader && !product.product_name) {
+    if (window.productsLoader && !product.product_name) {
       const fullProduct = await window.productsLoader.getProduct(product.product_id);
       if (!fullProduct || !fullProduct.is_active) {
         window.notificationManager?.error('Product not available');
