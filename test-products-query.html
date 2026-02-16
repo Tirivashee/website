@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Products Query - BALLYLIKE</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+    }
+    .status {
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      background: white;
+    }
+    .success {
+      border-left: 4px solid #4caf50;
+    }
+    .error {
+      border-left: 4px solid #f44336;
+    }
+    .warning {
+      border-left: 4px solid #ff9800;
+    }
+    .product {
+      background: white;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+    .product h3 {
+      margin: 0 0 10px 0;
+      color: #000;
+    }
+    .product p {
+      margin: 5px 0;
+      color: #666;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    .badge.featured {
+      background: #4caf50;
+      color: white;
+    }
+    .badge.active {
+      background: #2196F3;
+      color: white;
+    }
+    .badge.inactive {
+      background: #999;
+      color: white;
+    }
+    button {
+      background: #000;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin: 10px 10px 10px 0;
+    }
+    button:hover {
+      background: #333;
+    }
+    pre {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 12px;
+    }
+    .variants {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+    .variant {
+      background: #f9f9f9;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔍 BALLYLIKE Products Database Test</h1>
+  <p>This page tests the connection to Supabase and queries all products including the new CARGO40 Tote Bag.</p>
+  
+  <button onclick="testConnection()">Test Connection</button>
+  <button onclick="queryAllProducts()">Query All Products</button>
+  <button onclick="queryCARGO40()">Find CARGO40 Product</button>
+  <button onclick="checkCategories()">Check Categories</button>
+  
+  <div id="status"></div>
+  <div id="results"></div>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  
+  <script>
+    const statusDiv = document.getElementById('status');
+    const resultsDiv = document.getElementById('results');
+
+    function showStatus(message, type = 'success') {
+      statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+    }
+
+    async function testConnection() {
+      showStatus('Testing Supabase connection...', 'warning');
+      resultsDiv.innerHTML = '';
+      
+      try {
+        const { data, error } = await supabaseClient
+          .from('products')
+          .select('count');
+        
+        if (error) throw error;
+        
+        showStatus('✅ Successfully connected to Supabase!', 'success');
+        resultsDiv.innerHTML = `<div class="product"><h3>Connection Status</h3><p>Supabase URL: ${SUPABASE_CONFIG.url}</p><p>Connection: Active</p></div>`;
+      } catch (error) {
+        showStatus('❌ Connection failed: ' + error.message, 'error');
+        resultsDiv.innerHTML = `<pre>${JSON.stringify(error, null, 2)}</pre>`;
+      }
+    }
+
+    async function queryAllProducts() {
+      showStatus('Querying all products from database...', 'warning');
+      resultsDiv.innerHTML = '';
+      
+      try {
+        const { data, error } = await supabaseClient
+          .from('products')
+          .select(`
+            *,
+            variants:product_variants(*)
+          `)
+          .order('name');
+        
+        if (error) throw error;
+        
+        if (!data || data.length === 0) {
+          showStatus('⚠️ No products found in database!', 'warning');
+          return;
+        }
+        
+        showStatus(`✅ Found ${data.length} products in database`, 'success');
+        
+        let html = '';
+        data.forEach(product => {
+          const variantCount = product.variants ? product.variants.length : 0;
+          const totalInventory = product.variants 
+            ? product.variants.reduce((sum, v) => sum + (v.inventory_quantity || 0), 0)
+            : 0;
+          
+          html += `
+            <div class="product">
+              <h3>
+                ${product.name}
+                ${product.is_featured ? '<span class="badge featured">FEATURED</span>' : ''}
+                ${product.is_active ? '<span class="badge active">ACTIVE</span>' : '<span class="badge inactive">INACTIVE</span>'}
+              </h3>
+              <p><strong>SKU:</strong> ${product.sku}</p>
+              <p><strong>Category:</strong> ${product.category} ${product.subcategory ? '/ ' + product.subcategory : ''}</p>
+              <p><strong>Price:</strong> $${product.base_price}</p>
+              <p><strong>Image:</strong> ${product.main_image || 'None'}</p>
+              ${product.additional_images && product.additional_images.length > 0 ? `<p><strong>Additional Images:</strong> ${product.additional_images.length} images</p>` : ''}
+              <p><strong>Tags:</strong> ${product.tags ? product.tags.join(', ') : 'None'}</p>
+              <p><strong>Variants:</strong> ${variantCount} (Total Inventory: ${totalInventory})</p>
+              ${product.variants && product.variants.length > 0 ? `
+                <div class="variants">
+                  ${product.variants.map(v => `
+                    <div class="variant">
+                      <strong>${v.size || 'Standard'}</strong> - 
+                      $${v.price} - 
+                      ${v.inventory_quantity} in stock - 
+                      SKU: ${v.sku}
+                    </div>
+                  `).join('')}
+                </div>
+              ` : ''}
+            </div>
+          `;
+        });
+        
+        resultsDiv.innerHTML = html;
+        
+      } catch (error) {
+        showStatus('❌ Query failed: ' + error.message, 'error');
+        resultsDiv.innerHTML = `<pre>${JSON.stringify(error, null, 2)}</pre>`;
+      }
+    }
+
+    async function queryCARGO40() {
+      showStatus('Searching for CARGO40 Tote Bag Organizer...', 'warning');
+      resultsDiv.innerHTML = '';
+      
+      try {
+        const { data, error } = await supabaseClient
+          .from('products')
+          .select(`
+            *,
+            variants:product_variants(*)
+          `)
+          .eq('sku', 'CBTG-001')
+          .single();
+        
+        if (error) {
+          if (error.code === 'PGRST116') {
+            showStatus('❌ CARGO40 product NOT FOUND in database! The SQL script may not have run successfully.', 'error');
+            resultsDiv.innerHTML = `
+              <div class="product">
+                <h3>Product Not Found</h3>
+                <p>The CARGO40 TOTE BAG ORGANIZER (SKU: CBTG-001) was not found in the database.</p>
+                <p><strong>Next Steps:</strong></p>
+                <ol>
+                  <li>Open your Supabase SQL Editor</li>
+                  <li>Run the updated database-fix.sql script</li>
+                  <li>Look for the success message at the end</li>
+                  <li>Come back and click "Find CARGO40 Product" again</li>
+                </ol>
+              </div>
+            `;
+            return;
+          }
+          throw error;
+        }
+        
+        showStatus('✅ CARGO40 Product Found!', 'success');
+        
+        const variantCount = data.variants ? data.variants.length : 0;
+        const totalInventory = data.variants 
+          ? data.variants.reduce((sum, v) => sum + (v.inventory_quantity || 0), 0)
+          : 0;
+        
+        resultsDiv.innerHTML = `
+          <div class="product">
+            <h3>
+              ${data.name}
+              ${data.is_featured ? '<span class="badge featured">FEATURED</span>' : ''}
+              ${data.is_active ? '<span class="badge active">ACTIVE</span>' : '<span class="badge inactive">INACTIVE</span>'}
+            </h3>
+            <p><strong>SKU:</strong> ${data.sku}</p>
+            <p><strong>Category:</strong> ${data.category} / ${data.subcategory}</p>
+            <p><strong>Description:</strong> ${data.description}</p>
+            <p><strong>Base Price:</strong> $${data.base_price}</p>
+            <p><strong>Main Image:</strong> ${data.main_image}</p>
+            <p><strong>Additional Images:</strong> ${data.additional_images ? data.additional_images.join(', ') : 'None'}</p>
+            <p><strong>Tags:</strong> ${data.tags ? data.tags.join(', ') : 'None'}</p>
+            <p><strong>Is Featured:</strong> ${data.is_featured ? 'Yes' : 'No'}</p>
+            <p><strong>Is Active:</strong> ${data.is_active ? 'Yes' : 'No'}</p>
+            <p><strong>Track Inventory:</strong> ${data.track_inventory ? 'Yes' : 'No'}</p>
+            <p><strong>Created:</strong> ${new Date(data.created_at).toLocaleString()}</p>
+            <h4>Variants (${variantCount}):</h4>
+            <div class="variants">
+              ${data.variants && data.variants.length > 0 ? data.variants.map(v => `
+                <div class="variant">
+                  <strong>${v.size}</strong> - 
+                  $${v.price} - 
+                  ${v.inventory_quantity} units in stock - 
+                  SKU: ${v.sku} -
+                  ${v.is_active ? '✅ Active' : '❌ Inactive'}
+                </div>
+              `).join('') : '<p>No variants found</p>'}
+            </div>
+          </div>
+        `;
+        
+      } catch (error) {
+        showStatus('❌ Query failed: ' + error.message, 'error');
+        resultsDiv.innerHTML = `<pre>${JSON.stringify(error, null, 2)}</pre>`;
+      }
+    }
+
+    async function checkCategories() {
+      showStatus('Checking product categories...', 'warning');
+      resultsDiv.innerHTML = '';
+      
+      try {
+        const { data, error } = await supabaseClient
+          .from('product_categories')
+          .select('*')
+          .order('display_order');
+        
+        if (error) throw error;
+        
+        if (!data || data.length === 0) {
+          showStatus('⚠️ No categories found!', 'warning');
+          return;
+        }
+        
+        showStatus(`✅ Found ${data.length} categories`, 'success');
+        
+        let html = '<div class="product"><h3>Product Categories</h3>';
+        data.forEach(cat => {
+          html += `
+            <p>
+              <strong>${cat.name}</strong> (${cat.slug}) - 
+              Order: ${cat.display_order} - 
+              ${cat.is_active ? '✅ Active' : '❌ Inactive'}
+              <br><small>${cat.description}</small>
+            </p>
+          `;
+        });
+        html += '</div>';
+        
+        resultsDiv.innerHTML = html;
+        
+      } catch (error) {
+        showStatus('❌ Query failed: ' + error.message, 'error');
+        resultsDiv.innerHTML = `<pre>${JSON.stringify(error, null, 2)}</pre>`;
+      }
+    }
+
+    // Auto-run on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      showStatus('Ready to test. Click a button above to start.', 'warning');
+    });
+  </script>
+</body>
+</html>

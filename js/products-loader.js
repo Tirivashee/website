@@ -11,10 +11,13 @@ class ProductsLoader {
   }
 
   async init() {
+    console.log('[ProductsLoader] Initializing...');
+    console.log('[ProductsLoader] Current page:', window.location.pathname);
     await this.loadCategories();
     await this.loadProducts();
     this.renderProducts();
     this.setupFilterListeners();
+    console.log('[ProductsLoader] Initialization complete');
   }
 
   async loadCategories() {
@@ -37,6 +40,10 @@ class ProductsLoader {
     this.showLoadingState();
 
     try {
+      console.log('[ProductsLoader] Loading products from Supabase...');
+      console.log('[ProductsLoader] Current filter:', this.currentFilter);
+      console.log('[ProductsLoader] Current sort:', this.currentSort);
+      
       // Load products with their variants
       let query = supabaseClient
         .from('products')
@@ -68,15 +75,20 @@ class ProductsLoader {
       const { data, error } = await query;
 
       if (error) throw error;
+      
+      console.log('[ProductsLoader] Loaded products from database:', data?.length || 0);
+      console.log('[ProductsLoader] Products:', data);
+      
       this.products = data || [];
       
       // Filter products by category if needed
       if (this.currentFilter !== 'all') {
         this.products = this.products.filter(p => p.category === this.currentFilter);
+        console.log('[ProductsLoader] Filtered to category:', this.currentFilter, '- Count:', this.products.length);
       }
 
     } catch (error) {
-      console.error('Error loading products:', error);
+      console.error('[ProductsLoader] Error loading products:', error);
       this.showErrorState();
     } finally {
       this.loading = false;
@@ -85,7 +97,12 @@ class ProductsLoader {
 
   renderProducts() {
     const grid = document.getElementById('products-grid');
-    if (!grid) return;
+    if (!grid) {
+      console.error('[ProductsLoader] products-grid element not found!');
+      return;
+    }
+
+    console.log('[ProductsLoader] Rendering', this.products.length, 'products');
 
     if (this.products.length === 0) {
       grid.innerHTML = `
@@ -98,6 +115,7 @@ class ProductsLoader {
     }
 
     grid.innerHTML = this.products.map(product => this.renderProductCard(product)).join('');
+    console.log('[ProductsLoader] Products rendered to DOM');
 
     // Re-initialize product interactions after rendering
     if (window.ProductInteractions) {
@@ -243,9 +261,19 @@ class ProductsLoader {
       return null;
     }
   }
-}
-
-// Initialize on page load
+}console.log('[ProductsLoader] Script loaded');
+  console.log('[ProductsLoader] Current pathname:', window.location.pathname);
+  
+  // Auto-init on shop page (check for shop.html or just /shop)
+  const isShopPage = window.location.pathname.includes('shop.html') || 
+                     window.location.pathname.includes('/shop') ||
+                     window.location.pathname.endsWith('shop.html');
+  
+  console.log('[ProductsLoader] Is shop page?', isShopPage);
+  
+  if (isShopPage) {
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('[ProductsLoader] DOM loaded, initializing...');
 if (typeof window !== 'undefined') {
   window.productsLoader = new ProductsLoader();
   

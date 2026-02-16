@@ -852,6 +852,33 @@
     </div>
     
     <div class="grid grid-3" id="products-grid">
+      <!-- CARGO40 Tote Bag Organizer - NEW FEATURED PRODUCT -->
+      <div class="card product-card" data-category="shoulder-bags" itemscope itemtype="https://schema.org/Product">
+        <meta itemprop="name" content="CARGO40 Tote Bag Organizer - Multi-Compartment Travel Organizer Zimbabwe">
+        <meta itemprop="description" content="Premium 40L tote bag organizer with multiple compartments. Perfect for travel, gym, work or daily organization. Durable water-resistant fabric, lightweight design. Shop BALLYLIKE Zimbabwe.">
+        <meta itemprop="brand" content="BALLYLIKE">
+        <link itemprop="image" href="https://www.ballylike.co.zw/assets/images/products/prod-bctg-1.jpg">
+        <div itemprop="offers" itemscope itemtype="https://schema.org/AggregateOffer">
+          <meta itemprop="priceCurrency" content="USD">
+          <meta itemprop="lowPrice" content="20.00">
+          <meta itemprop="highPrice" content="25.00">
+          <link itemprop="availability" href="https://schema.org/InStock">
+          <link itemprop="url" href="https://www.ballylike.co.zw/shop.html#cargo40">
+        </div>
+        <div class="card-image-wrapper">
+          <div class="card-badge">FEATURED</div>
+          <img src="assets/images/products/prod-bctg-1.jpg" alt="CARGO40 40L Tote Bag Organizer Zimbabwe - Multi-Compartment Travel Gym Work Bag with Durable Water-Resistant Fabric | BALLYLIKE Premium Storage Solution" class="card-image" itemprop="image">
+          <div class="product-overlay">
+            <button class="btn btn-secondary">VIEW</button>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title" itemprop="name">CARGO40 TOTE BAG ORGANIZER</h3>
+          <p class="card-description">Multi-Compartment Travel & Organization System</p>
+          <p class="card-price" itemprop="offers" itemscope itemtype="https://schema.org/AggregateOffer"><span itemprop="lowPrice">$20.00</span> - <span itemprop="highPrice">$25.00</span></p>
+        </div>
+      </div>
+      
       <!-- Shoulder Bags -->
       <div class="card product-card" data-category="shoulder-bags">
         <div class="card-image-wrapper">
@@ -1243,13 +1270,19 @@
       // Function to load all images in vertical layout
       function loadImages() {
         imageCarousel.innerHTML = '';
-        currentImages.forEach((imgSrc, index) => {
+        currentImages.forEach((imgData, index) => {
           const container = document.createElement('div');
           container.className = 'modal-image-container';
           
           const img = document.createElement('img');
-          img.src = imgSrc;
-          img.alt = `Product Image ${index + 1}`;
+          // Handle both string and object formats for images
+          if (typeof imgData === 'object' && imgData.src) {
+            img.src = imgData.src;
+            img.alt = imgData.alt || `Product Image ${index + 1}`;
+          } else {
+            img.src = imgData;
+            img.alt = `Product Image ${index + 1}`;
+          }
           img.className = 'modal-main-image';
           img.loading = 'eager';
           
@@ -1291,7 +1324,14 @@
           const productCategory = productCard.getAttribute('data-category');
           
           // Set up images array based on product type
-          if (productTitle.toLowerCase().includes('halo pouch')) {
+          if (productTitle.toLowerCase().includes('cargo40')) {
+            currentImages = [
+              { src: 'assets/images/products/prod-bctg-1.jpg', alt: 'CARGO40 Tote Bag Organizer Front View - 40L Multi-Compartment Travel Bag Zimbabwe | BALLYLIKE' },
+              { src: 'assets/images/products/prod-bctg-2.jpg', alt: 'CARGO40 Interior Organization System - Multiple Pockets & Compartments for Travel Essentials' },
+              { src: 'assets/images/products/prod-bctg-4-01.jpg', alt: 'CARGO40 Tote Organizer Side Compartments - Water-Resistant Durable Fabric with Premium Zippers' },
+              { src: 'assets/images/products/prod-bctg-5.jpg', alt: 'CARGO40 Versatile Carry Options - Shoulder Straps & Handles for Gym Work Travel Zimbabwe' }
+            ];
+          } else if (productTitle.toLowerCase().includes('halo pouch')) {
             currentImages = [
               productImage,
               'assets/images/blueprints/hp.jpg',
@@ -1353,7 +1393,38 @@
           
           // Set dimensions based on product type
           const dimensionsEl = document.getElementById('modalDimensions');
-          if (productTitle.toLowerCase().includes('halo pouch')) {
+          if (productTitle.toLowerCase().includes('cargo40')) {
+            dimensionsEl.innerHTML = `
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">CAPACITY</span>
+                <span class="modal-detail-value">40 Liters - Perfect for Travel & Gym</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">MEDIUM SIZE</span>
+                <span class="modal-detail-value">38cm x 28cm x 18cm (L×W×H)</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">LARGE SIZE</span>
+                <span class="modal-detail-value">42cm x 32cm x 20cm (L×W×H)</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">COMPARTMENTS</span>
+                <span class="modal-detail-value">8+ Pockets: Main, Laptop, Phone, Keys, Water Bottle</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">MATERIAL</span>
+                <span class="modal-detail-value">Water-Resistant 600D Polyester - Military Grade</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">WEIGHT</span>
+                <span class="modal-detail-value">Lightweight: 650g (M) / 750g (L)</span>
+              </div>
+              <div class="modal-detail-row">
+                <span class="modal-detail-label">FEATURES</span>
+                <span class="modal-detail-value">YKK Zippers, Padded Straps, Reinforced Stitching</span>
+              </div>
+            `;
+          } else if (productTitle.toLowerCase().includes('halo pouch')) {
             dimensionsEl.innerHTML = `
               <div class="modal-detail-row">
                 <span class="modal-detail-label">DIAMETER</span>
@@ -1486,7 +1557,7 @@
   <script src="js/auth.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/wishlist.js"></script>
-  <script src="js/products-loader.js"></script>
+  <!-- <script src="js/products-loader.js"></script> DISABLED: Using static products instead -->
   <script src="js/products.js"></script>
   <script src="js/nav-badges.js"></script>
   <script src="js/notifications.js"></script>
