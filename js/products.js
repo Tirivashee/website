@@ -171,6 +171,13 @@ class ProductInteractions {
           btn.textContent = originalText;
           btn.disabled = false;
         }, 1500);
+
+        // Show WhatsApp notification modal
+        if (window.whatsappNotification) {
+          setTimeout(() => {
+            window.whatsappNotification.showModal();
+          }, 800);
+        }
       }
     });
   }

@@ -111,6 +111,13 @@ function initModalButtons() {
       
       if (window.cartManager) {
         window.cartManager.addItem(productData);
+        
+        // Show WhatsApp notification modal
+        if (window.whatsappNotification) {
+          setTimeout(() => {
+            window.whatsappNotification.showModal();
+          }, 500);
+        }
       }
     });
   }
