@@ -8,6 +8,24 @@ const CART_LIMITS = {
   MAX_UNIQUE_PRODUCTS: 50
 };
 
+const CART_ITEM_UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function isValidCartUUID(id) {
+  return typeof id === 'string' && CART_ITEM_UUID_RE.test(id);
+}
+
+// Supabase/PostgREST errors carry the useful detail in message/details/hint/code,
+// not in the Error's own stack - log those explicitly instead of the generic object.
+function logSupabaseError(context, error) {
+  console.error(context, {
+    message: error?.message,
+    details: error?.details,
+    hint: error?.hint,
+    code: error?.code,
+    raw: error
+  });
+}
+
 class CartManager {
   constructor() {
     this.cart = [];
@@ -95,7 +113,7 @@ class CartManager {
       // Clear guest cart
       localStorage.removeItem('cart');
     } catch (err) {
-      console.error('Error merging local cart into database:', err);
+      logSupabaseError('Error merging local cart into database:', err);
       // Fallback: load DB and then append local items via addItem
       await this.loadFromDatabase();
       const fallbackLocal = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -157,7 +175,7 @@ class CartManager {
           : !item.product?.track_inventory || item.product?.continue_selling_when_out_of_stock
       }));
     } catch (error) {
-      console.error('Error loading cart:', error);
+      logSupabaseError('Error loading cart:', error);
       this.loadFromLocalStorage();
     }
   }
@@ -186,11 +204,23 @@ class CartManager {
 
       const existing = existingItems || [];
 
+      // Only items with real product/variant UUIDs can be persisted to Supabase
+      // (product_id/variant_id have FKs and are typed uuid). Catalog items that
+      // don't have a matching database record yet stay session-only rather than
+      // sending an invalid UUID and getting a 400 from Postgres.
+      const persistable = this.cart.filter(item =>
+        isValidCartUUID(item.product_id) && (item.variant_id == null || isValidCartUUID(item.variant_id))
+      );
+      const skipped = this.cart.length - persistable.length;
+      if (skipped > 0) {
+        console.warn(`${skipped} cart item(s) not synced to your account - missing a valid product/variant ID`);
+      }
+
       // Create lookup key for cart items (product_id + variant_id)
       const itemKey = (item) => `${item.product_id}||${item.variant_id || 'null'}`;
 
       // Build maps for comparison
-      const currentMap = new Map(this.cart.map(item => [itemKey(item), item]));
+      const currentMap = new Map(persistable.map(item => [itemKey(item), item]));
       const existingMap = new Map(existing.map(item => [itemKey(item), item]));
 
       // Determine operations needed
@@ -265,12 +295,12 @@ class CartManager {
         // Check for errors
         const errors = results.filter(r => r.error);
         if (errors.length > 0) {
-          console.error('Cart save errors:', errors);
+          errors.forEach((r, i) => logSupabaseError(`Cart save error (operation ${i}):`, r.error));
           throw new Error('Failed to save cart changes');
         }
       }
     } catch (error) {
-      console.error('Error saving cart:', error);
+      logSupabaseError('Error saving cart:', error);
       // Fallback to localStorage on error
       this.saveToLocalStorage();
       throw error;
@@ -404,7 +434,7 @@ class CartManager {
       this.showNotification('Item added to cart!');
       return true;
     } catch (error) {
-      console.error('Failed to save cart:', error);
+      logSupabaseError('Failed to save cart:', error);
       window.notificationManager?.error('Failed to add item. Please try again.');
       return false;
     }
