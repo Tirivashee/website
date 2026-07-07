@@ -227,8 +227,20 @@
 
   // Select answer
   function selectAnswer(index) {
+    const question = questions[currentQuestion];
+    const oldIndex = answers[currentQuestion];
+
+    // Remove the previous answer's score for this question, if any
+    if (oldIndex !== undefined) {
+      const oldAnswer = question.answers[oldIndex];
+      Object.keys(oldAnswer.scores).forEach(key => {
+        scores[key] = Math.max(0, scores[key] - oldAnswer.scores[key]);
+      });
+    }
+
+    // Store new answer
     answers[currentQuestion] = index;
-    
+
     // Update visual selection
     document.querySelectorAll('.answer-option').forEach((option, i) => {
       if (i === index) {
@@ -238,21 +250,8 @@
       }
     });
 
-    // Calculate scores
-    const question = questions[currentQuestion];
-    const selectedAnswer = question.answers[index];
-    
-    // Clear previous scores for this question
-    if (currentQuestion > 0) {
-      const prevAnswer = questions[currentQuestion].answers[answers[currentQuestion]];
-      if (prevAnswer) {
-        Object.keys(prevAnswer.scores).forEach(key => {
-          scores[key] = Math.max(0, scores[key] - prevAnswer.scores[key]);
-        });
-      }
-    }
-    
     // Add new scores
+    const selectedAnswer = question.answers[index];
     Object.keys(selectedAnswer.scores).forEach(key => {
       scores[key] += selectedAnswer.scores[key];
     });

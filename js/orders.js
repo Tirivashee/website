@@ -53,25 +53,10 @@ class OrderManager {
 
       this.currentOrder = data[0];
 
-      // Insert order items
-      if (data[0] && orderData.items.length > 0) {
-        const orderItems = orderData.items.map(item => ({
-          order_id: data[0].id,
-          product_id: item.product_id,
-          product_name: item.product_name,
-          product_image: item.product_image,
-          price: item.price,
-          quantity: item.quantity,
-          size: item.size || null,
-          color: item.color || null
-        }));
-
-        const { error: itemsError } = await supabaseClient
-          .from('order_items')
-          .insert(orderItems);
-
-        if (itemsError) throw itemsError;
-      }
+      // Note: order line items are stored on orders.order_items (JSONB, set
+      // above) - that's the single source of truth the app reads from
+      // (see system/system.html's displayOrderDetails). We intentionally do
+      // not also duplicate them into the separate `order_items` table.
 
       // Clear cart after successful order
       if (window.cartManager) {

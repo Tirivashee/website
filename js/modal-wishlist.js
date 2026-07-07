@@ -23,8 +23,10 @@ function initModalButtons() {
       const modalImages = document.querySelectorAll('.modal-main-image');
       const modalImage = modalImages.length > 0 ? modalImages[0].src : '';
       
-      // Generate product ID from title
-      const productId = modalTitle.toLowerCase().replace(/\s+/g, '-');
+      // Use the real product ID set on the modal when it was opened
+      // (falls back to a title slug only if that's somehow missing)
+      const productId = document.getElementById('productModal')?.dataset.productId
+        || modalTitle.toLowerCase().replace(/\s+/g, '-');
       
       const rawPrice = modalPrice.replace('$', '').replace(/[^0-9.]/g, '');
       const price = parseFloat(rawPrice);
@@ -87,8 +89,10 @@ function initModalButtons() {
       const selectedColorElement = document.querySelector('.modal-color-option.active');
       const selectedColor = selectedColorElement ? selectedColorElement.dataset.color || null : null;
       
-      // Generate product ID from title
-      const productId = modalTitle.toLowerCase().replace(/\s+/g, '-');
+      // Use the real product ID set on the modal when it was opened
+      // (falls back to a title slug only if that's somehow missing)
+      const productId = document.getElementById('productModal')?.dataset.productId
+        || modalTitle.toLowerCase().replace(/\s+/g, '-');
       
       const rawPrice = modalPrice.replace('$', '').replace(/[^0-9.]/g, '');
       const price = parseFloat(rawPrice);

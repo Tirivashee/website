@@ -530,12 +530,21 @@
   <script src="../js/main.js"></script>
   
   <script>
+    // Only allow same-site relative paths as a redirect target - rejects
+    // absolute URLs and protocol-relative URLs (e.g. "//evil.com") to
+    // prevent open-redirect/phishing use of the ?redirect= param.
+    function getSafeRedirect(fallback) {
+      const redirect = new URLSearchParams(window.location.search).get('redirect');
+      if (!redirect || redirect.startsWith('//') || redirect.includes('://') || redirect.startsWith('\\')) {
+        return fallback;
+      }
+      return redirect;
+    }
+
     // Check if already logged in
     document.addEventListener('DOMContentLoaded', function() {
       if (window.authManager?.isAuthenticated()) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirect = urlParams.get('redirect') || '../index.html';
-        window.location.href = redirect;
+        window.location.href = getSafeRedirect('../index.html');
       }
     });
 
@@ -631,15 +640,7 @@
               window.location.href = '../system/system.html';
             } else {
               // Regular users: get redirect URL from query params or default to account page
-              const urlParams = new URLSearchParams(window.location.search);
-              const redirect = urlParams.get('redirect') || '../account.html';
-              
-              // Validate redirect URL to prevent open redirect vulnerability
-              if (redirect.startsWith('http://') || redirect.startsWith('https://')) {
-                window.location.href = '../account.html';
-              } else {
-                window.location.href = redirect;
-              }
+              window.location.href = getSafeRedirect('../account.html');
             }
           }, 1000);
         } else {

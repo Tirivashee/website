@@ -13,4 +13,9 @@ QUICKSTART.md
 README.md
 SUPABASE-SETUP-GUIDE.md
 SEO-IMPLEMENTATION-NOTES.txt
-supabase-schema.sql
+*.sql
+
+# Dev/debug pages - not meant to be publicly reachable
+test-cart-wishlist.html
+test-gallery-interactions.html
+test-products-query.html

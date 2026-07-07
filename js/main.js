@@ -41,65 +41,40 @@ if (navbarToggle && navbarMenu) {
 const navbar = document.querySelector('.navbar');
 let lastScrollTop = 0;
 
-window.addEventListener('scroll', () => {
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  
-  if (scrollTop > 50) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
-  
-  lastScrollTop = scrollTop;
-});
+if (navbar) {
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+
+    lastScrollTop = scrollTop;
+  });
+}
 
 // Smooth Scroll for Anchor Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     const href = this.getAttribute('href');
-    
+
     // Skip if it's just "#" or if target doesn't exist
     if (href === '#' || !document.querySelector(href)) {
       return;
     }
-    
+
     e.preventDefault();
-    
+
     const target = document.querySelector(href);
-    const navbarHeight = navbar.offsetHeight;
+    const navbarHeight = navbar ? navbar.offsetHeight : 0;
     const targetPosition = target.offsetTop - navbarHeight;
-    
+
     window.scrollTo({
       top: targetPosition,
       behavior: 'smooth'
     });
-  });
-});
-
-// Add to Cart Button Interactions
-const addToCartButtons = document.querySelectorAll('.product-overlay .btn');
-
-addToCartButtons.forEach(button => {
-  // Skip if it's a link (navigation element)
-  if (button.tagName === 'A' && button.getAttribute('href')) {
-    return;
-  }
-  
-  button.addEventListener('click', (e) => {
-    e.preventDefault();
-    
-    // Visual feedback
-    const originalText = button.textContent;
-    button.textContent = 'Added!';
-    button.style.backgroundColor = 'var(--color-black)';
-    
-    setTimeout(() => {
-      button.textContent = originalText;
-      button.style.backgroundColor = '';
-    }, 1500);
-    
-    // You can add actual cart functionality here
-    console.log('Product added to cart');
   });
 });
 

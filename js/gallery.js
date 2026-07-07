@@ -86,6 +86,11 @@ class GalleryInteraction {
       return { success: false };
     }
 
+    if (this._commentInFlight) {
+      return { success: false };
+    }
+    this._commentInFlight = true;
+
     try {
       const userId = window.authManager.getUserId();
 
@@ -122,6 +127,8 @@ class GalleryInteraction {
       console.error('Error adding comment:', error);
       window.notificationManager?.error('Failed to post comment');
       return { success: false, error: error.message };
+    } finally {
+      this._commentInFlight = false;
     }
   }
 
@@ -157,6 +164,12 @@ class GalleryInteraction {
       }, 1500);
       return { success: false };
     }
+
+    if (!this._likeInFlight) this._likeInFlight = {};
+    if (this._likeInFlight[postId]) {
+      return { success: false };
+    }
+    this._likeInFlight[postId] = true;
 
     try {
       const userId = window.authManager.getUserId();
@@ -206,6 +219,8 @@ class GalleryInteraction {
       console.error('Error toggling like:', error);
       window.notificationManager?.error('Failed to update like');
       return { success: false, error: error.message };
+    } finally {
+      this._likeInFlight[postId] = false;
     }
   }
 
@@ -262,7 +277,7 @@ class GalleryInteraction {
     }
 
     container.innerHTML = comments.map(comment => {
-      const userName = comment.profile?.full_name || comment.profile?.email?.split('@')[0] || 'User';
+      const userName = this.escapeHtml(comment.profile?.full_name || comment.profile?.email?.split('@')[0] || 'User');
       const isOwner = userId === comment.user_id;
       const commentDate = new Date(comment.created_at).toLocaleDateString();
 

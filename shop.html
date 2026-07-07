@@ -1376,6 +1376,7 @@
           }
           
           // Populate modal with product data
+          document.getElementById('productModal').dataset.productId = productCard.dataset.productId || '';
           document.getElementById('modalTitle').textContent = productTitle;
           document.getElementById('modalDescription').textContent = productDescription;
           document.getElementById('modalPrice').textContent = productPrice;

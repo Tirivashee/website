@@ -4,9 +4,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize wishlist buttons on product cards
   initializeWishlistButtons();
-  
-  // Update wishlist badge count
-  updateWishlistBadge();
+
+  // Badge count is owned by nav-badges.js (window.updateWishlistBadge)
+  window.updateWishlistBadge?.();
 });
 
 function initializeWishlistButtons() {
@@ -17,16 +17,16 @@ function initializeWishlistButtons() {
 
 function updateWishlistButtonStates() {
   if (!window.wishlistManager) return;
-  
+
   // Update wishlist buttons managed by products.js
   const wishlistButtons = document.querySelectorAll('.wishlist-btn');
-  
+
   wishlistButtons.forEach(btn => {
     const productId = btn.dataset.productId;
-    const isInWishlist = window.wishlistManager.wishlist.some(item => 
+    const isInWishlist = window.wishlistManager.wishlist.some(item =>
       item.product_id === productId
     );
-    
+
     if (isInWishlist) {
       btn.classList.add('active');
       btn.style.background = '#000';
@@ -39,17 +39,8 @@ function updateWishlistButtonStates() {
   });
 }
 
-function updateWishlistBadge() {
-  const wishlistBadge = document.getElementById('wishlistCount');
-  if (wishlistBadge && window.wishlistManager) {
-    const count = window.wishlistManager.wishlist.length;
-    wishlistBadge.textContent = count;
-    wishlistBadge.style.display = count > 0 ? 'flex' : 'none';
-  }
-}
-
 // Export functions for use in other scripts
 window.shopWishlistFunctions = {
   updateWishlistButtonStates,
-  updateWishlistBadge
+  updateWishlistBadge: () => window.updateWishlistBadge?.()
 };
