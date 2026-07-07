@@ -1,6 +1,12 @@
 // Wishlist Management System
 // Handles wishlist functionality with Supabase integration
 
+const WISHLIST_UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function isValidProductUUID(id) {
+  return typeof id === 'string' && WISHLIST_UUID_RE.test(id);
+}
+
 class WishlistManager {
   constructor() {
     this.wishlist = [];
@@ -95,6 +101,10 @@ class WishlistManager {
   }
 
   setupStorageListener() {
+    // Guard against re-registering on every init() (e.g. on each auth state change)
+    if (this._storageListenerAttached) return;
+    this._storageListenerAttached = true;
+
     // Listen for localStorage changes in other tabs
     window.addEventListener('storage', (e) => {
       if (e.key === 'wishlist' && !window.authManager?.isAuthenticated()) {
@@ -164,56 +174,49 @@ class WishlistManager {
     try {
       const userId = window.authManager.getUserId();
 
-      // Fetch backup of existing items
-      let backup = [];
-      try {
-        const { data: existing, error: fetchErr } = await supabaseClient
-          .from('wishlist_items')
-          .select('*')
-          .eq('user_id', userId);
-        if (fetchErr) throw fetchErr;
-        backup = existing || [];
-      } catch (fetchErr) {
-        console.warn('Could not fetch wishlist backup before save:', fetchErr);
+      // Only items with a real product UUID can be persisted to Supabase
+      // (wishlist_items.product_id has an FK to products.id). Catalog items
+      // that don't have a matching database record yet stay session-only
+      // rather than corrupting the user's saved wishlist.
+      const persistable = this.wishlist.filter(item => isValidProductUUID(item.product_id));
+      const skipped = this.wishlist.length - persistable.length;
+      if (skipped > 0) {
+        console.warn(`${skipped} wishlist item(s) not synced to your account - missing a valid product ID`);
       }
 
-      // Delete existing wishlist items
-      await supabaseClient
+      const { data: existing, error: fetchErr } = await supabaseClient
         .from('wishlist_items')
-        .delete()
+        .select('id, product_id')
         .eq('user_id', userId);
 
-      // Insert new wishlist items (only product_id needed now)
-      if (this.wishlist.length > 0) {
-        const wishlistItems = this.wishlist.map(item => ({
-          user_id: userId,
-          product_id: item.product_id
-        }));
+      if (fetchErr) throw fetchErr;
 
-        const { error } = await supabaseClient
-          .from('wishlist_items')
-          .insert(wishlistItems);
+      const existingItems = existing || [];
+      const currentIds = new Set(persistable.map(item => item.product_id));
+      const existingIds = new Set(existingItems.map(item => item.product_id));
 
-        if (error) {
-          // Attempt rollback
-          try {
-            if (backup.length > 0) {
-              const rollbackItems = backup.map(b => ({
-                user_id: b.user_id,
-                product_id: b.product_id
-              }));
-              const { error: rbErr } = await supabaseClient
-                .from('wishlist_items')
-                .insert(rollbackItems);
-              if (rbErr) console.error('Wishlist rollback failed:', rbErr);
-            } else {
-              this.saveToLocalStorage();
-            }
-          } catch (rb) {
-            console.error('Error during wishlist rollback:', rb);
-          }
+      const toInsert = persistable
+        .filter(item => !existingIds.has(item.product_id))
+        .map(item => ({ user_id: userId, product_id: item.product_id }));
 
-          throw error;
+      const toDeleteIds = existingItems
+        .filter(item => !currentIds.has(item.product_id))
+        .map(item => item.id);
+
+      const operations = [];
+      if (toInsert.length > 0) {
+        operations.push(supabaseClient.from('wishlist_items').insert(toInsert));
+      }
+      if (toDeleteIds.length > 0) {
+        operations.push(supabaseClient.from('wishlist_items').delete().in('id', toDeleteIds));
+      }
+
+      if (operations.length > 0) {
+        const results = await Promise.all(operations);
+        const errors = results.filter(r => r.error);
+        if (errors.length > 0) {
+          console.error('Wishlist save errors:', errors);
+          throw new Error('Failed to save wishlist changes');
         }
       }
     } catch (error) {
@@ -300,31 +303,26 @@ class WishlistManager {
     // Update wishlist count badges
     const wishlistBadges = document.querySelectorAll('#wishlistCount, .wishlist-count');
     const itemCount = this.wishlist.length;
-    
+
     wishlistBadges.forEach(badge => {
       badge.textContent = itemCount;
       badge.style.display = itemCount > 0 ? 'flex' : 'none';
     });
 
-    // Update bookmark icons on product cards
+    // Update bookmark icons on product cards (visual state lives in CSS via .active)
     const bookmarkButtons = document.querySelectorAll('.wishlist-btn');
     bookmarkButtons.forEach(btn => {
       const productId = btn.dataset.productId;
-      if (this.isInWishlist(productId)) {
-        btn.classList.add('active');
-        btn.style.background = '#000';
-        btn.style.color = '#fff';
-      } else {
-        btn.classList.remove('active');
-        btn.style.background = '#fff';
-        btn.style.color = '#000';
-      }
+      btn.classList.toggle('active', this.isInWishlist(productId));
     });
 
     // Update wishlist page if on wishlist page
     if (window.location.pathname.includes('wishlist.html')) {
       this.renderWishlistPage();
     }
+
+    // Let other scripts (nav badge, move-all button, etc.) react without polling
+    window.dispatchEvent(new CustomEvent('wishlist:updated', { detail: { count: itemCount } }));
   }
 
   renderWishlistPage() {
@@ -406,45 +404,49 @@ class WishlistManager {
   async moveToCart(productId) {
     const item = this.wishlist.find(item => item.product_id === productId);
     if (item && window.cartManager) {
-      await window.cartManager.addItem({
+      const added = await window.cartManager.addItem({
         product_id: item.product_id,
         product_name: item.product_name,
         product_image: item.product_image,
         price: item.price,
         quantity: 1
       });
-      await this.removeItem(productId);
+      if (added) {
+        await this.removeItem(productId);
+      }
     }
   }
 
   async moveAllToCart() {
     if (!window.cartManager || this.wishlist.length === 0) return;
-    
+
     const itemsCopy = [...this.wishlist];
-    let successCount = 0;
-    
+    const movedProductIds = [];
+
     for (const item of itemsCopy) {
       try {
-        await window.cartManager.addItem({
+        const added = await window.cartManager.addItem({
           product_id: item.product_id,
           product_name: item.product_name,
           product_image: item.product_image,
           price: item.price,
           quantity: 1
         });
-        successCount++;
+        if (added) movedProductIds.push(item.product_id);
       } catch (error) {
         console.error('Error moving item to cart:', error);
       }
     }
-    
-    // Clear wishlist after moving all items
-    this.wishlist = [];
-    await this.saveToDatabase();
-    this.updateWishlistUI();
-    
-    if (successCount > 0) {
-      this.showNotification(`Moved ${successCount} item${successCount > 1 ? 's' : ''} to cart!`);
+
+    // Only remove the items that were actually moved - leave the rest
+    // in the wishlist instead of silently discarding them.
+    if (movedProductIds.length > 0) {
+      this.wishlist = this.wishlist.filter(item => !movedProductIds.includes(item.product_id));
+      await this.saveToDatabase();
+      this.updateWishlistUI();
+      this.showNotification(`Moved ${movedProductIds.length} item${movedProductIds.length > 1 ? 's' : ''} to cart!`);
+    } else {
+      this.showNotification('Could not move items to cart');
     }
   }
 

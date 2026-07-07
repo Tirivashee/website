@@ -69,40 +69,23 @@ class ProductInteractions {
       wishlistBtn.dataset.productId = productId;
       wishlistBtn.innerHTML = '🔖';
       wishlistBtn.title = 'Add to Wishlist';
-      wishlistBtn.style.cssText = `
-        width: 45px;
-        height: 45px;
-        background: white;
-        border: 3px solid black;
-        font-size: 20px;
-        cursor: pointer;
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      `;
-      
-      // Check if already in wishlist
-      if (window.wishlistManager?.isInWishlist(productId)) {
-        wishlistBtn.classList.add('active');
-        wishlistBtn.style.background = '#000';
-        wishlistBtn.style.color = '#fff';
-      }
+
+      // Check if already in wishlist (visual state handled by .wishlist-btn.active in CSS)
+      wishlistBtn.classList.toggle('active', !!window.wishlistManager?.isInWishlist(productId));
 
       actionsContainer.appendChild(wishlistBtn);
 
       // Add to cart button - available for all users
       const cartBtn = document.createElement('button');
       cartBtn.className = 'add-to-cart-btn btn btn-primary';
-        cartBtn.dataset.productId = productId;
-        cartBtn.textContent = 'ADD TO CART';
-        cartBtn.style.cssText = `
-          padding: 12px 20px;
-          font-size: 14px;
-        `;
-        
-        actionsContainer.appendChild(cartBtn);
-      }
+      cartBtn.dataset.productId = productId;
+      cartBtn.textContent = 'ADD TO CART';
+      cartBtn.style.cssText = `
+        padding: 12px 20px;
+        font-size: 14px;
+      `;
+
+      actionsContainer.appendChild(cartBtn);
 
       // Keep original VIEW button if it exists
       if (viewBtn) {
@@ -130,17 +113,9 @@ class ProductInteractions {
         };
 
         const isAdded = await window.wishlistManager.toggleItem(product);
-        
-        // Update button appearance
-        if (isAdded) {
-          btn.classList.add('active');
-          btn.style.background = '#000';
-          btn.style.color = '#fff';
-        } else {
-          btn.classList.remove('active');
-          btn.style.background = '#fff';
-          btn.style.color = '#000';
-        }
+
+        // Update button appearance (CSS handles the actual look via .active)
+        btn.classList.toggle('active', isAdded);
       }
     });
 

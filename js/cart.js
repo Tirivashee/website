@@ -286,7 +286,7 @@ class CartManager {
     if (!product || !product.product_id) {
       console.error('Invalid cart item - missing product_id:', product);
       window.notificationManager?.error('Failed to add item to cart');
-      return;
+      return false;
     }
 
     // For database products, fetch full product details if needed
@@ -294,7 +294,7 @@ class CartManager {
       const fullProduct = await window.productsLoader.getProduct(product.product_id);
       if (!fullProduct) {
         window.notificationManager?.error('Product not found');
-        return;
+        return false;
       }
 
       // Check variant if specified
@@ -303,13 +303,13 @@ class CartManager {
         variant = await window.productsLoader.getVariant(product.variant_id);
         if (!variant || !variant.is_active) {
           window.notificationManager?.error('Product variant not available');
-          return;
+          return false;
         }
 
         // Check inventory
         if (variant.inventory_policy === 'deny' && variant.inventory_quantity < 1) {
           window.notificationManager?.error('This item is out of stock');
-          return;
+          return false;
         }
       } else {
         // Check base product inventory
@@ -317,7 +317,7 @@ class CartManager {
           const totalInventory = fullProduct.variants?.reduce((sum, v) => sum + (v.inventory_quantity || 0), 0) || 0;
           if (totalInventory < 1) {
             window.notificationManager?.error('This item is out of stock');
-            return;
+            return false;
           }
         }
       }
@@ -335,24 +335,24 @@ class CartManager {
         in_stock: true
       };
     }
-    
+
     // Validate price
     const price = parseFloat(product.price);
     if (isNaN(price) || price < 0) {
       console.error('Invalid product price:', product.price);
       window.notificationManager?.error('Invalid product price');
-      return;
+      return false;
     }
 
     // Validate quantity
     const quantity = parseInt(product.quantity, 10) || 1;
     if (quantity <= 0 || quantity > CART_LIMITS.MAX_QUANTITY_PER_ITEM) {
       window.notificationManager?.error(`Quantity must be between 1 and ${CART_LIMITS.MAX_QUANTITY_PER_ITEM}`);
-      return;
+      return false;
     }
-    
+
     const existingItemIndex = this.cart.findIndex(
-      item => item.product_id === product.product_id && 
+      item => item.product_id === product.product_id &&
               item.variant_id === product.variant_id
     );
 
@@ -361,14 +361,14 @@ class CartManager {
       const newQuantity = this.cart[existingItemIndex].quantity + quantity;
       if (newQuantity > CART_LIMITS.MAX_QUANTITY_PER_ITEM) {
         window.notificationManager?.error(`Cannot add more. Maximum ${CART_LIMITS.MAX_QUANTITY_PER_ITEM} per item`);
-        return;
+        return false;
       }
       this.cart[existingItemIndex].quantity = newQuantity;
     } else {
       // Check unique products limit
       if (this.cart.length >= CART_LIMITS.MAX_UNIQUE_PRODUCTS) {
         window.notificationManager?.error(`Cart is full. Maximum ${CART_LIMITS.MAX_UNIQUE_PRODUCTS} different items`);
-        return;
+        return false;
       }
 
       this.cart.push({
@@ -395,16 +395,18 @@ class CartManager {
         this.cart.pop();
       }
       window.notificationManager?.error(`Cart limit reached. Maximum ${CART_LIMITS.MAX_TOTAL_ITEMS} total items`);
-      return;
+      return false;
     }
 
     try {
       await this.saveToDatabase();
       this.updateCartUI();
       this.showNotification('Item added to cart!');
+      return true;
     } catch (error) {
       console.error('Failed to save cart:', error);
       window.notificationManager?.error('Failed to add item. Please try again.');
+      return false;
     }
   }
 
@@ -493,6 +495,9 @@ class CartManager {
     if (window.location.pathname.includes('cart.html')) {
       this.renderCartPage();
     }
+
+    // Let other scripts (nav badge, etc.) react without polling
+    window.dispatchEvent(new CustomEvent('cart:updated', { detail: { count: itemCount } }));
   }
 
   renderCartPage() {

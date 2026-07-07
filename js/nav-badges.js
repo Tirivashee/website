@@ -4,13 +4,11 @@
 document.addEventListener('DOMContentLoaded', function() {
   updateCartBadge();
   updateWishlistBadge();
-  
-  // Update badges periodically
-  setInterval(() => {
-    updateCartBadge();
-    updateWishlistBadge();
-  }, 5000);
 });
+
+// React to actual cart/wishlist changes instead of polling
+window.addEventListener('cart:updated', updateCartBadge);
+window.addEventListener('wishlist:updated', updateWishlistBadge);
 
 function updateCartBadge() {
   const cartBadge = document.getElementById('cartCount');

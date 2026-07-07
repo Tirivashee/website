@@ -261,22 +261,11 @@ class ProductsLoader {
       return null;
     }
   }
-}console.log('[ProductsLoader] Script loaded');
-  console.log('[ProductsLoader] Current pathname:', window.location.pathname);
-  
-  // Auto-init on shop page (check for shop.html or just /shop)
-  const isShopPage = window.location.pathname.includes('shop.html') || 
-                     window.location.pathname.includes('/shop') ||
-                     window.location.pathname.endsWith('shop.html');
-  
-  console.log('[ProductsLoader] Is shop page?', isShopPage);
-  
-  if (isShopPage) {
-    document.addEventListener('DOMContentLoaded', () => {
-      console.log('[ProductsLoader] DOM loaded, initializing...');
+}
+
 if (typeof window !== 'undefined') {
   window.productsLoader = new ProductsLoader();
-  
+
   // Auto-init on shop page
   if (window.location.pathname.includes('shop.html')) {
     document.addEventListener('DOMContentLoaded', () => {

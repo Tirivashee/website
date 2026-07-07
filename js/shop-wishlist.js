@@ -23,19 +23,7 @@ function updateWishlistButtonStates() {
 
   wishlistButtons.forEach(btn => {
     const productId = btn.dataset.productId;
-    const isInWishlist = window.wishlistManager.wishlist.some(item =>
-      item.product_id === productId
-    );
-
-    if (isInWishlist) {
-      btn.classList.add('active');
-      btn.style.background = '#000';
-      btn.style.color = '#fff';
-    } else {
-      btn.classList.remove('active');
-      btn.style.background = '#fff';
-      btn.style.color = '#000';
-    }
+    btn.classList.toggle('active', window.wishlistManager.isInWishlist(productId));
   });
 }
 

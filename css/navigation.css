@@ -45,39 +45,28 @@
   display: none;
 }
 
-/* Wishlist Icon on Product Cards */
-.product-wishlist-btn {
-  width: 28px;
-  height: 28px;
-  background: transparent;
-  border: none;
-  display: inline-flex;
+/* Wishlist bookmark button on product cards */
+.wishlist-btn {
+  width: 45px;
+  height: 45px;
+  background: #fff;
+  color: #000;
+  border: 3px solid #000;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  vertical-align: middle;
-  flex-shrink: 0;
-  padding: 0;
 }
 
-.product-wishlist-btn:hover {
-  transform: scale(1.1);
+.wishlist-btn:hover {
+  transform: scale(1.05);
 }
 
-.product-wishlist-btn:hover svg {
-  fill: var(--color-black);
-  stroke: var(--color-black);
-}
-
-.product-wishlist-btn svg {
-  width: 16px;
-  height: 16px;
-  transition: all var(--transition-fast);
-}
-
-.product-wishlist-btn.active svg {
-  fill: var(--color-black);
+.wishlist-btn.active {
+  background: #000;
+  color: #fff;
 }
 
 /* Product Card Price Row with Wishlist Button */

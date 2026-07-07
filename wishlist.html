@@ -629,8 +629,8 @@
         }
       }
       
-      // Check periodically
-      setInterval(updateMoveAllButton, 500);
+      // React to actual wishlist changes instead of polling
+      window.addEventListener('wishlist:updated', updateMoveAllButton);
       updateMoveAllButton();
     });
   </script>
