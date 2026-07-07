@@ -86,6 +86,16 @@ class GalleryInteraction {
       return { success: false };
     }
 
+    const trimmedText = (commentText || '').trim();
+    if (!trimmedText) {
+      window.notificationManager?.warning('Please enter a comment');
+      return { success: false };
+    }
+    if (trimmedText.length > 1000) {
+      window.notificationManager?.warning('Comment is too long (max 1000 characters)');
+      return { success: false };
+    }
+
     if (this._commentInFlight) {
       return { success: false };
     }
@@ -99,7 +109,7 @@ class GalleryInteraction {
         .insert([{
           post_id: postId,
           user_id: userId,
-          comment_text: commentText,
+          comment_text: trimmedText,
           created_at: new Date().toISOString()
         }])
         .select('*')
@@ -173,7 +183,15 @@ class GalleryInteraction {
 
     try {
       const userId = window.authManager.getUserId();
-      
+
+      // If this post's likes haven't been fetched yet (e.g. the click landed
+      // before the initial load finished), fetch them now instead of assuming
+      // "not liked" - otherwise a repeat like can hit the DB's unique
+      // constraint and fail with a confusing error.
+      if (this.likes[postId] === undefined) {
+        await this.loadPostData(postId);
+      }
+
       // Check if already liked
       const existingLike = this.likes[postId]?.find(like => like.user_id === userId);
 

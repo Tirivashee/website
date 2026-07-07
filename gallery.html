@@ -1056,7 +1056,7 @@
         position: fixed;
         inset: 0;
         background: rgba(0,0,0,0.8);
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         z-index: 10000;
@@ -1077,7 +1077,7 @@
                 placeholder="Write a comment..." 
                 style="width: 100%; min-height: 80px; padding: 10px; border: 2px solid black; font-family: inherit; resize: vertical;"
                 onkeydown="if(event.ctrlKey && event.key === 'Enter') submitComment('${postId}')"></textarea>
-              <button onclick="submitComment('${postId}')" style="margin-top: 10px; padding: 10px 20px; background: black; color: white; border: 3px solid black; font-weight: bold; cursor: pointer;">
+              <button id="comment-submit-${postId}" onclick="submitComment('${postId}')" style="margin-top: 10px; padding: 10px 20px; background: black; color: white; border: 3px solid black; font-weight: bold; cursor: pointer;">
                 POST COMMENT
               </button>
               <small style="display: block; margin-top: 5px; color: #666;">Press Ctrl+Enter to post</small>
@@ -1111,7 +1111,7 @@
     window.submitComment = async function(postId) {
       const input = document.getElementById('comment-input-' + postId);
       const text = input.value.trim();
-      
+
       if (!text) {
         if (window.notificationManager) {
           window.notificationManager.warning('Please enter a comment');
@@ -1121,12 +1121,24 @@
         return;
       }
 
+      const submitBtn = document.getElementById('comment-submit-' + postId);
+      const originalText = submitBtn?.textContent;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'POSTING...';
+      }
+
       if (window.galleryInteraction) {
         const result = await window.galleryInteraction.addComment(postId, text);
         if (result?.success) {
           input.value = '';
           console.log('Comment added successfully');
         }
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
       }
     };
     
@@ -1166,15 +1178,33 @@
       'assets/images/urban/24.jpg'
     ];
     
+    // Fisher-Yates shuffle - unbiased, unlike `sort(() => Math.random() - 0.5)`
+    function shuffleArray(array) {
+      const result = [...array];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    }
+
+    // Derive a stable post ID from the image filename so likes/comments stay
+    // attached to the same photo across reloads, instead of to a shuffle slot.
+    function postIdFromImagePath(path) {
+      const filename = path.split('/').pop();
+      const stem = filename.replace(/\.[^/.]+$/, '');
+      return `collection-${stem}`;
+    }
+
     // Load collection grid
     function loadCollection() {
       const grid = document.getElementById('collectionGrid');
       if (!grid) return;
-      
-      const shuffled = collectionImages.sort(() => Math.random() - 0.5);
-      
+
+      const shuffled = shuffleArray(collectionImages);
+
       grid.innerHTML = shuffled.map((img, index) => {
-        const postId = `collection-${index + 1}`;
+        const postId = postIdFromImagePath(img);
         return `
           <div class="collection-item" data-post-id="${postId}">
             <img src="${img}" alt="BALLYLIKE Collection ${index + 1}" loading="eager" onerror="this.style.display='none'">
