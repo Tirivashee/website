@@ -58,16 +58,9 @@ class AuthManager {
         throw error;
       }
 
-      // Create user profile in database (optional - may fail if profiles table doesn't exist)
-      if (data.user) {
-        console.log('User created, attempting to create profile...');
-        try {
-          await this.createUserProfile(data.user.id, fullName, email);
-        } catch (profileError) {
-          console.warn('Profile creation failed (non-critical):', profileError);
-          // Don't fail the signup if profile creation fails
-        }
-      }
+      // Note: the `profiles` row is created automatically by the
+      // `on_auth_user_created` DB trigger (handle_new_user), which already
+      // copies id/email/full_name from the new auth.users row.
 
       console.log('Signup successful');
       return { success: true, data };
@@ -112,34 +105,6 @@ class AuthManager {
   // Alias for logout (same as signOut)
   async logout() {
     return await this.signOut();
-  }
-
-  async createUserProfile(userId, fullName, email) {
-    try {
-      console.log('Creating user profile for:', userId);
-      
-      const { data, error } = await supabaseClient
-        .from('profiles')
-        .insert([
-          {
-            id: userId,
-            full_name: fullName,
-            email: email,
-            created_at: new Date().toISOString()
-          }
-        ]);
-
-      if (error) {
-        console.error('Profile creation error:', error);
-        throw error;
-      }
-      
-      console.log('Profile created successfully');
-    } catch (error) {
-      console.error('Error creating profile:', error);
-      // Rethrow to let caller handle
-      throw error;
-    }
   }
 
   isAuthenticated() {
