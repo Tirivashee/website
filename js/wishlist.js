@@ -379,10 +379,13 @@ class WishlistManager {
       btn.classList.toggle('active', this.isInWishlist(productId));
     });
 
-    // Update wishlist page if on wishlist page
-    if (window.location.pathname.includes('wishlist.html')) {
-      this.renderWishlistPage();
-    }
+    // Render the wishlist page grid if its container is present. Deliberately
+    // not gated on window.location.pathname - Vercel's cleanUrls strips the
+    // ".html" from the real browser URL (e.g. "/wishlist", not
+    // "/wishlist.html"), which made that check always false in production
+    // and silently skipped this render entirely. renderWishlistPage() already
+    // no-ops safely when #wishlistItems isn't on the page.
+    this.renderWishlistPage();
 
     // Badge count is owned by nav-badges.js, which listens for this event -
     // keeping a single place that touches #wishlistCount avoids two code

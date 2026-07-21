@@ -266,12 +266,15 @@ class ProductsLoader {
 if (typeof window !== 'undefined') {
   window.productsLoader = new ProductsLoader();
 
-  // Auto-init on shop page
-  if (window.location.pathname.includes('shop.html')) {
-    document.addEventListener('DOMContentLoaded', () => {
+  // Auto-init if a shop grid is present on the page. Deliberately not gated
+  // on window.location.pathname - Vercel's cleanUrls strips the ".html" from
+  // the real browser URL (e.g. "/shop", not "/shop.html"), which made a
+  // pathname.includes('shop.html') check always false in production.
+  document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('products-grid')) {
       window.productsLoader.init();
-    });
-  }
+    }
+  });
 }
 
 // Add loading spinner animation

@@ -530,10 +530,13 @@ class CartManager {
   }
 
   updateCartUI() {
-    // Update cart page if on cart page
-    if (window.location.pathname.includes('cart.html')) {
-      this.renderCartPage();
-    }
+    // Render the cart page grid if its container is present. Deliberately
+    // not gated on window.location.pathname - Vercel's cleanUrls strips the
+    // ".html" from the real browser URL (e.g. "/cart", not "/cart.html"),
+    // which made that check always false in production and silently skipped
+    // this render entirely. renderCartPage() already no-ops safely when
+    // #cartItems isn't on the page.
+    this.renderCartPage();
 
     // Badge count is owned by nav-badges.js, which listens for this event -
     // keeping a single place that touches #cartCount avoids two code paths
