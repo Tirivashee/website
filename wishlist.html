@@ -239,55 +239,11 @@
       font-size: 1rem;
     }
 
-    /* Auth Message for Non-Authenticated Users */
-    .auth-message {
-      margin-top: var(--spacing-lg);
-      padding: var(--spacing-md) var(--spacing-lg);
-      background: #fff8f0;
-      border: 1px solid #ffd4b3;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .auth-message-content {
-      max-width: 600px;
-      margin: 0 auto;
+    .login-required-buttons {
       display: flex;
-      align-items: center;
+      gap: 12px;
       justify-content: center;
-      gap: var(--spacing-md);
-    }
-
-    .auth-message svg {
-      flex-shrink: 0;
-      color: #ff6b35;
-    }
-
-    .auth-message p {
-      margin: 0;
-      line-height: 1.4;
-      font-size: 0.9rem;
-      color: #333;
-      text-align: left;
-    }
-
-    .auth-message strong {
-      font-size: 0.95rem;
-      font-weight: 600;
-      display: inline;
-    }
-
-    .auth-message-buttons {
-      display: flex;
-      gap: 8px;
-      margin-left: auto;
-      flex-shrink: 0;
-    }
-
-    .auth-message-buttons .btn {
-      padding: 8px 16px;
-      font-size: 0.85rem;
-      white-space: nowrap;
+      flex-wrap: wrap;
     }
 
     @media (max-width: 1024px) {
@@ -365,25 +321,6 @@
         font-size: 0.95rem;
       }
 
-      .auth-message {
-        padding: var(--spacing-sm) var(--spacing-md);
-      }
-
-      .auth-message-content {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .auth-message p {
-        text-align: center;
-        font-size: 0.85rem;
-      }
-
-      .auth-message-buttons {
-        margin-left: 0;
-        width: 100%;
-        justify-content: center;
-      }
     }
 
     @media (max-width: 480px) {
@@ -440,12 +377,12 @@
         font-size: 0.9rem;
       }
 
-      .auth-message-buttons {
+      .login-required-buttons {
         flex-direction: column;
         width: 100%;
       }
 
-      .auth-message-buttons .btn {
+      .login-required-buttons .btn {
         width: 100%;
       }
     }
@@ -523,6 +460,19 @@
         </div>
       </div>
 
+      <div class="empty-wishlist" id="wishlistLoginRequired" style="display: none;">
+        <svg width="80" height="80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <h2>LOG IN TO SEE YOUR WISHLIST</h2>
+        <p>Create an account or log in to save items and access your wishlist from any device.</p>
+        <div class="login-required-buttons">
+          <a href="users/signup.html?redirect=wishlist.html" class="btn btn-primary">SIGN UP</a>
+          <a href="users/login.html?redirect=wishlist.html" class="btn btn-secondary">LOGIN</a>
+        </div>
+      </div>
+
       <div class="empty-wishlist" id="emptyWishlist">
         <svg width="80" height="80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -534,21 +484,6 @@
 
       <div class="wishlist-items" id="wishlistItems">
         <!-- Wishlist items will be rendered here by JavaScript -->
-      </div>
-      
-      <!-- Auth Message for Non-Authenticated Users -->
-      <div class="auth-message" id="wishlistAuthMessage" style="display: none;">
-        <div class="auth-message-content">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          <p><strong>Register now</strong> to keep items in your wishlist and access them from any device.</p>
-          <div class="auth-message-buttons">
-            <a href="users/signup.html" class="btn btn-primary">SIGN UP</a>
-            <a href="users/login.html" class="btn btn-secondary">LOGIN</a>
-          </div>
-        </div>
       </div>
     </div>
   </main>
