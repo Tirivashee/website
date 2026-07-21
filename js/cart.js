@@ -29,6 +29,7 @@ function logSupabaseError(context, error) {
 class CartManager {
   constructor() {
     this.cart = [];
+    this._warnedSkippedKeys = new Set();
     this.init();
   }
 
@@ -185,6 +186,25 @@ class CartManager {
     this.cart = savedCart ? JSON.parse(savedCart) : [];
   }
 
+  // Warn (once per product/variant) when an item can't be synced to the
+  // account instead of only logging to the console, so guests-turned-users
+  // don't silently lose items.
+  warnSkippedItems(items) {
+    const skipped = items.filter(item =>
+      !(isValidCartUUID(item.product_id) && (item.variant_id == null || isValidCartUUID(item.variant_id)))
+    );
+    if (skipped.length === 0) return;
+
+    console.warn(`${skipped.length} cart item(s) not synced to your account - missing a valid product/variant ID`);
+
+    const key = (item) => `${item.product_id}||${item.variant_id || 'null'}`;
+    const newlySkipped = skipped.filter(item => !this._warnedSkippedKeys.has(key(item)));
+    if (newlySkipped.length > 0) {
+      newlySkipped.forEach(item => this._warnedSkippedKeys.add(key(item)));
+      window.notificationManager?.warning("Some items can't be saved to your account and will only be kept for this browsing session.");
+    }
+  }
+
   async saveToDatabase() {
     if (!window.authManager?.isAuthenticated()) {
       this.saveToLocalStorage();
@@ -211,10 +231,7 @@ class CartManager {
       const persistable = this.cart.filter(item =>
         isValidCartUUID(item.product_id) && (item.variant_id == null || isValidCartUUID(item.variant_id))
       );
-      const skipped = this.cart.length - persistable.length;
-      if (skipped > 0) {
-        console.warn(`${skipped} cart item(s) not synced to your account - missing a valid product/variant ID`);
-      }
+      this.warnSkippedItems(this.cart);
 
       // Create lookup key for cart items (product_id + variant_id)
       const itemKey = (item) => `${item.product_id}||${item.variant_id || 'null'}`;
@@ -430,14 +447,15 @@ class CartManager {
 
     try {
       await this.saveToDatabase();
-      this.updateCartUI();
-      this.showNotification('Item added to cart!');
-      return true;
+      window.notificationManager?.success('Item added to cart!');
     } catch (error) {
+      // saveToDatabase() already fell back to localStorage, so the item is
+      // still in the cart - just let the user know the account sync failed.
       logSupabaseError('Failed to save cart:', error);
-      window.notificationManager?.error('Failed to add item. Please try again.');
-      return false;
+      window.notificationManager?.error('Item added, but syncing to your account failed. It will only be kept for this browsing session.');
     }
+    this.updateCartUI();
+    return true;
   }
 
   async removeItem(index) {
@@ -447,14 +465,15 @@ class CartManager {
     }
 
     this.cart.splice(index, 1);
-    
+
     try {
       await this.saveToDatabase();
-      this.updateCartUI();
+      window.notificationManager?.success('Item removed from cart');
     } catch (error) {
-      console.error('Failed to remove item:', error);
-      window.notificationManager?.error('Failed to remove item. Please try again.');
+      logSupabaseError('Failed to remove item:', error);
+      window.notificationManager?.error('Item removed, but syncing to your account failed.');
     }
+    this.updateCartUI();
   }
 
   async updateQuantity(index, quantity) {
@@ -476,29 +495,28 @@ class CartManager {
       window.notificationManager?.error(`Cart limit reached. Maximum ${CART_LIMITS.MAX_TOTAL_ITEMS} total items`);
       return;
     }
-    
+
     this.cart[index].quantity = quantity;
-    
+
     try {
       await this.saveToDatabase();
-      this.updateCartUI();
     } catch (error) {
-      console.error('Failed to update quantity:', error);
-      window.notificationManager?.error('Failed to update quantity. Please try again.');
+      logSupabaseError('Failed to update quantity:', error);
+      window.notificationManager?.error('Quantity updated, but syncing to your account failed.');
     }
+    this.updateCartUI();
   }
 
   async clearCart() {
     this.cart = [];
-    
+
     try {
       await this.saveToDatabase();
-      this.updateCartUI();
     } catch (error) {
-      console.error('Failed to clear cart:', error);
-      // Still clear UI even if save fails
-      this.updateCartUI();
+      logSupabaseError('Failed to clear cart:', error);
     }
+    // Always reflect the cleared cart in the UI, even if the account sync failed.
+    this.updateCartUI();
   }
 
   getTotal() {
@@ -512,22 +530,15 @@ class CartManager {
   }
 
   updateCartUI() {
-    // Update cart count badges
-    const cartBadges = document.querySelectorAll('.cart-count, #cartCount');
-    const itemCount = this.getItemCount();
-    
-    cartBadges.forEach(badge => {
-      badge.textContent = itemCount;
-      badge.style.display = itemCount > 0 ? 'flex' : 'none';
-    });
-
     // Update cart page if on cart page
     if (window.location.pathname.includes('cart.html')) {
       this.renderCartPage();
     }
 
-    // Let other scripts (nav badge, etc.) react without polling
-    window.dispatchEvent(new CustomEvent('cart:updated', { detail: { count: itemCount } }));
+    // Badge count is owned by nav-badges.js, which listens for this event -
+    // keeping a single place that touches #cartCount avoids two code paths
+    // disagreeing about the DOM.
+    window.dispatchEvent(new CustomEvent('cart:updated', { detail: { count: this.getItemCount() } }));
   }
 
   renderCartPage() {
@@ -646,30 +657,6 @@ class CartManager {
     });
   }
 
-  showNotification(message) {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = 'cart-notification';
-    notification.textContent = message;
-    notification.style.cssText = `
-      position: fixed;
-      top: 100px;
-      right: 20px;
-      background: var(--color-black);
-      color: var(--color-white);
-      padding: 15px 25px;
-      border: 3px solid var(--color-black);
-      z-index: 10000;
-      animation: slideInRight 0.3s ease;
-    `;
-
-    document.body.appendChild(notification);
-
-    setTimeout(() => {
-      notification.style.animation = 'slideOutRight 0.3s ease';
-      setTimeout(() => notification.remove(), 300);
-    }, 2000);
-  }
 }
 
 // Initialize Cart Manager

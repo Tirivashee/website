@@ -78,11 +78,16 @@ CREATE POLICY "Users can delete their own cart items"
 -- ============================================
 -- WISHLIST ITEMS TABLE
 -- ============================================
+-- NOTE: if this table already exists on your project (e.g. created before
+-- product_id was NOT NULL / unique), this CREATE TABLE IF NOT EXISTS will
+-- be a no-op. Run wishlist-schema-fix.sql to bring an existing table up to
+-- this definition without losing data.
 CREATE TABLE IF NOT EXISTS public.wishlist_items (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
-  product_id UUID REFERENCES public.products(id) ON DELETE CASCADE,
-  created_at TIMESTAMPTZ DEFAULT NOW()
+  product_id UUID REFERENCES public.products(id) ON DELETE CASCADE NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE (user_id, product_id)
 );
 
 -- Enable Row Level Security

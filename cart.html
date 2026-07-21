@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/whatsapp-notification.css">
   
   <style>
     body {
@@ -670,104 +671,6 @@
       }
     }
 
-    /* Authentication Modal */
-    .auth-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      z-index: 10000;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .auth-modal.show {
-      display: flex !important;
-    }
-
-    .auth-modal-content {
-      background: #fff;
-      border: none;
-      padding: 50px 40px;
-      max-width: 600px;
-      width: 90%;
-      max-height: 90vh;
-      overflow-y: auto;
-      text-align: center;
-      position: relative;
-    }
-
-    .auth-modal-content h2 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 30px;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
-      line-height: 1;
-    }
-
-    .auth-modal-content p {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin-bottom: 40px;
-      color: #000;
-      font-weight: 500;
-    }
-
-    .auth-modal-buttons {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .auth-modal-buttons .btn {
-      padding: 16px 32px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0;
-      border: 2px solid #000;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .auth-modal-buttons .btn-primary {
-      background: #000;
-      color: #fff;
-    }
-
-    .auth-modal-buttons .btn-primary:hover {
-      background: #fff;
-      color: #000;
-    }
-
-    .auth-modal-buttons .btn-secondary {
-      background: #fff;
-      color: #000;
-    }
-
-    .auth-modal-buttons .btn-secondary:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    .auth-modal-buttons .btn-cancel {
-      background: transparent;
-      color: #000;
-      border-color: #000;
-    }
-
-    .auth-modal-buttons .btn-cancel:hover {
-      background: #000;
-      color: #fff;
-      border-color: #000;
-    }
   </style>
 
   <!-- Supabase -->
@@ -883,19 +786,6 @@
     </div>
   </main>
 
-  <!-- Authentication Modal -->
-  <div class="auth-modal" id="authModal">
-    <div class="auth-modal-content">
-      <h2>LOGIN REQUIRED</h2>
-      <p>To complete your order at checkout, you must be logged in or create an account.</p>
-      <div class="auth-modal-buttons">
-        <a href="users/signup.html?redirect=checkout.html" class="btn btn-primary">SIGN UP</a>
-        <a href="users/login.html?redirect=checkout.html" class="btn btn-secondary">LOG IN</a>
-        <button class="btn btn-cancel" onclick="closeAuthModal()">CANCEL</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Footer -->
   <footer class="footer" id="contact">
     <div class="footer-content container">
@@ -976,66 +866,33 @@
   <script src="js/nav-badges.js"></script>
   <script src="js/transitions.js"></script>
   <script src="js/main.js"></script>
-  
+  <script src="js/whatsapp-notification.js"></script>
+
   <script>
-    // Check authentication before proceeding to checkout
-    async function proceedToCheckout() {
-      // Wait for auth manager to be ready
-      let attempts = 0;
-      while (!window.authManager && attempts < 20) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-        attempts++;
-      }
-      
-      if (!window.authManager?.isAuthenticated()) {
-        // Show authentication modal
-        document.getElementById('authModal').classList.add('show');
-      } else {
-        // User is authenticated, proceed to checkout
-        window.location.href = 'checkout.html';
-      }
-    }
-    
-    // Close authentication modal
-    function closeAuthModal(event) {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      const modal = document.getElementById('authModal');
-      if (modal) {
-        modal.classList.remove('show');
-      }
-    }
-    
-    // Close modal on backdrop click and setup event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-      const modal = document.getElementById('authModal');
-      const modalContent = modal?.querySelector('.auth-modal-content');
-      
-      // Close on backdrop click
-      if (modal) {
-        modal.addEventListener('click', function(e) {
-          if (e.target === modal) {
-            closeAuthModal();
-          }
-        });
-      }
-      
-      // Prevent clicks on modal content from closing the modal
-      if (modalContent) {
-        modalContent.addEventListener('click', function(e) {
-          e.stopPropagation();
-        });
-      }
-      
-      // Close modal on Escape key
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal?.classList.contains('show')) {
-          closeAuthModal();
-        }
+    // Checkout is handled entirely via WhatsApp for now - no login or
+    // shipping form required. Build a readable order summary from the
+    // cart and hand it to the WhatsApp modal as a pre-filled message.
+    function buildWhatsAppOrderMessage() {
+      const cart = window.cartManager?.cart || [];
+      const lines = cart.map((item, i) => {
+        const variant = [
+          item.size ? `Size: ${item.size}` : null,
+          item.color ? `Color: ${item.color}` : null
+        ].filter(Boolean).join(', ');
+        const lineTotal = ((parseFloat(item.price) || 0) * item.quantity).toFixed(2);
+        return `${i + 1}. ${item.product_name}${variant ? ` (${variant})` : ''} - Qty: ${item.quantity} - $${lineTotal}`;
       });
-    });
+      const total = (window.cartManager?.getTotal() || 0).toFixed(2);
+      return `Hi BALLYLIKE! I'd like to order:\n\n${lines.join('\n')}\n\nTotal: $${total}`;
+    }
+
+    function proceedToCheckout() {
+      if (!window.cartManager || window.cartManager.cart.length === 0) {
+        window.notificationManager?.warning('Your cart is empty');
+        return;
+      }
+      window.whatsappNotification?.showModal(buildWhatsAppOrderMessage());
+    }
   </script>
 </body>
 </html>

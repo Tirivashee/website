@@ -56,10 +56,38 @@
 
     .wishlist-header-actions {
       display: none;
+      align-items: center;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .wishlist-header-actions.show {
-      display: block;
+      display: flex;
+    }
+
+    .wishlist-sort {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wishlist-sort label {
+      font-size: var(--font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-gray-600);
+    }
+
+    .wishlist-sort select {
+      padding: 10px 14px;
+      background: #fff;
+      border: 2px solid #000;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      cursor: pointer;
     }
 
     #moveAllToCart {
@@ -481,6 +509,16 @@
           <p>YOUR SAVED ITEMS</p>
         </div>
         <div class="wishlist-header-actions" id="wishlistHeaderActions">
+          <div class="wishlist-sort" id="wishlistSort">
+            <label for="wishlistSortSelect">Sort by</label>
+            <select id="wishlistSortSelect">
+              <option value="newest">Newest Added</option>
+              <option value="oldest">Oldest Added</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="name-asc">Name: A-Z</option>
+            </select>
+          </div>
           <button id="moveAllToCart" class="btn">MOVE ALL TO CART</button>
         </div>
       </div>
@@ -601,7 +639,14 @@
     document.addEventListener('DOMContentLoaded', function() {
       const moveAllBtn = document.getElementById('moveAllToCart');
       const headerActions = document.getElementById('wishlistHeaderActions');
-      
+      const sortSelect = document.getElementById('wishlistSortSelect');
+
+      if (sortSelect) {
+        sortSelect.addEventListener('change', function() {
+          window.wishlistManager?.setSortOrder(this.value);
+        });
+      }
+
       if (moveAllBtn) {
         moveAllBtn.addEventListener('click', async function() {
           if (!window.wishlistManager || window.wishlistManager.wishlist.length === 0) return;

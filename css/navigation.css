@@ -52,12 +52,15 @@
   background: #fff;
   color: #000;
   border: 3px solid #000;
-  font-size: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.wishlist-btn svg {
+  transition: fill 0.2s ease;
 }
 
 .wishlist-btn:hover {
@@ -67,6 +70,10 @@
 .wishlist-btn.active {
   background: #000;
   color: #fff;
+}
+
+.wishlist-btn.active svg {
+  fill: currentColor;
 }
 
 /* Product Card Price Row with Wishlist Button */

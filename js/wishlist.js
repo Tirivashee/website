@@ -7,16 +7,38 @@ function isValidProductUUID(id) {
   return typeof id === 'string' && WISHLIST_UUID_RE.test(id);
 }
 
+// Supabase/PostgREST errors carry the useful detail in message/details/hint/code,
+// not in the Error's own stack - log those explicitly instead of the generic object.
+function logWishlistError(context, error) {
+  console.error(context, {
+    message: error?.message,
+    details: error?.details,
+    hint: error?.hint,
+    code: error?.code,
+    raw: error
+  });
+}
+
+const WISHLIST_SORTS = {
+  newest: (a, b) => new Date(b.added_at) - new Date(a.added_at),
+  oldest: (a, b) => new Date(a.added_at) - new Date(b.added_at),
+  'price-asc': (a, b) => (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0),
+  'price-desc': (a, b) => (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0),
+  'name-asc': (a, b) => (a.product_name || '').localeCompare(b.product_name || '')
+};
+
 class WishlistManager {
   constructor() {
     this.wishlist = [];
+    this.sortBy = 'newest';
+    this._warnedSkippedIds = new Set();
     this.init();
   }
 
   async init() {
     // Wait for auth to be ready
     await this.waitForAuth();
-    
+
     if (window.authManager?.isAuthenticated()) {
       // If guest wishlist exists in localStorage, merge it into the user's database wishlist
       const guestWishlist = localStorage.getItem('wishlist');
@@ -31,7 +53,7 @@ class WishlistManager {
       this.loadFromLocalStorage();
     }
     this.updateWishlistUI();
-    
+
     // Listen for cross-tab storage changes
     this.setupStorageListener();
   }
@@ -87,7 +109,7 @@ class WishlistManager {
       // Clear guest wishlist
       localStorage.removeItem('wishlist');
     } catch (err) {
-      console.error('Error merging local wishlist into database:', err);
+      logWishlistError('Error merging local wishlist into database:', err);
       // Fallback: load DB and then append local items via toggleItem
       await this.loadFromDatabase();
       const fallbackLocal = JSON.parse(localStorage.getItem('wishlist') || '[]');
@@ -121,7 +143,7 @@ class WishlistManager {
       await new Promise(resolve => setTimeout(resolve, 100));
       attempts++;
     }
-    
+
     // If authManager exists, wait for it to finish initializing
     if (window.authManager) {
       let sessionChecks = 0;
@@ -144,7 +166,7 @@ class WishlistManager {
         .eq('user_id', userId);
 
       if (error) throw error;
-      
+
       // Transform data to include product details
       this.wishlist = (data || []).map(item => ({
         product_id: item.product_id,
@@ -155,7 +177,7 @@ class WishlistManager {
         in_stock: !item.product?.track_inventory || item.product?.continue_selling_when_out_of_stock
       }));
     } catch (error) {
-      console.error('Error loading wishlist:', error);
+      logWishlistError('Error loading wishlist:', error);
       this.loadFromLocalStorage();
     }
   }
@@ -163,6 +185,21 @@ class WishlistManager {
   loadFromLocalStorage() {
     const savedWishlist = localStorage.getItem('wishlist');
     this.wishlist = savedWishlist ? JSON.parse(savedWishlist) : [];
+  }
+
+  // Warn (once per product) when an item can't be synced to the account instead
+  // of only logging to the console, so guests-turned-users don't silently lose items.
+  warnSkippedItems(items) {
+    const skipped = items.filter(item => !isValidProductUUID(item.product_id));
+    if (skipped.length === 0) return;
+
+    console.warn(`${skipped.length} wishlist item(s) not synced to your account - missing a valid product ID`);
+
+    const newlySkipped = skipped.filter(item => !this._warnedSkippedIds.has(item.product_id));
+    if (newlySkipped.length > 0) {
+      newlySkipped.forEach(item => this._warnedSkippedIds.add(item.product_id));
+      window.notificationManager?.warning("Some items can't be saved to your account and will only be kept for this browsing session.");
+    }
   }
 
   async saveToDatabase() {
@@ -179,10 +216,7 @@ class WishlistManager {
       // that don't have a matching database record yet stay session-only
       // rather than corrupting the user's saved wishlist.
       const persistable = this.wishlist.filter(item => isValidProductUUID(item.product_id));
-      const skipped = this.wishlist.length - persistable.length;
-      if (skipped > 0) {
-        console.warn(`${skipped} wishlist item(s) not synced to your account - missing a valid product ID`);
-      }
+      this.warnSkippedItems(this.wishlist);
 
       const { data: existing, error: fetchErr } = await supabaseClient
         .from('wishlist_items')
@@ -215,13 +249,17 @@ class WishlistManager {
         const results = await Promise.all(operations);
         const errors = results.filter(r => r.error);
         if (errors.length > 0) {
-          console.error('Wishlist save errors:', errors);
+          errors.forEach((r, i) => logWishlistError(`Wishlist save error (operation ${i}):`, r.error));
           throw new Error('Failed to save wishlist changes');
         }
       }
     } catch (error) {
-      console.error('Error saving wishlist:', error);
+      logWishlistError('Error saving wishlist:', error);
+      // Fallback to localStorage so nothing is lost locally, but let the
+      // caller know the account-level save failed so it can inform the user
+      // instead of showing a false "success" message.
       this.saveToLocalStorage();
+      throw error;
     }
   }
 
@@ -253,7 +291,7 @@ class WishlistManager {
         in_stock: !fullProduct.track_inventory || fullProduct.continue_selling_when_out_of_stock
       };
     }
-    
+
     // Validate and normalize price
     const price = parseFloat(product.price);
     if (isNaN(price) || price < 0) {
@@ -263,13 +301,11 @@ class WishlistManager {
     }
 
     const index = this.wishlist.findIndex(item => item.product_id === product.product_id);
+    const wasInWishlist = index > -1;
+    const removedItem = wasInWishlist ? this.wishlist[index] : null;
 
-    if (index > -1) {
+    if (wasInWishlist) {
       this.wishlist.splice(index, 1);
-      await this.saveToDatabase();
-      this.updateWishlistUI();
-      this.showNotification('Removed from wishlist');
-      return false;
     } else {
       this.wishlist.push({
         product_id: product.product_id,
@@ -279,11 +315,26 @@ class WishlistManager {
         added_at: new Date().toISOString(),
         in_stock: product.in_stock !== false
       });
-      await this.saveToDatabase();
-      this.updateWishlistUI();
-      this.showNotification('Added to wishlist!');
-      return true;
     }
+
+    try {
+      await this.saveToDatabase();
+    } catch (error) {
+      // Revert the optimistic change so in-memory state matches what's actually
+      // persisted, instead of showing a success toast for a write that failed.
+      if (wasInWishlist) {
+        this.wishlist.splice(index, 0, removedItem);
+      } else {
+        this.wishlist.pop();
+      }
+      this.updateWishlistUI();
+      window.notificationManager?.error('Failed to update wishlist. Please try again.');
+      return wasInWishlist;
+    }
+
+    this.updateWishlistUI();
+    window.notificationManager?.success(wasInWishlist ? 'Removed from wishlist' : 'Added to wishlist!');
+    return !wasInWishlist;
   }
 
   isInWishlist(productId) {
@@ -292,23 +343,35 @@ class WishlistManager {
 
   async removeItem(productId) {
     const index = this.wishlist.findIndex(item => item.product_id === productId);
-    if (index > -1) {
-      this.wishlist.splice(index, 1);
+    if (index === -1) return;
+
+    const removedItem = this.wishlist[index];
+    this.wishlist.splice(index, 1);
+
+    try {
       await this.saveToDatabase();
+    } catch (error) {
+      this.wishlist.splice(index, 0, removedItem);
       this.updateWishlistUI();
+      window.notificationManager?.error('Failed to remove item. Please try again.');
+      return;
     }
+
+    this.updateWishlistUI();
+  }
+
+  setSortOrder(sortBy) {
+    if (!WISHLIST_SORTS[sortBy]) return;
+    this.sortBy = sortBy;
+    this.renderWishlistPage();
+  }
+
+  getSortedItems() {
+    const comparator = WISHLIST_SORTS[this.sortBy] || WISHLIST_SORTS.newest;
+    return [...this.wishlist].sort(comparator);
   }
 
   updateWishlistUI() {
-    // Update wishlist count badges
-    const wishlistBadges = document.querySelectorAll('#wishlistCount, .wishlist-count');
-    const itemCount = this.wishlist.length;
-
-    wishlistBadges.forEach(badge => {
-      badge.textContent = itemCount;
-      badge.style.display = itemCount > 0 ? 'flex' : 'none';
-    });
-
     // Update bookmark icons on product cards (visual state lives in CSS via .active)
     const bookmarkButtons = document.querySelectorAll('.wishlist-btn');
     bookmarkButtons.forEach(btn => {
@@ -321,14 +384,17 @@ class WishlistManager {
       this.renderWishlistPage();
     }
 
-    // Let other scripts (nav badge, move-all button, etc.) react without polling
-    window.dispatchEvent(new CustomEvent('wishlist:updated', { detail: { count: itemCount } }));
+    // Badge count is owned by nav-badges.js, which listens for this event -
+    // keeping a single place that touches #wishlistCount avoids two code
+    // paths disagreeing about the DOM.
+    window.dispatchEvent(new CustomEvent('wishlist:updated', { detail: { count: this.wishlist.length } }));
   }
 
   renderWishlistPage() {
     const wishlistContainer = document.getElementById('wishlistItems');
     const emptyMessage = document.getElementById('emptyWishlist');
     const authMessage = document.getElementById('wishlistAuthMessage');
+    const sortContainer = document.getElementById('wishlistSort');
 
     if (!wishlistContainer) return;
 
@@ -340,14 +406,23 @@ class WishlistManager {
 
     if (this.wishlist.length === 0) {
       if (emptyMessage) emptyMessage.style.display = 'block';
+      if (sortContainer) sortContainer.style.display = 'none';
       wishlistContainer.innerHTML = '';
       return;
     }
 
     if (emptyMessage) emptyMessage.style.display = 'none';
+    if (sortContainer) sortContainer.style.display = 'flex';
+
+    const sortSelect = document.getElementById('wishlistSortSelect');
+    if (sortSelect && sortSelect.value !== this.sortBy) {
+      sortSelect.value = this.sortBy;
+    }
+
+    const items = this.getSortedItems();
 
     // Render wishlist with event delegation instead of inline onclick
-    wishlistContainer.innerHTML = this.wishlist.map((item, index) => {
+    wishlistContainer.innerHTML = items.map((item, index) => {
       const price = parseFloat(item.price) || 0;
       return `
       <div class="wishlist-item" data-index="${index}">
@@ -371,26 +446,26 @@ class WishlistManager {
       </div>
     `;
     }).join('');
-    
+
     // Add event delegation for wishlist actions
     this.attachWishlistEventListeners(wishlistContainer);
   }
-  
+
   attachWishlistEventListeners(container) {
     if (!container) return;
-    
+
     // Remove existing listener if it exists
     if (container._wishlistListenerAttached) return;
     container._wishlistListenerAttached = true;
-    
+
     // Use event delegation to handle all button clicks
     container.addEventListener('click', (e) => {
       const target = e.target.closest('[data-action]');
       if (!target) return;
-      
+
       const action = target.dataset.action;
       const productId = target.dataset.productId;
-      
+
       if (action === 'move-to-cart') {
         e.preventDefault();
         this.moveToCart(productId);
@@ -423,6 +498,9 @@ class WishlistManager {
     const itemsCopy = [...this.wishlist];
     const movedProductIds = [];
 
+    // Sequential on purpose: saveToDatabase() (called by cartManager.addItem)
+    // reads the current DB state, diffs, then writes - running these in
+    // parallel would race and could silently drop items.
     for (const item of itemsCopy) {
       try {
         const added = await window.cartManager.addItem({
@@ -434,44 +512,30 @@ class WishlistManager {
         });
         if (added) movedProductIds.push(item.product_id);
       } catch (error) {
-        console.error('Error moving item to cart:', error);
+        logWishlistError('Error moving item to cart:', error);
       }
     }
 
     // Only remove the items that were actually moved - leave the rest
     // in the wishlist instead of silently discarding them.
     if (movedProductIds.length > 0) {
+      const previousWishlist = [...this.wishlist];
       this.wishlist = this.wishlist.filter(item => !movedProductIds.includes(item.product_id));
-      await this.saveToDatabase();
+
+      try {
+        await this.saveToDatabase();
+      } catch (error) {
+        this.wishlist = previousWishlist;
+        this.updateWishlistUI();
+        window.notificationManager?.error('Items were added to cart, but the wishlist could not be updated. Please refresh.');
+        return;
+      }
+
       this.updateWishlistUI();
-      this.showNotification(`Moved ${movedProductIds.length} item${movedProductIds.length > 1 ? 's' : ''} to cart!`);
+      window.notificationManager?.success(`Moved ${movedProductIds.length} item${movedProductIds.length > 1 ? 's' : ''} to cart!`);
     } else {
-      this.showNotification('Could not move items to cart');
+      window.notificationManager?.error('Could not move items to cart');
     }
-  }
-
-  showNotification(message) {
-    const notification = document.createElement('div');
-    notification.className = 'wishlist-notification';
-    notification.textContent = message;
-    notification.style.cssText = `
-      position: fixed;
-      top: 100px;
-      right: 20px;
-      background: var(--color-black);
-      color: var(--color-white);
-      padding: 15px 25px;
-      border: 3px solid var(--color-black);
-      z-index: 10000;
-      animation: slideInRight 0.3s ease;
-    `;
-
-    document.body.appendChild(notification);
-
-    setTimeout(() => {
-      notification.style.animation = 'slideOutRight 0.3s ease';
-      setTimeout(() => notification.remove(), 300);
-    }, 2000);
   }
 }
 

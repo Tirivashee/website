@@ -64,10 +64,12 @@ class ProductInteractions {
       `;
 
       // Add wishlist button (bookmark icon) - available for all users
+      // Uses the same stroke-based SVG bookmark as the nav icon and modal
+      // button so the icon language is consistent across the site.
       const wishlistBtn = document.createElement('button');
       wishlistBtn.className = 'wishlist-btn';
       wishlistBtn.dataset.productId = productId;
-      wishlistBtn.innerHTML = '🔖';
+      wishlistBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>';
       wishlistBtn.title = 'Add to Wishlist';
 
       // Check if already in wishlist (visual state handled by .wishlist-btn.active in CSS)

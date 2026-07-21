@@ -3,7 +3,8 @@
 
 class WhatsAppNotification {
   constructor() {
-    this.whatsappUrl = 'https://wa.me/c/263781457106';
+    this.catalogueUrl = 'https://wa.me/c/263781457106';
+    this.orderPhoneNumber = '263781457106';
     this.init();
   }
 
@@ -24,9 +25,9 @@ class WhatsAppNotification {
             <img src="assets/images/whatsapplogo.jpg" alt="WhatsApp" class="whatsapp-logo-img">
           </div>
 
-          <h2>Order via WhatsApp</h2>
-          
-          <p class="main-message">
+          <h2 id="whatsappModalHeading">Order via WhatsApp</h2>
+
+          <p class="main-message" id="whatsappModalMessage">
             Adding to cart will help you organize items. For <strong>faster and better order processing</strong>, please use our WhatsApp Catalogue where our team can assist you directly.
           </p>
 
@@ -50,7 +51,7 @@ class WhatsAppNotification {
           </div>
 
           <div class="notification-actions">
-            <a href="${this.whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+            <a href="${this.catalogueUrl}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" id="whatsappModalCta">
               OPEN WHATSAPP CATALOGUE
             </a>
             <button class="btn-secondary" onclick="window.whatsappNotification?.closeModal()">
@@ -58,7 +59,7 @@ class WhatsAppNotification {
             </button>
           </div>
 
-          <p class="notification-footer">
+          <p class="notification-footer" id="whatsappModalFooter">
             Your items have been added to your cart. Access them anytime, or reach out via WhatsApp for immediate assistance.
           </p>
         </div>
@@ -70,12 +71,46 @@ class WhatsAppNotification {
     document.body.appendChild(modalElement.firstElementChild);
   }
 
-  showModal() {
+  // Pass an order summary (e.g. built from the cart) to turn this into a
+  // checkout CTA that links straight into a chat pre-filled with the order,
+  // instead of the generic catalogue link shown after "Add to Cart".
+  showModal(orderMessage) {
     const modal = document.getElementById('whatsappNotificationModal');
-    if (modal) {
-      modal.classList.add('show');
-      document.body.style.overflow = 'hidden';
+    if (!modal) return;
+
+    const cta = document.getElementById('whatsappModalCta');
+    const heading = document.getElementById('whatsappModalHeading');
+    const message = document.getElementById('whatsappModalMessage');
+    const footer = document.getElementById('whatsappModalFooter');
+
+    if (orderMessage) {
+      if (cta) {
+        cta.href = `https://wa.me/${this.orderPhoneNumber}?text=${encodeURIComponent(orderMessage)}`;
+        cta.textContent = 'SEND ORDER ON WHATSAPP';
+      }
+      if (heading) heading.textContent = 'Complete Your Order via WhatsApp';
+      if (message) {
+        message.innerHTML = 'Tap below to send your order details straight to our team on WhatsApp for <strong>faster and better order processing</strong>.';
+      }
+      if (footer) {
+        footer.textContent = "We'll confirm availability, pricing, and delivery details with you directly on WhatsApp.";
+      }
+    } else {
+      if (cta) {
+        cta.href = this.catalogueUrl;
+        cta.textContent = 'OPEN WHATSAPP CATALOGUE';
+      }
+      if (heading) heading.textContent = 'Order via WhatsApp';
+      if (message) {
+        message.innerHTML = 'Adding to cart will help you organize items. For <strong>faster and better order processing</strong>, please use our WhatsApp Catalogue where our team can assist you directly.';
+      }
+      if (footer) {
+        footer.textContent = 'Your items have been added to your cart. Access them anytime, or reach out via WhatsApp for immediate assistance.';
+      }
     }
+
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
   }
 
   closeModal() {
